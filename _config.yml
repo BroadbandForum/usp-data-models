@@ -28,9 +28,10 @@ plugins:
   - jekyll-feed
 
 # Exclude from processing.
-# exclude:
+exclude:
 # - Gemfile
 # - Gemfile.lock
+  - _index.html
   - makefile
   - OD-148.txt
   - scripts/
