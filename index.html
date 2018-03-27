@@ -1,8 +1,54 @@
 ---
-title: Jekyll driver file example
+title: Broadband Forum User Services Platform Data Models
 ---
 <html>
-  <p>This is index.html; about to include _index.html.</p>
+  <h1>Broadband Forum User Services Platform (USP) Data Models</h1>
+  <p>The Broadband Forum defines several data models for use with the User Services
+  Platform (USP) (TR-369). These data models contain objects, parameters,
+  commands, and events that describe the many different service elements that
+  can be exposed via USP Agents.</p>
+
+  <p>USP data models are divided into two types: Root and Service. The root data
+  model, Device, is used to describe the major functions of network aware
+  devices, including interfaces, software/firmware, diagnostics, components
+  common to USP and other services, and the basic Agent information necessary
+  to the operation of USP.</p>
+
+  <p>Service data models describe modular functionality that allow the extension of
+  the root data model on a device (under Device.Services.) to provide particular
+  services, such as a voice service, set top box service, network attached
+  storage, smart home objects, etc.</p>
+
+  <p>Each data model is defined by a Name:Version syntax. The objects, parameters,
+  commands, and events that a particular Agent supports from its implementation of
+  the data model define what is reported to Controllers via the GetSupportedDM
+  message.</p>
+
+  <h2>How do I use these?</h2>
+
+  <p>Use the USP data model files to determine what exists in your solution's
+  <i>Supported Data Model</i>. This will help Controllers learn what your
+  solution is capable of. The data models will also describe how your solution's
+  <i>Instantiated Data Model</i> will behave during operation.</p>
+
+  <ul>
+    <li>View the html files on this page for a human-readable look at the data
+      model documentation.</li>
+    <li>Use the xml files in this repository when generating code and performing
+      data validation.</li>
+  </ul>
+
+  <p>These data models are based off of the <a href="http://www.broadband-forum.org">
+    Broadband Forum</a>'s <a href="">data models for the CPE WAN Management Protocol</a>,
+    also known as "TR-069", with a robust development history.</p>
+
+  <h2>Data Model Repository</h2>
+  <p>The source files used to build the complete USP data model can be found on
+    Github:</p>
+  <p><a href="http://github.com/BroadbandForum/usp-data-models">Data
+    Models for USP (Github repository)</a></p>
+
+
   {% include_relative _index.html %}
-  <p>Done with _index.html.</p>
+
 </html>
