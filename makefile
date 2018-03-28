@@ -42,6 +42,12 @@ SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-datamodel*.xsd))
 SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-devicetype-*-*.xsd))
 # XXX don't include protobuf files
 #SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)*.proto))
+# XXX filter out DM and DT XSD files prior to USP
+SRCXSD := $(filter-out cwmp-datamodel-1-0.xsd cwmp-datamodel-1-1.xsd \
+		       cwmp-datamodel-1-2.xsd cwmp-datamodel-1-3.xsd \
+		       cwmp-datamodel-1-4.xsd cwmp-datamodel-1-5.xsd \
+		       cwmp-devicetype-1-0.xsd cwmp-devicetype-1-1.xsd \
+		       cwmp-devicetype-1-2.xsd, $(SRCXSD))
 
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-biblio.xml))
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-types.xml))
