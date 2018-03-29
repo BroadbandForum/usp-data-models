@@ -25,6 +25,7 @@ REPORTINDEXFLAGS += --configfile=$(TOPDIR)/OD-148.txt
 REPORTINDEXFLAGS += --cwmppath=''
 REPORTINDEXFLAGS += --option htmlbbf_configfile_suffix=usp
 REPORTINDEXFLAGS += --option htmlbbf_omitcommonxml=true
+REPORTINDEXFLAGS += --option htmlbbf_createfragment=true
 REPORTINDEXFLAGS += --option htmlbbf_onlyfullxml=true
 
 # disable default CWMP stuff
@@ -41,6 +42,12 @@ SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-datamodel*.xsd))
 SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-devicetype-*-*.xsd))
 # XXX don't include protobuf files
 #SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)*.proto))
+# XXX filter out DM and DT XSD files prior to USP
+SRCXSD := $(filter-out cwmp-datamodel-1-0.xsd cwmp-datamodel-1-1.xsd \
+		       cwmp-datamodel-1-2.xsd cwmp-datamodel-1-3.xsd \
+		       cwmp-datamodel-1-4.xsd cwmp-datamodel-1-5.xsd \
+		       cwmp-devicetype-1-0.xsd cwmp-devicetype-1-1.xsd \
+		       cwmp-devicetype-1-2.xsd, $(SRCXSD))
 
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-biblio.xml))
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-types.xml))
@@ -71,11 +78,11 @@ COMPXML = $(filter $(dualxml) $(compxml), $(SRCXML))
 
 # latest model XML
 # XXX if this is wrong, it won't be detected... could easily warn?
-LATESTXML = tr-104-1-1-0.xml tr-104-2-0-0.xml \
+LATESTXML = tr-104-2-0-0.xml \
 	    tr-135-1-4-0.xml \
 	    tr-140-1-3-0.xml \
 	    tr-181-2-12-0-usp.xml \
-	    tr-196-1-1-1.xml tr-196-2-1-0.xml
+	    tr-196-2-1-0.xml
 
 # support XML
 # XXX for USP things are more tightly targeted
@@ -122,7 +129,7 @@ IGDMODELHTML = $(DUALXML:%.xml=%-igd-diffs.html) $(DUALXML:%.xml=%-igd.html)
 COMPHTML = $(COMPXML:%.xml=%.html)
 
 # index HTML
-INDEXHTML = index.html
+INDEXHTML = _index.html
 
 # all HTML excluding "no corrigendum" soft links
 HTML = $(SUPPORTHTML) $(DIFFSMODELHTML) $(FULLMODELHTML) \
@@ -166,7 +173,7 @@ $(foreach LINE,$(shell $(LATEST) $(LINKS)), \
   $(eval $(subst _, ,$(LINE))) \
 )
 
-# XXX need also to link cwmp to . to avoid index.html warnings
+# XXX need also to link cwmp to . to avoid INDEXHTML warnings
 link: $(LINKS)
 
 unlink:
@@ -184,5 +191,5 @@ ZIPFLAGS = --symlinks
 #     file contents?
 zip:
 	$(RM) $(ZIPFILE)
-	$(ZIP) $(ZIPFLAGS) $(ZIPFILE) index.html catalog.xml cwmp-*.xsd \
+	$(ZIP) $(ZIPFLAGS) $(ZIPFILE) $(INDEXHTML) catalog.xml cwmp-*.xsd \
 		*.proto tr-*.*
