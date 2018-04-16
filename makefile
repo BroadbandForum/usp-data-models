@@ -42,12 +42,6 @@ SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-datamodel*.xsd))
 SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-devicetype-*-*.xsd))
 # XXX don't include protobuf files
 #SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)*.proto))
-# XXX filter out DM and DT XSD files prior to USP
-SRCXSD := $(filter-out cwmp-datamodel-1-0.xsd cwmp-datamodel-1-1.xsd \
-		       cwmp-datamodel-1-2.xsd cwmp-datamodel-1-3.xsd \
-		       cwmp-datamodel-1-4.xsd cwmp-datamodel-1-5.xsd \
-		       cwmp-devicetype-1-0.xsd cwmp-devicetype-1-1.xsd \
-		       cwmp-devicetype-1-2.xsd, $(SRCXSD))
 
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-biblio.xml))
 SRCXML += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)tr-*-types.xml))
@@ -160,8 +154,15 @@ include $(TOPDIR)/../../install/etc/rules.mk
 $(SRCXSD) $(SRCXML): %: $(CWMPDIR)%
 	$(INSTALLCMD) $< $@
 
+# XXX for the index file, filter out DM and DT XSD files prior to USP
+SRCXSD_ = $(filter-out cwmp-datamodel-1-0.xsd cwmp-datamodel-1-1.xsd \
+		       cwmp-datamodel-1-2.xsd cwmp-datamodel-1-3.xsd \
+		       cwmp-datamodel-1-4.xsd cwmp-datamodel-1-5.xsd \
+		       cwmp-devicetype-1-0.xsd cwmp-devicetype-1-1.xsd \
+		       cwmp-devicetype-1-2.xsd, $(SRCXSD))
+
 # XXX these dependencies are incomplete (need proper dependencies)
-$(INDEXHTML): $(SRCXSD) $(LATESTXML)
+$(INDEXHTML): $(SRCXSD_) $(LATESTXML)
 	$(REPORT) $(REPORTFLAGS) $(REPORTINDEXFLAGS) --outfile=$@ $^
 
 # XXX a (better?) alternative would be for it to output to an included (and
