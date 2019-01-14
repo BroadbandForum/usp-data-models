@@ -155,9 +155,9 @@ $(SRCXSD) $(SRCXML): %: $(CWMPDIR)%
 	$(INSTALLCMD) $< $@
 
 # XXX for the index file, filter out DM and DT XSD files prior to USP
+# XXX need to include DM v1.4 and v1.5 because support files reference them
 SRCXSD_ = $(filter-out cwmp-datamodel-1-0.xsd cwmp-datamodel-1-1.xsd \
 		       cwmp-datamodel-1-2.xsd cwmp-datamodel-1-3.xsd \
-		       cwmp-datamodel-1-4.xsd cwmp-datamodel-1-5.xsd \
 		       cwmp-devicetype-1-0.xsd cwmp-devicetype-1-1.xsd \
 		       cwmp-devicetype-1-2.xsd, $(SRCXSD))
 
