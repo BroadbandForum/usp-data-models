@@ -231,12 +231,16 @@ Added ''syntax/@command''
 [cwmp-datamodel-1-4.xsd]
 trname	    = tr-106-1-6
 appdate     = 2011-07
-description = Added top-level ''file'' attribute
+description = <<.
+'''[This version of the schema is only used by some old support files]'''
+Added top-level ''file'' attribute
+.
 
 [cwmp-datamodel-1-5.xsd]
 trname	    = tr-106-1-7
 appdate     = 2013-09
 description = <<.
+'''[This version of the schema is only used by some old support files]'''
 Added ''profile/@minVersion'' attribute
 Allowed ''uniqueKey'' parameters to be in sub-objects
 Added ''UUID'' data type
