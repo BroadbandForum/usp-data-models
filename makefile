@@ -39,7 +39,7 @@ PUBLISHCWMP =
 # XXX for USP things are more tightly targeted
 SRCXSD  =
 SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-datamodel*.xsd))
-SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-devicetype-*-*.xsd))
+SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)cwmp-devicetype-*.xsd))
 # XXX don't include protobuf files
 #SRCXSD += $(subst $(CWMPDIR),,$(wildcard $(CWMPDIR)*.proto))
 
