@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  STBService:1.4 Service Object definition [USP]
+
+  Copyright (c) 2009-2019, Broadband Forum
+
+  Redistribution and use in source and binary forms, with or
+  without modification, are permitted provided that the following
+  conditions are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials
+     provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products
+     derived from this software without specific prior written
+     permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  The above license is used as a license under copyright only.
+  Please reference the Forum IPR Policy for patent licensing terms
+  <https://www.broadband-forum.org/ipr-policy>.
+
+  Any moral rights which are necessary to exercise under the above
+  license grant are also deemed granted under this license.
+
+  Summary:
+    STBService:1.4 Service Object update.
+    Adds Service Monitoring of Events
+
+  Editors:
+    * Timothy Carey, Alcatel-Lucent
+
+  Broadband User Services Work Area Directors:
+    * Jason Walls, QA Cafe
+    * John Blackford, CommScope
+
+  Issue History (Filename: Approval Date: Publication Date: Changes)
+    * tr-135-1-0-0.xml: September 2009: September 2009:
+       - Corresponds to TR-135 Issue 1, Section 6
+       - (Parameter Definitions) and Section 7 (Profile Definitions)
+    * tr-135-1-1-0.xml: November 2010: November 2010:
+      - Corresponds to TR-135 Issue 1, Amendment 1
+    * tr-135-1-2-0.xml, July 2011: July 2012:
+      - Corresponds to TR-135 Issue 1, Amendment 2
+    * tr-135-1-3-0.xml: November 2012: November 2012:
+      - Corresponds to TR-135 Issue 1, Amendment 3
+    * tr-135-1-4-0.xml: 24 August 2015: 2 October 2015:
+      - Corresponds to TR-135 Issue 1, Amendment 4
+    * tr-135-1-4-1-usp.xml: 13 September 2019: 13 September 2019:
+      - Added USP support (split XML into common, CWMP and USP files)
+
+-->
+
+<!--
+  In the dm:document attributes below, 'spec="urn:broadband-forum-org:tr-135-1-4-1-usp"'
+  should properly be 'spec="urn:broadband-forum-org:tr-135-1-4-1"'. The "-usp" at the end
+  of this string is included to avoid undesirable BBF Report Tool outputs or changes at this
+  time.
+-->
+<dm:document xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-7"
+             xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="urn:broadband-forum-org:usp:datamodel-1-7
+                 https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-7.xsd
+                                 urn:broadband-forum-org:usp:datamodel-report-0-1
+                 https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
+             spec="urn:broadband-forum-org:tr-135-1-4-1-usp"
+             file="tr-135-1-4-1-usp.xml">
+
+  <description>
+    {{docname|STBService:1.4 for USP}}
+    {{appdate|September 2019}}
+    {{trname|tr-135-1-4-0}}
+    August 2015:
+    * Added objects for Service Monitoring of Events
+    September 2019: {{xmlref|tr-135-1-4-1-usp|Corrigendum 1}}
+    * Added USP support (split XML into common, CWMP and USP files)
+  </description>
+
+  <import file="tr-069-biblio.xml" spec="urn:broadband-forum-org:tr-069"/>
+
+  <import file="tr-106-types.xml" spec="urn:broadband-forum-org:tr-106">
+    <dataType name="Alias" ref="_AliasUSP"/>
+  </import>
+
+  <import file="tr-135-1-common.xml" spec="urn:broadband-forum-org:tr-135-1-4-1">
+    <model name="_STBService:1.4" ref="STBService:1.4"/>
+  </import>
+
+  <model name="STBService:1.4"  base="_STBService:1.4" isService="true">
+    <object base="STBService.{i}.Components.FrontEnd.{i}.DVBT." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <parameter name="InstallProgress" access="readOnly" activeNotify="canDeny" dmr:version="1.0">
+        <description>
+          Progression in {{units}} of the current scan.  The value is undefined when a scan is not in progress.
+        </description>
+        <syntax>
+          <unsignedInt>
+            <range minInclusive="0" maxInclusive="100"/>
+            <units value="%"/>
+          </unsignedInt>
+        </syntax>
+      </parameter>
+      <command name="Install()" async="true" dmr:version="1.0">
+        <description>
+          DVB-T service list database installation.  Supports maintenance of the service list database by scanning frequencies in order to detect services.
+          The service list database is in {{object|.Components.FrontEnd.{i}.DVBT.ServiceListDatabase}}.
+        </description>
+        <input>
+          <parameter name="StartFrequency" dmr:version="1.0">
+            <description>
+              Frequency (in {{units}}) at which to start the scanning process.
+            </description>
+            <syntax>
+              <unsignedInt>
+                <units value="kHz"/>
+              </unsignedInt>
+            </syntax>
+          </parameter>
+          <parameter name="StopFrequency" dmr:version="1.0">
+            <description>
+              Frequency (in {{units}}) at which to stop the scanning process.
+            </description>
+            <syntax>
+              <unsignedInt>
+                <units value="kHz"/>
+              </unsignedInt>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+      <command name="LogicalChannelConnect()" dmr:version="1.0">
+        <description>
+          Connect to a DVB-T logical channel.
+        </description>
+        <input>
+          <parameter name="LogicalChannelNumber" dmr:version="1.0">
+            <description>
+              Logical channel number to connect to (the logical channel's preferred service will be connected to).
+              If a {{object|.ServiceMonitoring.MainStream}} instance with ''ServiceType'' = ''DTT'' is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.
+            </description>
+            <syntax>
+              <unsignedInt/>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+      <command name="ServiceConnect()" dmr:version="1.0">
+        <description>
+          Connect to a DVB-T service.
+        </description>
+        <input>
+          <parameter name="DvbId" dmr:version="1.0">
+            <description>
+              DvbId of the service to connect to.
+              If a {{object|.ServiceMonitoring.MainStream}} instance with ''ServiceType'' = ''DTT'' is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="12"/>
+              </string>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Components.FrontEnd.{i}.DVBT.Modulation." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <parameter base="Frequency" access="readWrite" dmr:version="1.0">
+        <description action="append">
+          The value of this parameter is undefined while installing the service list (see {{command|.Components.FrontEnd.{i}.DVBT.Install()}}).
+        </description>
+      </parameter>
+    </object>
+
+    <object base="STBService.{i}.Components.FrontEnd.{i}.DVBT.ServiceListDatabase." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="Reset()" dmr:version="1.0" dmr:previousParameter="">
+        <description>
+          Resets the service list database.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Components.FrontEnd.{i}.IP." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="ServiceConnect()" dmr:version="1.0">
+        <description>
+          Force connection to a dedicated IP stream for test purposes.
+        </description>
+        <input>
+          <parameter name="URI" dmr:version="1.0">
+            <description>
+              RFC 3986 URI that  describes the service to connect to in the form:
+              * &lt;trsp&gt;://&lt;addr&gt;:&lt;port&gt;?StrCtrl=&lt;strctrl&gt;?StrTrspCtrl=&lt;trspctrl&gt;?MuxType=&lt;muxtype&gt;
+              where:
+              * '''&lt;addr&gt;''' is the IP address of the service source (for Unicast) or IGMP  group (for Multicast).
+              * '''&lt;port&gt;''' is the associated TCP/UDP port.  If not specified, the STB is assumed to know and use an appropriate default port.
+              * '''&lt;trsp&gt;''' is the streaming transport protocol and MUST be one of the values in {{param|.Capabilities.FrontEnd.IP.StreamingTransportProtocols}}, which SHOULD be converted to lower-case.
+              * '''&lt;strctrl&gt;''' is the streaming control protocol and MUST be one of the values in {{param|.Capabilities.FrontEnd.IP.StreamingControlProtocols}}.  If not specified, no streaming control protocol is to be used.
+              * '''&lt;trspctrl&gt;''' is the streaming transport control protocol and MUST be one of the values in {{param|.Capabilities.FrontEnd.IP.StreamingTransportControlProtocols}}.  If not specified, no streaming transport control protocol is to be used.
+              * '''&lt;muxtype&gt;''' is the multiplex type and MUST be one of the values in {{param|.Capabilities.FrontEnd.IP.MultiplexTypes}}.  This tells the STB which multiplex type to expect.  If not specified, the STB is assumed to know, or to be able to determine, the multiplex type.
+              Note that download protocols are not supported by the above syntax.  However, the specified syntax is just a baseline, and STBs MAY support an extended syntax.
+              Example of Multicast MPEG2-TS over RTP with no transport control:
+              * rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS
+              Example of Multicast MPEG2-TS over RTP with AL-FEC transport control:
+              * rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS
+              Example of Unicast MPEG2-TS over UDP with RTSP transport control:
+              * udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS
+              Example of Unicast raw AV over RTP with RTCP control and RTSP transport control:
+              * rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None
+              If a {{object|.ServiceMonitoring.MainStream}} instance with ''ServiceType'' = ''IP'' or ''IPTV'' (or ''VoD'' if the URI accesses a VoD service) is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Components.FrontEnd.{i}.IP.ForceMonitor." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.1">
+      <parameter base="URI" access="readWrite" dmr:version="1.1">
+        <description action="prefix">
+          Describes the service to connect to for force monitoring purposes with the same syntax as {{param|#.ServiceConnect().URI}}.
+        </description>
+      </parameter>
+    </object>
+
+    <object base="STBService.{i}.Components.AudioOutput.{i}." access="readOnly" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+      <command name="CancelMute()" dmr:version="1.0" dmr:previousParameter="AudioLevel">
+        <description>
+          Cancels this audio output's mute status.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.AVPlayers." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="ResetPINCode()" dmr:version="1.1" dmr:previousParameter="PreferredBehaviour">
+        <description>
+          Resets the STB's master PIN code to 0000. It is not recommended that this be set to true without the user's permission. No data on the device such as PVR recordings are to be cleared as a result of resetting the PIN code.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.ServiceMonitoring." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="ForceSample()" dmr:version="1.0" dmr:previousParameter="TimeReference">
+        <description>
+          Forces statistics for the current sample to be calculated and updated in the data model.
+          If this is the first time that {{command}} has been invoked during the current sample interval, this MUST cause a new value to be added to each of the Sample statistics comma-separated list parameters, and the {{param|ReportEndTime}} and all ''SampleSeconds'' parameters MUST be updated accordingly.
+          If this is not the first time that {{command}} has been invoked during the current sample interval, then the new values that were added as described in the previous paragraph, and the {{param|ReportEndTime}} and all ''SampleSeconds'' parameters, MUST be updated accordingly.
+          Note that {{command}} just provides a ''sneak preview'' of the current sample.  It does not create a new sample and it does not interfere with the sample interval schedule.
+          At the end of each sample interval, if {{command}} was invoked during the sample interval then the new values that were added as described above, and the {{param|ReportEndTime}} and all ''SampleSeconds'' parameters, will be updated accordingly.  In other words, the partial sample data that was created when {{command}} was invoked will be updated one last time at the end of the sample interval.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.ServiceMonitoring.MainStream.{i}." access="readOnly" numEntriesParameter="MainStreamNumberOfEntries" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+      <description action="append">
+        Note that some parameters, e.g. {{param|.Components.FrontEnd.{i}.IP.ServiceConnect().URI}}, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.
+      </description>
+    </object>
+
+    <object base="STBService.{i}.ServiceMonitoring.MainStream.{i}.Total." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="Reset()" dmr:version="1.0" dmr:previousParameter="TotalSeconds">
+        <description>
+          Resets Total statistics for this ''ServiceMonitoring'' main stream instance.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.ServiceMonitoring.MainStream.{i}.EventLog." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.4">
+      <command name="Reset()" dmr:version="1.4" dmr:previousParameter="">
+        <description>
+          Clears the events from the event log and the value of {{param|Entry.{i}.SequenceNumber}} parameter is reset to the parameter's minimum value.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Applications.AudienceStats." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+      <command name="Reset()" dmr:version="1.0" dmr:previousParameter="Enable">
+        <description>
+          Resets the viewing statistics table.
+          Resetting statistics MUST reset all {{param|Channel.{i}.Duration}} parameters.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Applications.CDSPush.ContentItem.{i}." access="readOnly" minEntries="0" maxEntries="unbounded" dmr:version="1.1">
+      <command name="DeleteItem()" dmr:version="1.1" dmr:previousParameter="VersionNumber">
+        <description>
+          Deletes this Content Item instance.
+        </description>
+      </command>
+    </object>
+
+    <object base="STBService.{i}.Applications.CDSPull.ContentItem.{i}." access="readOnly" minEntries="0" maxEntries="unbounded" dmr:version="1.1">
+      <command name="DeleteItem()" dmr:version="1.1" dmr:previousParameter="VersionNumber">
+        <description>
+          Deletes this Content Item instance.
+        </description>
+      </command>
+    </object>
+
+    <profile name="Baseline:1" extends="_Baseline:1" dmr:version="1.0">
+      <object ref="STBService.{i}.Components.AudioOutput.{i}." requirement="present">
+        <command ref="CancelMute()" dmr:previousParameter="AudioLevel"/>
+      </object>
+    </profile>
+
+    <profile name="DTT:1" extends="_DTT:1" dmr:version="1.0">
+      <object ref="STBService.{i}.Components.FrontEnd.{i}.DVBT." requirement="present">
+        <parameter ref="InstallProgress" requirement="readOnly"/>
+        <command ref="Install()">
+          <input>
+            <parameter ref="StartFrequency"/>
+            <parameter ref="StopFrequency"/>
+          </input>
+        </command>
+        <command ref="LogicalChannelConnect()">
+          <input>
+            <parameter ref="LogicalChannelNumber"/>
+          </input>
+        </command>
+        <command ref="ServiceConnect()">
+          <input>
+            <parameter ref="DvbId"/>
+          </input>
+        </command>
+      </object>
+      <object ref="STBService.{i}.Components.FrontEnd.{i}.DVBT.ServiceListDatabase." requirement="present">
+        <command ref="Reset()" dmr:previousParameter=""/>
+      </object>
+    </profile>
+
+    <profile name="IPTVBaseline:1" extends="_IPTVBaseline:1" dmr:version="1.0">
+      <object ref="STBService.{i}.Components.FrontEnd.{i}.IP." requirement="present">
+        <command ref="ServiceConnect()">
+          <input>
+            <parameter ref="URI"/>
+          </input>
+        </command>
+      </object>
+    </profile>
+
+    <profile name="BasicPerfMon:1" extends="_BasicPerfMon:1" dmr:version="1.0">
+      <object ref="STBService.{i}.ServiceMonitoring.MainStream.{i}.Total." requirement="present">
+        <command ref="Reset()" dmr:previousParameter=""/>
+      </object>
+    </profile>
+
+    <profile name="AudienceStats:1" extends="_AudienceStats:1" dmr:version="1.0">
+      <object ref="STBService.{i}.Applications.AudienceStats." requirement="present">
+        <command ref="Reset()" dmr:previousParameter="Enable"/>
+      </object>
+    </profile>
+
+    <profile name="CDS:1" extends="_CDS:1" dmr:version="1.1">
+      <object ref="STBService.{i}.Applications.CDSPush.ContentItem.{i}." requirement="present">
+        <command ref="DeleteItem()" dmr:previousParameter="VersionNumber"/>
+      </object>
+      <object ref="STBService.{i}.Applications.CDSPull.ContentItem.{i}." requirement="present">
+        <command ref="DeleteItem()" dmr:previousParameter="VersionNumber"/>
+      </object>
+    </profile>
+
+    <profile name="Baseline:2" base="Baseline:1" extends="_Baseline:2" dmr:version="1.3"/>
+  </model>
+
+</dm:document>
