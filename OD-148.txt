@@ -128,10 +128,10 @@ Each data model is defined by a ''Name:Version syntax''. The objects, parameters
 # was published), it is omitted
 
 ###############################################################################
-# USP Protocol Buffer Schemas
+# USP Protocol Buffers Schemas
 
 [usp-record.proto]
-document    = USP Protocol Buffer Schemas
+document    = USP Protocol Buffers Schemas
 
 [usp-record-1-0.proto]
 trname      = tr-369-1-0
@@ -148,7 +148,7 @@ description = <<.
 .
 
 [usp-msg.proto]
-document    = USP Protocol Buffer Schemas
+document    = USP Protocol Buffers Schemas
 
 [usp-msg-1-0.proto]
 trname      = tr-369-1-0
