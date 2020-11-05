@@ -58,11 +58,11 @@
       - Initial version
 -->
 
-<dm:document xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-7"
+<dm:document xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-8"
     xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:broadband-forum-org:cwmp:datamodel-1-7
-  https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-7.xsd
+    xsi:schemaLocation="urn:broadband-forum-org:cwmp:datamodel-1-8
+  https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-8.xsd
   urn:broadband-forum-org:cwmp:datamodel-report-0-1
   https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
     spec="urn:broadband-forum-org:tr-181-2-13-0-iot"
@@ -348,7 +348,7 @@
     <parameter name="ProxyProtocol" access="readOnly" dmr:version="2.13">
       <description>
         The protocol being used to communicate between the Agent and this Proxied Device. {{enum}}
-        Vendors can extend the enumerated values with vendor specific extensions, in which case the rules outlined in {{bibref|TR-106a6|3.3}} MUST be adhered to.
+        Vendors can extend the enumerated values with vendor specific extensions, in which case the rules outlined in {{bibref|TR-106|3.3}} MUST be adhered to.
       </description>
       <syntax>
         <string>
