@@ -2,6 +2,16 @@
 
 *The latest [User Services Platform (USP)](https://usp.technology) data models can be found at <https://usp-data-models.broadband-forum.org>.*
 
+## 2020-11-17: [TR-181 Issue 2 Amendment 14 Corrigendum 1](https://usp-data-models.broadband-forum.org/#Device:2.14)
+
+*Tag: [v1.1.4](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.4)*
+
+TR-181
+
+* Fixed Device.LocalAgent.Subscription.{i}.ID constraints
+* Removed duplicate remarks about CWMP BOOTSTRAP from descriptions
+* Fixed typos
+
 ## 2020-11-05: [TR-106 Amendment 10](https://data-model-template.broadband-forum.org) and [TR-181 Issue 2 Amendment 14](https://usp-data-models.broadband-forum.org/#Device:2.14)
 
 *Tag: [v1.1.3](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.3)*
