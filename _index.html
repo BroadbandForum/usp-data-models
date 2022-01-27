@@ -4,14 +4,14 @@
       h2 { /* font-family: helvetica,arial,sans-serif; font-size: 12pt; */ }
       h3 { /* font-family: helvetica,arial,sans-serif; font-size: 10pt; */ }
       sup { vertical-align: super; }
-      table { text-align: left; }
-      th { vertical-align: middle; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ }
-      th.g { vertical-align: middle; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ background-color: rgb(153, 153, 153); }
-      td, td.p { vertical-align: middle; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ }
-      td.pc { vertical-align: middle; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ text-align: center; }
+      table { border-color: dimgray !important; text-align: left; }
+      th { border-color: dimgray !important; vertical-align: top; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ }
+      th.g { border-color: dimgray !important; vertical-align: top; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ background-color: rgb(153, 153, 153); }
+      td, td.p { border-color: dimgray !important; vertical-align: top; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ }
+      td.pc { border-color: dimgray !important; vertical-align: top; /* font-family: helvetica,arial,sans-serif; font-size: 8pt; */ text-align: center; }
     </style>
     <ul>
-      <b><a href="#Latest Data Models">Latest Data Models</a></b>
+      <b><a href="#Current Data Models">Current Data Models</a></b>
       <ul>
       </ul>
       <b><a href="#Root Data Models">Root Data Models</a></b>
@@ -43,7 +43,8 @@
       </ul>
     </ul>
 
-    <a name="Latest Data Models"><h2>Latest Data Models</h2></a>
+    <a name="Latest Data Models"></a>
+    <a name="Current Data Models"><h2>Current Data Models</h2></a>
     <table class="stdtable" width="100%" bordercolor="#005c27" border="1" cellpadding="2" cellspacing="0">
       <thead>
         <tr>
@@ -54,61 +55,73 @@
           <th width="3.03%">HTML</th>
           <th width="40.40%">Description</th>
           <th width="10.10%">Approval Date</th>
-          <th width="15.15%">PDF</th>
+          <th width="15.15%">Specification</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <!-- <td rowspan="2">Device:2 Root Data Model for USP (TR-369)</td> -->
+          <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <td rowspan="2"><a href="#Device:2">Device:2</a></td>
-          <td rowspan="2">2.14</td>
-          <td rowspan="2"><a href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></td>
-          <td rowspan="1"><b><a href="tr-181-2-14-1-usp.html">Full</a></b></td>
-          <td rowspan="2"><p>
-<p>
-<p>
-November 2020: <a href="#tr-181-2-14-0-usp.xml">Original</a><p>
-<ul>
-  <li>Added WWC (5G Wireline Wireless Convergence), PDU (Protocol Data Unit) and FWE (5G Wireline wireless Encapsulation) top-level objects
-  <li>Updated Cellular object to be applicable to 5G Residential Gateways
-  <li>Extended support for TR-471 IP-layer metrics, including new IP-layer capacity test
-  <li>Supported LAN device time-based access-control
-  <li>Various Wi-Fi improvements
-</ul><p>
-November 2020: Corrigendum 1<p>
-<ul>
-  <li>Fixed Device.LocalAgent.Subscription.{i}.ID constraints
-  <li>Removed duplicate remarks about CWMP BOOTSTRAP from descriptions
-  <li>Fixed typos
-</ul></td>
-          <td rowspan="2">November 2020</td>
-          <td rowspan="2"><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-14.pdf">TR-181 Issue 2 Amendment 14</a></td>
+          <td rowspan="2">2.15</td>
+          <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td>
+          <td rowspan="1"><b><a href="tr-181-2-15-0-usp.html">Full</a></b></td>
+          <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
+Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
+Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
+Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
+Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
+Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
+Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
+Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
+Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
+Added a bulk data profile ForceCollection() command<p>
+Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
+Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
+Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
+Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
+Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
+Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
+Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
+Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
+Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
+Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
+Many minor improvements to object, parameter, command and event descriptions<p>
+Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
+Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td>
+          <td rowspan="2">January 2022</td>
+          <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="2">Device:2 Root Data Model for USP (TR-369)</td> -->
+          <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <!-- <td rowspan="2"><a href="#Device:2">Device:2</a></td> -->
-          <!-- <td rowspan="2">2.14</td> -->
-          <!-- <td rowspan="2"><a href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></td> -->
-          <td rowspan="1"><a href="tr-181-2-14-1-usp-diffs.html">Diff</a></td>
-          <!-- <td rowspan="2"><p>
-<p>
-<p>
-November 2020: <a href="#tr-181-2-14-0-usp.xml">Original</a><p>
-<ul>
-  <li>Added WWC (5G Wireline Wireless Convergence), PDU (Protocol Data Unit) and FWE (5G Wireline wireless Encapsulation) top-level objects
-  <li>Updated Cellular object to be applicable to 5G Residential Gateways
-  <li>Extended support for TR-471 IP-layer metrics, including new IP-layer capacity test
-  <li>Supported LAN device time-based access-control
-  <li>Various Wi-Fi improvements
-</ul><p>
-November 2020: Corrigendum 1<p>
-<ul>
-  <li>Fixed Device.LocalAgent.Subscription.{i}.ID constraints
-  <li>Removed duplicate remarks about CWMP BOOTSTRAP from descriptions
-  <li>Fixed typos
-</ul></td> -->
-          <!-- <td rowspan="2">November 2020</td> -->
-          <!-- <td rowspan="2"><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-14.pdf">TR-181 Issue 2 Amendment 14</a></td> -->
+          <!-- <td rowspan="2">2.15</td> -->
+          <!-- <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td> -->
+          <td rowspan="1"><a href="tr-181-2-15-0-usp-diffs.html">Diff</a></td>
+          <!-- <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
+Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
+Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
+Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
+Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
+Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
+Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
+Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
+Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
+Added a bulk data profile ForceCollection() command<p>
+Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
+Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
+Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
+Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
+Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
+Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
+Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
+Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
+Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
+Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
+Many minor improvements to object, parameter, command and event descriptions<p>
+Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
+Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td> -->
+          <!-- <td rowspan="2">January 2022</td> -->
+          <!-- <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td> -->
         </tr>
         <tr>
           <!-- <td rowspan="2">Femto Access Point Service Data Model for USP</td> -->
@@ -298,15 +311,79 @@ January 2020: Corrigendum 2<p>
           <th width="3.03%">HTML</th>
           <th width="40.40%">Description</th>
           <th width="10.10%">Approval Date</th>
-          <th width="15.15%">PDF</th>
+          <th width="15.15%">Specification</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
+          <td rowspan="8">Device:2</td>
+          <td rowspan="2">2.15</td>
+          <td rowspan="2"><a name="Device:2.15"></a><a name="Device:2"></a><a name="tr-181-2-15-usp.xml"></a><a name="tr-181-2-15-0-usp-full.xml"></a><a name="tr-181-2-15-0-usp.xml"></a><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td>
+          <td rowspan="1"><b><a href="tr-181-2-15-0-usp.html">Full</a></b></td>
+          <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
+Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
+Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
+Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
+Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
+Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
+Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
+Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
+Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
+Added a bulk data profile ForceCollection() command<p>
+Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
+Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
+Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
+Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
+Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
+Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
+Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
+Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
+Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
+Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
+Many minor improvements to object, parameter, command and event descriptions<p>
+Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
+Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td>
+          <td rowspan="2">January 2022</td>
+          <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a name="TR-181i2a15"></a><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td>
+        </tr>
+        <tr>
+          <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
+          <!-- <td rowspan="2">2.15</td> -->
+          <!-- <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td> -->
+          <td rowspan="1"><a href="tr-181-2-15-0-usp-diffs.html">Diff</a></td>
+          <!-- <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
+Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
+Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
+Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
+Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
+Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
+Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
+Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
+Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
+Added a bulk data profile ForceCollection() command<p>
+Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
+Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
+Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
+Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
+Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
+Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
+Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
+Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
+Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
+Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
+Many minor improvements to object, parameter, command and event descriptions<p>
+Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
+Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td> -->
+          <!-- <td rowspan="2">January 2022</td> -->
+          <!-- <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td> -->
+        </tr>
+        <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <td rowspan="6">Device:2</td>
+          <!-- <td rowspan="8">Device:2</td> -->
           <td rowspan="2">2.14</td>
-          <td rowspan="2"><a name="Device:2.14"></a><a name="Device:2"></a><a name="tr-181-2-14-usp.xml"></a><a name="tr-181-2-14-1-usp-full.xml"></a><a name="tr-181-2-14-1-usp.xml"></a><a href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></td>
+          <td rowspan="2"><a name="Device:2.14"></a><a name="tr-181-2-14-usp.xml"></a><a name="tr-181-2-14-1-usp-full.xml"></a><a name="tr-181-2-14-1-usp.xml"></a><a href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></td>
           <td rowspan="1"><b><a href="tr-181-2-14-1-usp.html">Full</a></b></td>
           <td rowspan="2"><p>
 <p>
@@ -330,7 +407,7 @@ November 2020: Corrigendum 1<p>
         </tr>
         <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <!-- <td rowspan="6">Device:2</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
           <!-- <td rowspan="2">2.14</td> -->
           <!-- <td rowspan="2"><a href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></td> -->
           <td rowspan="1"><a href="tr-181-2-14-1-usp-diffs.html">Diff</a></td>
@@ -356,7 +433,7 @@ November 2020: Corrigendum 1<p>
         </tr>
         <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <!-- <td rowspan="6">Device:2</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
           <td rowspan="2">2.13</td>
           <td rowspan="2"><a name="Device:2.13"></a><a name="tr-181-2-13-usp.xml"></a><a name="tr-181-2-13-0-usp-full.xml"></a><a name="tr-181-2-13-0-usp.xml"></a><a href="tr-181-2-13-0-usp-full.xml">tr-181-2-13-0-usp-full.xml</a></td>
           <td rowspan="1"><b><a href="tr-181-2-13-0-usp.html">Full</a></b></td>
@@ -375,7 +452,7 @@ Added support for IoT Data model</td>
         </tr>
         <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <!-- <td rowspan="6">Device:2</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
           <!-- <td rowspan="2">2.13</td> -->
           <!-- <td rowspan="2"><a href="tr-181-2-13-0-usp-full.xml">tr-181-2-13-0-usp-full.xml</a></td> -->
           <td rowspan="1"><a href="tr-181-2-13-0-usp-diffs.html">Diff</a></td>
@@ -394,7 +471,7 @@ Added support for IoT Data model</td> -->
         </tr>
         <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <!-- <td rowspan="6">Device:2</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
           <td rowspan="2">2.12</td>
           <td rowspan="2"><a name="Device:2.12"></a><a name="tr-181-2-12-usp.xml"></a><a name="tr-181-2-12-0-usp-full.xml"></a><a name="tr-181-2-12-0-usp.xml"></a><a href="tr-181-2-12-0-usp-full.xml">tr-181-2-12-0-usp-full.xml</a></td>
           <td rowspan="1"><b><a href="tr-181-2-12-0-usp.html">Full</a></b></td>
@@ -415,7 +492,7 @@ Added support for Large-Scale Measurement of Broadband Performance (LMAP)</td>
         </tr>
         <tr>
           <!-- <td rowspan="6">Device:2 Root Data Model for USP (TR-369)</td> -->
-          <!-- <td rowspan="6">Device:2</td> -->
+          <!-- <td rowspan="8">Device:2</td> -->
           <!-- <td rowspan="2">2.12</td> -->
           <!-- <td rowspan="2"><a href="tr-181-2-12-0-usp-full.xml">tr-181-2-12-0-usp-full.xml</a></td> -->
           <td rowspan="1"><a href="tr-181-2-12-0-usp-diffs.html">Diff</a></td>
@@ -448,7 +525,7 @@ Added support for Large-Scale Measurement of Broadband Performance (LMAP)</td> -
           <th width="3.03%">HTML</th>
           <th width="40.40%">Description</th>
           <th width="10.10%">Approval Date</th>
-          <th width="15.15%">PDF</th>
+          <th width="15.15%">Specification</th>
         </tr>
       </thead>
       <tbody>
@@ -649,46 +726,69 @@ January 2020: Corrigendum 2<p>
           <!-- <th width="3.26%">HTML</th> -->
           <th width="43.48%">Description</th>
           <th width="10.87%">Approval Date</th>
-          <th width="16.30%">PDF</th>
+          <th width="16.30%">Specification</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td rowspan="4"><a name="USP Protocol Buffers Schemas"></a>USP Protocol Buffers Schemas</td>
-          <!-- <td rowspan="4">:</td> -->
-          <!-- <td rowspan="4">.</td> -->
+          <td rowspan="6"><a name="USP Protocol Buffers Schemas"></a>USP Protocol Buffers Schemas</td>
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
+          <td rowspan="1"><a name="usp-record-1-2.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-record-1-2.proto">usp-record-1-2.proto</a></td>
+          <!-- <td rowspan="6">&nbsp;</td> -->
+          <td rowspan="1"><p><a href="https://usp.technology">USP</a> v1.2 Record Schema<p>
+Added Connect and Disconnect Record Types</td>
+          <td rowspan="1">January 2022</td>
+          <td rowspan="1"><a name="TR-369a2"></a><a href="https://www.broadband-forum.org/technical/download/TR-369_Amendment-2.pdf">TR-369 Amendment 2</a></td>
+        </tr>
+        <tr>
+          <!-- <td rowspan="6">USP Protocol Buffers Schemas</td> -->
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
           <td rowspan="1"><a name="usp-record-1-1.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-record-1-1.proto">usp-record-1-1.proto</a></td>
-          <!-- <td rowspan="4">&nbsp;</td> -->
+          <!-- <td rowspan="6">&nbsp;</td> -->
           <td rowspan="1"><a href="https://usp.technology">USP</a> v1.1 Record Schema (no changes from v1.0)</td>
           <td rowspan="1">September 2019</td>
           <td rowspan="1"><a name="TR-369a1"></a><a href="https://www.broadband-forum.org/technical/download/TR-369_Amendment-1.pdf">TR-369 Amendment 1</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="4">USP Protocol Buffers Schemas</td> -->
-          <!-- <td rowspan="4">:</td> -->
-          <!-- <td rowspan="4">.</td> -->
+          <!-- <td rowspan="6">USP Protocol Buffers Schemas</td> -->
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
           <td rowspan="1"><a name="usp-record-1-0.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-record-1-0.proto">usp-record-1-0.proto</a></td>
-          <!-- <td rowspan="4">&nbsp;</td> -->
+          <!-- <td rowspan="6">&nbsp;</td> -->
           <td rowspan="1"><a href="https://usp.technology">USP</a> v1.0 Record Schema</td>
           <td rowspan="1">April 2018</td>
           <td rowspan="1"><a name="TR-369"></a><a href="https://www.broadband-forum.org/technical/download/TR-369_Issue-1.pdf">TR-369</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="4">USP Protocol Buffers Schemas</td> -->
-          <!-- <td rowspan="4">:</td> -->
-          <!-- <td rowspan="4">.</td> -->
+          <!-- <td rowspan="6">USP Protocol Buffers Schemas</td> -->
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
+          <td rowspan="1"><a name="usp-msg-1-2.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-msg-1-2.proto">usp-msg-1-2.proto</a></td>
+          <!-- <td rowspan="6">&nbsp;</td> -->
+          <td rowspan="1"><p><a href="https://usp.technology">USP</a> v1.2 Message Schema<p>
+Added max_depth as a new input argument to the Get message<p>
+Enhanced the GetSupportedDM response to allow return of parameter types, parameters that will be ignored for value change notifications, divergent object paths, and command types</td>
+          <td rowspan="1">January 2022</td>
+          <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-369_Amendment-2.pdf">TR-369 Amendment 2</a></td>
+        </tr>
+        <tr>
+          <!-- <td rowspan="6">USP Protocol Buffers Schemas</td> -->
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
           <td rowspan="1"><a name="usp-msg-1-1.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-msg-1-1.proto">usp-msg-1-1.proto</a></td>
-          <!-- <td rowspan="4">&nbsp;</td> -->
+          <!-- <td rowspan="6">&nbsp;</td> -->
           <td rowspan="1"><a href="https://usp.technology">USP</a> v1.1 Message Schema (no changes from v1.0)</td>
           <td rowspan="1">September 2019</td>
           <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-369_Amendment-1.pdf">TR-369 Amendment 1</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="4">USP Protocol Buffers Schemas</td> -->
-          <!-- <td rowspan="4">:</td> -->
-          <!-- <td rowspan="4">.</td> -->
+          <!-- <td rowspan="6">USP Protocol Buffers Schemas</td> -->
+          <!-- <td rowspan="6">:</td> -->
+          <!-- <td rowspan="6">.</td> -->
           <td rowspan="1"><a name="usp-msg-1-0.proto"></a><a href="https://github.com/BroadbandForum/usp/blob/master/specification/usp-msg-1-0.proto">usp-msg-1-0.proto</a></td>
-          <!-- <td rowspan="4">&nbsp;</td> -->
+          <!-- <td rowspan="6">&nbsp;</td> -->
           <td rowspan="1"><a href="https://usp.technology">USP</a> v1.0 Message Schema</td>
           <td rowspan="1">April 2018</td>
           <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-369_Issue-1.pdf">TR-369</a></td>
@@ -697,31 +797,44 @@ January 2020: Corrigendum 2<p>
           <td colspan="5"></td>
         </tr>
         <tr>
-          <td rowspan="3"><a name="Data Model Definition Schema (DM Schema)"></a>Data Model Definition Schema (DM Schema)</td>
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <td rowspan="4"><a name="Data Model Definition Schema (DM Schema)"></a>Data Model Definition Schema (DM Schema)</td>
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
+          <td rowspan="1"><a name="cwmp-datamodel-1-9.xsd"></a><a href="cwmp-datamodel-1-9.xsd">cwmp-datamodel-1-9.xsd</a></td>
+          <!-- <td rowspan="4">&nbsp;</td> -->
+          <td rowspan="1"><p>Allowed the <i>version</i> attribute in component references<p>
+Allowed <i>minEntries</i> and <i>maxEntries</i> in command and event argument objects<p>
+Allowed <i>status</i> attribute in profile command/event arguments<p>
+Added <i>secured</i> attribute</td>
+          <td rowspan="1">January 2022</td>
+          <td rowspan="1"><a name="TR-106a11"></a><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-11.pdf">TR-106 Amendment 11</a></td>
+        </tr>
+        <tr>
+          <!-- <td rowspan="4">Data Model Definition Schema (DM Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-datamodel-1-8.xsd"></a><a href="cwmp-datamodel-1-8.xsd">cwmp-datamodel-1-8.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1">Allowed command attributes, e.g. mandatory, in component definitions</td>
           <td rowspan="1">November 2020</td>
           <td rowspan="1"><a name="TR-106a10"></a><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-10.pdf">TR-106 Amendment 10</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="3">Data Model Definition Schema (DM Schema)</td> -->
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <!-- <td rowspan="4">Data Model Definition Schema (DM Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-datamodel-1-7.xsd"></a><a href="cwmp-datamodel-1-7.xsd">cwmp-datamodel-1-7.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1">Supported implementation defaults, version attribute, description templates, writeOnceReadOnly access type and the decimal datatype</td>
           <td rowspan="1">September 2019</td>
           <td rowspan="2"><a name="TR-106a8"></a><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-8.pdf">TR-106 Amendment 8</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="3">Data Model Definition Schema (DM Schema)</td> -->
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <!-- <td rowspan="4">Data Model Definition Schema (DM Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-datamodel-1-6.xsd"></a><a href="cwmp-datamodel-1-6.xsd">cwmp-datamodel-1-6.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1">Supported USP commands, events and mount points</td>
           <td rowspan="1">March 2018</td>
           <!-- <td rowspan="2"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-8.pdf">TR-106 Amendment 8</a></td> -->
@@ -746,40 +859,51 @@ Sep 2009: Added <i>noUniqueKeys</i></td>
           <!-- <td rowspan="2">.</td> -->
           <td rowspan="1"><a name="cwmp-datamodel-report-1-0.xsd"></a><a href="cwmp-datamodel-report-1-0.xsd">cwmp-datamodel-report-1-0.xsd</a></td>
           <!-- <td rowspan="2">&nbsp;</td> -->
-          <td rowspan="1">Changed version number to 1-0, which indicates new markdown-friendly wrapped descriptions</td>
-          <td rowspan="1">November 2020</td>
-          <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-10.pdf">TR-106 Amendment 10</a></td>
+          <td rowspan="1"><p>Changed version number to 1-0, which indicates new markdown-friendly wrapped descriptions<p>
+Added <i>customNumEntriesParameter</i>, <i>noDiscriminatorParameter</i> and <i>noUnionObject</i> to suppress various warnings</td>
+          <td rowspan="1">January 2022</td>
+          <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-11.pdf">TR-106 Amendment 11</a></td>
         </tr>
         <tr>
           <td colspan="5"></td>
         </tr>
         <tr>
-          <td rowspan="3"><a name="Device Type Schema (DT Schema)"></a>Device Type Schema (DT Schema)</td>
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <td rowspan="4"><a name="Device Type Schema (DT Schema)"></a>Device Type Schema (DT Schema)</td>
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
+          <td rowspan="1"><a name="cwmp-devicetype-1-6.xsd"></a><a href="cwmp-devicetype-1-6.xsd">cwmp-devicetype-1-6.xsd</a></td>
+          <!-- <td rowspan="4">&nbsp;</td> -->
+          <td rowspan="1">Updated to reference latest published DM Schema version (v1.9)</td>
+          <td rowspan="1">January 2022</td>
+          <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-11.pdf">TR-106 Amendment 11</a></td>
+        </tr>
+        <tr>
+          <!-- <td rowspan="4">Device Type Schema (DT Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-devicetype-1-5.xsd"></a><a href="cwmp-devicetype-1-5.xsd">cwmp-devicetype-1-5.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1"><p>Updated to reference latest published DM Schema version (v1.8)<p>
 Supported event and command structures in device type files</td>
           <td rowspan="1">November 2020</td>
           <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-10.pdf">TR-106 Amendment 10</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="3">Device Type Schema (DT Schema)</td> -->
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <!-- <td rowspan="4">Device Type Schema (DT Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-devicetype-1-4.xsd"></a><a href="cwmp-devicetype-1-4.xsd">cwmp-devicetype-1-4.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1">Updated to reference latest published DM Schema version (v1.7)</td>
           <td rowspan="1">September 2019</td>
           <td rowspan="1"><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-8.pdf">TR-106 Amendment 8</a></td>
         </tr>
         <tr>
-          <!-- <td rowspan="3">Device Type Schema (DT Schema)</td> -->
-          <!-- <td rowspan="3">:</td> -->
-          <!-- <td rowspan="3">.</td> -->
+          <!-- <td rowspan="4">Device Type Schema (DT Schema)</td> -->
+          <!-- <td rowspan="4">:</td> -->
+          <!-- <td rowspan="4">.</td> -->
           <td rowspan="1"><a name="cwmp-devicetype-1-3.xsd"></a><a href="cwmp-devicetype-1-3.xsd">cwmp-devicetype-1-3.xsd</a></td>
-          <!-- <td rowspan="3">&nbsp;</td> -->
+          <!-- <td rowspan="4">&nbsp;</td> -->
           <td rowspan="1">Many minor updates and clarifications</td>
           <td rowspan="1">September 2013</td>
           <td rowspan="1"><a name="TR-106a7"></a><a href="https://www.broadband-forum.org/technical/download/TR-106_Amendment-7.pdf">TR-106 Amendment 7</a></td>
@@ -811,7 +935,7 @@ Supported event and command structures in device type files</td>
           <th width="3.16%">HTML</th>
           <th width="42.11%">Description</th>
           <th width="10.53%">Approval Date</th>
-          <th width="15.79%">PDF</th>
+          <th width="15.79%">Specification</th>
         </tr>
       </thead>
       <tbody>
@@ -859,7 +983,7 @@ Added references for 3GPP 5G standards in support of Device:2.14 DM Instances</t
           <!-- <th width="3.26%">HTML</th> -->
           <th width="43.48%">Description</th>
           <th width="10.87%">Approval Date</th>
-          <th width="16.30%">PDF</th>
+          <th width="16.30%">Specification</th>
         </tr>
       </thead>
       <tbody>
