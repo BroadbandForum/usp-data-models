@@ -63,64 +63,84 @@
           <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <td rowspan="2"><a href="#Device:2">Device:2</a></td>
           <td rowspan="2">2.15</td>
-          <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td>
-          <td rowspan="1"><b><a href="tr-181-2-15-0-usp.html">Full</a></b></td>
-          <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
-Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
-Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
-Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
-Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
-Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
-Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
-Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
-Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
-Added a bulk data profile ForceCollection() command<p>
-Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
-Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
-Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
-Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
-Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
-Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
-Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
-Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
-Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
-Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
-Many minor improvements to object, parameter, command and event descriptions<p>
-Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
-Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td>
-          <td rowspan="2">January 2022</td>
+          <td rowspan="2"><a href="tr-181-2-15-1-usp-full.xml">tr-181-2-15-1-usp-full.xml</a></td>
+          <td rowspan="1"><b><a href="tr-181-2-15-1-usp.html">Full</a></b></td>
+          <td rowspan="2"><p>April 2022: Corrigendum 1<p>
+<ul>
+  <li>Removed items that were erroneously added to the User:1 profile and instead added them to a new User:2 profile
+  <li>Fixed the BulkData Profile Parameter reference; it's a string, not a formal path reference
+  <li>Fixed the InstallDU() command's ExecutionEnvRef argument; it references an execution environment, not an execution unit
+  <li>Fixed the VendorConfigFile description's CWMP/USP-specific text
+</ul><p>
+January 2022: <a href="#tr-181-2-15-0-usp.xml">Original</a><p>
+<ul>
+  <li>Converted the document to markdown and extended the Wi-Fi Theory of Operation
+  <li>Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)
+  <li>Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)
+  <li>Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+  <li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
+  <li>Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users
+  <li>Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
+  <li>Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts
+  <li>Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events
+  <li>Added a bulk data profile ForceCollection() command
+  <li>Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol
+  <li>Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)
+  <li>Updated the IPLayerCapacity() test to support TR-472 Issue 2
+  <li>Added an enumeration to indicate when a Boot! event was due to a factory reset
+  <li>Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections
+  <li>Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller
+  <li>Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)
+  <li>Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)
+  <li>Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted
+  <li>Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)
+  <li>Many minor improvements to object, parameter, command and event descriptions
+  <li>Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)
+  <li>Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum
+</ul></td>
+          <td rowspan="2">April 2022</td>
           <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td>
         </tr>
         <tr>
           <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <!-- <td rowspan="2"><a href="#Device:2">Device:2</a></td> -->
           <!-- <td rowspan="2">2.15</td> -->
-          <!-- <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td> -->
-          <td rowspan="1"><a href="tr-181-2-15-0-usp-diffs.html">Diff</a></td>
-          <!-- <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
-Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
-Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
-Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
-Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
-Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
-Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
-Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
-Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
-Added a bulk data profile ForceCollection() command<p>
-Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
-Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
-Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
-Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
-Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
-Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
-Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
-Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
-Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
-Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
-Many minor improvements to object, parameter, command and event descriptions<p>
-Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
-Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td> -->
-          <!-- <td rowspan="2">January 2022</td> -->
+          <!-- <td rowspan="2"><a href="tr-181-2-15-1-usp-full.xml">tr-181-2-15-1-usp-full.xml</a></td> -->
+          <td rowspan="1"><a href="tr-181-2-15-1-usp-diffs.html">Diff</a></td>
+          <!-- <td rowspan="2"><p>April 2022: Corrigendum 1<p>
+<ul>
+  <li>Removed items that were erroneously added to the User:1 profile and instead added them to a new User:2 profile
+  <li>Fixed the BulkData Profile Parameter reference; it's a string, not a formal path reference
+  <li>Fixed the InstallDU() command's ExecutionEnvRef argument; it references an execution environment, not an execution unit
+  <li>Fixed the VendorConfigFile description's CWMP/USP-specific text
+</ul><p>
+January 2022: <a href="#tr-181-2-15-0-usp.xml">Original</a><p>
+<ul>
+  <li>Converted the document to markdown and extended the Wi-Fi Theory of Operation
+  <li>Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)
+  <li>Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)
+  <li>Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+  <li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
+  <li>Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users
+  <li>Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
+  <li>Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts
+  <li>Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events
+  <li>Added a bulk data profile ForceCollection() command
+  <li>Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol
+  <li>Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)
+  <li>Updated the IPLayerCapacity() test to support TR-472 Issue 2
+  <li>Added an enumeration to indicate when a Boot! event was due to a factory reset
+  <li>Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections
+  <li>Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller
+  <li>Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)
+  <li>Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)
+  <li>Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted
+  <li>Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)
+  <li>Many minor improvements to object, parameter, command and event descriptions
+  <li>Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)
+  <li>Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum
+</ul></td> -->
+          <!-- <td rowspan="2">April 2022</td> -->
           <!-- <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td> -->
         </tr>
         <tr>
@@ -319,64 +339,84 @@ January 2020: Corrigendum 2<p>
           <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <td rowspan="8">Device:2</td>
           <td rowspan="2">2.15</td>
-          <td rowspan="2"><a name="Device:2.15"></a><a name="Device:2"></a><a name="tr-181-2-15-usp.xml"></a><a name="tr-181-2-15-0-usp-full.xml"></a><a name="tr-181-2-15-0-usp.xml"></a><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td>
-          <td rowspan="1"><b><a href="tr-181-2-15-0-usp.html">Full</a></b></td>
-          <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
-Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
-Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
-Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
-Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
-Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
-Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
-Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
-Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
-Added a bulk data profile ForceCollection() command<p>
-Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
-Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
-Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
-Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
-Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
-Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
-Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
-Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
-Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
-Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
-Many minor improvements to object, parameter, command and event descriptions<p>
-Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
-Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td>
-          <td rowspan="2">January 2022</td>
+          <td rowspan="2"><a name="Device:2.15"></a><a name="Device:2"></a><a name="tr-181-2-15-usp.xml"></a><a name="tr-181-2-15-1-usp-full.xml"></a><a name="tr-181-2-15-1-usp.xml"></a><a href="tr-181-2-15-1-usp-full.xml">tr-181-2-15-1-usp-full.xml</a></td>
+          <td rowspan="1"><b><a href="tr-181-2-15-1-usp.html">Full</a></b></td>
+          <td rowspan="2"><p>April 2022: Corrigendum 1<p>
+<ul>
+  <li>Removed items that were erroneously added to the User:1 profile and instead added them to a new User:2 profile
+  <li>Fixed the BulkData Profile Parameter reference; it's a string, not a formal path reference
+  <li>Fixed the InstallDU() command's ExecutionEnvRef argument; it references an execution environment, not an execution unit
+  <li>Fixed the VendorConfigFile description's CWMP/USP-specific text
+</ul><p>
+January 2022: <a href="#tr-181-2-15-0-usp.xml">Original</a><p>
+<ul>
+  <li>Converted the document to markdown and extended the Wi-Fi Theory of Operation
+  <li>Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)
+  <li>Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)
+  <li>Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+  <li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
+  <li>Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users
+  <li>Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
+  <li>Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts
+  <li>Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events
+  <li>Added a bulk data profile ForceCollection() command
+  <li>Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol
+  <li>Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)
+  <li>Updated the IPLayerCapacity() test to support TR-472 Issue 2
+  <li>Added an enumeration to indicate when a Boot! event was due to a factory reset
+  <li>Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections
+  <li>Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller
+  <li>Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)
+  <li>Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)
+  <li>Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted
+  <li>Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)
+  <li>Many minor improvements to object, parameter, command and event descriptions
+  <li>Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)
+  <li>Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum
+</ul></td>
+          <td rowspan="2">April 2022</td>
           <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a name="TR-181i2a15"></a><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td>
         </tr>
         <tr>
           <!-- <td rowspan="2">Device Data Model for TR-069</td> -->
           <!-- <td rowspan="8">Device:2</td> -->
           <!-- <td rowspan="2">2.15</td> -->
-          <!-- <td rowspan="2"><a href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></td> -->
-          <td rowspan="1"><a href="tr-181-2-15-0-usp-diffs.html">Diff</a></td>
-          <!-- <td rowspan="2"><p>Converted the document to markdown and extended the Wi-Fi Theory of Operation<p>
-Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)<p>
-Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)<p>
-Added Device.Routing.Babel for the RFC 8966 Babel routing protocol<p>
-Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces<p>
-Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users<p>
-Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax<p>
-Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts<p>
-Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events<p>
-Added a bulk data profile ForceCollection() command<p>
-Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol<p>
-Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)<p>
-Updated the IPLayerCapacity() test to support TR-472 Issue 2<p>
-Added an enumeration to indicate when a Boot! event was due to a factory reset<p>
-Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections<p>
-Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller<p>
-Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)<p>
-Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)<p>
-Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted<p>
-Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)<p>
-Many minor improvements to object, parameter, command and event descriptions<p>
-Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)<p>
-Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum</td> -->
-          <!-- <td rowspan="2">January 2022</td> -->
+          <!-- <td rowspan="2"><a href="tr-181-2-15-1-usp-full.xml">tr-181-2-15-1-usp-full.xml</a></td> -->
+          <td rowspan="1"><a href="tr-181-2-15-1-usp-diffs.html">Diff</a></td>
+          <!-- <td rowspan="2"><p>April 2022: Corrigendum 1<p>
+<ul>
+  <li>Removed items that were erroneously added to the User:1 profile and instead added them to a new User:2 profile
+  <li>Fixed the BulkData Profile Parameter reference; it's a string, not a formal path reference
+  <li>Fixed the InstallDU() command's ExecutionEnvRef argument; it references an execution environment, not an execution unit
+  <li>Fixed the VendorConfigFile description's CWMP/USP-specific text
+</ul><p>
+January 2022: <a href="#tr-181-2-15-0-usp.xml">Original</a><p>
+<ul>
+  <li>Converted the document to markdown and extended the Wi-Fi Theory of Operation
+  <li>Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)
+  <li>Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)
+  <li>Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+  <li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
+  <li>Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users
+  <li>Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
+  <li>Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts
+  <li>Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events
+  <li>Added a bulk data profile ForceCollection() command
+  <li>Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol
+  <li>Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)
+  <li>Updated the IPLayerCapacity() test to support TR-472 Issue 2
+  <li>Added an enumeration to indicate when a Boot! event was due to a factory reset
+  <li>Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections
+  <li>Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller
+  <li>Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)
+  <li>Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)
+  <li>Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted
+  <li>Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)
+  <li>Many minor improvements to object, parameter, command and event descriptions
+  <li>Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)
+  <li>Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum
+</ul></td> -->
+          <!-- <td rowspan="2">April 2022</td> -->
           <!-- <td rowspan="2"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td> -->
         </tr>
         <tr>
@@ -987,6 +1027,51 @@ Added references for 3GPP 5G standards in support of Device:2.14 DM Instances</t
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td rowspan="1"><a name="Device Data Model for TR-069"></a>Device Data Model for TR-069</td>
+          <!-- <td rowspan="1">:</td> -->
+          <!-- <td rowspan="1">.</td> -->
+          <td rowspan="1"><a name="tr-181-2-15-0-usp.xml"></a><a href="tr-181-2-15-0-usp.xml">tr-181-2-15-0-usp.xml</a></td>
+          <!-- <td rowspan="1"><b><a href="tr-181-2-15-0-usp.html">Full</a></b></td> -->
+          <td rowspan="1"><p>April 2022: <a href="#tr-181-2-15-1-usp.xml">Corrigendum 1</a><p>
+<ul>
+  <li>Removed items that were erroneously added to the User:1 profile and instead added them to a new User:2 profile
+  <li>Fixed the BulkData Profile Parameter reference; it's a string, not a formal path reference
+  <li>Fixed the InstallDU() command's ExecutionEnvRef argument; it references an execution environment, not an execution unit
+  <li>Fixed the VendorConfigFile description's CWMP/USP-specific text
+</ul><p>
+January 2022: Original<p>
+<ul>
+  <li>Converted the document to markdown and extended the Wi-Fi Theory of Operation
+  <li>Split the XML into multiple smaller files (this is just housekeeping; it doesn't affect how the model is used)
+  <li>Allowed USP to access the EnableCWMP parameter (so a USP Controller can enable/disable CWMP access)
+  <li>Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+  <li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
+  <li>Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell tables for modeling system users
+  <li>Improved the Wi-Fi data model by adding Data Elements R2 parameters, commands and events, moving MultiAP parameters and commands into the Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
+  <li>Clarified the LockoutPeriod and Retries ControllerTrust parameters that impact how the RequestChallenge() and ChallengeResponse() data model commands handle failed attempts
+  <li>Clarified bulk data profile, threshold and periodic statistics USP Controller permissions: only the USP Controller that created the profile will receive the corresponding events
+  <li>Added a bulk data profile ForceCollection() command
+  <li>Added support for a new bulk data collection mechanism that utilizes MQTT as the transport protocol
+  <li>Removed old bulk data collection protocols (Streaming and File) from the USP data model (they don't apply to USP)
+  <li>Updated the IPLayerCapacity() test to support TR-472 Issue 2
+  <li>Added an enumeration to indicate when a Boot! event was due to a factory reset
+  <li>Added an enumeration to distinguish encrypted and unencrypted USP MQTT WebSocket connections
+  <li>Added an Order parameter to provide guidance to USP Agents on which MTP to use when communicating with a Controller
+  <li>Clarified that Device.Optical is intended for generic optical interfaces and is not intended to model anything specific to IEEE or ITU-T PON technologies (objects specific to such technologies may be added in future versions of the data model)
+  <li>Clarified the meaning and usage of the Device.Ethernet.Interface and Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress parameter to be written)
+  <li>Improved (and made more consistent) the marking of (and explanation of) deprecated items, and how such items should progress from being deprecated to obsoleted to deleted
+  <li>Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN management protocol)
+  <li>Many minor improvements to object, parameter, command and event descriptions
+  <li>Replaced the non-standard dmr:version attribute with the version attribute (which supports three levels of version)
+  <li>Switched to DMR (data model report) schema v1.0, which supports multi-line paragraphs, and wrapped all lines to 80 characters maximum
+</ul></td>
+          <td rowspan="1">April 2022</td>
+          <td rowspan="1"><p><a href="https://device-data-model.broadband-forum.org">Device Data Model</a></p><a href="https://www.broadband-forum.org/technical/download/TR-181_Issue-2_Amendment-15.pdf">TR-181 Issue 2 Amendment 15</a></td>
+        </tr>
+        <tr>
+          <td colspan="5"></td>
+        </tr>
         <tr>
           <td rowspan="1"><a name="Device:2 Root Data Model for USP (TR-369)"></a>Device:2 Root Data Model for USP (TR-369)</td>
           <!-- <td rowspan="1">:</td> -->
