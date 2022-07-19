@@ -2,6 +2,15 @@
 
 *The latest [User Services Platform (USP)](https://usp.technology) data models can be found at <https://usp-data-models.broadband-forum.org>.*
 
+## 2022-07-19: [TR-196 Issue 2 Amendment 1 Corrigendum 2](https://usp-data-models.broadband-forum.org/#FAPService:2)
+
+*Tag: [v1.2.2](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.2)*
+
+TR-196
+
+* Deprecated Blacklisted parameters and replaced with Blocklisted
+  parameters
+
 ## 2022-04-06: [TR-181 Issue 2 Amendment 15 Corrigendum 1](https://usp-data-models.broadband-forum.org/#Device:2.15)
 
 *Tag: [v1.2.1](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.1)*
