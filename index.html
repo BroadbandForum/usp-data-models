@@ -1,57 +1,1412 @@
----
-title: Broadband Forum User Services Platform Data Models
-layout: default
----
-<html>
-  <h1>Broadband Forum User Services Platform (USP) Data Models</h1>
-  <p><a href="https://www.broadband-forum.org">The Broadband Forum</a> defines several data models for use with the <a href="https://usp.technology">User Services
-  Platform (USP) (TR-369)</a>. These data models contain objects, parameters,
-  commands, and events that describe the many different service elements that
-  can be exposed via USP Agents.</p>
+<!DOCTYPE html>
+<!-- BBF GitHub Pages pandoc template; modified from default.html template -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="generator" content="pandoc"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <meta name="author" content=""/>
+  <meta name="description" content="Broadband Forum User Services
+Platform (USP) Data Models: Device Data Model Files and Documentation"/>
+  <meta name="theme-color" content="#157878"/>
+  <title>BBF – Broadband Forum User Services Platform (USP) Data Models</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="github.css"/>
+  <link rel="stylesheet" href="extra.css"/>
+  <link rel="stylesheet" href="local.css"/>
+  <link rel="stylesheet" href="toc.css"/>
+  <!-- Automatic hover links scripts -->
+  <script>
+  window.addEventListener('DOMContentLoaded', function() {
+    var hoverlink = null;
 
-  <p>USP data models are divided into two types: Root and Service. The root data
-  model, Device, is used to describe the major functions of network aware
-  devices, including interfaces, software/firmware, diagnostics, components
-  common to USP and other services, and the basic Agent information necessary
-  to the operation of USP.</p>
+    var elems = document.querySelectorAll('.auto-hoverlink:not(section)');
+      for (var i = 0; i < elems.length; i++) {
+        var elem = elems[i];
 
-  <p>Service data models describe modular functionality that allow the extension of
-  the root data model on a device (under Device.Services.) to provide particular
-  services, such as a voice service, set top box service, network attached
-  storage, smart home objects, etc.</p>
+        elem.addEventListener('mouseenter', event => {
+          var target = event.target;
+          var info_attr = target.attributes.getNamedItem('data-info');
+          var anchor_attr = target.attributes.getNamedItem('data-anchor');
+          var thing = info_attr ? info_attr.value : target.localName
+          /* we check the parent to cover the case where pandoc has moved the
+             id from a header to its parent section */
+          var anchor = target.id || target.parentElement.id ||
+                                    (anchor_attr ? anchor_attr.value : null);
 
-  <p>Each data model is defined by a Name:Version syntax. The objects, parameters,
-  commands, and events that a particular Agent supports from its implementation of
-  the data model define what is reported to Controllers via the GetSupportedDM
-  message.</p>
+          if (hoverlink) {
+            hoverlink.remove();
+            hoverlink = null;
+          }
 
-  <h2>How do I use these?</h2>
+          if (!anchor) {
+              console.warn('%s %s has no id or data-anchor',
+                           thing, target.textContent);
+          } else {
+            hoverlink = document.createElement('a');
+            hoverlink.href = '#' + anchor;
+            hoverlink.className = 'hoverlink';
+            hoverlink.title = 'Permalink to this ' + thing;
+            target.appendChild(hoverlink);
+          }
+        });
 
-  <p>Use the USP data model files to define and implement what exists in your solution's
-  <i>Supported Data Model</i>. This will help Controllers learn what your
-  solution is capable of. The data models will also describe how your solution's
-  <i>Instantiated Data Model</i> will behave during operation.</p>
+        elem.addEventListener('mouseleave', () => {
+          if (hoverlink) {
+            setTimeout(function(href) {
+              if (hoverlink && hoverlink.href == href) {
+                hoverlink.remove();
+                hoverlink = null;
+              }
+            }, 1000, hoverlink.href);
+          }
+        });
+      }
+  });
+  </script>
+  <!-- Automatic hover links styles -->
+  <style>
+  :root {
+      --hoverlink-size: 0.9em;
+  }
 
-  <ul>
-    <li>View the HTML files on this page for a human-readable look at the data
-      model documentation.</li>
-    <li>Use the XML files in this repository when generating code and performing
-      data validation.</li>
-  </ul>
+  .hoverlink {
+      text-decoration: none;
+  }
 
-  <p>These data models are based on the
-    Broadband Forum's <a href="https://cwmp-data-models.broadband-forum.org">data models for the CPE WAN Management Protocol</a>,
-    also known as "TR-069", with a robust development history.</p>
+  .hoverlink::after {
+      position: absolute;
+      display: inline-block;
+      content: "";
+      width: var(--hoverlink-size);
+      height: var(--hoverlink-size);
+      background-size: var(--hoverlink-size) var(--hoverlink-size);
+      /* https://icon-library.com/images/permalink-icon/permalink-icon-17.jpg
+         (resized from 512x512 to 64x64) */
+      background-image: url(permalink.png);
+  }
+  </style>
+  <!-- Automatic sections scripts -->
+  <script>
+  /* 1. Find all sections, i.e., elements with class "new-section"
+     2. If a section has no id (shouldn't happen), auto-assign one
+     3. For each element with an id, set "data-section" to its section id
+     4. For each internal link, similarly set "data-section" to its section id
+   */
+  window.addEventListener('DOMContentLoaded', () => {
+      var target_sections = new Map();
+      var sections = document.getElementsByClassName('new-section');
+      for (var i = 0; i < sections.length; i++) {
+          var section = sections[i];
+          if (!section.id) {
+              section.id = 'section-' + i;
+          }
+          target_sections.set(section.id, section.id);
+          section.setAttribute('data-section', section.id)
+          var targets = section.querySelectorAll('[id]');
+          for (var j = 0; j < targets.length; j++) {
+              var target = targets[j];
+              target_sections.set(target.id, section.id);
+              target.setAttribute('data-section', section.id)
+          }
+      }
 
-  <p>The source files used to build the complete USP data model can be found on
-    <a href="https://github.com/BroadbandForum/usp-data-models">GitHub</a>.</p>
+      var doc_url = new URL(document.URL);
+      var links = document.querySelectorAll('a[href]');
+      var warned = new Map()
+      for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          var url = new URL(link.href, document.URL);
+          if (url.hostname == doc_url.hostname &&
+              url.pathname == doc_url.pathname && url.hash) {
+              var href = url.hash.substring(1);
+              var section_id = target_sections.get(href)
+              if (!section_id) {
+                  if (!warned.get(href)) {
+                      console.warn("href %s undefined or not within a section",
+                                   href);
+                      warned.set(href, true);
+                  }
+              } else {
+                  link.setAttribute('data-section', section_id);
+              }
+          }
+      }
+  });
 
-  <p>A ZIP file containing all the latest data models can be downloaded from
-    <a href="https://github.com/BroadbandForum/usp-data-models/archive/master.zip">here</a>.</p>
+  /* Create a new scope to avoid using a global variable */
+  (function() {
 
-  <h2>List of Data Models</h2>
+      /* Show the section with the given id, which is assumed to be valid */
+      function show_section(section_id) {
+          var section = document.getElementById(section_id);
 
+          /* The "cover-only" class indicates elements that should only be
+             shown when the cover page section is shown */
+          var cover_onlys = document.getElementsByClassName('cover-only');
+          if (section) {
+              for (var i = 0; i < cover_onlys.length; i++) {
+                  var cover_only = cover_onlys[i];
+                  if (section_id != 'sec:cover-page') {
+                      cover_only.classList.add('hidden')
+                  } else {
+                      cover_only.classList.remove('hidden')
+                  }
+              }
+          }
 
-  {% include_relative _index.html %}
+          /* Hide all sections, then un-hide this one */
+          var sections = document.getElementsByClassName('new-section');
+          for (var i = 0; i < sections.length; i++) {
+              sections[i].classList.add('hidden');
+          }
+          section.classList.remove('hidden')
+      }
 
+      /* Add click events to all links, using the "data-section" attribute
+         (set earlier) to show the associated section */
+      window.addEventListener('DOMContentLoaded', () => {
+          var links = document.querySelectorAll('a[data-section]');
+          for (var i = 0; i < links.length; i++) {
+              links[i].addEventListener('click', event => {
+                  var link = event.currentTarget;
+                  var section_id = link.attributes['data-section'].value;
+                  show_section(section_id);
+              });
+          }
+      });
+
+      /* Ensure that loading the page with a URL fragment (hash) will show the
+         associated section */
+      window.addEventListener('DOMContentLoaded', () => {
+          var url = new URL(document.URL);
+          if (url.hash.length > 1) {
+              var href = url.hash.substring(1);
+              var target = document.getElementById(href);
+              if (!target) {
+                  var fallback = 'sec:executive-summary';
+                  console.warn("target %s undefined; falling back on %s",
+                               href, fallback);
+                  href = fallback;
+                  target = document.getElementById(href);
+                  if (!target) {
+                      var fallback = 'sec:cover-page';
+                      console.warn("target %s undefined; falling back on %s",
+                                   href, fallback);
+                      href = fallback;
+                      target = document.getElementById(href);
+                  }
+              }
+              if (!target) {
+                  console.warn("target %s undefined", href);
+              } else {
+                  var section_id = target.attributes['data-section'].value;
+                  if (!section_id) {
+                      console.warn("target %s not within a section", href);
+                  } else {
+                      show_section(section_id);
+                  }
+              }
+          }
+      });
+
+  /* End of new scope */
+  })();
+  </script>
+  <!-- Automatic sections styles -->
+  <style>
+  h1.cover-page, .hidden, aside.footnotes-end-of-document {
+      display: none;
+  }
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="page-header">
+    <h1 class="project-name">
+      <a href="index.html" style="text-decoration: none; color: white;">
+        <img src="bbflogo-reverse-dark.png"/><br>
+        The User Services Platform
+      </a>
+    </h1>
+    <h2 class="project-tagline">Device Data Model Files and
+Documentation</h2>
+    <p></p>
+    <p></p>
+    <div class="project-buttons">
+      <a class="btn" href="#sec:current-data-models">Current Data
+Models</a>
+      <a class="btn" href="https://data-model-template.broadband-forum.org" title="TR-106">Data
+Model Template</a>
+      <a class="btn" href="https://usp.technology" title="usp.technology">Home</a>
+    </div>
+  </section>
+
+  <section class="main-content">
+    <header id="title-block-header" class="cover-only">
+      <h1 class="title auto-hoverlink" id="title">Broadband Forum User
+Services Platform (USP) Data Models</h1>
+      <p class="subtitle">2023-06-14: <a
+href="https://www.broadband-forum.org/download/TR-369_Amendment-3.pdf">TR-369
+Amendment 3</a>, <a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-12.pdf">TR-106
+Amendment 12</a> and <a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-16.pdf">TR-181
+Issue 2 Amendment 16</a></p>
+      <p class="author"></p>
+    </header>
+    <nav id="SIDEBAR" role="doc-toc">
+<ul>
+<li><a href="#sec:cover-page">Introduction</a></li>
+<li><a href="#sec:current-data-models">Current Data Models</a>
+<ul>
+<li><a href="#sec:current-device2"><span
+class="heading">Device:2</span></a></li>
+<li><a href="#sec:current-fapservice2"><span
+class="heading">FAPService:2</span></a></li>
+<li><a href="#sec:current-storageservice1"><span
+class="heading">StorageService:1</span></a></li>
+<li><a href="#sec:current-stbservice1"><span
+class="heading">STBService:1</span></a></li>
+<li><a href="#sec:current-voiceservice2"><span
+class="heading">VoiceService:2</span></a></li>
+</ul></li>
+<li><a href="#sec:root-data-models">Root Data Models</a>
+<ul>
+<li><a href="#sec:device2">Device:2</a></li>
+</ul></li>
+<li><a href="#sec:service-data-models">Service Data Models</a>
+<ul>
+<li><a href="#sec:fapservice2">FAPService:2</a></li>
+<li><a href="#sec:storageservice1">StorageService:1</a></li>
+<li><a href="#sec:stbservice1">STBService:1</a></li>
+<li><a href="#sec:voiceservice2">VoiceService:2</a></li>
+</ul></li>
+<li><a href="#sec:schema-files">Schema Files</a>
+<ul>
+<li><a href="#sec:usp-protocol-buffers-schemas">USP Protocol Buffers
+Schemas</a></li>
+<li><a href="#sec:device-type-schema-dt-schema">Device Type Schema (DT
+Schema)</a></li>
+<li><a href="#sec:data-model-report-schema-dmr-schema">Data Model Report
+Schema (DMR Schema)</a></li>
+<li><a href="#sec:dm-data-model-definition-schema-dm-schema">DM Data
+Model Definition Schema (DM Schema)</a></li>
+<li><a href="#sec:xml-catalog"><span>XML Catalog</span></a></li>
+</ul></li>
+<li><a href="#sec:support-files">Support Files</a>
+<ul>
+<li><a href="#sec:data-model-data-types">Data Model Data Types</a></li>
+<li><a href="#sec:data-model-bibliographic-references">Data Model
+Bibliographic References</a></li>
+</ul></li>
+<li><a href="#sec:outdated-corrigenda">Outdated Corrigenda</a></li>
+</ul>
+    </nav>
+<section id="sec:cover-page" class="cover-page unnumbered new-section">
+<h1 class="cover-page unnumbered">Introduction</h1>
+<ul>
+</ul>
+<p><a href="https://www.broadband-forum.org">The Broadband Forum</a>
+defines several data models for use with the <a
+href="https://usp.technology">User Services Platform (USP) (TR-069)</a>.
+These data models contain objects, parameters, commands, and events that
+describe the many different service elements that can be exposed via USP
+Agents.</p>
+<p>USP data models are divided into two types: <em>Root</em> and
+<em>Service</em>. The root data model, <em>Device</em>, is used to
+describe the major functions of network aware devices, including
+interfaces, software/firmware, diagnostics, components common to USP and
+other services, and the basic Agent information necessary to the
+operation of USP.</p>
+<p>Service data models describe modular functionality that allow the
+extension of the root data model on a device (under
+<em>Device.Services.</em>) to provide particular services, such as a
+voice service, set top box service, network attached storage, smart home
+objects, etc.</p>
+<p>Each data model is defined by a <em>Name:Version</em> syntax. The
+objects, parameters, commands, and events that a particular Agent
+supports from its implementation of the data model define what is
+reported to Controllers via the <em>GetSupportedDM</em> message.</p>
+<h2 class="unlisted auto-hoverlink" data-info="header"
+id="sec:how-do-i-use-these">How do I use these?</h2>
+<p>Use the USP data model files to define and implement what exists in
+your solution’s <em>Supported Data Model</em>. This will help
+Controllers learn what your solution is capable of. The data models will
+also describe how your solution’s <em>Instantiated Data Model</em> will
+behave during operation.</p>
+<ul>
+<li><p>View the HTML files on this page for a human-readable look at the
+data model documentation.</p></li>
+<li><p>Use the XML files in this repository when generating code and
+performing data validation.</p></li>
+</ul>
+<p>These data models are based on the Broadband Forum’s <a
+href="https://cwmp-data-models.broadband-forum.org">data models for the
+CPE WAN Management Protocol</a>, also known as “TR-069”, with a robust
+development history.</p>
+<p>The source files used to build the complete USP data model can be
+found on <a
+href="https://github.com/BroadbandForum/usp-data-models">GitHub</a>.</p>
+<p>A ZIP file containing all the latest data models can be downloaded
+from <a
+href="https://github.com/BroadbandForum/usp-data-models/archive/master.zip">here</a>.</p>
+</section>
+<section id="sec:current-data-models"
+class="auto-hoverlink new-section hidden" data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Current Data Models</h1>
+<table class="data-models">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 3%" />
+<col style="width: 50%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data Model</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">XML</th>
+<th style="text-align: left;">HTML</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"><h2 id="sec:current-device2"
+class="auto-hoverlink" data-info="header"><a href="#sec:device2"
+class="heading">Device:2</a></h2></td>
+<td rowspan="2" style="text-align: left;"><p> 2.16</p></td>
+<td rowspan="2" style="text-align: left;"><p> <span
+id="tr-181-2-16-0-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-16-0-usp-full.xml">tr-181-2-16-0-usp-full.xml</a></span></p></td>
+<td style="text-align: left;"><p><a
+href="tr-181-2-16-0-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added Device.LocalAgent.Subscription.{i}.TriggerAction parameter to
+control the notification behavior</li>
+<li>Added SecuredRoles concept to the USP-specific ControllerTrust</li>
+<li>Turned a number of “hidden” parameters into “secured” parameters to
+allow USP Controllers with a secure role to read parameter values</li>
+<li>Added a few parameters to Device.Bridging.Bridge. and sub-objects to
+allow better control over bridges and STP behavior</li>
+<li>Made unique key type (functional vs non-functional) explicit rather
+than defaulting, and fixed incorrect choices</li>
+<li>Added ability to configure exclusions from BulkData reports</li>
+<li>Added Device.DeviceInfo.HostName parameter</li>
+<li>Unified description of Interface parameters</li>
+<li>Updated status according to our deprecation policy</li>
+<li>Extended some incorrect type restrictions</li>
+<li>Fixed/unified some units and their use in the description</li>
+<li>Added SupportedLinkModes parameter to ethernet interfaces</li>
+<li>Clarified the Device.Firewall. object and added support for firewall
+features DMZ, Services, Pinholing and Policies. Also added support for
+additional classifiers</li>
+<li>Introduced Device.GatewayInfo. into USP</li>
+<li>Extended the type of a few counters from unsignedInt to
+StatsCounter64</li>
+<li>Added new IPLayerCapacityDiagnostic parameters/arguments from the
+TR-471i3 document</li>
+<li>Added UDS (Unix Domain Socket) MTP and Device.UnixDomainSockets.
+objects for internal services</li>
+<li>Added Device.Logical. sub-tree to allow for definition of logical
+network interfaces</li>
+<li>Added Device.NAT.PortTrigger.</li>
+<li>Added USP notification mechanism to Device.PeriodicStatistics.</li>
+<li>Improved PPP LCPEcho description and added LCPEchoAdaptive
+parameter</li>
+<li>Vastly extended Device.QoS. features by adding Queues, Shapers and
+Schedulers</li>
+<li>Added new parameters to Device.Routing. and sub-objects to add more
+routing features</li>
+<li>Vastly extended SMM (Software Module Management) capabilities with
+support for ApplicationData, HostObject, ExecEnvClass and
+AutoRestart</li>
+<li>Added Device.SSH. to configure an SSH service</li>
+<li>Extended Device.Time. with support for NTP client and server
+configuration</li>
+<li>Added Device.UserInterface.HTTPAccess. to allow for local UI access
+control</li>
+<li>Added USP-specific Device.LocalAgent.Monitor. object to allow for
+efficient tracking of parameter value changes</li>
+<li>Added support for Device.USPServices. to manage internal services
+via USP</li>
+<li>Added Device.XPON. to model xPON interfaces</li>
+<li>Applied cleanup for Wi-Fi objects/parameters to line up with Wi-Fi
+Alliance documents</li>
+<li>Removed activeNotify=“canDeny” attributes from some parameters</li>
+<li>Added PeriodicStatsAdv:2 and MQTTController:2 profiles</li>
+<li>Added USPServiceRef parameters to MTP referencing a service using
+it</li>
+<li>Disambiguated NTP vs. SNTP protocols</li>
+<li>Expanded/unified descriptions of parameters used for retries</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> June 2023</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://device-data-model.broadband-forum.org">Device Data
+Model</a></p>
+<p><a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-16.pdf">TR-181
+Issue 2 Amendment 16</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-16-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="4" style="text-align: left;"><h2
+id="sec:current-fapservice2" class="auto-hoverlink"
+data-info="header"><a href="#sec:fapservice2"
+class="heading">FAPService:2</a></h2></td>
+<td rowspan="4" style="text-align: left;"><p> 2.1</p></td>
+<td rowspan="2" style="text-align: left;"><p> <span
+id="tr-196-2-1-2-usp.xml" class="auto-hoverlink"><a
+href="tr-196-2-1-2-usp-full.xml">tr-196-2-1-2-usp-full.xml</a></span></p></td>
+<td style="text-align: left;"><p><a
+href="tr-196-2-1-2-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Deprecated Blacklisted parameters and replaced with Blocklisted
+parameters</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> July 2022</p></td>
+<td rowspan="4" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-196_Issue-2.pdf">TR-196
+Issue 2</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="tr-196-2-1-2-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="even">
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-196-2-1-1-usp.xml" class="auto-hoverlink"><a
+href="tr-196-2-1-1-usp-full.xml">tr-196-2-1-1-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-196-2-1-1-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> September 2019</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="tr-196-2-1-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"><h2
+id="sec:current-storageservice1" class="auto-hoverlink"
+data-info="header"><a href="#sec:storageservice1"
+class="heading">StorageService:1</a></h2></td>
+<td rowspan="2" style="text-align: left;"><p> 1.3</p></td>
+<td rowspan="2" style="text-align: left;"><p> <span
+id="tr-140-1-3-1-usp.xml" class="auto-hoverlink"><a
+href="tr-140-1-3-1-usp-full.xml">tr-140-1-3-1-usp-full.xml</a></span></p></td>
+<td style="text-align: left;"><p><a
+href="tr-140-1-3-1-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> September 2019</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-140_Amendment-3.pdf">TR-140
+Amendment 3</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-140-1-3-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="2" style="text-align: left;"><h2
+id="sec:current-stbservice1" class="auto-hoverlink"
+data-info="header"><a href="#sec:stbservice1"
+class="heading">STBService:1</a></h2></td>
+<td rowspan="2" style="text-align: left;"><p> 1.4</p></td>
+<td rowspan="2" style="text-align: left;"><p> <span
+id="tr-135-1-4-1-usp.xml" class="auto-hoverlink"><a
+href="tr-135-1-4-1-usp-full.xml">tr-135-1-4-1-usp-full.xml</a></span></p></td>
+<td style="text-align: left;"><p><a
+href="tr-135-1-4-1-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> September 2019</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-135_Amendment-3.pdf">TR-135
+Amendment 3</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="tr-135-1-4-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"><h2
+id="sec:current-voiceservice2" class="auto-hoverlink"
+data-info="header"><a href="#sec:voiceservice2"
+class="heading">VoiceService:2</a></h2></td>
+<td rowspan="2" style="text-align: left;"><p> 2.0</p></td>
+<td style="text-align: left;"><p><span id="tr-104-2-0-2-usp.xml"
+class="auto-hoverlink"><a
+href="tr-104-2-0-2-usp-full.xml">tr-104-2-0-2-usp-full.xml</a></span></p></td>
+<td style="text-align: left;"><p><a
+href="tr-104-2-0-2-usp.html"><strong>Full</strong></a></p></td>
+<td style="text-align: left;"><ul>
+<li>Clarified meaning of SessionID and added new SIPSessionID</li>
+</ul></td>
+<td style="text-align: left;"><p>January 2020</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-104_Issue-2.pdf">TR-104
+Issue 2</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="tr-104-2-0-1-usp.xml"
+class="auto-hoverlink"><a
+href="tr-104-2-0-1-usp-full.xml">tr-104-2-0-1-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-104-2-0-1-usp.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:root-data-models"
+class="auto-hoverlink new-section hidden" data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Root Data Models</h1>
+<table class="data-models">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 3%" />
+<col style="width: 50%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data Model</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">XML</th>
+<th style="text-align: left;">HTML</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="14" style="text-align: left;"><h2 id="sec:device2"
+class="auto-hoverlink" data-info="header">Device:2</h2></td>
+<td rowspan="2" style="text-align: left;"><p> 2.16</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="tr-181-2-16-0-usp-full.xml">tr-181-2-16-0-usp-full.xml</a></p></td>
+<td style="text-align: left;"><p><a
+href="tr-181-2-16-0-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added Device.LocalAgent.Subscription.{i}.TriggerAction parameter to
+control the notification behavior</li>
+<li>Added SecuredRoles concept to the USP-specific ControllerTrust</li>
+<li>Turned a number of “hidden” parameters into “secured” parameters to
+allow USP Controllers with a secure role to read parameter values</li>
+<li>Added a few parameters to Device.Bridging.Bridge. and sub-objects to
+allow better control over bridges and STP behavior</li>
+<li>Made unique key type (functional vs non-functional) explicit rather
+than defaulting, and fixed incorrect choices</li>
+<li>Added ability to configure exclusions from BulkData reports</li>
+<li>Added Device.DeviceInfo.HostName parameter</li>
+<li>Unified description of Interface parameters</li>
+<li>Updated status according to our deprecation policy</li>
+<li>Extended some incorrect type restrictions</li>
+<li>Fixed/unified some units and their use in the description</li>
+<li>Added SupportedLinkModes parameter to ethernet interfaces</li>
+<li>Clarified the Device.Firewall. object and added support for firewall
+features DMZ, Services, Pinholing and Policies. Also added support for
+additional classifiers</li>
+<li>Introduced Device.GatewayInfo. into USP</li>
+<li>Extended the type of a few counters from unsignedInt to
+StatsCounter64</li>
+<li>Added new IPLayerCapacityDiagnostic parameters/arguments from the
+TR-471i3 document</li>
+<li>Added UDS (Unix Domain Socket) MTP and Device.UnixDomainSockets.
+objects for internal services</li>
+<li>Added Device.Logical. sub-tree to allow for definition of logical
+network interfaces</li>
+<li>Added Device.NAT.PortTrigger.</li>
+<li>Added USP notification mechanism to Device.PeriodicStatistics.</li>
+<li>Improved PPP LCPEcho description and added LCPEchoAdaptive
+parameter</li>
+<li>Vastly extended Device.QoS. features by adding Queues, Shapers and
+Schedulers</li>
+<li>Added new parameters to Device.Routing. and sub-objects to add more
+routing features</li>
+<li>Vastly extended SMM (Software Module Management) capabilities with
+support for ApplicationData, HostObject, ExecEnvClass and
+AutoRestart</li>
+<li>Added Device.SSH. to configure an SSH service</li>
+<li>Extended Device.Time. with support for NTP client and server
+configuration</li>
+<li>Added Device.UserInterface.HTTPAccess. to allow for local UI access
+control</li>
+<li>Added USP-specific Device.LocalAgent.Monitor. object to allow for
+efficient tracking of parameter value changes</li>
+<li>Added support for Device.USPServices. to manage internal services
+via USP</li>
+<li>Added Device.XPON. to model xPON interfaces</li>
+<li>Applied cleanup for Wi-Fi objects/parameters to line up with Wi-Fi
+Alliance documents</li>
+<li>Removed activeNotify=“canDeny” attributes from some parameters</li>
+<li>Added PeriodicStatsAdv:2 and MQTTController:2 profiles</li>
+<li>Added USPServiceRef parameters to MTP referencing a service using
+it</li>
+<li>Disambiguated NTP vs. SNTP protocols</li>
+<li>Expanded/unified descriptions of parameters used for retries</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> June 2023</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://device-data-model.broadband-forum.org">Device Data
+Model</a></p>
+<p><a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-16.pdf">TR-181
+Issue 2 Amendment 16</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-16-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="4" style="text-align: left;"> 2.15</td>
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-15-1-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-15-1-usp-full.xml">tr-181-2-15-1-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-15-1-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Removed items that were erroneously added to the User:1 profile and
+instead added them to a new User:2 profile</li>
+<li>Fixed the BulkData Profile Parameter reference; it’s a string, not a
+formal path reference</li>
+<li>Fixed the InstallDU() command’s ExecutionEnvRef argument; it
+references an execution environment, not an execution unit</li>
+<li>Fixed the VendorConfigFile description’s CWMP/USP-specific text</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> April 2022</td>
+<td rowspan="4" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-15.pdf">TR-181
+Issue 2 Amendment 15</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-15-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-15-0-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-15-0-usp-full.xml">tr-181-2-15-0-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-15-0-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Split the XML into multiple smaller files (this is just
+housekeeping; it doesn’t affect how the model is used)</li>
+<li>Allowed USP to access the EnableCWMP parameter (so a USP Controller
+can enable/disable CWMP access)</li>
+<li>Added Device.Routing.Babel for the RFC 8966 Babel routing
+protocol</li>
+<li>Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces</li>
+<li>Added Device.Users.Group, Device.Users.Role and
+Device.Users.SupportedShell tables for modeling system users</li>
+<li>Improved the Wi-Fi data model by adding Data Elements R2 parameters,
+commands and events, moving MultiAP parameters and commands into the
+Data Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and
+TxOpMax</li>
+<li>Clarified the LockoutPeriod and Retries ControllerTrust parameters
+that impact how the RequestChallenge() and ChallengeResponse() data
+model commands handle failed attempts</li>
+<li>Clarified bulk data profile, threshold and periodic statistics USP
+Controller permissions: only the USP Controller that created the profile
+will receive the corresponding events</li>
+<li>Added a bulk data profile ForceCollection() command</li>
+<li>Added support for a new bulk data collection mechanism that utilizes
+MQTT as the transport protocol</li>
+<li>Removed old bulk data collection protocols (Streaming and File) from
+the USP data model (they don’t apply to USP)</li>
+<li>Updated the IPLayerCapacity() test to support TR-472 Issue 2</li>
+<li>Added an enumeration to indicate when a Boot! event was due to a
+factory reset</li>
+<li>Added an enumeration to distinguish encrypted and unencrypted USP
+MQTT WebSocket connections</li>
+<li>Added an Order parameter to provide guidance to USP Agents on which
+MTP to use when communicating with a Controller</li>
+<li>Clarified that Device.Optical is intended for generic optical
+interfaces and is not intended to model anything specific to IEEE or
+ITU-T PON technologies (objects specific to such technologies may be
+added in future versions of the data model)</li>
+<li>Clarified the meaning and usage of the Device.Ethernet.Interface and
+Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress
+parameter to be written)</li>
+<li>Improved (and made more consistent) the marking of (and explanation
+of) deprecated items, and how such items should progress from being
+deprecated to obsoleted to deleted</li>
+<li>Added a Baseline:4 profile that doesn’t include
+Device.LANConfigSecurity (it relates to the now-deprecated TR-064 LAN
+management protocol)</li>
+<li>Many minor improvements to object, parameter, command and event
+descriptions</li>
+<li>Replaced the non-standard dmr:version attribute with the version
+attribute (which supports three levels of version)</li>
+<li>Switched to DMR (data model report) schema v1.0, which supports
+multi-line paragraphs, and wrapped all lines to 80 characters
+maximum</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> January 2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-15-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="4" style="text-align: left;"> 2.14</td>
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-14-1-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-14-1-usp-full.xml">tr-181-2-14-1-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-14-1-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Fixed Device.LocalAgent.Subscription.{i}.ID constraints</li>
+<li>Fixed typos</li>
+</ul></td>
+<td rowspan="4" style="text-align: left;"> November 2020</td>
+<td rowspan="4" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-14.pdf">TR-181
+Issue 2 Amendment 14</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-14-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-14-0-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-14-0-usp-full.xml">tr-181-2-14-0-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-14-0-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added WWC (5G Wireline Wireless Convergence), PDU (Protocol Data
+Unit) and FWE (5G Wireline wireless Encapsulation) top-level
+objects</li>
+<li>Updated Cellular object to be applicable to 5G Residential
+Gateways</li>
+<li>Extended support for TR-471 IP-layer metrics, including new IP-layer
+capacity test</li>
+<li>Supported LAN device time-based access-control</li>
+<li>Various Wi-Fi improvements</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-14-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"> 2.13</td>
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-13-0-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-13-0-usp-full.xml">tr-181-2-13-0-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-13-0-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added support for WFA Data Elements</li>
+<li>Added support for Multi AP</li>
+<li>Added support for WPA3 and 802.11ax</li>
+<li>Added support for MQTT 5.0</li>
+<li>Added support for Packet capture diagnostics</li>
+<li>Updates for TR-369 MQTT support</li>
+<li>Added support for IoT Data model</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> September 2019</td>
+<td rowspan="2" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-13.pdf">TR-181
+Issue 2 Amendment 13</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-13-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"> 2.12</td>
+<td rowspan="2" style="text-align: left;"> <span
+id="tr-181-2-12-0-usp.xml" class="auto-hoverlink"><a
+href="tr-181-2-12-0-usp-full.xml">tr-181-2-12-0-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-181-2-12-0-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP Local agent support (TR-369)</li>
+<li>Added Firmware Image support</li>
+<li>Added Ethernet Link Aggregation Group</li>
+<li>Added additional Wi-Fi and WAN statistics</li>
+<li>Added support for Two-Way Active Measurement Protocol (TWAMP)
+reflector</li>
+<li>Added support for Layer Two Tunneling Protocol version 3
+(L2TPv3)</li>
+<li>Added support for Virtual eXtensible Local Area Network (VXLAN)
+tunnels</li>
+<li>Added support for Broadband Access Service Attributes and
+Performance Metrics measurement test framework (BASAPM)</li>
+<li>Added support for Large-Scale Measurement of Broadband Performance
+(LMAP)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> March 2018</td>
+<td rowspan="2" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-12.pdf">TR-181
+Issue 2 Amendment 12</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-181-2-12-0-usp-diffs.html">Diff</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:service-data-models"
+class="auto-hoverlink new-section hidden" data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Service Data Models</h1>
+<table class="data-models">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 3%" />
+<col style="width: 50%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data Model</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">XML</th>
+<th style="text-align: left;">HTML</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="4" style="text-align: left;"><h2 id="sec:fapservice2"
+class="auto-hoverlink" data-info="header">FAPService:2</h2></td>
+<td rowspan="4" style="text-align: left;"><p> 2.1</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="tr-196-2-1-2-usp-full.xml">tr-196-2-1-2-usp-full.xml</a></p></td>
+<td style="text-align: left;"><p><a
+href="tr-196-2-1-2-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Deprecated Blacklisted parameters and replaced with Blocklisted
+parameters</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> July 2022</p></td>
+<td rowspan="4" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-196_Issue-2.pdf">TR-196
+Issue 2</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-196-2-1-2-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"> <a
+href="tr-196-2-1-1-usp-full.xml">tr-196-2-1-1-usp-full.xml</a></td>
+<td style="text-align: left;"><a
+href="tr-196-2-1-1-usp.html"><strong>Full</strong></a></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> September 2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-196-2-1-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="2" style="text-align: left;"><h2 id="sec:storageservice1"
+class="auto-hoverlink" data-info="header">StorageService:1</h2></td>
+<td rowspan="2" style="text-align: left;"><p> 1.3</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="tr-140-1-3-1-usp-full.xml">tr-140-1-3-1-usp-full.xml</a></p></td>
+<td style="text-align: left;"><p><a
+href="tr-140-1-3-1-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> September 2019</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-140_Amendment-3.pdf">TR-140
+Amendment 3</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="tr-140-1-3-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"><h2 id="sec:stbservice1"
+class="auto-hoverlink" data-info="header">STBService:1</h2></td>
+<td rowspan="2" style="text-align: left;"><p> 1.4</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="tr-135-1-4-1-usp-full.xml">tr-135-1-4-1-usp-full.xml</a></p></td>
+<td style="text-align: left;"><p><a
+href="tr-135-1-4-1-usp.html"><strong>Full</strong></a></p></td>
+<td rowspan="2" style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> September 2019</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-135_Amendment-3.pdf">TR-135
+Amendment 3</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="tr-135-1-4-1-usp-diffs.html">Diff</a></td>
+</tr>
+<tr class="odd">
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="2" style="text-align: left;"><h2 id="sec:voiceservice2"
+class="auto-hoverlink" data-info="header">VoiceService:2</h2></td>
+<td rowspan="2" style="text-align: left;"><p> 2.0</p></td>
+<td style="text-align: left;"><p><a
+href="tr-104-2-0-2-usp-full.xml">tr-104-2-0-2-usp-full.xml</a></p></td>
+<td style="text-align: left;"><p><a
+href="tr-104-2-0-2-usp.html"><strong>Full</strong></a></p></td>
+<td style="text-align: left;"><ul>
+<li>Clarified meaning of SessionID and added new SIPSessionID</li>
+</ul></td>
+<td style="text-align: left;"><p>January 2020</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-104_Issue-2.pdf">TR-104
+Issue 2</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="tr-104-2-0-1-usp-full.xml">tr-104-2-0-1-usp-full.xml</a></td>
+<td style="text-align: left;"><a
+href="tr-104-2-0-1-usp.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Added USP support (split XML into common, CWMP and USP files)</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:schema-files" class="auto-hoverlink new-section hidden"
+data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Schema Files</h1>
+<table class="schemas">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 55%" />
+<col style="width: 9%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Document</th>
+<th style="text-align: left;">Filename</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" style="text-align: left;"><h2
+id="sec:usp-protocol-buffers-schemas" class="auto-hoverlink"
+data-info="header">USP Protocol Buffers Schemas</h2></td>
+<td style="text-align: left;"><p><a
+href="usp-record-1-3.proto">usp-record-1-3.proto</a></p></td>
+<td style="text-align: left;"><p>USP v1.3 Record Schema</p>
+<ul>
+<li>Adds UDSConnectRecord</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"><p> June 2023</p></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="https://www.broadband-forum.org/download/TR-369_Amendment-3.pdf">Release
+1.3</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="usp-msg-1-3.proto">usp-msg-1-3.proto</a></td>
+<td style="text-align: left;">USP v1.3 Message Schema
+<ul>
+<li>Adds Register and Deregister messages</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="usp-record-1-2.proto">usp-record-1-2.proto</a></td>
+<td style="text-align: left;">USP v1.2 Record Schema
+<ul>
+<li>Added Connect and Disconnect Record Types</li>
+</ul></td>
+<td rowspan="2" style="text-align: left;"> January 2022</td>
+<td rowspan="2" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-369_Amendment-2.pdf">Release
+1.2</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="usp-msg-1-2.proto">usp-msg-1-2.proto</a></td>
+<td style="text-align: left;">USP v1.2 Message Schema
+<ul>
+<li>Added max_depth as a new input argument to the Get message</li>
+<li>Enhanced the GetSupportedDM response to allow return of parameter
+types, parameters that will be ignored for value change notifications,
+divergent object paths, and command types</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="usp-record-1-1.proto">usp-record-1-1.proto</a></td>
+<td style="text-align: left;">USP v1.1 Record Schema (no changes from
+v1.0)</td>
+<td rowspan="2" style="text-align: left;"> October 2019</td>
+<td rowspan="2" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-369_Amendment-1.pdf">Release
+1.1</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="usp-msg-1-1.proto">usp-msg-1-1.proto</a></td>
+<td style="text-align: left;">USP v1.1 Message Schema (no changes from
+v1.0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="usp-record-1-0.proto">usp-record-1-0.proto</a></td>
+<td style="text-align: left;">USP v1.0 Record Schema</td>
+<td rowspan="2" style="text-align: left;"> April 2018</td>
+<td rowspan="2" style="text-align: left;"> <a
+href="https://www.broadband-forum.org/download/TR-369_Issue-1.pdf">Release
+1.0</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="usp-msg-1-0.proto">usp-msg-1-0.proto</a></td>
+<td style="text-align: left;">USP v1.0 Message Schema</td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="4" style="text-align: left;"><h2
+id="sec:device-type-schema-dt-schema" class="auto-hoverlink"
+data-info="header">Device Type Schema (DT Schema)</h2></td>
+<td style="text-align: left;"><p><a
+href="cwmp-devicetype-1-10.xsd">cwmp-devicetype-1-10.xsd</a></p></td>
+<td style="text-align: left;"><ul>
+<li>Updated to reference latest published DM Schema version (v1.10)</li>
+<li>Note that the DT Schema is v1.10 to match the DM Schema (DT Schema
+v1.7, v1.8 and v1.9 were skipped)</li>
+</ul></td>
+<td style="text-align: left;"><p>June 2023</p></td>
+<td style="text-align: left;"><p><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-12.pdf">TR-106
+Amendment 12</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cwmp-devicetype-1-6.xsd">cwmp-devicetype-1-6.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Updated to reference latest published DM Schema version (v1.9)</li>
+</ul></td>
+<td style="text-align: left;">January 2022</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-11.pdf">TR-106
+Amendment 11</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cwmp-devicetype-1-5.xsd">cwmp-devicetype-1-5.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Updated to reference latest published DM Schema version (v1.8)</li>
+<li>Supported event and command structures in device type files</li>
+</ul></td>
+<td style="text-align: left;">November 2020</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-10.pdf">TR-106
+Amendment 10</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cwmp-devicetype-1-4.xsd">cwmp-devicetype-1-4.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Schema updates; document not updated</li>
+<li>Updated to reference latest published DM Schema version (v1.7)</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+<td style="text-align: left;">TR-106 Amendment 9</td>
+</tr>
+<tr class="even">
+<td colspan="5" style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td rowspan="2" style="text-align: left;"><h2
+id="sec:data-model-report-schema-dmr-schema" class="auto-hoverlink"
+data-info="header">Data Model Report Schema (DMR Schema)</h2></td>
+<td rowspan="2" style="text-align: left;"><p> <a
+href="cwmp-datamodel-report-1-0.xsd">cwmp-datamodel-report-1-0.xsd</a></p></td>
+<td style="text-align: left;"><ul>
+<li>Added <em>noUnitsTemplate</em> to suppress “missing
+<em>{{units}}</em> template” warnings</li>
+<li>Added <em>previousCommand</em> and <em>previousEvent</em>
+attributes</li>
+</ul></td>
+<td style="text-align: left;"><p>June 2023</p></td>
+<td style="text-align: left;"><p><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-12.pdf">TR-106
+Amendment 12</a></p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><ul>
+<li>Changed version number to <em>1-0</em>, which indicates new
+markdown-friendly wrapped descriptions</li>
+<li>Added <em>customNumEntriesParameter</em>,
+<em>noDiscriminatorParameter</em> and <em>noUnionObject</em> to suppress
+various warnings</li>
+</ul></td>
+<td style="text-align: left;">January 2022</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-11.pdf">TR-106
+Amendment 11</a></td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td rowspan="5" style="text-align: left;"><h2
+id="sec:dm-data-model-definition-schema-dm-schema"
+class="auto-hoverlink" data-info="header">DM Data Model Definition
+Schema (DM Schema)</h2></td>
+<td style="text-align: left;"><p><a
+href="cwmp-datamodel-1-10.xsd">cwmp-datamodel-1-10.xsd</a></p></td>
+<td style="text-align: left;"><ul>
+<li>Supported XSD v1.1, which allows more rigorous validation, e.g., use
+of appropriate attributes when creating and modifying items</li>
+<li>Added defaults for various attributes, e.g. <em>access</em>,
+<em>minEntries</em> and <em>maxEntries</em> default to
+<em>readOnly</em>, <em>1</em> and <em>1</em> respectively</li>
+<li>Deprecated the <em>mountType</em> attribute’s <em>none</em> and
+<em>mountable</em> values, because mountable objects are now determined
+automatically</li>
+<li>Made the <em>uniqueKey/functional</em> and the
+<em>command/async</em> attributes mandatory</li>
+<li>Relaxed rules governing the order of top-level elements such as
+<em>import</em>, <em>dataType</em> and <em>component</em>; they can now
+occur in any order</li>
+<li>Tightened up the use of <em>dmr:</em> attributes, which can now only
+be used on elements where they make sense</li>
+<li>Fixed a few bugs, e.g., added a <em>template</em> element uniqueness
+check</li>
+</ul></td>
+<td style="text-align: left;"><p>June 2023</p></td>
+<td style="text-align: left;"><p><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-12.pdf">TR-106
+Amendment 12</a></p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cwmp-datamodel-1-9.xsd">cwmp-datamodel-1-9.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Allowed the <em>version</em> attribute in component references</li>
+<li>Allowed <em>minEntries</em> and <em>maxEntries</em> in command and
+event argument objects</li>
+<li>Allowed <em>status</em> attribute in profile command/event
+arguments</li>
+<li>Added <em>secured</em> attribute</li>
+</ul></td>
+<td style="text-align: left;">January 2022</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-11.pdf">TR-106
+Amendment 11</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cwmp-datamodel-1-8.xsd">cwmp-datamodel-1-8.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Allowed command attributes, e.g. mandatory, in component
+definitions</li>
+</ul></td>
+<td style="text-align: left;">November 2020</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-10.pdf">TR-106
+Amendment 10</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cwmp-datamodel-1-7.xsd">cwmp-datamodel-1-7.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Schema updates; document not updated</li>
+<li>Supported implementation defaults, version attribute, description
+templates, writeOnceReadOnly access type and the decimal datatype</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+<td style="text-align: left;">TR-106 Amendment 9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cwmp-datamodel-1-6.xsd">cwmp-datamodel-1-6.xsd</a></td>
+<td style="text-align: left;"><ul>
+<li>Supported USP commands, events and mount points</li>
+</ul></td>
+<td style="text-align: left;">May 2018</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-8.pdf">TR-106
+Amendment 8</a></td>
+</tr>
+<tr class="odd">
+<td colspan="5" style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><h2 id="sec:xml-catalog"
+class="auto-hoverlink" data-info="header"><a
+href="https://en.wikipedia.org/wiki/XML_catalog">XML
+Catalog</a></h2></td>
+<td style="text-align: left;"><a href="catalog.xml">catalog.xml</a></td>
+<td style="text-align: left;"><ul>
+<li>Original</li>
+</ul></td>
+<td style="text-align: left;">May 2018</td>
+<td style="text-align: left;"><a
+href="https://www.broadband-forum.org/download/TR-106_Amendment-8.pdf">TR-106
+Amendment 8</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:support-files"
+class="auto-hoverlink new-section hidden" data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Support Files</h1>
+<table class="support-files">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 68%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Document</th>
+<th style="text-align: left;">XML</th>
+<th style="text-align: left;">HTML</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><h2 id="sec:data-model-data-types"
+class="auto-hoverlink" data-info="header">Data Model Data
+Types</h2></td>
+<td style="text-align: left;"><a
+href="tr-106-types.xml">tr-106-types.xml</a></td>
+<td style="text-align: left;"><a
+href="tr-106-types.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Schema updates; document not updated</li>
+<li>Added datatypes from versioned files</li>
+<li>Added CWMP and USP versions of the Alias datatype</li>
+<li>Added URI, URL and URL datatypes</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+</tr>
+<tr class="even">
+<td colspan="5" style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><h2
+id="sec:data-model-bibliographic-references" class="auto-hoverlink"
+data-info="header">Data Model Bibliographic References</h2></td>
+<td style="text-align: left;"><a
+href="tr-069-biblio.xml">tr-069-biblio.xml</a></td>
+<td style="text-align: left;"><a
+href="tr-069-biblio.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Schema updates; document not updated</li>
+<li>Added references from versioned files (grouped by category and
+sorted within category)</li>
+<li>Updated references for convention that “TR-nnn” means the latest
+Amendment and Corrigendum</li>
+<li>Added references in support of Device:2.13 DM Instances</li>
+<li>Added references for 3GPP 5G standards in support of Device:2.14 DM
+Instances</li>
+</ul></td>
+<td style="text-align: left;">September 2019</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec:outdated-corrigenda"
+class="auto-hoverlink new-section hidden" data-info="header">
+<h1 class="auto-hoverlink" data-info="header">Outdated Corrigenda</h1>
+<p><strong>TBD</strong></p>
+</section>
+    <div style="clear: both;"></div>
+    <footer class="site-footer">
+      <span class="site-footer-owner">
+        USP is developed and maintained
+        by <a href="https://www.broadband-forum.org">The Broadband Forum</a>.
+        &copy; The Broadband Forum 2023</a>. All Rights Reserved.
+      </span>
+      <span class="site-footer-credits">
+        This page was generated by <a href="https://pandoc.org">pandoc</a>
+        and <a href="https://pages.github.com">GitHub Pages</a>.
+        View the <a href="https://github.com/BroadbandForum/usp-data-models">specification
+source on GitHub</a>.
+        <span class="release"></span>
+      </span>
+    </footer>
+  </section>
+</body>
 </html>

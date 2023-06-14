@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Device:2 Root Data Model: USP only Object definitions [GatewayInfo]
+
+  Copyright (c) 2021-2022, Broadband Forum
+
+  Redistribution and use in source and binary forms, with or
+  without modification, are permitted provided that the following
+  conditions are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials
+     provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products
+     derived from this software without specific prior written
+     permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  The above license is used as a license under copyright only.
+  Please reference the Forum IPR Policy for patent licensing terms
+  <https://www.broadband-forum.org/ipr-policy>.
+
+  Any moral rights which are necessary to exercise under the above
+  license grant are also deemed granted under this license.
+
+  Comments or questions about this Broadband Forum data model should be
+  directed to <info@broadband-forum.org>.
+-->
+
+<dm:document
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-10"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      urn:broadband-forum-org:cwmp:datamodel-1-10
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-10.xsd
+      urn:broadband-forum-org:cwmp:datamodel-report-1-0
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+    spec="urn:broadband-forum-org:tr-181-2-16-0-gatewayinfo"
+    file="tr-181-2-16-0-gatewayinfo.xml">
+
+  <import file="tr-069-biblio.xml" spec="urn:broadband-forum-org:tr-069"/>
+
+  <import file="tr-106-types.xml" spec="urn:broadband-forum-org:tr-106">
+    <dataType name="Alias" ref="_AliasCommon"/>
+    <dataType name="IPAddress"/>
+  </import>
+
+  <import file="tr-181-2-root.xml"
+      spec="urn:broadband-forum-org:tr-181-2-16-root">
+    <component name="Root"/>
+  </import>
+
+  <component name="GatewayInfo">
+    <object name="Device.GatewayInfo." access="readOnly" minEntries="1"
+        maxEntries="1" version="2.16">
+      <description>
+        This object contains information associated with a connected gateway.
+      </description>
+
+      <event name="UnknownGatewayDiscovered!" version="2.16">
+        <description>
+          Gateway discovery event indicating that the device discovered a gateway that is not compliant with CWMP or USP.
+          This event MAY be sent when the parameters are populated after a reboot or when the {{object}} has been updated.
+        </description>
+
+        <parameter name="MACAddress">
+          <description>
+            MAC Address of the discovered device.
+          </description>
+          <syntax>
+            <dataType ref="MACAddress"/>
+          </syntax>
+        </parameter>
+      </event>
+
+      <event name="USPGatewayDiscovered!" version="2.16">
+        <description>
+          Gateway discovery event indicating that the device discovered a
+          compliant USP-enabled gateway. This event MAY be sent when the
+          parameters are populated after a reboot or when the {{object}} has
+          been updated.
+        </description>
+
+        <parameter name="EndpointID">
+          <description>
+            The unique USP identifier for this USP Agent.
+          </description>
+          <syntax>
+            <string/>
+          </syntax>
+        </parameter>
+      </event>
+
+      <event name="CWMPGatewayDiscovered!" version="2.16">
+        <description>
+          Gateway discovery event indicating that the device discovered a
+          compliant CWMP-enabled gateway. This event MAY be sent when the
+          parameters are populated after a reboot or when the {{object}} has
+          been updated.
+        </description>
+
+        <parameter name="ManufacturerOUI">
+          <description>
+            Organizationally unique identifier of the associated gateway.
+            {{pattern}}
+
+            {{empty}} indicates that there is no associated gateway that has
+            been detected.
+          </description>
+          <syntax>
+            <string>
+              <size maxLength="6"/>
+              <pattern value=""/>
+              <pattern value="[0-9A-F]{6}"/>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="ProductClass">
+          <description>
+            Identifier of the product class of the associated gateway.
+            {{empty}} indicates either that there is no associated gateway that
+            has been detected, or the gateway does not support the use of the
+            product-class parameter.
+          </description>
+          <syntax>
+            <string>
+              <size maxLength="64"/>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="SerialNumber">
+          <description>
+            Serial number of the associated gateway. {{empty}} indicates that
+            there is no associated gateway that has been detected.
+          </description>
+          <syntax>
+            <string>
+              <size maxLength="64"/>
+            </string>
+          </syntax>
+        </parameter>
+      </event>
+
+      <parameter name="ManagementProtocol" access="readOnly" version="2.16">
+        <description>
+          Specifies the management protocol used by the gateway.
+        </description>
+        <syntax>
+          <string>
+            <enumeration value="">
+              <description>
+                {{empty}}, in the case that the {{param}} is still being
+                determined or that the DHCP is being renewed and clears the
+                contents of {{object}}.
+              </description>
+            </enumeration>
+            <enumeration value="CWMP">
+              <description>
+                Gateway was discovered through the DHCP options, and no USP
+                related DNS-SRV details were found.
+              </description>
+            </enumeration>
+            <enumeration value="USP">
+              <description>
+                Gateway was discovered through the USP related DNS-SRV details.
+              </description>
+            </enumeration>
+            <enumeration value="Unknown">
+              <description>
+                Unable to determine the management protocol type.
+              </description>
+            </enumeration>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="EndpointID" access="readOnly" version="2.16">
+        <description>
+          The unique USP identifier for this USP Agent.
+        </description>
+        <syntax>
+          <string/>
+        </syntax>
+      </parameter>
+
+      <parameter name="MACAddress" access="readOnly" version="2.16">
+        <description>
+          MAC address of the discovered device.
+        </description>
+        <syntax>
+          <dataType ref="MACAddress"/>
+        </syntax>
+      </parameter>
+
+      <parameter name="ManufacturerOUI" access="readOnly">
+        <description>
+          Organizationally unique identifier of the associated gateway.
+          {{pattern}}
+
+          {{empty}} indicates that there is no associated gateway that has been
+          detected.
+        </description>
+        <syntax>
+          <string>
+            <size maxLength="6"/>
+            <pattern value=""/>
+            <pattern value="[0-9A-F]{6}"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="ProductClass" access="readOnly">
+        <description>
+          Identifier of the product class of the associated gateway. {{empty}}
+          indicates either that there is no associated gateway that has been
+          detected, or the gateway does not support the use of the
+          product-class parameter.
+        </description>
+        <syntax>
+          <string>
+            <size maxLength="64"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="SerialNumber" access="readOnly">
+        <description>
+          Serial number of the associated gateway. {{empty}} indicates that
+          there is no associated gateway that has been detected.
+        </description>
+        <syntax>
+          <string>
+            <size maxLength="64"/>
+          </string>
+        </syntax>
+      </parameter>
+    </object>
+
+    <profile name="GatewayInfo:1" version="2.16">
+      <object ref="Device.GatewayInfo." requirement="present">
+        <parameter ref="ManufacturerOUI" requirement="readOnly"/>
+        <parameter ref="ProductClass" requirement="readOnly"/>
+        <parameter ref="SerialNumber" requirement="readOnly"/>
+        <parameter ref="EndpointID" requirement="readOnly"/>
+        <parameter ref="ManagementProtocol" requirement="readOnly"/>
+      </object>
+    </profile>
+  </component>
+
+  <model name="GatewayInfo:2.16">
+    <component ref="Root"/>
+    <component ref="GatewayInfo"/>
+  </model>
+</dm:document>

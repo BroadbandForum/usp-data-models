@@ -1,175 +1,320 @@
-# USP Data Models Change Log
+<!-- do not edit! this file was created from PROJECT.yaml by project-parser.py -->
 
-*The latest [User Services Platform (USP)](https://usp.technology) data models can be found at <https://usp-data-models.broadband-forum.org>.*
+# Broadband Forum User Services Platform (USP) Data Models Change Log
 
-## 2022-07-19: [TR-196 Issue 2 Amendment 1 Corrigendum 2](https://usp-data-models.broadband-forum.org/#FAPService:2)
+The latest [User Services Platform (USP)](https://usp.technology)
+data models can be found at <https://usp-data-models.broadband-forum.org>.
 
-*Tag: [v1.2.2](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.2)*
+## 2023-06-14: [TR-369 Amendment 3], [TR-106 Amendment 12] and [TR-181 Issue 2 Amendment 16]
 
-TR-196
+*Tags: [v1.3.0] (data models), 
+       [v1.3.0][TR-369-v1.3.0] (USP specification), 
+       [v1.12.0][TR-106-v1.12.0] (TR-106), 
+       [v2.16.0][TR-181-v2.16.0] (TR-181)*
 
+### TR-181
+* Added Device.LocalAgent.Subscription.{i}.TriggerAction parameter to
+  control the notification behavior
+* Added SecuredRoles concept to the USP-specific ControllerTrust
+* Turned a number of "hidden" parameters into "secured" parameters to
+  allow USP Controllers with a secure role to read parameter values
+* Added a few parameters to Device.Bridging.Bridge. and sub-objects to
+  allow better control over bridges and STP behavior
+* Made unique key type (functional vs non-functional) explicit rather
+  than defaulting, and fixed incorrect choices
+* Added ability to configure exclusions from BulkData reports
+* Added Device.DeviceInfo.HostName parameter
+* Unified description of Interface parameters
+* Updated status according to our deprecation policy
+* Extended some incorrect type restrictions
+* Fixed/unified some units and their use in the description
+* Added SupportedLinkModes parameter to ethernet interfaces
+* Clarified the Device.Firewall. object and added support for
+  firewall features DMZ, Services, Pinholing and Policies. Also added
+  support for additional classifiers
+* Introduced Device.GatewayInfo. into USP
+* Extended the type of a few counters from unsignedInt to StatsCounter64
+* Added new IPLayerCapacityDiagnostic parameters/arguments from the
+  TR-471i3 document
+* Added UDS (Unix Domain Socket) MTP and Device.UnixDomainSockets. objects
+  for internal services
+* Added Device.Logical. sub-tree to allow for definition of logical network
+  interfaces
+* Added Device.NAT.PortTrigger.
+* Added USP notification mechanism to Device.PeriodicStatistics.
+* Improved PPP LCPEcho description and added LCPEchoAdaptive parameter
+* Vastly extended Device.QoS. features by adding Queues, Shapers and Schedulers
+* Added new parameters to Device.Routing. and sub-objects to add more routing
+  features
+* Vastly extended SMM (Software Module Management) capabilities with support for
+  ApplicationData, HostObject, ExecEnvClass and AutoRestart
+* Added Device.SSH. to configure an SSH service
+* Extended Device.Time. with support for NTP client and server configuration
+* Added Device.UserInterface.HTTPAccess. to allow for local UI access control
+* Added USP-specific Device.LocalAgent.Monitor. object to allow for efficient
+  tracking of parameter value changes
+* Added support for Device.USPServices. to manage internal services via USP
+* Added Device.XPON. to model xPON interfaces
+* Applied cleanup for Wi-Fi objects/parameters to line up with Wi-Fi Alliance
+  documents
+* Removed activeNotify="canDeny" attributes from some parameters
+* Added PeriodicStatsAdv:2 and MQTTController:2 profiles
+* Added USPServiceRef parameters to MTP referencing a service using it
+* Disambiguated NTP vs. SNTP protocols
+* Expanded/unified descriptions of parameters used for retries
+
+## 2022-07-19: TR-196 Issue 2 Amendment 1 Corrigendum 2
+
+*Tags: [v1.2.2] (data models), 
+       [v1.2.0][TR-369-v1.2.0] (USP specification didn't change), 
+       [v1.11.0][TR-106-v1.11.0] (TR-106 didn't change), 
+       [v2.15.1][TR-181-v2.15.1] (TR-181 didn't change)*
+
+### TR-196
 * Deprecated Blacklisted parameters and replaced with Blocklisted
   parameters
 
-## 2022-04-06: [TR-181 Issue 2 Amendment 15 Corrigendum 1](https://usp-data-models.broadband-forum.org/#Device:2.15)
+## 2022-04-06: TR-181 Issue 2 Amendment 15 Corrigendum 1
 
-*Tag: [v1.2.1](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.1)*
+*Tags: [v1.2.1] (data models), 
+       [v1.2.0][TR-369-v1.2.0] (USP specification didn't change), 
+       [v1.11.0][TR-106-v1.11.0] (TR-106 didn't change), 
+       [v2.15.1][TR-181-v2.15.1] (TR-181)*
 
-TR-181
-
-* Removed items that were erroneously added to the User:1 profile and instead
-  added them to a new User:2 profile
-* Fixed the BulkData Profile Parameter reference; it's a string, not a formal
-  path reference
-* Fixed the InstallDU() command's ExecutionEnvRef argument; it references an
-  execution environment, not an execution unit
+### TR-181
+* Removed items that were erroneously added to the User:1 profile and
+  instead added them to a new User:2 profile
+* Fixed the BulkData Profile Parameter reference; it's a string, not a
+  formal path reference
+* Fixed the InstallDU() command's ExecutionEnvRef argument; it
+  references an execution environment, not an execution unit
 * Fixed the VendorConfigFile description's CWMP/USP-specific text
 
-## 2022-01-27: [TR-369 Amendment 2](https://usp.technology), [TR-106 Amendment 11](https://data-model-template.broadband-forum.org) and [TR-181 Issue 2 Amendment 15](https://usp-data-models.broadband-forum.org/#Device:2.15)
+## 2022-01-27: [TR-369 Amendment 2], [TR-106 Amendment 11] and [TR-181 Issue 2 Amendment 15]
 
-*Tag: [v1.2.0](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.0)*
+*Tags: [v1.2.0] (data models), 
+       [v1.2.0][TR-369-v1.2.0] (USP specification), 
+       [v1.11.0][TR-106-v1.11.0] (TR-106), 
+       [v2.15.0][TR-181-v2.15.0] (TR-181)*
 
-TR-106
+### TR-106
+* Allowed the *version* attribute in component references
+* Allowed *minEntries* and *maxEntries* in command and event
+  argument objects
+* Allowed *status* attribute in profile command/event arguments
+* Added *secured* attribute
 
-* Allowed the version attribute in component references
-* Allowed minEntries and maxEntries in command and event argument objects
-* Allowed status attribute in profile command/event arguments
-* Added secured attribute
-
-TR-181
-
-* Split the XML into multiple smaller files (this is just housekeeping; it
-  doesn't affect how the model is used)
-* Allowed USP to access the EnableCWMP parameter (so a USP Controller can
-  enable/disable CWMP access)
-* Added Device.Routing.Babel for the RFC 8966 Babel routing protocol
+### TR-181
+* Split the XML into multiple smaller files (this is just
+  housekeeping; it doesn't affect how the model is used)
+* Allowed USP to access the EnableCWMP parameter (so a USP
+  Controller can enable/disable CWMP access)
+* Added Device.Routing.Babel for the RFC 8966 Babel routing
+  protocol
 * Added Device.DOCSIS for modeling DOCSIS 3.0 and 3.1 interfaces
-* Added Device.Users.Group, Device.Users.Role and Device.Users.SupportedShell
-  tables for modeling system users
-* Improved the Wi-Fi data model by adding Data Elements R2 parameters,
-  commands and events, moving MultiAP parameters and commands into the Data
-  Elements structure, and by deprecating AIFSN, ECWMin, ECWMax and TxOpMax
-* Clarified the LockoutPeriod and Retries ControllerTrust parameters that
-  impact how the RequestChallenge() and ChallengeResponse() data model
-  commands handle failed attempts
+* Added Device.Users.Group, Device.Users.Role and
+  Device.Users.SupportedShell tables for modeling system users
+* Improved the Wi-Fi data model by adding Data Elements R2
+  parameters, commands and events, moving MultiAP parameters and
+  commands into the Data Elements structure, and by deprecating
+  AIFSN, ECWMin, ECWMax and TxOpMax
+* Clarified the LockoutPeriod and Retries ControllerTrust
+  parameters that impact how the RequestChallenge() and
+  ChallengeResponse() data model commands handle failed attempts
 * Clarified bulk data profile, threshold and periodic statistics USP
-  Controller permissions: only the USP Controller that created the profile
-  will receive the corresponding events
+  Controller permissions: only the USP Controller that created the
+  profile will receive the corresponding events
 * Added a bulk data profile ForceCollection() command
-* Added support for a new bulk data collection mechanism that utilizes MQTT
-  as the transport protocol
-* Removed old bulk data collection protocols (Streaming and File) from the USP
-  data model (they don't apply to USP)
+* Added support for a new bulk data collection mechanism that
+  utilizes MQTT as the transport protocol
+* Removed old bulk data collection protocols (Streaming and File)
+  from the USP data model (they don't apply to USP)
 * Updated the IPLayerCapacity() test to support TR-472 Issue 2
-* Added an enumeration to indicate when a Boot! event was due to a factory
-  reset
-* Added an enumeration to distinguish encrypted and unencrypted USP MQTT
-  WebSocket connections
-* Added an Order parameter to provide guidance to USP Agents on which MTP to
-  use when communicating with a Controller
-* Clarified that Device.Optical is intended for generic optical interfaces
-  and is not intended to model anything specific to IEEE or ITU-T PON
-  technologies (objects specific to such technologies may be added in future
-  versions of the data model)
-* Clarified the meaning and usage of the Device.Ethernet.Interface and
-  Device.Ethernet.Link objects (also allowed the Ethernet Link MACAddress
-  parameter to be written)
-* Improved (and made more consistent) the marking of (and explanation of)
-  deprecated items, and how such items should progress from being deprecated
-  to obsoleted to deleted
-* Added a Baseline:4 profile that doesn't include Device.LANConfigSecurity
-  (it relates to the now-deprecated TR-064 LAN management protocol)
-* Many minor improvements to object, parameter, command and event descriptions
-* Replaced the non-standard dmr:version attribute with the version attribute
-  (which supports three levels of version)
-* Switched to DMR (data model report) schema v1.0, which supports multi-line
-  paragraphs, and wrapped all lines to 80 characters maximum
+* Added an enumeration to indicate when a Boot! event was due to a
+  factory reset
+* Added an enumeration to distinguish encrypted and unencrypted
+  USP MQTT WebSocket connections
+* Added an Order parameter to provide guidance to USP Agents on
+  which MTP to use when communicating with a Controller
+* Clarified that Device.Optical is intended for generic optical
+  interfaces and is not intended to model anything specific to
+  IEEE or ITU-T PON technologies (objects specific to such
+  technologies may be added in future versions of the data model)
+* Clarified the meaning and usage of the Device.Ethernet.Interface
+  and Device.Ethernet.Link objects (also allowed the Ethernet
+  Link MACAddress parameter to be written)
+* Improved (and made more consistent) the marking of (and
+  explanation of) deprecated items, and how such items should
+  progress from being deprecated to obsoleted to deleted
+* Added a Baseline:4 profile that doesn't include
+  Device.LANConfigSecurity (it relates to the now-deprecated
+  TR-064 LAN management protocol)
+* Many minor improvements to object, parameter, command and event
+  descriptions
+* Replaced the non-standard dmr:version attribute with the version
+  attribute (which supports three levels of version)
+* Switched to DMR (data model report) schema v1.0, which supports
+  multi-line paragraphs, and wrapped all lines to 80 characters
+  maximum
 
-## 2020-11-17: [TR-181 Issue 2 Amendment 14 Corrigendum 1](https://usp-data-models.broadband-forum.org/#Device:2.14)
+## 2020-11-17: TR-181 Issue 2 Amendment 14 Corrigendum 1
 
-*Tag: [v1.1.4](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.4)*
+*Tags: [v1.1.4] (data models), 
+       [v1.1.2][TR-369-v1.1.2] (USP specification didn't change), 
+       [v1.10.0][TR-106-v1.10.0] (TR-106 didn't change), 
+       [v2.14.1][TR-181-v2.14.1] (TR-181)*
 
-TR-181
-
+### TR-181
 * Fixed Device.LocalAgent.Subscription.{i}.ID constraints
-* Removed duplicate remarks about CWMP BOOTSTRAP from descriptions
 * Fixed typos
 
-## 2020-11-05: [TR-106 Amendment 10](https://data-model-template.broadband-forum.org) and [TR-181 Issue 2 Amendment 14](https://usp-data-models.broadband-forum.org/#Device:2.14)
+## 2020-11-05: [TR-106 Amendment 10] and [TR-181 Issue 2 Amendment 14]
 
-*Tag: [v1.1.3](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.3)*
+*Tags: [v1.1.3] (data models), 
+       [v1.1.2][TR-369-v1.1.2] (USP specification didn't change), 
+       [v1.10.0][TR-106-v1.10.0] (TR-106), 
+       [v2.14.0][TR-181-v2.14.0] (TR-181)*
 
-TR-106
+### TR-106
+* Allowed command attributes, e.g. mandatory, in component
+  definitions
 
-* Converted document to markdown
-* Various editorial improvements
-
-TR-181
-
-* Added WWC (5G Wireline Wireless Convergence), PDU (Protocol Data Unit) and FWE (5G Wireline wireless Encapsulation) top-level objects
+### TR-181
+* Added WWC (5G Wireline Wireless Convergence), PDU (Protocol Data
+  Unit) and FWE (5G Wireline wireless Encapsulation) top-level objects
 * Updated Cellular object to be applicable to 5G Residential Gateways
-* Extended support for TR-471 IP-layer metrics, including new IP-layer capacity test
+* Extended support for TR-471 IP-layer metrics, including new IP-layer
+  capacity test
 * Supported LAN device time-based access-control
 * Various Wi-Fi improvements
 
-## 2020-06-30: [TR-369 Amendment 1 Corrigendum 2](https://usp.technology)
+## 2020-06-30: TR-369 Amendment 1 Corrigendum 2
 
-*Tag: [v1.1.2](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.2)*
+*Tags: [v1.1.2] (data models), 
+       [v1.1.2][TR-369-v1.1.2] (USP specification), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.13.0][TR-181-v2.13.0] (TR-181 didn't change)*
 
 * No changes to data models
 
-## 2020-04-06: [TR-369 Amendment 1 Corrigendum 1](https://usp.technology)
+## 2020-04-06: No specification or data model changes
 
-*Tag: [v1.1.1](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.1)*
+*Tags: [v1.1.1] (data models), 
+       [v1.1.0][TR-369-v1.1.0] (USP specification didn't change), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.13.0][TR-181-v2.13.0] (TR-181 didn't change)*
 
-* Regenerated HTML using new [report.pl#425](https://github.com/BroadbandForum/cwmp-xml-tools/releases/tag/report.pl%23425) version of the BBF report tool
+* Regenerated HTML using new [report.pl#425](https://github.com/BroadbandForum/cwmp-xml-tools/releases/tag/report.pl%23425) version
+  of the BBF report tool
 
-## 2020-01-17: [TR-104 Issue 2 Corrigendum 2](https://usp-data-models.broadband-forum.org/#VoiceService:2)
+## 2020-01-17: TR-104 Issue 2 Corrigendum 2
 
-*Tag: [v1.1.0c1](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.0c1)*
+*Tags: [v1.1.0c1] (data models), 
+       [v1.1.0][TR-369-v1.1.0] (USP specification didn't change), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.13.0][TR-181-v2.13.0] (TR-181 didn't change)*
 
-TR-104
-
+### TR-104
 * Clarified meaning of SessionID and added new SIPSessionID
 
-## 2019-09-05: [TR-369 Amendment 1](https://usp.technology) and [TR-181 Issue 2 Amendment 13](https://usp-data-models.broadband-forum.org/#Device:2.13)
+## 2019-09-05: [TR-369 Amendment 1] and [TR-181 Issue 2 Amendment 13]
 
-*Tag: [v1.1.0](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.0)*
+*Tags: [v1.1.0] (data models), 
+       [v1.1.0][TR-369-v1.1.0] (USP specification), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.13.0][TR-181-v2.13.0] (TR-181)*
 
-TR-181
-
+### TR-181
 * Added support for WFA Data Elements
 * Added support for Multi AP
 * Added support for WPA3 and 802.11ax
 * Added support for MQTT 5.0
-* Added support for Package capture diagnostics
+* Added support for Packet capture diagnostics
 * Updates for TR-369 MQTT support
 * Added support for IoT Data model
 
-## 2018-11-01: [TR-369 Corrigendum 2](https://usp.technology)
+## 2018-11-01: [TR-369 Corrigendum 2]
 
-*Tag: [v1.0.2](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.2)*
-
-* No changes to data models
-
-## 2018-08-02: [TR-369 Corrigendum 1](https://usp.technology)
-
-*Tag: [v1.0.1](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.1)*
+*Tags: [v1.0.2] (data models), 
+       [v1.0.2][TR-369-v1.0.2] (USP specification), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.12.0][TR-181-v2.12.0] (TR-181 didn't change)*
 
 * No changes to data models
 
-## 2018-04-17: [TR-369](https://usp.technology) and [TR-181 Issue 2 Amendment 12](https://usp-data-models.broadband-forum.org/#Device:2.12)
+## 2018-08-02: [TR-369 Corrigendum 1]
 
-*Tag: [v1.0.0](https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.0)*
+*Tags: [v1.0.1] (data models), 
+       [v1.0.1][TR-369-v1.0.1] (USP specification), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106 didn't change), 
+       [v2.12.0][TR-181-v2.12.0] (TR-181 didn't change)*
 
-TR-181
+* No changes to data models
 
+## 2018-03-16: [TR-369 Issue 1] and [TR-181 Issue 2 Amendment 12]
+
+*Tags: [v1.0.0] (data models), 
+       [v1.0.0][TR-369-v1.0.0] (USP specification), 
+       [v1.8.0][TR-106-v1.8.0] (TR-106), 
+       [v2.12.0][TR-181-v2.12.0] (TR-181)*
+
+### TR-181
 * Added USP Local agent support (TR-369)
 * Added Firmware Image support
 * Added Ethernet Link Aggregation Group
 * Added additional Wi-Fi and WAN statistics
-* Added support for Two-Way Active Measurement Protocol (TWAMP) reflector
+* Added support for Two-Way Active Measurement Protocol (TWAMP)
+  reflector
 * Added support for Layer Two Tunneling Protocol version 3 (L2TPv3)
-* Added support for Virtual eXtensible Local Area Network (VXLAN) tunnels
-* Added support for Broadband Access Service Attributes and Performance Metrics measurement test framework (BASAPM)
-* Added support for Large-Scale Measurement of Broadband Performance (LMAP)
+* Added support for Virtual eXtensible Local Area Network (VXLAN)
+  tunnels
+* Added support for Broadband Access Service Attributes and
+  Performance Metrics measurement test framework (BASAPM)
+* Added support for Large-Scale Measurement of Broadband Performance
+  (LMAP)
+
+[TR-106 Amendment 10]: https://www.broadband-forum.org/download/TR-106_Amendment-10.pdf
+[TR-106 Amendment 11]: https://www.broadband-forum.org/download/TR-106_Amendment-11.pdf
+[TR-106 Amendment 12]: https://www.broadband-forum.org/download/TR-106_Amendment-12.pdf
+[TR-106-v1.8.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.8.0
+[TR-106-v1.10.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.10.0
+[TR-106-v1.11.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.11.0
+[TR-106-v1.12.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.12.0
+[TR-181 Issue 2 Amendment 12]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-12.pdf
+[TR-181 Issue 2 Amendment 13]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-13.pdf
+[TR-181 Issue 2 Amendment 14]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-14.pdf
+[TR-181 Issue 2 Amendment 15]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-15.pdf
+[TR-181 Issue 2 Amendment 16]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-16.pdf
+[TR-181-v2.12.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.12.0
+[TR-181-v2.13.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.13.0
+[TR-181-v2.14.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.14.0
+[TR-181-v2.14.1]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.14.1
+[TR-181-v2.15.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.15.0
+[TR-181-v2.15.1]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.15.1
+[TR-181-v2.16.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.16.0
+[TR-369 Amendment 1]: https://www.broadband-forum.org/download/TR-369_Amendment-1.pdf
+[TR-369 Amendment 2]: https://www.broadband-forum.org/download/TR-369_Amendment-2.pdf
+[TR-369 Amendment 3]: https://www.broadband-forum.org/download/TR-369_Amendment-3.pdf
+[TR-369 Corrigendum 1]: https://www.broadband-forum.org/download/TR-369_Corrigendum-1.pdf
+[TR-369 Corrigendum 2]: https://www.broadband-forum.org/download/TR-369_Corrigendum-2.pdf
+[TR-369 Issue 1]: https://www.broadband-forum.org/download/TR-369_Issue-1.pdf
+[TR-369-v1.0.0]: https://github.com/BroadbandForum/usp/releases/tag/v1.0.0
+[TR-369-v1.0.1]: https://github.com/BroadbandForum/usp/releases/tag/v1.0.1
+[TR-369-v1.0.2]: https://github.com/BroadbandForum/usp/releases/tag/v1.0.2
+[TR-369-v1.1.0]: https://github.com/BroadbandForum/usp/releases/tag/v1.1.0
+[TR-369-v1.1.2]: https://github.com/BroadbandForum/usp/releases/tag/v1.1.2
+[TR-369-v1.2.0]: https://github.com/BroadbandForum/usp/releases/tag/v1.2.0
+[TR-369-v1.3.0]: https://github.com/BroadbandForum/usp/releases/tag/v1.3.0
+[v1.0.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.0
+[v1.0.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.1
+[v1.0.2]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.0.2
+[v1.1.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.0
+[v1.1.0c1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.0c1
+[v1.1.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.1
+[v1.1.2]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.2
+[v1.1.3]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.3
+[v1.1.4]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.1.4
+[v1.2.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.0
+[v1.2.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.1
+[v1.2.2]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.2.2
+[v1.3.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.3.0

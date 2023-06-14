@@ -70,24 +70,35 @@
         Adaptation for USP protocol
 -->
 
-<dm:document xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-7"
-    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
+<dm:document
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-8"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="urn:broadband-forum-org:cwmp:datamodel-1-7
-                          https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-7.xsd
-                        urn:broadband-forum-org:cwmp:datamodel-report-0-1
-                          https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
-    spec="urn:broadband-forum-org:tr-196-2-1-1-usp" file="tr-196-2-1-1-usp.xml">
+    xsi:schemaLocation="
+      urn:broadband-forum-org:cwmp:datamodel-1-8
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-8.xsd
+      urn:broadband-forum-org:cwmp:datamodel-report-1-0
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+    spec="urn:broadband-forum-org:tr-196-2-1-1-usp"
+    file="tr-196-2-1-1-usp.xml">
 
   <description>
     {{docname|Femto Access Point Service Data Model for USP}}
+
     {{appdate|September 2019}}
+
     {{trname|TR-196i2}}
+
     August 2015:
+
     * Added parameters for 3GPP SA5 Rel 11 and 12 (TS 32.452, TS 32.453)
+
     * Added parameters for 3GPP SA5 Rel 13 (CR S5-145293)
+
     * Added parameters for 3GPP SA5 Rel 13 (CR S5-146268)
+
     September 2019: {{xmlref|tr-196-2-1-1-usp|Corrigendum 1}}
+
     * Added USP support (split XML into common, CWMP and USP files)
   </description>
 
@@ -95,34 +106,47 @@
     <dataType name="Alias" ref="_AliasUSP"/>
   </import>
 
-  <import file="tr-196-2-common.xml" spec="urn:broadband-forum-org:tr-196-2-1-1">
+  <import file="tr-196-2-common.xml"
+      spec="urn:broadband-forum-org:tr-196-2-1-1">
     <model name="_FAPService:2.1" ref="FAPService:2.1"/>
   </import>
 
-  <model name="FAPService:2.1"  base="_FAPService:2.1" isService="true">
-    <object base="FAPService.{i}.CellConfig.UMTS." access="readOnly" minEntries="1" maxEntries="1" dmr:version="2.0">
-      <parameter base="TunnelInstance" access="readWrite" dmr:version="2.0">
+  <model name="FAPService:2.1" base="_FAPService:2.1" isService="true">
+    <object base="FAPService.{i}.CellConfig.UMTS." access="readOnly"
+        minEntries="1" maxEntries="1" version="2.0">
+      <parameter base="TunnelInstance" access="readWrite">
         <description action="prefix">
-          This is the reference to the IPsec tunnel instance used by the UMTS FAP.
-          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
+          This is the reference to the IPsec tunnel instance used by the UMTS
+          FAP.
+
+          The {{param}} MUST point to an IPsec tunnel instance defined in
+          {{bibref|TR-181i2}}.
         </description>
       </parameter>
     </object>
 
-    <object base="FAPService.{i}.CellConfig.LTE.Tunnel.{i}." access="readWrite" minEntries="0" maxEntries="unbounded">
-      <parameter base="TunnelRef" access="readWrite" dmr:version="2.0">
+    <object base="FAPService.{i}.CellConfig.LTE.Tunnel.{i}."
+        access="readWrite" minEntries="0" maxEntries="unbounded">
+      <parameter base="TunnelRef" access="readWrite" version="2.0">
         <description action="prefix">
-          This is the reference to an IPsec tunnel instance used by the LTE FAP.
-          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
+          This is the reference to an IPsec tunnel instance used by the LTE
+          FAP.
+
+          The {{param}} MUST point to an IPsec tunnel instance defined in
+          {{bibref|TR-181i2}}.
         </description>
       </parameter>
     </object>
 
-    <object base="FAPService.{i}.CellConfig.CDMA2000." access="readOnly" minEntries="1" maxEntries="1" dmr:version="2.0">
-      <parameter base="TunnelInstance" access="readWrite" dmr:version="2.0">
+    <object base="FAPService.{i}.CellConfig.CDMA2000." access="readOnly"
+        minEntries="1" maxEntries="1" version="2.0">
+      <parameter base="TunnelInstance" access="readWrite">
         <description action="prefix">
-          This is the reference to the IPsec tunnel instance used by the CDMA2000 FAP.
-          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
+          This is the reference to the IPsec tunnel instance used by the
+          CDMA2000 FAP.
+
+          The {{param}} MUST point to an IPsec tunnel instance defined in
+          {{bibref|TR-181i2}}.
         </description>
       </parameter>
     </object>
