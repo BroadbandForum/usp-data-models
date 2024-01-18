@@ -4210,8 +4210,10 @@
           FAP.
 
           The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.{{np}}If the referenced object is deleted, the
-          parameter value MUST be set to an empty string.
+          {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string.
 
           In case of a multiple-radio-technology FAP product, each radio
           technology can have its own tunnels or share common tunnels. In the
@@ -10802,8 +10804,10 @@
           FAP.
 
           The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.{{np}}If the referenced object is deleted, the
-          parameter value MUST be set to an empty string.
+          {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string.
 
           In case of a multiple-radio-technology FAP product, each radio
           technology can have its own tunnels or share common tunnels. In the
@@ -19229,8 +19233,10 @@
           CDMA2000 FAP.
 
           The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.{{np}}If the referenced object is deleted, the
-          parameter value MUST be set to an empty string.
+          {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string.
 
           In case of a multiple-radio-technology FAP product, each radio
           technology can have its own tunnels or share common tunnels. In the

@@ -11,8 +11,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -136,7 +139,7 @@
               var a1_groups = a1.match(regex).groups;
               var b1_groups = b1.match(regex).groups;
               var a1_tuple =  [
-                  a1_groups.name.toLowerCase() + (a1_groups.prefix || '~'), 
+                  a1_groups.name.toLowerCase() + (a1_groups.prefix || '~'),
                   parseInt(a1_groups.version || 0)];
               var b1_tuple =  [
                   b1_groups.name.toLowerCase() + (b1_groups.prefix || '~'),
@@ -261,7 +264,7 @@
 
   <style>
   .chevron {
-      color: blue;
+      color: var(--link-color);
       cursor: pointer;
   }
 
@@ -299,7 +302,12 @@
   <!-- Global styles (that affect the entire document) -->
 
   <style>
-  :root {
+  /* light mode support */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --background-color: white;
+      --foreground-color: black;
+      --link-color: blue;
       --parameter-color: white;
       --object-color: #ffff99;
       --command-color: #66cdaa;
@@ -315,10 +323,33 @@
       --stripe-color-deprecated: #eeeeee;
       --stripe-color-obsoleted: #dddddd;
       --stripe-color-deleted: #cccccc;
+    }
+  }
+
+  /* dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: black;
+      --foreground-color: white;
+      --link-color: lightblue;
+      --parameter-color: black;
+      --object-color: #bbbb44;
+      --command-color: #56bd9a;
+      --event-color: #56bd9a;
+      --argument-container-color: #777777;
+      --argument-object-color: #dfa0ab;
+      --argument-parameter-color: #bfa4a1;
+      --mountable-object-color: #b3e0ff;
+      --mountpoint-object-color: #3da8ef;
+      --stripe-color-deprecated: #555555;
+      --stripe-color-obsoleted: #444444;
+      --stripe-color-deleted: #333333;
+    }
   }
 
   body, table {
-      background-color: white;
+      background-color: var(--background-color);
+      color: var(--foreground-color);
       font-family: helvetica, arial, sans-serif;
       font-size: 9pt;
   }
@@ -335,8 +366,8 @@
       font-size: 10pt;
   }
 
-  a:link, a:visited, a:hover, a:active {
-      color: inherit;
+  a:link, a:visited {
+      color: var(--link-color);
   }
 
   sup {
@@ -719,6 +750,37 @@
       hyphenate-character: "";
   }
 
+  /* word wrap/break column 1 (Name) */
+  .data-model-table td:first-child {
+      word-wrap: break-word;
+      word-break: break-all;
+      min-width: 27ch;
+  }
+
+  /* word wrap/break column 2 (Base Type) */
+  .data-model-table td:nth-child(2) {
+      word-wrap: break-word;
+      word-break: break-all;
+      min-width: 12ch;
+  }
+
+  /* word wrap/break column 3 (Write) */
+  .data-model-table td:nth-child(3) {
+      min-width: 1ch;
+  }
+
+  /* word wrap/break column 5 (Object Default) */
+  .data-model-table td:nth-child(5) {
+      word-wrap: break-word;
+      word-break: break-all;
+      min-width: 12ch;
+  }
+
+  /* word wrap/break column 6 (Version) */
+  .data-model-table td:nth-child(6) {
+      min-width: 6ch;
+  }
+
   /* center column 1 (Abbreviation) */
   .profile-notation-table th:nth-child(1),
   .profile-notation-table td:nth-child(1) {
@@ -729,6 +791,14 @@
   .profile-requirements-table th:nth-child(2),
   .profile-requirements-table td:nth-child(2) {
       text-align: center;
+  }
+  </style>
+
+  <style>
+  /* enabled if the --show option was specified (to avoid confusion between
+     links and inserted text) */
+  a:link, a:visited, a:hover, a:active {
+      color: inherit;
   }
   </style>
   <!--[if lt IE 9]>
@@ -745,7 +815,7 @@
 <col style="width: 25.0%;"></col></colgroup>
 <tbody>
 <tr>
-<td colspan="2"><a href="https://www.broadband-forum.org"><img width="100%" src="https://www.broadband-forum.org/images/logo-broadband-forum.gif" alt="Broadband Forum"></img></a></td>
+<td colspan="2"><a href="https://www.broadband-forum.org"><img width="100%" alt="Broadband Forum" src="https://www.broadband-forum.org/images/logo-broadband-forum.gif"></img></a></td>
 <td class="centered" rowspan="1"><p></p>
 
 <h1 id="fapservice21-femto-access-point-service-data-model-usp-changes" class="unnumbered unlisted">FAPService:2.1 Femto Access Point Service Data Model [USP] (changes)</h1>
@@ -1023,7 +1093,7 @@ the <strong>Version</strong> column.</p>
 <div class="diffs"><p><strong>Changes in 2.1:</strong></p>
 
 <ul>
-<li>Changed attribute <em>name</em> from <em>FAPService:2.0</em> to <em>FAPService:2.1</em></li></ul></div>
+<li>Changed attribute <em>name</em> = <em>FAPService:2.0</em> ⇒ <em>FAPService:2.1</em></li></ul></div>
 
 <table class="full-width partial-border data-model-table">
 <thead>
@@ -1036,7 +1106,7 @@ the <strong>Version</strong> column.</p>
 <th>Version</th></tr></thead>
 <tbody>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.">FAPService.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.">FAPService.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td><p>The Femto Access Point (FAP) Service Object.</p>
@@ -1045,7 +1115,7 @@ the <strong>Version</strong> column.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.AccessMgmt.">FAPService.­{i}.­Access­Mgmt.</span></td>
+<td><span id="D.FAPService:2.FAPService.AccessMgmt.">FAPService.{i}.AccessMgmt.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to Access Management for the
@@ -1053,7 +1123,7 @@ different radio technologies.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.">FAPService.­{i}.­Access­Mgmt.­Legacy.</span></td>
+<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.">FAPService.{i}.AccessMgmt.Legacy.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains configurable and observable attributes related to
@@ -1062,14 +1132,14 @@ Access and Admission Control of the FAP, which are not not covered by
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.">FAPService.­{i}.­Access­Mgmt.­Legacy.­Local­IPAccess.</span></td>
+<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.">FAPService.{i}.AccessMgmt.Legacy.LocalIPAccess.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>Old Local IP access object, included on special request.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.">FAPService.­{i}.­Access­Mgmt.­Legacy.­Local­IPAccess.­Rule.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.">FAPService.{i}.AccessMgmt.Legacy.LocalIPAccess.Rule.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>Policy for selecting traffic for local IP access. Originated traffic
@@ -1083,21 +1153,21 @@ traffic (PS-domain) via deep packet inspection or similar method.</p>
 <td>2.0</td></tr>
 <tr class="parameter">
 <td><span id="D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.Interface">Interface</span></td>
-<td>string­(:256)</td>
+<td>string(:256)</td>
 <td>W</td>
 <td>Specifies the egress interface when <em><a href="#D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.Action">Action</a></em> is set to
-<em><a href="#D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.Action.NAPT">NAPT</a></em>. The value MUST be the Path Name of a table row. layer-3 connection object.<span class="removed">Example: InternetGatewayDevice.LANDevice.{i}.LANEthernetInterfaceConfig.{i}.</span></td>
+<a href="#D.FAPService:2.FAPService.AccessMgmt.Legacy.LocalIPAccess.Rule.Action.NAPT"><em>NAPT</em></a>. The value MUST be the Path Name of a table row. layer-3 connection object.<span class="removed">Example: InternetGatewayDevice.LANDevice.{i}.LANEthernetInterfaceConfig.{i}.</span></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.">FAPService.­{i}.­Cell­Config.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.">FAPService.{i}.CellConfig.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.">FAPService.­{i}.­Cell­Config.­UMTS.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.">FAPService.{i}.CellConfig.UMTS.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring UMTS system
@@ -1105,16 +1175,14 @@ specific information.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.TunnelInstance">Tunnel­Instance</span></td>
-<td>string­(:256)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.TunnelInstance">TunnelInstance</span></td>
+<td>string(:256)</td>
 <td>W</td>
 <td><p>This is the reference to the IPsec tunnel instance used by the UMTS
 FAP.<span class="removed">For all root data models, which use the tunnel definition provided in |bibref|TR-262| (InternetGatewayDevice:1 |bibref|TR-098| and Device:1 |bibref|TR-181i1|) the</span></p>
 
 <p>The <em>TunnelInstance</em> MUST point to <span class="removed">a row in the &lsquo;FAP.Tunnel.IKESA.{i}.&rsquo; table, defined in |bibref|TR-262|.If the root data model used is Device:2 |bibref|TR-181i2| than the |param| MUST point to</span><span class="inserted">an</span> IPsec tunnel instance defined in
-[<a href="#R.TR-181i2">TR-181i2</a>].[</p>
-
-<p><span class="inserted">]</span>If the referenced object is deleted, the parameter value MUST be set
+[<a href="#R.TR-181i2">TR-181i2</a>].If the referenced object is deleted, the parameter value MUST be set
 to an empty string.In case of a multiple-radio-technology FAP product, each radio
 technology can have its own tunnels or share common tunnels. In the
 former case, <em>TunnelInstance</em> can contain a unique instance number. In the
@@ -1123,7 +1191,7 @@ instance number.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.">FAPService.{i}.CellConfig.UMTS.CN.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring UMTS CN.
@@ -1135,7 +1203,7 @@ instance number.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­CSDomain.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.">FAPService.{i}.CellConfig.UMTS.CN.CSDomain.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the CS domain
@@ -1149,14 +1217,14 @@ of the UMTS CN.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­CSDomain.­RAB.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.">FAPService.{i}.CellConfig.UMTS.CN.CSDomain.RAB.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the Circuit Switch RAB in the HNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­CSDomain.­RAB.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.">FAPService.{i}.CellConfig.UMTS.CN.CSDomain.RAB.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the RAB statistics in the CS Domain as defined in
@@ -1164,39 +1232,39 @@ of the UMTS CN.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.AttEstabCS">Att­Estab­CS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.AttEstabCS">AttEstabCS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the total number of requested RABs in
 establishment attempts.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.FailEstabCS">Fail­Estab­CS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.FailEstabCS">FailEstabCS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of RABs establishment failures
 for the CS domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.SuccEstabCS">Succ­Estab­CS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.SuccEstabCS">SuccEstabCS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of successfully established RABs
 for the CS domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.RelDropCS">Rel­Drop­CS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.RAB.Stats.RelDropCS">RelDropCS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the total number of dropped RAB connections
 for service type CS Domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­CSDomain.­HHO.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.">FAPService.{i}.CellConfig.UMTS.CN.CSDomain.HHO.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the circuit switch Hard Handover
@@ -1204,7 +1272,7 @@ for service type CS Domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­CSDomain.­HHO.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.">FAPService.{i}.CellConfig.UMTS.CN.CSDomain.HHO.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the circuit switch HHO statistics as defined in
@@ -1212,39 +1280,39 @@ for service type CS Domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Att3GMacroToHnbCSHO">Att­3GMacro­To­Hnb­CSHO</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Att3GMacroToHnbCSHO">Att3GMacroToHnbCSHO</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of attempted 3G Macro to HNB CS
 handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Succ3GMacroToHnbCSHO">Succ­3GMacro­To­Hnb­CSHO</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Succ3GMacroToHnbCSHO">Succ3GMacroToHnbCSHO</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of successful 3G Macro to HNB CS
 handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Att2GMacroToHnbCSHO">Att­2GMacro­To­Hnb­CSHO</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Att2GMacroToHnbCSHO">Att2GMacroToHnbCSHO</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of attempted 2G Macro to HNB CS
 handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Succ2GMacroToHnbCSHO">Succ­2GMacro­To­Hnb­CSHO</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.CSDomain.HHO.Stats.Succ2GMacroToHnbCSHO">Succ2GMacroToHnbCSHO</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of successful 2G Macro to HNB CS
 handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­PSDomain.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.">FAPService.{i}.CellConfig.UMTS.CN.PSDomain.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the PS domain
@@ -1257,14 +1325,14 @@ of the UMTS CN.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­PSDomain.­RAB.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.">FAPService.{i}.CellConfig.UMTS.CN.PSDomain.RAB.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the Packet Switch RAB in the HNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­PSDomain.­RAB.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.">FAPService.{i}.CellConfig.UMTS.CN.PSDomain.RAB.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the RAB statistics in the PS Domain as defined in
@@ -1272,8 +1340,8 @@ of the UMTS CN.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.AttEstabPS">Att­Estab­PS</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.AttEstabPS">AttEstabPS</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of requested RAB in
 establishment attempts for the PS domain by traffic class.</p>
@@ -1284,32 +1352,32 @@ provided using the traffic class name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.SuccEstabPS">Succ­Estab­PS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.SuccEstabPS">SuccEstabPS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the total number of successfully
 established RABs for the PS domain</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.FailEstabPS">Fail­Estab­PS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.FailEstabPS">FailEstabPS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the total number of RABs establishment
 failures for the PS domain.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.RelDropPS">Rel­Drop­PS</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.RelDropPS">RelDropPS</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the total number of abnormally released PS
 RAB connections.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBitsEDCH">ULNum­User­Bits­EDCH</span></td>
-<td>unsigned­Long</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBitsEDCH">ULNumUserBitsEDCH</span></td>
+<td>unsignedLong</td>
 <td>R</td>
 <td>This measurement provides the number of uplink User Bits for PS RABs
 related with EDCH above RLC. The average uplink data throughput on
@@ -1317,8 +1385,8 @@ EDCH RABs can be derived from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits64K">ULNum­User­Bits­64K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits64K">ULNumUserBits64K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Uplink User Bits for PS RABs
 with UL 64 kbps data rate. The average uplink data throughput on 64
@@ -1326,8 +1394,8 @@ kbps RABs can be derived from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits128K">ULNum­User­Bits­128K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits128K">ULNumUserBits128K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Uplink User Bits for PS RABs
 with UL 128 kbps data rate. The average uplink data throughput on 128
@@ -1335,8 +1403,8 @@ kbps RABs can be derived from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits384K">ULNum­User­Bits­384K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.ULNumUserBits384K">ULNumUserBits384K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Uplink User Bits for PS RABs
 with UL 384 kbps data rate. The average uplink data throughput on 384
@@ -1344,8 +1412,8 @@ kbps RABs can be derived from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBitsHSDPA">DLNum­User­Bits­HSDPA</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBitsHSDPA">DLNumUserBitsHSDPA</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Downlink User Bits for PS
 RABs related with HSDPA above RLC. The average downlink data
@@ -1353,8 +1421,8 @@ throughput on HSDPA RABs can be derived from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits64K">DLNum­User­Bits­64K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits64K">DLNumUserBits64K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Downlink User Bits for PS
 RABs (non-HSDPA) with DL 64 kbps data rate above RLC. The average
@@ -1363,8 +1431,8 @@ from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits128K">DLNum­User­Bits­128K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits128K">DLNumUserBits128K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Downlink User Bits for PS
 RABs (non-HSDPA) with DL 128 kbps data rate above RLC. The average
@@ -1373,8 +1441,8 @@ from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits384K">DLNum­User­Bits­384K</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.DLNumUserBits384K">DLNumUserBits384K</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of Downlink User Bits for PS
 RABs (non-HSDPA) with DL 384 kbps data rate above RLC. The average
@@ -1383,14 +1451,14 @@ from this measurement.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGWNumberOfEntries">LGWNumber­Of­Entries</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGWNumberOfEntries">LGWNumberOfEntries</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of entries in the <em><a href="#D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.">LGW</a></em> table.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­PSDomain.­RAB.­Stats.­LGW.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.">FAPService.{i}.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td><p>This object provides statistics for the Direct User Plane Path between
@@ -1400,7 +1468,7 @@ HNB and Local Gateway as defined in [<a href="#R.3GPP-TS.32.452">3GPP-TS.32.452<
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.CorrelationID">Correlation­ID</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.CorrelationID">CorrelationID</span></td>
 <td>string</td>
 <td>R</td>
 <td>The value of this parameter is equal to the user plane GGSN TEID that
@@ -1409,24 +1477,24 @@ S4-SGSN has received. [<a href="#R.3GPP-TS.25.413">3GPP-TS.25.413</a>].</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWAttNbr">Estab­Direct­Path­LGWAtt­Nbr</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWAttNbr">EstabDirectPathLGWAttNbr</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of direct user plane path
 between HNB and Local GW attempted to setup.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWSuccNbr">Estab­Direct­Path­LGWSucc­Nbr</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWSuccNbr">EstabDirectPathLGWSuccNbr</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of direct user plane path
 between HNB and Local GW successfully established.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWFailNbr">Estab­Direct­Path­LGWFail­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.PSDomain.RAB.Stats.LGW.EstabDirectPathLGWFailNbr">EstabDirectPathLGWFailNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of direct user plane path
 between HNB and Local GW RABs failed to setup by cause.</p>
@@ -1437,7 +1505,7 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­HHO.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.">FAPService.{i}.CellConfig.UMTS.CN.HHO.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the Hard Handover (HHO) properties
@@ -1445,7 +1513,7 @@ in the HNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.">FAPService.­{i}.­Cell­Config.­UMTS.­CN.­HHO.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.">FAPService.{i}.CellConfig.UMTS.CN.HHO.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the HHO statistics as defined in
@@ -1453,31 +1521,31 @@ in the HNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.SuccHnbUmtsIntraFreq">Succ­Hnb­Umts­Intra­Freq</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.SuccHnbUmtsIntraFreq">SuccHnbUmtsIntraFreq</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of successful HNB to UMTS macro
 cell intra frequency hard handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.AttHnbUmtsIntraFreq">Att­Hnb­Umts­Intra­Freq</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.AttHnbUmtsIntraFreq">AttHnbUmtsIntraFreq</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of attempted HNB to UMTS macro
 cell intra frequency hard handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.AttHnbUmtsInterFreq">Att­Hnb­Umts­Inter­Freq</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.CN.HHO.Stats.AttHnbUmtsInterFreq">AttHnbUmtsInterFreq</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of attempted HNB to UMTS macro
 cell inter frequency hard handovers.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.">FAPService.{i}.CellConfig.UMTS.RAN.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the RAN-level
@@ -1490,7 +1558,7 @@ configuration.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRCTimers.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­RRCTimers.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRCTimers.">FAPService.{i}.CellConfig.UMTS.RAN.RRCTimers.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters related to miscellaneous RRC timers and
@@ -1498,8 +1566,8 @@ constants.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRCTimers.WaitTime">Wait­Time</span></td>
-<td>unsigned­Int­(0:15)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRCTimers.WaitTime">WaitTime</span></td>
+<td>unsignedInt(0:15)</td>
 <td>W</td>
 <td>Time period<span class="inserted"> in <em>seconds</em></span> the UE has to wait before repeating the rejected
 procedure. This is an IE used when sending RRC connection reject,
@@ -1507,7 +1575,7 @@ redirecting the requesting UE to another frequency.0 indicates that repetition i
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­UEInternal­Meas.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.">FAPService.{i}.CellConfig.UMTS.RAN.UEInternalMeas.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the UE internal measurement
@@ -1515,31 +1583,31 @@ control parameters.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.UETxPwrThresholdEvent6a">UETx­Pwr­Threshold­Event­6a</span></td>
-<td>int­(-­50:33)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.UETxPwrThresholdEvent6a">UETxPwrThresholdEvent6a</span></td>
+<td>int(-50:33)</td>
 <td>W</td>
 <td>Defines the threshold<span class="inserted"> in <em>dBm</em></span> for UE transmit power above which Event 6a is
 reported.[<a href="#R.3GPP-TS.25.331">Section 10.3.7.80/3GPP-TS.25.331</a>]</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.UETxPwrThresholdEvent6b">UETx­Pwr­Threshold­Event­6b</span></td>
-<td>int­(-­50:33)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.UEInternalMeas.UETxPwrThresholdEvent6b">UETxPwrThresholdEvent6b</span></td>
+<td>int(-50:33)</td>
 <td>W</td>
 <td>Defines the threshold<span class="inserted"> in <em>dBm</em></span> for UE transmit power above which Event 6b is
 reported.[<a href="#R.3GPP-TS.25.331">Section 10.3.7.80/3GPP-TS.25.331</a>]</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­RF.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.">FAPService.{i}.CellConfig.UMTS.RAN.RF.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the RF configuration.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.MaxULTxPowerInUse">Max­ULTx­Power­In­Use</span></td>
-<td>int­(-­50:33)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.MaxULTxPowerInUse">MaxULTxPowerInUse</span></td>
+<td>int(-50:33)</td>
 <td>R</td>
 <td>The maximum transmission power level <span class="inserted">in <em>dBm</em> </span>a UE can use on PRACH.Self-configuration for maximum transmission power is controlled by
 <em><a href="#D.FAPService:2.FAPService.Capabilities.UMTS.SelfConfig.MaxULTxPowerConfig">Capabilities.UMTS.SelfConfig.MaxULTxPowerConfig</a></em> from an
@@ -1552,8 +1620,8 @@ then this parameter contains a value selected by the ACS.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.FAPQualityTargetEcIo">FAPQuality­Target­Ec­Io</span></td>
-<td>int­(-­200:0)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RF.FAPQualityTargetEcIo">FAPQualityTargetEcIo</span></td>
+<td>int(-200:0)</td>
 <td>W</td>
 <td>Defines the target value measured in <span class="removed">dB</span><span class="inserted"><em>dB</em></span> for the downlink signal
 quality of the FAP in terms of CPICH Ec/Io, thereby clarifying the
@@ -1562,14 +1630,14 @@ of 0.1 <span class="removed">dB.</span><span class="inserted"><em>dB</em>.</span
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­Neighbor­List.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.">FAPService.{i}.CellConfig.UMTS.RAN.NeighborList.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the neighbor list.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­Neighbor­List.­Intra­Freq­Cell.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.">FAPService.{i}.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>Table containing the intra-frequency cell list provided by the ACS. The
@@ -1581,8 +1649,8 @@ soon as possible.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.MaxTxPower">Max­Tx­Power</span></td>
-<td>int­(-­300:600)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.MaxTxPower">MaxTxPower</span></td>
+<td>int(-300:600)</td>
 <td>W</td>
 <td>Cell Max Tx Power. Parameter needed in HNB power calibration, for
 protection of neighbour cells. Actual values of the power are -30.0
@@ -1593,8 +1661,8 @@ divided by 10 yields the actual value of the power.C.f [<a href="#R.3GPP-TS.32.6
 <td>0</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.MaxDPCHtxPower">Max­DPCHtx­Power</span></td>
-<td>int­(-­400:500)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.NeighborList.IntraFreqCell.MaxDPCHtxPower">MaxDPCHtxPower</span></td>
+<td>int(-400:500)</td>
 <td>W</td>
 <td>Maximum DL DPCH Tx Power per UE configured in the cell (for CS UEs).Parameter may be used by FAP to protect the DL budget allocated to
 neighbouring UEs served by neighbour cells.C.f<span class="removed"> </span><span class="inserted"> </span>(max 10 dB below max Tx power)[<a href="#R.3GPP-TS.32.642">Section 6.3.11/3GPP-TS.32.642</a>]
@@ -1604,14 +1672,14 @@ divided by 10 yields the actual value of the power.</td>
 <td>0</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­RRC.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.">FAPService.{i}.CellConfig.UMTS.RAN.RRC.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the RRC in the HNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.">FAPService.­{i}.­Cell­Config.­UMTS.­RAN.­RRC.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.">FAPService.{i}.CellConfig.UMTS.RAN.RRC.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the RRC statistics as defined in
@@ -1619,8 +1687,8 @@ divided by 10 yields the actual value of the power.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.AttConnEstab">Att­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.AttConnEstab">AttConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of RRC connection establishment
 attempts by cause.</p>
@@ -1631,8 +1699,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.FailConnEstab">Fail­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.FailConnEstab">FailConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of RRC establishment failures by
 cause.</p>
@@ -1643,8 +1711,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.SuccConnEstab">Succ­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.UMTS.RAN.RRC.Stats.SuccConnEstab">SuccConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful RRC establishments
 by cause.</p>
@@ -1655,7 +1723,7 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.">FAPService.­{i}.­Cell­Config.­LTE.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.">FAPService.{i}.CellConfig.LTE.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the LTE FAP.
@@ -1667,7 +1735,7 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.Tunnel.">FAPService.­{i}.­Cell­Config.­LTE.­Tunnel.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.Tunnel.">FAPService.{i}.CellConfig.LTE.Tunnel.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>This object contains a table of all tunnel instances configured for the
@@ -1677,16 +1745,14 @@ LTE FAP.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.Tunnel.TunnelRef">Tunnel­Ref</span></td>
-<td>string­(:256)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.Tunnel.TunnelRef">TunnelRef</span></td>
+<td>string(:256)</td>
 <td>W</td>
 <td><p>This is the reference to an IPsec tunnel instance used by the LTE
 FAP.<span class="removed">For all root data models, which use the tunnel definition provided in |bibref|TR-262| (InternetGatewayDevice:1 |bibref|TR-098| and Device:1 |bibref|TR-181i1|) the</span></p>
 
 <p>The <em>TunnelRef</em> MUST point to <span class="removed">a row in the &lsquo;FAP.Tunnel.IKESA.{i}.&rsquo; table, defined in |bibref|TR-262|.If the root data model used is Device:2 |bibref|TR-181i2| than the |param| MUST point to</span><span class="inserted">an</span> IPsec tunnel instance defined in
-[<a href="#R.TR-181i2">TR-181i2</a>].[</p>
-
-<p><span class="inserted">]</span>If the referenced object is deleted, the parameter value MUST be set
+[<a href="#R.TR-181i2">TR-181i2</a>].If the referenced object is deleted, the parameter value MUST be set
 to an empty string.In case of a multiple-radio-technology FAP product, each radio
 technology can have its own tunnels or share common tunnels. In the
 former case, <em>TunnelRef</em> can contain a unique instance number. In the
@@ -1697,7 +1763,7 @@ instance number.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.">FAPService.­{i}.­Cell­Config.­LTE.­EPC.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.">FAPService.{i}.CellConfig.LTE.EPC.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring LTE EPC.
@@ -1709,7 +1775,7 @@ instance number.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.">FAPService.­{i}.­Cell­Config.­LTE.­EPC.­HO.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.">FAPService.{i}.CellConfig.LTE.EPC.HO.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the Handover (HO) properties in the
@@ -1717,7 +1783,7 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­EPC.­HO.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.">FAPService.{i}.CellConfig.LTE.EPC.HO.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the HO statistics as defined in
@@ -1725,8 +1791,8 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBAtt">Toe­NBAtt</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBAtt">ToeNBAtt</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of attempted outbound handover
 to HeNB by handover cause.</p>
@@ -1737,8 +1803,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBSucc">Toe­NBSucc</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBSucc">ToeNBSucc</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful outbound handover
 to HeNB by handover cause.</p>
@@ -1749,8 +1815,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBFail">Toe­NBFail</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToeNBFail">ToeNBFail</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of failed outbound handover to
 HeNB by handover cause.</p>
@@ -1761,8 +1827,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBAtt">Frome­NBAtt</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBAtt">FromeNBAtt</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of attempted inbound handover
 from HeNB by handover cause.</p>
@@ -1773,8 +1839,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBSucc">Frome­NBSucc</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBSucc">FromeNBSucc</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful inbound handover
 from HeNB by handover cause.</p>
@@ -1785,8 +1851,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBFail">Frome­NBFail</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.FromeNBFail">FromeNBFail</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of failed inbound handover from
 HeNB by handover cause.</p>
@@ -1797,8 +1863,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranAtt">To­Utran­Att</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranAtt">ToUtranAtt</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of attempted outbound handover
 to Utran by handover cause.</p>
@@ -1809,8 +1875,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranSucc">To­Utran­Succ</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranSucc">ToUtranSucc</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful outbound handover
 to Utran by handover cause.</p>
@@ -1821,8 +1887,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranFail">To­Utran­Fail</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToUtranFail">ToUtranFail</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of failed outbound handover to
 Utran by handover cause.</p>
@@ -1833,8 +1899,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranAtt">To­Geran­Att</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranAtt">ToGeranAtt</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of attempted outbound handover
 to Geran by handover cause.</p>
@@ -1845,8 +1911,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranSucc">To­Geran­Succ</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranSucc">ToGeranSucc</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful outbound handover
 to Geran by handover cause.</p>
@@ -1857,8 +1923,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranFail">To­Geran­Fail</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EPC.HO.Stats.ToGeranFail">ToGeranFail</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of failed outbound handover to
 Geran by handover cause.</p>
@@ -1869,7 +1935,7 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.">FAPService.{i}.CellConfig.LTE.RAN.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the LTE RAN level
@@ -1886,7 +1952,7 @@ configuration.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­MAC.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.">FAPService.{i}.CellConfig.LTE.RAN.MAC.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the MAC (Medium Access
@@ -1894,7 +1960,7 @@ Control) configuration.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­MAC.­DRX.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.">FAPService.{i}.CellConfig.LTE.RAN.MAC.DRX.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the DRX (Discontinuous
@@ -1903,10 +1969,10 @@ Reception) configuration (see [<a href="#R.3GPP-TS.32.592">Section
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.LongDRXCycle">Long­DRXCycle</span></td>
-<td>unsigned­Int­(10,­20,­32,­40,­64,­80,­128,­160,­256,­320,­512,­640,­1024,­1280,­2048,­2560)(:128)[1]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.LongDRXCycle">LongDRXCycle</span></td>
+<td>unsignedInt(10,20,32,40,64,80,128,160,256,320,512,640,1024,1280,2048,2560)[1](:128)</td>
 <td>W</td>
-<td><p>Comma-separated list (maximum number of characters per item 128) (at least 1 items) of unsigned integers (10, 20, 32, 40, 64, 80, 128, 160, 256, 320, 512, 640, 1024, 1280, 2048, or 2560). Each item is long DRX Cycle value, specified in number of
+<td><p>Comma-separated list (at least 1 items) (maximum number of characters 128) of unsigned integers (10, 20, 32, 40, 64, 80, 128, 160, 256, 320, 512, 640, 1024, 1280, 2048, or 2560). Each item is long DRX Cycle value, specified in number of
 sub-frames.<span class="removed"> </span><span class="inserted"> </span>In case there is more than one item in the list, the
 first item contains the most preferred value. If shortDRX-Cycle is
 configured, this value MUST be a multiple of the
@@ -1926,10 +1992,10 @@ configuration by the ACS.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.ShortDRXCycle">Short­DRXCycle</span></td>
-<td>unsigned­Int­(2,­5,­8,­10,­16,­20,­32,­40,­64,­80,­128,­160,­256,­320,­512,­640)(:64)[1]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.ShortDRXCycle">ShortDRXCycle</span></td>
+<td>unsignedInt(2,5,8,10,16,20,32,40,64,80,128,160,256,320,512,640)[1](:64)</td>
 <td>W</td>
-<td><p>Comma-separated list (maximum number of characters per item 64) (at least 1 items) of unsigned integers (2, 5, 8, 10, 16, 20, 32, 40, 64, 80, 128, 160, 256, 320, 512, or 640). Each item is the short DRX Cycle value, specified in number
+<td><p>Comma-separated list (at least 1 items) (maximum number of characters 64) of unsigned integers (2, 5, 8, 10, 16, 20, 32, 40, 64, 80, 128, 160, 256, 320, 512, or 640). Each item is the short DRX Cycle value, specified in number
 of sub-frames.<span class="removed"> </span><span class="inserted"> </span>In case there is more than one item in the list, the
 first item contains the most preferred value. If shortDRX-Cycle is
 configured, the value of <em><a href="#D.FAPService:2.FAPService.CellConfig.LTE.RAN.MAC.DRX.LongDRXCycle">LongDRXCycle</a></em> MUST be a multiple of
@@ -1947,7 +2013,7 @@ configuration by the ACS.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­CSG.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.">FAPService.{i}.CellConfig.LTE.RAN.CSG.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of Closed Subscriber Groups (CSG) in
@@ -1955,7 +2021,7 @@ the HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­CSG.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.">FAPService.{i}.CellConfig.LTE.RAN.CSG.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the LTE RAN CSG statistics as defined in
@@ -1963,32 +2029,32 @@ the HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.MeanNbrUsr">Mean­Nbr­Usr</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.MeanNbrUsr">MeanNbrUsr</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the mean number of attached CSG UEs in the
 HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.AttInboundMobility">Att­Inbound­Mobility</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.AttInboundMobility">AttInboundMobility</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of attempted inbound mobility
 for UEs to CSG cells or hybrid cells in RRC_CONNECTED mode.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.SuccInboundMobility">Succ­Inbound­Mobility</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.SuccInboundMobility">SuccInboundMobility</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of successful inbound mobility
 for UEs to CSG cells or hybrid cells in RRC_CONNECTED mode.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.FailedInboundMobility">Failed­Inbound­Mobility</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.CSG.Stats.FailedInboundMobility">FailedInboundMobility</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of failed successful inbound
 mobility for UEs to CSG cells or hybrid cells in RRC_CONNECTED mode
@@ -2000,14 +2066,14 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­RRC.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.">FAPService.{i}.CellConfig.LTE.RAN.RRC.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the RRC in the HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­RRC.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.">FAPService.{i}.CellConfig.LTE.RAN.RRC.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the RRC statistics as defined in
@@ -2015,8 +2081,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.AttConnEstab">Att­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.AttConnEstab">AttConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of RRC connection establishment
 attempts by cause.</p>
@@ -2027,8 +2093,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.FailConnEstab">Fail­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.FailConnEstab">FailConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of RRC establishment failures by
 cause.</p>
@@ -2039,8 +2105,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.SuccConnEstab">Succ­Conn­Estab</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRC.Stats.SuccConnEstab">SuccConnEstab</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of successful RRC establishments
 by cause.</p>
@@ -2051,14 +2117,14 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­ERAB.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.">FAPService.{i}.CellConfig.LTE.RAN.ERAB.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of E-RABs in the HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­ERAB.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.">FAPService.{i}.CellConfig.LTE.RAN.ERAB.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the E-RAB statistics as defined in
@@ -2066,8 +2132,8 @@ cause name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitAttNbr">Estab­Init­Att­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitAttNbr">EstabInitAttNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of initial E-RABs attempted to
 setup by QoS level (QCI).</p>
@@ -2078,8 +2144,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitSuccNbr">Estab­Init­Succ­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitSuccNbr">EstabInitSuccNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of initial E-RABs successfully
 established QoS level (QCI).</p>
@@ -2090,8 +2156,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitFailNbr">Estab­Init­Fail­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabInitFailNbr">EstabInitFailNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of initial E-RABs failed to
 setup by cause.</p>
@@ -2102,8 +2168,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabAttNbr">Estab­Att­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabAttNbr">EstabAttNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of E-RABs attempted to setup by
 QoS level (QCI).</p>
@@ -2114,8 +2180,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabSuccNbr">Estab­Succ­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabSuccNbr">EstabSuccNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of E-RABs successfully
 established by QoS level (QCI).</p>
@@ -2126,8 +2192,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabFailNbr">Estab­Fail­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.EstabFailNbr">EstabFailNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of E-RABs failed to setup by
 cause.</p>
@@ -2138,8 +2204,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.RelEnbNbrQCI">Rel­Enb­Nbr­QCI</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.RelEnbNbrQCI">RelEnbNbrQCI</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of E-RABs requested to release
 initiated by HeNB by QCI.</p>
@@ -2150,8 +2216,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.RelEnbNbrCause">Rel­Enb­Nbr­Cause</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.RelEnbNbrCause">RelEnbNbrCause</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of E-RABs requested to release
 initiated by HeNB by cause.</p>
@@ -2162,14 +2228,14 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGWNumberOfEntries">LGWNumber­Of­Entries</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGWNumberOfEntries">LGWNumberOfEntries</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of entries in the <em><a href="#D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.">LGW</a></em> table.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­ERAB.­Stats.­LGW.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.">FAPService.{i}.CellConfig.LTE.RAN.ERAB.Stats.LGW.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td><p>This object provides statistics for the Direct User Plane Path between
@@ -2179,7 +2245,7 @@ HeNB and Local Gateway as defined in [<a href="#R.3GPP-TS.32.453">3GPP-TS.32.453
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.CorrelationID">Correlation­ID</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.CorrelationID">CorrelationID</span></td>
 <td>string</td>
 <td>R</td>
 <td>The value of this parameter is equal to the user plane PDN GW TEID
@@ -2187,24 +2253,24 @@ HeNB and Local Gateway as defined in [<a href="#R.3GPP-TS.32.453">3GPP-TS.32.453
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWAttNbr">Estab­Direct­Path­LGWAtt­Nbr</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWAttNbr">EstabDirectPathLGWAttNbr</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of direct user plane path
 between HeNB and Local GW attempted to setup.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWSuccNbr">Estab­Direct­Path­LGWSucc­Nbr</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWSuccNbr">EstabDirectPathLGWSuccNbr</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the number of direct user plane path
 between HeNB and Local GW successfully established.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWFailNbr">Estab­Direct­Path­LGWFail­Nbr</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.ERAB.Stats.LGW.EstabDirectPathLGWFailNbr">EstabDirectPathLGWFailNbr</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the number of direct user plane path
 between HeNB and Local GW E-RABs failed to setup by cause.</p>
@@ -2215,7 +2281,7 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­DRB.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.">FAPService.{i}.CellConfig.LTE.RAN.DRB.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of Data Radio Bearers (DRB) in the
@@ -2223,7 +2289,7 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­DRB.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.">FAPService.{i}.CellConfig.LTE.RAN.DRB.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the DRB statistics as defined in
@@ -2231,8 +2297,8 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateDl">Pdcp­Sdu­Bitrate­Dl</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateDl">PdcpSduBitrateDl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the average cell bit-rate of PDCP SDUs on
 the downlink. This represents the ingress rate of user plane traffic
@@ -2244,8 +2310,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateUl">Pdcp­Sdu­Bitrate­Ul</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateUl">PdcpSduBitrateUl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the average cell bit-rate of PDCP SDUs on
 the uplink. This represents successful transmissions of user plane
@@ -2258,8 +2324,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateDlMax">Pdcp­Sdu­Bitrate­Dl­Max</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateDlMax">PdcpSduBitrateDlMax</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the maximum cell bit-rate of PDCP SDUs on
 the downlink. This represents the maximum ingress rate of user plane
@@ -2268,8 +2334,8 @@ all QCIs.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateUlMax">Pdcp­Sdu­Bitrate­Ul­Max</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduBitrateUlMax">PdcpSduBitrateUlMax</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>This measurement provides the maximum cell bit-rate of PDCP SDUs
 measured on the uplink. This represents successful transmissions of
@@ -2279,8 +2345,8 @@ QCIs.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduDelayDl">Pdcp­Sdu­Delay­Dl</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduDelayDl">PdcpSduDelayDl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the average (arithmetic mean) PDCP SDU
 delay on the downlink by ERAB Bearer QoS level (QCI).</p>
@@ -2291,8 +2357,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduDropRateDl">Pdcp­Sdu­Drop­Rate­Dl</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduDropRateDl">PdcpSduDropRateDl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the fraction of IP packets (PDCP SDUs)
 which are dropped on the downlink by ERAB Bearer QoS level (QCI).
@@ -2307,8 +2373,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduAirLossRateDl">Pdcp­Sdu­Air­Loss­Rate­Dl</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduAirLossRateDl">PdcpSduAirLossRateDl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the fraction of IP packets (PDCP SDUs)
 which are lost (not successfully transmitted) on the downlink air
@@ -2326,8 +2392,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduLossRateUl">Pdcp­Sdu­Loss­Rate­Ul</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.PdcpSduLossRateUl">PdcpSduLossRateUl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the fraction of IP packets (PDCP SDUs)
 which are lost (not successfully received) on the uplink by ERAB
@@ -2341,8 +2407,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.UEActiveDl">UEActive­Dl</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.UEActiveDl">UEActiveDl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the average number of UEs that have
 user-plane (DTCH) data queued on the downlink by ERAB Bearer QoS
@@ -2354,8 +2420,8 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.UEActiveUl">UEActive­Ul</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.DRB.Stats.UEActiveUl">UEActiveUl</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>This measurement provides the average number of UEs that have
 user-plane (DTCH) data queued on the uplink by ERAB Bearer QoS level
@@ -2367,7 +2433,7 @@ name= &ldquo;sum&rdquo;.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­RRU.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.">FAPService.{i}.CellConfig.LTE.RAN.RRU.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides monitoring of the Radio Resource Usage in the
@@ -2375,7 +2441,7 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.">FAPService.­{i}.­Cell­Config.­LTE.­RAN.­RRU.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.">FAPService.{i}.CellConfig.LTE.RAN.RRU.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides the RRU statistics as defined in
@@ -2383,23 +2449,23 @@ HeNB.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.PrbTotDl">Prb­Tot­Dl</span></td>
-<td>unsigned­Int­(0:100)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.PrbTotDl">PrbTotDl</span></td>
+<td>unsignedInt(0:100)</td>
 <td>R</td>
 <td>This measurement provides the total usage, in <em>percentage</em>, of physical
 resource blocks (PRBs) on the downlink for any purpose.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.PrbTotUl">Prb­Tot­Ul</span></td>
-<td>unsigned­Int­(0:100)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.RAN.RRU.Stats.PrbTotUl">PrbTotUl</span></td>
+<td>unsignedInt(0:100)</td>
 <td>R</td>
 <td>This measurement provides the total usage, in <em>percentage</em>, of physical
 resource blocks (PRBs) on the uplink for any purpose.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.">FAPService.­{i}.­Cell­Config.­LTE.­Energy­Savings.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.">FAPService.{i}.CellConfig.LTE.EnergySavings.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object provides for the managment of energy savings capabilities
@@ -2423,19 +2489,19 @@ parameter is applicable when the value of <em><a href="#D.FAPService:2.FAPServic
 <em>true</em>. Enumeration of:</p>
 
 <ul>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.State.IsEnergySaving">IsEnergySaving</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.State.IsNotEnergySaving">IsNotEnergySaving</span></li></ul></td>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.State.IsEnergySaving"><em>IsEnergySaving</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.State.IsNotEnergySaving"><em>IsNotEnergySaving</em></span></li></ul></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriodNumberOfEntries">Not­Allowed­Time­Period­Number­Of­Entries</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriodNumberOfEntries">NotAllowedTimePeriodNumberOfEntries</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of entries in the <em><a href="#D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.">NotAllowedTimePeriod</a></em> table.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.">FAPService.­{i}.­Cell­Config.­LTE.­Energy­Savings.­Activation­Candidate­Cells­Load.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.">FAPService.{i}.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object is relevant if the cell acts as a candidate cell. This
@@ -2449,7 +2515,7 @@ state.</td>
 <td>2.0</td></tr>
 <tr class="parameter">
 <td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.Threshold">Threshold</span></td>
-<td>unsigned­Int­(:100)</td>
+<td>unsignedInt(:100)</td>
 <td>W</td>
 <td>PRB usage as a <em>percent</em> [<a href="#R.3GPP-TS.36.314">3GPP-TS.36.314</a>]. The threshold
 applies in the same way for a candidate cell no matter which original
@@ -2457,8 +2523,8 @@ cell it will provide backup coverage.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.TimeDuration">Time­Duration</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.ActivationCandidateCellsLoad.TimeDuration">TimeDuration</span></td>
+<td>unsignedInt</td>
 <td>W</td>
 <td>This parameter indicates how long the traffic in the candidate cell
 needs to have been below the threshold, in <em>seconds</em>, before any
@@ -2467,7 +2533,7 @@ candidate cell enters energy saving state.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.">FAPService.­{i}.­Cell­Config.­LTE.­Energy­Savings.­Deactivation­Candidate­Cells­Load.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.">FAPService.{i}.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object is relevant if the cell acts as a candidate cell. This
@@ -2480,7 +2546,7 @@ energy saving state.</td>
 <td>2.0</td></tr>
 <tr class="parameter">
 <td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.Threshold">Threshold</span></td>
-<td>unsigned­Int­(:100)</td>
+<td>unsignedInt(:100)</td>
 <td>W</td>
 <td>PRB usage as a <em>percent</em> [<a href="#R.3GPP-TS.36.314">3GPP-TS.36.314</a>]. The threshold
 applies in the same way for a candidate cell, no matter for which
@@ -2488,8 +2554,8 @@ original cell it provides backup coverage.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.TimeDuration">Time­Duration</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.DeactivationCandidateCellsLoad.TimeDuration">TimeDuration</span></td>
+<td>unsignedInt</td>
 <td>W</td>
 <td>This parameter indicates how long the traffic in the candidate cell
 needs to have been above the threshold, in <em>seconds</em>, to wake up one
@@ -2498,7 +2564,7 @@ the candidate cell.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.">FAPService.­{i}.­Cell­Config.­LTE.­Energy­Savings.­Not­Allowed­Time­Period.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.">FAPService.{i}.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>This object provides a time period for which energy saving is not
@@ -2518,37 +2584,37 @@ disabled.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.StartTime">Start­Time</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.StartTime">StartTime</span></td>
 <td>string</td>
 <td>W</td>
 <td>Starting time for this time period formatted as &ldquo;HH:MM:SS&rdquo; in UTC.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.EndTime">End­Time</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.EndTime">EndTime</span></td>
 <td>string</td>
 <td>W</td>
 <td>Ending time for this time period formatted as &ldquo;HH:MM:SS&rdquo; in UTC.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek">Days­Of­Week</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek">DaysOfWeek</span></td>
 <td>string</td>
 <td>W</td>
 <td><p><strong>{{list: parameter is not a list}}</strong> Enumeration of:</p>
 
 <ul>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Monday">Monday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Tuesday">Tuesday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Wednesday">Wednesday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Thursday">Thursday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Friday">Friday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Saturday">Saturday</span></li>
-<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Sunday">Sunday</span></li></ul></td>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Monday"><em>Monday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Tuesday"><em>Tuesday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Wednesday"><em>Wednesday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Thursday"><em>Thursday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Friday"><em>Friday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Saturday"><em>Saturday</em></span></li>
+<li><span id="D.FAPService:2.FAPService.CellConfig.LTE.EnergySavings.NotAllowedTimePeriod.DaysOfWeek.Sunday"><em>Sunday</em></span></li></ul></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.">FAPService.­{i}.­Cell­Config.­CDMA2000.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.">FAPService.{i}.CellConfig.CDMA2000.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the CDMA2000
@@ -2556,16 +2622,14 @@ FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.TunnelInstance">Tunnel­Instance</span></td>
-<td>string­(:256)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.TunnelInstance">TunnelInstance</span></td>
+<td>string(:256)</td>
 <td>W</td>
 <td><p>This is the reference to the IPsec tunnel instance used by the
 CDMA2000 FAP.<span class="removed">For all root data models, which use the tunnel definition provided in |bibref|TR-262| (InternetGatewayDevice:1 |bibref|TR-098| and Device:1 |bibref|TR-181i1|) the</span></p>
 
 <p>The <em>TunnelInstance</em> MUST point to <span class="removed">a row in the &lsquo;FAP.Tunnel.IKESA.{i}.&rsquo; table, defined in |bibref|TR-262|.If the root data model used is Device:2 |bibref|TR-181i2| than the |param| MUST point to</span><span class="inserted">an</span> IPsec tunnel instance defined in
-[<a href="#R.TR-181i2">TR-181i2</a>].[</p>
-
-<p><span class="inserted">]</span>If the referenced object is deleted, the parameter value MUST be set
+[<a href="#R.TR-181i2">TR-181i2</a>].If the referenced object is deleted, the parameter value MUST be set
 to an empty string.In case of a multiple-radio-technology FAP product, each radio
 technology can have its own tunnels or share common tunnels. In the
 former case, <em>TunnelInstance</em> can contain a unique instance number. In the
@@ -2574,7 +2638,7 @@ instance number.</p></td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.">FAPService.{i}.CellConfig.CDMA2000.OneX.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to configuring the CDMA2000 1x
@@ -2582,7 +2646,7 @@ FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.­RAN.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.">FAPService.{i}.CellConfig.CDMA2000.OneX.RAN.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to RAN configuring the
@@ -2590,7 +2654,7 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.OneXPZID">One­XPZID</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.OneXPZID">OneXPZID</span></td>
 <td>int</td>
 <td>W</td>
 <td>packet Zone ID for 1x packet calls
@@ -2603,7 +2667,7 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.BaseID">Base­ID</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.BaseID">BaseID</span></td>
 <td>int</td>
 <td>W</td>
 <td>Base station ID (needed in SPM). This is also the CellID. See
@@ -2617,7 +2681,7 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.AccessParameters.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.­RAN.­Access­Parameters.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.AccessParameters.">FAPService.{i}.CellConfig.CDMA2000.OneX.RAN.AccessParameters.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>The object used for configuring access parameter messages for 1x. See
@@ -2625,8 +2689,8 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.AccessParameters.NomPwrExt">Nom­Pwr­Ext</span></td>
-<td>unsigned­Int­(0:1)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.AccessParameters.NomPwrExt">NomPwrExt</span></td>
+<td>unsignedInt(0:1)</td>
 <td>W</td>
 <td><em>NomPwrExt</em> should be zero for BC0 and BC1.<span class="removed"> </span><span class="inserted"> </span>For other band classes,
 <em>NomPwrExt</em> is 1 if Mobile’s correction factor is between -24dBm and
@@ -2639,7 +2703,7 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.ExtendedSystemParameters.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.­RAN.­Extended­System­Parameters.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.ExtendedSystemParameters.">FAPService.{i}.CellConfig.CDMA2000.OneX.RAN.ExtendedSystemParameters.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>The object used for configuring extended system parameter messages for
@@ -2647,8 +2711,8 @@ CDMA2000 1x FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.ExtendedSystemParameters.PrefMSIDType">Pref­MSIDType</span></td>
-<td>unsigned­Int­(0:3)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.ExtendedSystemParameters.PrefMSIDType">PrefMSIDType</span></td>
+<td>unsignedInt(0:3)</td>
 <td>W</td>
 <td><p>Preferred Access Channel Mobile Station Identifier Type. F294.The base station shall set this field to the value shown as below
 corresponding to the type of MSDI that the mobile station is to use
@@ -2664,7 +2728,7 @@ on the Access Channel.[useTMSI] [prefMSIDType] [description]</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.NeighborList.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.­RAN.­Neighbor­List.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.NeighborList.">FAPService.{i}.CellConfig.CDMA2000.OneX.RAN.NeighborList.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>This object contains information common to all neighbors of a sector.
@@ -2674,7 +2738,7 @@ This object has only one instance.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.NeighborList.BaseIdentifier">Base­Identifier</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.RAN.NeighborList.BaseIdentifier">BaseIdentifier</span></td>
 <td>int</td>
 <td>W</td>
 <td>unique identifire of the neighboring cell (optional)
@@ -2687,7 +2751,7 @@ This object has only one instance.</p>
 <td>0</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.Stats.">FAPService.­{i}.­Cell­Config.­CDMA2000.­One­X.­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.Stats.">FAPService.{i}.CellConfig.CDMA2000.OneX.Stats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains 1x FAP statistics aggregated over all connections
@@ -2695,8 +2759,8 @@ of all users over all sectors.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.Stats.TotalVoiceCalls">Total­Voice­Calls</span></td>
-<td>unsigned­Int­(0:4294967295)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.OneX.Stats.TotalVoiceCalls">TotalVoiceCalls</span></td>
+<td>unsignedInt(0:4294967295)</td>
 <td>R</td>
 <td>Total number of successful voice calls
 
@@ -2707,28 +2771,28 @@ of all users over all sectors.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.">FAPService.­{i}.­Cell­Config.­CDMA2000.­HRPD.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.">FAPService.{i}.CellConfig.CDMA2000.HRPD.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>The object contains attributes related to HRPD.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.">FAPService.­{i}.­Cell­Config.­CDMA2000.­HRPD.­RAN.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.">FAPService.{i}.CellConfig.CDMA2000.HRPD.RAN.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>The object contains attributes related to HRPD RAN.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.RF.">FAPService.­{i}.­Cell­Config.­CDMA2000.­HRPD.­RAN.­RF.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.RF.">FAPService.{i}.CellConfig.CDMA2000.HRPD.RAN.RF.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>Contains the details related to HRPD RF</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.RF.ControlChannelRate">Control­Channel­Rate</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.RF.ControlChannelRate">ControlChannelRate</span></td>
 <td>int</td>
 <td>W</td>
 <td>The data rate of the Control Channel of this HRPD SectorElement
@@ -2744,34 +2808,34 @@ Packet Data Air Interface Specification, section-10.4.1.3.2.4
 <td>2.0</td></tr>
 <tr class="parameter">
 <td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.RAN.RF.RSSIRABThreshold">RSSIRABThreshold</span></td>
-<td>int­(-­1600:1600)</td>
+<td>int(-1600:1600)</td>
 <td>W</td>
 <td>RAB threshold<span class="inserted"> in <em>0.125 dBm</em></span> for RSSI based RAB algorithm.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.">FAPService.­{i}.­Cell­Config.­CDMA2000.­HRPD.­Call­Control­Stats.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.">FAPService.{i}.CellConfig.CDMA2000.HRPD.CallControlStats.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>Details on call control stats</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.NumForwardRLPBytes">Num­Forward­RLPBytes</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.NumForwardRLPBytes">NumForwardRLPBytes</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>Number of HRPD <span class="removed">packets(bytes)</span><span class="inserted">packets(<em>bytes</em>)</span> sent from PDSN to AT.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.NumReverseRLPBytes">Num­Reverse­RLPBytes</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.HRPD.CallControlStats.NumReverseRLPBytes">NumReverseRLPBytes</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>No. of HRPD <span class="removed">packets(bytes)</span><span class="inserted">packets(<em>bytes</em>)</span> sent from AT to PDSN.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.">FAPService.­{i}.­Cell­Config.­CDMA2000.­Beacon.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.">FAPService.{i}.CellConfig.CDMA2000.Beacon.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object models the attributes to control the generalized beacon.
@@ -2782,7 +2846,7 @@ once every 1.28s).</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.BeaconList.">FAPService.­{i}.­Cell­Config.­CDMA2000.­Beacon.­Beacon­List.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.BeaconList.">FAPService.{i}.CellConfig.CDMA2000.Beacon.BeaconList.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>This object models an individual beacon intervals. It may be used to
@@ -2793,7 +2857,7 @@ measured in 80ms slots.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.BeaconList.BeaconIndex">Beacon­Index</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.BeaconList.BeaconIndex">BeaconIndex</span></td>
 <td>int</td>
 <td>R</td>
 <td>Instance identifier for this beacon interval. Allowed range is
@@ -2807,7 +2871,7 @@ measured in 80ms slots.</p>
 <td>0</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.">FAPService.­{i}.­Cell­Config.­CDMA2000.­Beacon.­HRPDBeacon­List.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.">FAPService.{i}.CellConfig.CDMA2000.Beacon.HRPDBeaconList.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>This object models individual HRPD beacon intervals where the beacon
@@ -2818,7 +2882,7 @@ start of the beacon frame.</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.BeaconIndex">Beacon­Index</span></td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.BeaconIndex">BeaconIndex</span></td>
 <td>int</td>
 <td>R</td>
 <td>Instance identifier for this beacon interval.<span class="removed"> </span><span class="inserted"> </span>Allowed range is
@@ -2832,15 +2896,15 @@ start of the beacon frame.</p>
 <td>0</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.TxPower">Tx­Power</span></td>
-<td>int­(-­40:20)</td>
+<td><span id="D.FAPService:2.FAPService.CellConfig.CDMA2000.Beacon.HRPDBeaconList.TxPower">TxPower</span></td>
+<td>int(-40:20)</td>
 <td>W</td>
 <td>TX power for the beacon <span class="removed">interval.</span><span class="inserted">interval (in <em>dBm</em>).</span> If self-configuration of the HRPD
 Beacon Tx Power is enabled, then this value<span class="removed"> </span><span class="inserted"> </span>is determined by the FAP.</td>
-<td>-­40</td>
+<td>-40</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.">FAPService.­{i}.­REM.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.">FAPService.{i}.REM.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to REM (Radio Environment
@@ -2848,7 +2912,7 @@ Measurement).</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.">FAPService.­{i}.­REM.­UMTS.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.">FAPService.{i}.REM.UMTS.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains Radio Environment Measurement parameters for UMTS
@@ -2856,7 +2920,7 @@ FAP.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.">FAPService.­{i}.­REM.­UMTS.­WCDMA.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.">FAPService.{i}.REM.UMTS.WCDMA.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to radio environment
@@ -2864,8 +2928,8 @@ measurement capabilities for the UMTS system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.PeriodicTime">Periodic­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.PeriodicTime">PeriodicTime</span></td>
+<td>dateTime</td>
 <td>W</td>
 <td>An absolute time reference in UTC to determine when the CPE will
 initiate the periodic REM. Each REM MUST occur at (or as soon as
@@ -2890,8 +2954,8 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.LastScanTime">Last­Scan­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.WCDMA.LastScanTime">LastScanTime</span></td>
+<td>dateTime</td>
 <td>R</td>
 <td>The<span class="removed"> </span><span class="inserted"> </span>time of the last UMTS system radio environment measurement.
 
@@ -2903,15 +2967,15 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.">FAPService.­{i}.­REM.­UMTS.­GSM.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.">FAPService.{i}.REM.UMTS.GSM.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to GSM REM capabilities.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.PeriodicTime">Periodic­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.PeriodicTime">PeriodicTime</span></td>
+<td>dateTime</td>
 <td>W</td>
 <td>An absolute time reference in UTC to determine when the CPE will
 initiate the periodic REM. Each REM MUST occur at (or as soon as
@@ -2936,8 +3000,8 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.LastScanTime">Last­Scan­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.UMTS.GSM.LastScanTime">LastScanTime</span></td>
+<td>dateTime</td>
 <td>R</td>
 <td>The time of the last GSM radio environment measurement.
 
@@ -2949,7 +3013,7 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.LTE.">FAPService.­{i}.­REM.­LTE.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.LTE.">FAPService.{i}.REM.LTE.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to radio environment
@@ -2957,8 +3021,8 @@ measurement capabilities for the LTE system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.LTE.PeriodicTime">Periodic­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.LTE.PeriodicTime">PeriodicTime</span></td>
+<td>dateTime</td>
 <td>W</td>
 <td>An absolute time reference in UTC to determine when the CPE will
 initiate the periodic REM. Each REM MUST occur at (or as soon as
@@ -2983,8 +3047,8 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.LTE.LastScanTime">Last­Scan­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.REM.LTE.LastScanTime">LastScanTime</span></td>
+<td>dateTime</td>
 <td>R</td>
 <td>The<span class="removed"> </span><span class="inserted"> </span>time of the last LTE system radio environment measurement.
 
@@ -2996,7 +3060,7 @@ Unknown Time value.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.LTE.CarrierMeas.">FAPService.­{i}.­REM.­LTE.­Carrier­Meas.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.LTE.CarrierMeas.">FAPService.{i}.REM.LTE.CarrierMeas.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>W</td>
 <td><p>Table indicating the measurement of the discovered carrier. The
@@ -3009,8 +3073,8 @@ cell).</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.LTE.CarrierMeas.CarrierRSSI">Carrier­RSSI</span></td>
-<td>int­(-­100:-­25)</td>
+<td><span id="D.FAPService:2.FAPService.REM.LTE.CarrierMeas.CarrierRSSI">CarrierRSSI</span></td>
+<td>int(-100:-25)</td>
 <td>R</td>
 <td>Received Signal Strength Indicator (RSSI) as specified in
 [<a href="#R.3GPP-TS.36.214">Sec 5.1.3/3GPP-TS.36.214</a>] over the carrier frequency range
@@ -3025,7 +3089,7 @@ bound.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.">FAPService.­{i}.­REM.­CDMA2000.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.">FAPService.{i}.REM.CDMA2000.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to radio environment
@@ -3033,7 +3097,7 @@ measurement capabilities for the CDMA2000 system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.">FAPService.­{i}.­REM.­CDMA2000.­One­X.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.">FAPService.{i}.REM.CDMA2000.OneX.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to radio environment
@@ -3041,14 +3105,14 @@ measurement capabilities for the 1x system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.">FAPService.­{i}.­REM.­CDMA2000.­One­X.­Cell.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.">FAPService.{i}.REM.CDMA2000.OneX.Cell.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td>Table indicating the components of the discovered cells.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.RF.">FAPService.­{i}.­REM.­CDMA2000.­One­X.­Cell.­{i}.­RF.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.RF.">FAPService.{i}.REM.CDMA2000.OneX.Cell.{i}.RF.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>RF REM results for each detected cell.</td>
@@ -3068,7 +3132,7 @@ measurement capabilities for the 1x system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.ControlChannel.">FAPService.­{i}.­REM.­CDMA2000.­One­X.­Cell.­{i}.­Control­Channel.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.OneX.Cell.ControlChannel.">FAPService.{i}.REM.CDMA2000.OneX.Cell.{i}.ControlChannel.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>Table containing information broadcast on control channel.</td>
@@ -3114,7 +3178,7 @@ measurement capabilities for the 1x system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.">FAPService.­{i}.­REM.­CDMA2000.­HRPD.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.">FAPService.{i}.REM.CDMA2000.HRPD.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to radio environment
@@ -3122,14 +3186,14 @@ measurement capabilities for the HRPD system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.">FAPService.­{i}.­REM.­CDMA2000.­HRPD.­Cell.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.">FAPService.{i}.REM.CDMA2000.HRPD.Cell.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td>Table indicating the components of the discovered cells.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.RF.">FAPService.­{i}.­REM.­CDMA2000.­HRPD.­Cell.­{i}.­RF.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.RF.">FAPService.{i}.REM.CDMA2000.HRPD.Cell.{i}.RF.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>RF REM results for each detected cell.</td>
@@ -3149,14 +3213,14 @@ measurement capabilities for the HRPD system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.">FAPService.­{i}.­REM.­CDMA2000.­HRPD.­Cell.­{i}.­Control­Channel.</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.">FAPService.{i}.REM.CDMA2000.HRPD.Cell.{i}.ControlChannel.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>Table containing information braodcast on control channel.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.ColorCode">Color­Code</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.ColorCode">ColorCode</span></td>
 <td>int</td>
 <td>R</td>
 <td>The color code of the measured sector as defined in
@@ -3170,7 +3234,7 @@ measurement capabilities for the HRPD system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.CountryCode">Country­Code</span></td>
+<td><span id="D.FAPService:2.FAPService.REM.CDMA2000.HRPD.Cell.ControlChannel.CountryCode">CountryCode</span></td>
 <td>int</td>
 <td>R</td>
 <td>The country code of the measured sector as defined in
@@ -3184,14 +3248,14 @@ measurement capabilities for the HRPD system.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.Transport.">FAPService.­{i}.­Transport.</span></td>
+<td><span id="D.FAPService:2.FAPService.Transport.">FAPService.{i}.Transport.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to the transport.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.Transport.SIP.">FAPService.­{i}.­Transport.­SIP.</span></td>
+<td><span id="D.FAPService:2.FAPService.Transport.SIP.">FAPService.{i}.Transport.SIP.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to SIP as a transport
@@ -3199,22 +3263,22 @@ protocol.SIP is defined in [<a href="#R.RFC3261">RFC3261</a>].</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.">FAPService.­{i}.­Transport.­SIP.­FCS.</span></td>
+<td><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.">FAPService.{i}.Transport.SIP.FCS.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object models SIP Femtocell Convergence Server (FCS) parameters.</td>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability">SIPAuth­Capability</span></td>
-<td>string­[]</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability">SIPAuthCapability</span></td>
+<td>string[]</td>
 <td>R</td>
 <td><p>Comma-separated list of strings. Represents the SIP authentication mechanisms supported by this
 device. Each list item is an enumeration of:</p>
 
 <ul>
-<li><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability.TNA">TNA</span> (As defined in [<a href="#R.3GPP2-S.S0132">3GPP2-S.S0132</a>])</li>
-<li><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability.SIPDigest">SIPDigest</span> (Digest Authentication as defined in [<a href="#R.RFC3261">RFC3261</a>])</li></ul>
+<li><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability.TNA"><em>TNA</em></span> (As defined in [<a href="#R.3GPP2-S.S0132">3GPP2-S.S0132</a>])</li>
+<li><span id="D.FAPService:2.FAPService.Transport.SIP.FCS.SIPAuthCapability.SIPDigest"><em>SIPDigest</em></span> (Digest Authentication as defined in [<a href="#R.RFC3261">RFC3261</a>])</li></ul>
 
 <div class="diffs"><p><strong>Changes in 2.1:</strong></p>
 
@@ -3224,7 +3288,7 @@ device. Each list item is an enumeration of:</p>
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.">FAPService.­{i}.­Transport.­SCTP.</span></td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.">FAPService.{i}.Transport.SCTP.</span></td>
 <td><span title="object">object</span></td>
 <td>R</td>
 <td>This object contains parameters relating to SCTP as a transport
@@ -3232,8 +3296,8 @@ protocol.SCTP is defined in [<a href="#R.RFC4960">RFC4960</a>] and [<a href="#R.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutCtrlChunks">Out­Ctrl­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutCtrlChunks">OutCtrlChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP control chunks sent (retransmissions are not
 included).
@@ -3246,8 +3310,8 @@ included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutOrderChunks">Out­Order­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutOrderChunks">OutOrderChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP ordered data chunks sent (retransmissions are not
 included).
@@ -3260,8 +3324,8 @@ included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutUnorderChunks">Out­Unorder­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutUnorderChunks">OutUnorderChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP unordered chunks (data chunks in which the U bit
 is set to 1) sent (retransmissions are not included).
@@ -3274,8 +3338,8 @@ is set to 1) sent (retransmissions are not included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InCtrlChunks">In­Ctrl­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InCtrlChunks">InCtrlChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP control chunks received (no duplicate chunks
 included).
@@ -3288,8 +3352,8 @@ included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InOrderChunks">In­Order­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InOrderChunks">InOrderChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP ordered data chunks received (no duplicate chunks
 included).
@@ -3302,8 +3366,8 @@ included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InUnorderChunks">In­Unorder­Chunks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InUnorderChunks">InUnorderChunks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP unordered chunks (data chunks in which the U bit
 is set to 1) received (no duplicate chunks included).
@@ -3316,8 +3380,8 @@ is set to 1) received (no duplicate chunks included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.FragUsrMsgs">Frag­Usr­Msgs</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.FragUsrMsgs">FragUsrMsgs</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of user messages that have been sent fragmented.
 
@@ -3329,8 +3393,8 @@ is set to 1) received (no duplicate chunks included).
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.ReasmUsrMsgs">Reasm­Usr­Msgs</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.ReasmUsrMsgs">ReasmUsrMsgs</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of user messages that have been received fragmented and
 submitted to the reassembly process.
@@ -3343,8 +3407,8 @@ submitted to the reassembly process.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutSCTPPacks">Out­SCTPPacks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.OutSCTPPacks">OutSCTPPacks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP packets sent. Retransmitted DATA chunks are
 included.
@@ -3357,8 +3421,8 @@ included.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InSCTPPacks">In­SCTPPacks</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.InSCTPPacks">InSCTPPacks</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of SCTP packets received. Duplicates are included.
 
@@ -3370,8 +3434,8 @@ included.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.AssocNumberOfEntries">Assoc­Number­Of­Entries</span></td>
-<td>unsigned­Int</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.AssocNumberOfEntries">AssocNumberOfEntries</span></td>
+<td>unsignedInt</td>
 <td>R</td>
 <td>The number of entries in the <em><a href="#D.FAPService:2.FAPService.Transport.SCTP.Assoc.">Assoc</a></em> table.
 
@@ -3383,7 +3447,7 @@ included.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="object">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.Assoc.">FAPService.­{i}.­Transport.­SCTP.­Assoc.­{i}.</span></td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.Assoc.">FAPService.{i}.Transport.SCTP.Assoc.{i}.</span></td>
 <td><span title="object(0:∞)">object(0:)</span></td>
 <td>R</td>
 <td><p>SCTP Association Table</p>
@@ -3392,8 +3456,8 @@ included.
 <td>-</td>
 <td>2.0</td></tr>
 <tr class="parameter">
-<td><span id="D.FAPService:2.FAPService.Transport.SCTP.Assoc.StartTime">Start­Time</span></td>
-<td>date­Time</td>
+<td><span id="D.FAPService:2.FAPService.Transport.SCTP.Assoc.StartTime">StartTime</span></td>
+<td>dateTime</td>
 <td>R</td>
 <td>The start Time for the present SCTP association.
 
@@ -3406,7 +3470,7 @@ included.
 <td>2.0</td></tr>
 <tr class="parameter">
 <td><span id="D.FAPService:2.FAPService.Transport.SCTP.Assoc.Discontinuity">Discontinuity</span></td>
-<td>date­Time</td>
+<td>dateTime</td>
 <td>R</td>
 <td>The time of the last discontinuity.
 
@@ -4338,8 +4402,7 @@ included.
 
 <hr/>
 
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.0 (2023-06-14 version) on 2023-06-14
-at 11:05:32 UTC.<br/>report.py –include ../../install/cwmp –output &lt;stdout&gt; –transform diff –format markdown tr-196-2-0-3.xml tr-196-2-1-1-usp.xml</p></div>
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.1.0 (2024-01-18 version) on 2024-01-18 at 10:21:55 UTC.<br/>report.py –include ../../install/cwmp –output &lt;stdout&gt; –transform diff –format markdown tr-196-2-0-3.xml tr-196-2-1-1-usp.xml</p></div>
 
 <div id="TOC"><h1 id="table-of-contents">Table of Contents</h1>
 

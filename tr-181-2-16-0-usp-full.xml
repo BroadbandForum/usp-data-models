@@ -2765,9 +2765,9 @@
       </title>
       <organization>Broadband Forum</organization>
       <category>Technical Report</category>
-      <date>December 2021</date>
+      <date>December 2023</date>
       <hyperlink>
-        https://www.broadband-forum.org/download/TR-471_Issue-2.pdf
+        https://www.broadband-forum.org/download/TR-471_Issue-4.pdf
       </hyperlink>
     </reference>
     <reference id="AMB">
@@ -3718,10 +3718,12 @@
           The value MUST be a valid OUI as defined in {{bibref|OUI}}.
 
           This value MUST remain fixed over the lifetime of the device,
-          including across firmware updates.{{np}}Any change would indicate
-          that it's a new Agent and would therefore require a {{event|#.Boot!}}
-          Event with a {{enum|LocalFactoryReset|#.Boot!.Cause}} enumerated
-          value in the {{param|#.Boot!.Cause}} argument.
+          including across firmware updates.
+
+          Any change would indicate that it's a new Agent and would therefore
+          require a {{event|#.Boot!}} Event with a
+          {{enum|LocalFactoryReset|#.Boot!.Cause}} enumerated value in the
+          {{param|#.Boot!.Cause}} argument.
         </description>
         <syntax>
           <string>
@@ -83995,12 +83997,12 @@
           When an Execution Environment is disabled, Deployment Units installed
           to that Execution Environment will be unaffected, but any Execution
           Units currently running on that Execution Environment will
-          automatically transition to
-          {{enum|Idle|#.ExecutionUnit.{i}.Status}}.{{np}}If an Update or
-          Uninstall operation is attempted on a {{object|#.DeploymentUnit}}
-          that is to be applied against a disabled {{object}}, that operation
-          fails and the associated event will contain a FaultStruct for that
-          operation.
+          automatically transition to {{enum|Idle|#.ExecutionUnit.{i}.Status}}.
+
+          If an Update or Uninstall operation is attempted on a
+          {{object|#.DeploymentUnit}} that is to be applied against a disabled
+          {{object}}, that operation fails and the associated event will
+          contain a FaultStruct for that operation.
 
           Disabling an Execution Environment could place the device in a
           non-manageable state. For example, if the operating system itself was
@@ -84167,7 +84169,9 @@
         <description>
           The amount of disk space measured in {{units}} allocated to this
           ExecEnv. A value of -1 indicates that this parameter is not
-          applicable.{{np}}This value can be altered by executing the
+          applicable.
+
+          This value can be altered by executing the
           {{command|ModifyConstraints()}} command.
         </description>
         <syntax>
@@ -84183,7 +84187,9 @@
         <description>
           The amount of physical RAM measured in {{units}} allocated to this
           ExecEnv. A value of -1 indicates that this parameter is not
-          applicable.{{np}}This value can be altered by executing the
+          applicable.
+
+          This value can be altered by executing the
           {{command|ModifyConstraints()}} command.
         </description>
         <syntax>
@@ -84200,8 +84206,9 @@
           The percentage of CPU time allocated to this ExecEnv, i.e. the
           percentage of the whole CPU (all cores) which is available to the
           parent ExecEnv (the primary firmware "owns" 100{{units}} of CPU). A
-          value of -1 indicates that this parameter is not
-          applicable.{{np}}This value can be altered by executing the
+          value of -1 indicates that this parameter is not applicable.
+
+          This value can be altered by executing the
           {{command|ModifyConstraints()}} command.
         </description>
         <syntax>
@@ -84703,9 +84710,10 @@
         minEntries="0" maxEntries="unbounded" access="readOnly" version="2.16"
         numEntriesParameter="ApplicationDataNumberOfEntries">
       <description>
-        The ApplicationData volumes which currently exist within this
-        ExecEnv.{{np}}The entries in this table are created automatically as a
-        result of calls to {{command|##.InstallDU()}} and
+        The ApplicationData volumes which currently exist within this ExecEnv.
+
+        The entries in this table are created automatically as a result of
+        calls to {{command|##.InstallDU()}} and
         {{command|##.DeploymentUnit.{i}.Update()}}, and are removed as a result
         of calls to {{command|##.DeploymentUnit.{i}.Update()}},
         {{command|##.DeploymentUnit.{i}.Uninstall()}}, and
@@ -84719,6 +84727,15 @@
         <parameter ref="Name"/>
       </uniqueKey>
 
+      <parameter name="Alias" access="readWrite" dmr:previousParameter="">
+        <description>
+          {{datatype|expand}}
+        </description>
+        <syntax>
+          <dataType ref="Alias"/>
+        </syntax>
+      </parameter>
+
       <parameter name="Name" access="readOnly">
         <description>
           A name which is assigned to the ApplicationData instance at the time
@@ -84729,15 +84746,6 @@
           <string>
             <size maxLength="64"/>
           </string>
-        </syntax>
-      </parameter>
-
-      <parameter name="Alias" access="readWrite" dmr:previousParameter="">
-        <description>
-          {{datatype|expand}}
-        </description>
-        <syntax>
-          <dataType ref="Alias"/>
         </syntax>
       </parameter>
 
@@ -84763,9 +84771,11 @@
 
       <parameter name="Retain" access="readOnly">
         <description>
-          The level of persistency of the volume.{{np}}Note that if this
-          parameter has the value {{enum|Forever}}, it is possible that there
-          is no currently installed {{object|##.DeploymentUnit}} whose
+          The level of persistency of the volume.
+
+          Note that if this parameter has the value {{enum|Forever}}, it is
+          possible that there is no currently installed
+          {{object|##.DeploymentUnit}} whose
           {{param|##.DeploymentUnit.{i}.UUID}} matches the
           {{param|ApplicationUUID}} of this {{object|#}} table entry; this
           situation will be resolved when either a matching
@@ -85883,10 +85893,11 @@
         <description>
           Represents the instances of multi-instanced objects that are directly
           controlled by, and have come into existence because of, this
-          {{object}}.{{np}}NOTE: All other objects and parameters (i.e. not
-          multi-instanced objects) that this {{object}} has caused to come into
-          existence can be discovered via the GetSupportedDM and GetInstances
-          USP messages.
+          {{object}}.
+
+          NOTE: All other objects and parameters (i.e. not multi-instanced
+          objects) that this {{object}} has caused to come into existence can
+          be discovered via the GetSupportedDM and GetInstances USP messages.
         </description>
         <syntax>
           <list/>
@@ -86170,9 +86181,10 @@
         <description>
           The number of restart attempts which have been initiated so far.
           Resetting this parameter to zero has the effect of re-initialising
-          the exponential back-off algorithm.{{np}}Invoking the
-          {{command|#.Restart()}} command also has the effect of resetting this
-          parameter to zero.
+          the exponential back-off algorithm.
+
+          Invoking the {{command|#.Restart()}} command also has the effect of
+          resetting this parameter to zero.
         </description>
         <syntax>
           <unsignedInt/>
@@ -86216,6 +86228,15 @@
         <parameter ref="Destination"/>
       </uniqueKey>
 
+      <parameter name="Alias" access="readWrite" dmr:previousParameter="">
+        <description>
+          {{datatype|expand}}
+        </description>
+        <syntax>
+          <dataType ref="Alias"/>
+        </syntax>
+      </parameter>
+
       <parameter name="Source" access="readOnly">
         <description>
           The object identifier by which the object may be accessed in the host
@@ -86227,15 +86248,6 @@
           <string>
             <size maxLength="256"/>
           </string>
-        </syntax>
-      </parameter>
-
-      <parameter name="Alias" access="readWrite" dmr:previousParameter="">
-        <description>
-          {{datatype|expand}}
-        </description>
-        <syntax>
-          <dataType ref="Alias"/>
         </syntax>
       </parameter>
 
@@ -86272,12 +86284,13 @@
         to this Execution Unit, which allows multiple Execution Units to expose
         parameters without the concern of conflicting parameter names. These
         vendor extensions are related to displaying status and maintaining
-        configuration for this Execution Unit.{{np}}It is also possible for the
-        Execution Unit to expose status and configuration parameters within
-        Service objects or as embedded objects and parameters directly within
-        the root data model, in which case the combination of
-        {{param|#.References}} and use of GetSupportDM and GetInstances USP
-        messages will be used to determine their locations.
+        configuration for this Execution Unit.
+
+        It is also possible for the Execution Unit to expose status and
+        configuration parameters within Service objects or as embedded objects
+        and parameters directly within the root data model, in which case the
+        combination of {{param|#.References}} and use of GetSupportDM and
+        GetInstances USP messages will be used to determine their locations.
       </description>
     </object>
 

@@ -2207,9 +2207,9 @@
       </title>
       <organization>Broadband Forum</organization>
       <category>Technical Report</category>
-      <date>December 2021</date>
+      <date>December 2023</date>
       <hyperlink>
-        https://www.broadband-forum.org/download/TR-471_Issue-2.pdf
+        https://www.broadband-forum.org/download/TR-471_Issue-4.pdf
       </hyperlink>
     </reference>
     <reference id="DataElements-v1.0">
@@ -3028,8 +3028,10 @@
           letters and including any leading zeros. {{pattern}} The value MUST
           be a valid OUI as defined in {{bibref|OUI}}. This value MUST remain
           fixed over the lifetime of the device, including across firmware
-          updates.{{np}}Any change would indicate that it's a new Agent and
-          would therefore require a {{event|#.Boot!}} Event with a
+          updates.
+
+          Any change would indicate that it's a new Agent and would therefore
+          require a {{event|#.Boot!}} Event with a
           {{enum|LocalFactoryReset|#.Boot!.Cause}} enumerated value in the
           {{param|#.Boot!.Cause}} argument.
         </description>

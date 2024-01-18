@@ -6,7 +6,7 @@ The latest [User Services Platform (USP)](https://usp.technology)
 data models can be found at <https://usp-data-models.broadband-forum.org>.
 
 [The Broadband Forum][BBF] defines several data models for use with the [User
-Services Platform (USP) (TR-069)][USP]. These data models contain objects,
+Services Platform (USP)][USP]. These data models contain objects,
 parameters, commands, and events that describe the many different service
 elements that can be exposed via USP Agents.
 

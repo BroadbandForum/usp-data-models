@@ -4085,13 +4085,14 @@
         <description>
           This is the reference to the IPsec tunnel instance used by the UMTS
           FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.{{np}}If the referenced object is deleted, the
-          parameter value MUST be set to an empty string. In case of a
-          multiple-radio-technology FAP product, each radio technology can have
-          its own tunnels or share common tunnels. In the former case,
-          {{param}} can contain a unique instance number. In the latter case,
-          {{param}} under all radio technologies can have the same instance
-          number.
+          {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string. In case of a multiple-radio-technology FAP
+          product, each radio technology can have its own tunnels or share
+          common tunnels. In the former case, {{param}} can contain a unique
+          instance number. In the latter case, {{param}} under all radio
+          technologies can have the same instance number.
         </description>
         <syntax>
           <string>
@@ -10085,13 +10086,14 @@
         <description>
           This is the reference to an IPsec tunnel instance used by the LTE
           FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.{{np}}If the referenced object is deleted, the
-          parameter value MUST be set to an empty string. In case of a
-          multiple-radio-technology FAP product, each radio technology can have
-          its own tunnels or share common tunnels. In the former case,
-          {{param}} can contain a unique instance number. In the latter case,
-          {{param}} under all radio technologies can have the same instance
-          number.
+          {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string. In case of a multiple-radio-technology FAP
+          product, each radio technology can have its own tunnels or share
+          common tunnels. In the former case, {{param}} can contain a unique
+          instance number. In the latter case, {{param}} under all radio
+          technologies can have the same instance number.
         </description>
         <syntax>
           <string>
@@ -18245,13 +18247,14 @@
         <description>
           This is the reference to the IPsec tunnel instance used by the
           CDMA2000 FAP. The {{param}} MUST point to an IPsec tunnel instance
-          defined in {{bibref|TR-181i2}}.{{np}}If the referenced object is
-          deleted, the parameter value MUST be set to an empty string. In case
-          of a multiple-radio-technology FAP product, each radio technology can
-          have its own tunnels or share common tunnels. In the former case,
-          {{param}} can contain a unique instance number. In the latter case,
-          {{param}} under all radio technologies can have the same instance
-          number.
+          defined in {{bibref|TR-181i2}}.
+
+          If the referenced object is deleted, the parameter value MUST be set
+          to an empty string. In case of a multiple-radio-technology FAP
+          product, each radio technology can have its own tunnels or share
+          common tunnels. In the former case, {{param}} can contain a unique
+          instance number. In the latter case, {{param}} under all radio
+          technologies can have the same instance number.
         </description>
         <syntax>
           <string>
