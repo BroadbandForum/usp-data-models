@@ -67,12 +67,12 @@
 
 -->
 <dm:document
-    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-7"
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-14"
     xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-      urn:broadband-forum-org:cwmp:datamodel-1-7
-        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-7.xsd
+      urn:broadband-forum-org:cwmp:datamodel-1-14
+        http://www.broadband-forum.org/cwmp/cwmp-datamodel-1-14.xsd
       urn:broadband-forum-org:cwmp:datamodel-report-0-1
         https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
     spec="urn:broadband-forum-org:tr-104-2-0-2-usp"
@@ -99,6 +99,22 @@
     <string>
       <size maxLength="64"/>
     </string>
+  </dataType>
+
+  <dataType name="_AliasUSP" base="_AliasCommon">
+    <description action="replace">
+      A non-volatile unique key used to reference this instance. Alias provides
+      a mechanism for a Controller to label this instance for future reference.
+
+      The following mandatory constraints MUST be enforced:
+
+      * The value MUST NOT be empty.
+
+      * The value MUST start with a letter.
+
+      * If the value is not assigned by the Controller at creation time, the
+        Agent MUST assign a value with an "cpe-" prefix.
+    </description>
   </dataType>
 
   <dataType name="Alias" base="_AliasCommon">
@@ -2923,7 +2939,7 @@
         </description>
         <input>
 
-          <parameter name="TestSelector">
+          <parameter name="TestSelector" version="2.0">
             <description>
               Indicates which test to perform. {{enum}}
 
@@ -2969,7 +2985,7 @@
             </syntax>
           </parameter>
 
-          <parameter name="TestResult">
+          <parameter name="TestResult" version="2.0">
             <description>
               Result of the selected test. {{enum}}
 
@@ -3183,7 +3199,7 @@
         </description>
         <input>
 
-          <parameter name="TestSelector">
+          <parameter name="TestSelector" version="2.0">
             <description>
               Indicates which GR-909 test to perform.
             </description>
@@ -3250,7 +3266,7 @@
             </syntax>
           </parameter>
 
-          <parameter name="TestResult">
+          <parameter name="TestResult" version="2.0">
             <description>
               Result of the selected test.
             </description>
@@ -3807,7 +3823,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="Name" access="readWrite">
+      <parameter name="Name" access="readWrite" version="2.0.3">
         <description>
           The name of the DECT portable as assigned by the CPE. May be used for
           display on the handset screen.
@@ -11397,7 +11413,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="RTCPCNAME" access="readOnly">
+      <parameter name="RTCPCNAME" access="readOnly" version="2.0.3">
         <description>
           A unique identifier provided in RTCP by the destination.
         </description>
@@ -11408,7 +11424,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="MinJitter" access="readOnly">
+      <parameter name="MinJitter" access="readOnly" version="2.0">
         <description>
           The minimum relative transit time in {{units}} between two packets as
           defined in {{bibref|RFC3611}}.
@@ -11533,7 +11549,8 @@
         </syntax>
       </parameter>
 
-      <parameter name="DuplicatePacketsReceived" access="readOnly">
+      <parameter name="DuplicatePacketsReceived" access="readOnly"
+          version="2.0.3">
         <description>
           Total number of duplicate RTP packets that have been received for
           this session. Note: duplicate packets are often the result of network
@@ -11954,7 +11971,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="RTCPCNAME" access="readOnly">
+      <parameter name="RTCPCNAME" access="readOnly" version="2.0.3">
         <description>
           A unique identifier provided in RTCP by the destination.
         </description>
@@ -11965,7 +11982,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="MinJitter" access="readOnly">
+      <parameter name="MinJitter" access="readOnly" version="2.0">
         <description>
           The minimum relative transit time in {{units}} between two packets as
           defined in {{bibref|RFC3611}}.
@@ -12090,7 +12107,8 @@
         </syntax>
       </parameter>
 
-      <parameter name="DuplicatePacketsReceived" access="readOnly">
+      <parameter name="DuplicatePacketsReceived" access="readOnly"
+          version="2.0.3">
         <description>
           Total number of duplicate RTP packets that have been received for
           this session. Note: duplicate packets are often the result of network
@@ -13192,7 +13210,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="DefaultEventProfile" access="readWrite">
+      <parameter name="DefaultEventProfile" access="readWrite" version="2.0.3">
         <description>
           Reference to the default tone event profile.
         </description>
@@ -13730,7 +13748,7 @@
         </description>
         <input>
 
-          <parameter name="TestSelector">
+          <parameter name="TestSelector" version="2.0">
             <description>
               Indicates which test to perform.
 
@@ -13766,7 +13784,7 @@
             </syntax>
           </parameter>
 
-          <parameter name="PhoneRinging">
+          <parameter name="PhoneRinging" version="2.0">
             <description>
               Indicates whether or not the phone associated with this port is
               ringing. This parameter is applicable only if

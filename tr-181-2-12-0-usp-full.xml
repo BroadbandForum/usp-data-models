@@ -98,12 +98,12 @@
   time. 
 -->
 <dm:document
-    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-6"
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-14"
     xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-      urn:broadband-forum-org:cwmp:datamodel-1-6
-        http://www.broadband-forum.org/cwmp/cwmp-datamodel-1-6.xsd
+      urn:broadband-forum-org:cwmp:datamodel-1-14
+        http://www.broadband-forum.org/cwmp/cwmp-datamodel-1-14.xsd
       urn:broadband-forum-org:cwmp:datamodel-report-0-1
         http://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
     spec="urn:broadband-forum-org:tr-181-2-12-0-usp"
@@ -164,6 +164,8 @@
     </description>
   </dataType>
 
+  <dataType name="Alias" base="_AliasCWMP"/>
+
   <dataType name="Dbm1000">
     <description>
       The value is measured in ''dBm/1000'', i.e. the value divided by 1000 is
@@ -189,6 +191,42 @@
       <size maxLength="23"/>
       <pattern value=""/>
       <pattern value="([0-9A-Fa-f][0-9A-Fa-f]:){7}([0-9A-Fa-f][0-9A-Fa-f])"/>
+    </string>
+  </dataType>
+
+  <dataType name="IPAddress">
+    <description>
+      IP address, i.e. IPv4 address (or IPv4 subnet mask) or IPv6 address.
+
+      All IPv4 addresses and subnet masks MUST be represented as strings in
+      IPv4 dotted-decimal notation. Here are some examples of valid IPv4
+      address textual representations:
+
+      * 216.52.29.100
+
+      * 192.168.1.254
+
+      All IPv6 addresses MUST be represented using any of the 3 standard
+      textual representations defined in {{bibref|RFC4291}} Sections 2.2.1,
+      2.2.2 and 2.2.3. Both lower-case and upper-case letters can be used, but
+      use of lower-case letters is RECOMMENDED. Here are some examples of valid
+      IPv6 address textual representations:
+
+      * 1080:0:0:800:ba98:3210:11aa:12dd
+
+      * 1080::800:ba98:3210:11aa:12dd
+
+      * 0:0:0:0:0:0:13.1.68.3
+
+      IPv6 addresses MUST NOT include zone identifiers. Zone identifiers are
+      discussed in {{bibref|RFC4007|Section 6}}.
+
+      Unspecified or inapplicable addresses (or IPv4 subnet masks) MUST be
+      represented as empty strings unless otherwise specified by the parameter
+      definition.
+    </description>
+    <string>
+      <size maxLength="45"/>
     </string>
   </dataType>
 
@@ -264,6 +302,13 @@
     </description>
   </dataType>
 
+  <dataType name="JSONObject">
+    <description>
+      A JSON Object as defined in {{bibref|RFC7159|Section 4}}.
+    </description>
+    <string/>
+  </dataType>
+
   <dataType name="MACAddress">
     <description>
       All MAC addresses are represented as strings of 12 hexadecimal digits
@@ -276,57 +321,6 @@
       <size maxLength="17"/>
       <pattern value=""/>
       <pattern value="([0-9A-Fa-f][0-9A-Fa-f]:){5}([0-9A-Fa-f][0-9A-Fa-f])"/>
-    </string>
-  </dataType>
-
-  <dataType name="ZigBeeNetworkAddress">
-    <description>
-      The ZigBee 16-bit network address (NWK) as defined in
-      {{bibref|ZigBee2007}}. The address is assigned to a device by the network
-      layer and used by the network layer for routing messages between devices.
-    </description>
-    <string>
-      <size maxLength="4"/>
-      <pattern value=""/>
-      <pattern value="([0-9A-Fa-f]){4}"/>
-    </string>
-  </dataType>
-
-  <dataType name="_Alias" base="_AliasCWMP"/>
-
-  <dataType name="IPAddress">
-    <description>
-      IP address, i.e. IPv4 address (or IPv4 subnet mask) or IPv6 address.
-
-      All IPv4 addresses and subnet masks MUST be represented as strings in
-      IPv4 dotted-decimal notation. Here are some examples of valid IPv4
-      address textual representations:
-
-      * 216.52.29.100
-
-      * 192.168.1.254
-
-      All IPv6 addresses MUST be represented using any of the 3 standard
-      textual representations defined in {{bibref|RFC4291}} Sections 2.2.1,
-      2.2.2 and 2.2.3. Both lower-case and upper-case letters can be used, but
-      use of lower-case letters is RECOMMENDED. Here are some examples of valid
-      IPv6 address textual representations:
-
-      * 1080:0:0:800:ba98:3210:11aa:12dd
-
-      * 1080::800:ba98:3210:11aa:12dd
-
-      * 0:0:0:0:0:0:13.1.68.3
-
-      IPv6 addresses MUST NOT include zone identifiers. Zone identifiers are
-      discussed in {{bibref|RFC4007|Section 6}}.
-
-      Unspecified or inapplicable addresses (or IPv4 subnet masks) MUST be
-      represented as empty strings unless otherwise specified by the parameter
-      definition.
-    </description>
-    <string>
-      <size maxLength="45"/>
     </string>
   </dataType>
 
@@ -383,14 +377,20 @@
     </string>
   </dataType>
 
-  <dataType name="JSONObject">
+  <dataType name="ZigBeeNetworkAddress">
     <description>
-      A JSON Object as defined in {{bibref|RFC7159|Section 4}}.
+      The ZigBee 16-bit network address (NWK) as defined in
+      {{bibref|ZigBee2007}}. The address is assigned to a device by the network
+      layer and used by the network layer for routing messages between devices.
     </description>
-    <string/>
+    <string>
+      <size maxLength="4"/>
+      <pattern value=""/>
+      <pattern value="([0-9A-Fa-f]){4}"/>
+    </string>
   </dataType>
 
-  <dataType name="Alias" base="_AliasCWMP"/>
+  <dataType name="_Alias" base="_AliasCWMP"/>
 
   <dataType name="PSMBreakPointIndexAndLevel">
     <description>
@@ -1938,25 +1938,25 @@
       <name>IPDR File Transfer Protocol</name>
       <title>IPDR/File Transfer Protocol</title>
       <organization>TM Forum</organization>
-      <hyperlink>https://www.ipdr.org/public/</hyperlink>
+      <hyperlink>https://www.tmforum.org/ipdr/</hyperlink>
     </reference>
     <reference id="IPDR-SP">
       <name>IPDR Streaming Protocol</name>
       <title>IPDR Streaming Protocol (IPDR/SP) Specification</title>
       <organization>TM Forum</organization>
-      <hyperlink>https://www.ipdr.org/public/</hyperlink>
+      <hyperlink>https://www.tmforum.org/ipdr/</hyperlink>
     </reference>
     <reference id="IPDR-XDR">
       <name>IPDR XDR Encoding Format</name>
       <title>IPDR/XDR Encoding Format</title>
       <organization>TM Forum</organization>
-      <hyperlink>https://www.ipdr.org/public/</hyperlink>
+      <hyperlink>https://www.tmforum.org/ipdr/</hyperlink>
     </reference>
     <reference id="IPDR-XML">
       <name>IPDR XML File Encoding Format</name>
       <title>IPDR/XML File Encoding Format</title>
       <organization>TM Forum</organization>
-      <hyperlink>https://www.ipdr.org/public/</hyperlink>
+      <hyperlink>https://www.tmforum.org/ipdr/</hyperlink>
     </reference>
     <reference id="JJ-300.00">
       <name>JJ-300.00</name>

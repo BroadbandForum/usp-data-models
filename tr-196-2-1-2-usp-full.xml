@@ -47,12 +47,12 @@
 -->
 
 <dm:document
-    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-8"
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-14"
     xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-      urn:broadband-forum-org:cwmp:datamodel-1-8
-        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-8.xsd
+      urn:broadband-forum-org:cwmp:datamodel-1-14
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-14.xsd
       urn:broadband-forum-org:cwmp:datamodel-report-0-1
         https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
     spec="urn:broadband-forum-org:tr-196-2-1-2-usp"
@@ -68,6 +68,22 @@
     <string>
       <size maxLength="64"/>
     </string>
+  </dataType>
+
+  <dataType name="_AliasUSP" base="_AliasCommon">
+    <description action="replace">
+      A non-volatile unique key used to reference this instance. Alias provides
+      a mechanism for a Controller to label this instance for future reference.
+
+      The following mandatory constraints MUST be enforced:
+
+      * The value MUST NOT be empty.
+
+      * The value MUST start with a letter.
+
+      * If the value is not assigned by the Controller at creation time, the
+        Agent MUST assign a value with an "cpe-" prefix.
+    </description>
   </dataType>
 
   <dataType name="Alias" base="_AliasCommon">
@@ -16352,7 +16368,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="Blocklisted" access="readWrite">
+      <parameter name="Blocklisted" access="readWrite" version="2.1.2">
         <description>
           Indicates whether this neighbor cell is allowed for UEs as handover
           target or not. If {{true}}, handover is prohibited towards this cell.
@@ -17084,7 +17100,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="Blocklisted" access="readOnly">
+      <parameter name="Blocklisted" access="readOnly" version="2.1.2">
         <description>
           Indicates whether this neighbor cell is allowed for UEs as handover
           target or not. If {{true}}, handover is prohibited towards this cell.
