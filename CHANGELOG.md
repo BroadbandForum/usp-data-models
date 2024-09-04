@@ -5,6 +5,13 @@
 The latest [User Services Platform (USP)](https://usp.technology)
 data models can be found at <https://usp-data-models.broadband-forum.org>.
 
+## 2024-09-04: TR-181 Issue 2 Amendment 18 Corrigendum 1
+
+*Tags: [v1.4.1] (data models), 
+       [v1.4.0][TR-369-v1.4.0] (USP specification didn't change), 
+       [v1.14.0][TR-106-v1.14.0] (TR-106 didn't change), 
+       [v2.18.1][TR-181-v2.18.1] (TR-181)*
+
 ## 2024-07-23: [TR-369 Amendment 4], [TR-106 Amendment 14] and [TR-181 Issue 2 Amendment 18]
 
 *Tags: [v1.4.0] (data models), 
@@ -397,6 +404,7 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [TR-181-v2.16.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.16.0
 [TR-181-v2.17.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.17.0
 [TR-181-v2.18.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.18.0
+[TR-181-v2.18.1]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.18.1
 [TR-369 Amendment 1]: https://www.broadband-forum.org/download/TR-369_Amendment-1.pdf
 [TR-369 Amendment 2]: https://www.broadband-forum.org/download/TR-369_Amendment-2.pdf
 [TR-369 Amendment 3]: https://www.broadband-forum.org/download/TR-369_Amendment-3.pdf
@@ -427,3 +435,4 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [v1.3.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.3.0
 [v1.3.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.3.1
 [v1.4.0]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.4.0
+[v1.4.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.4.1
