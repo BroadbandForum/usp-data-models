@@ -4475,7 +4475,7 @@
         </description>
         <syntax>
           <unsignedInt>
-            <range maxInclusive="3"/>
+            <range minInclusive="1" maxInclusive="4"/>
           </unsignedInt>
         </syntax>
       </parameter>
