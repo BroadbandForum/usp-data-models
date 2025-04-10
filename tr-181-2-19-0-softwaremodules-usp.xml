@@ -1,0 +1,2335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Device:2 Root Data Model definition [SoftwareModules USP]
+
+  Copyright (c) 2025, Broadband Forum
+
+  The undersigned members have elected to grant the copyright to
+  their contributed material used in this software:
+    Copyright (c) 2017-2019, 2021 ARRIS Enterprises, LLC.
+
+  Redistribution and use in source and binary forms, with or
+  without modification, are permitted provided that the following
+  conditions are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials
+     provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products
+     derived from this software without specific prior written
+     permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  The above license is used as a license under copyright only.
+  Please reference the Forum IPR Policy for patent licensing terms
+  <https://www.broadband-forum.org/ipr-policy>.
+
+  Any moral rights which are necessary to exercise under the above
+  license grant are also deemed granted under this license.
+
+  Comments or questions about this Broadband Forum data model should be
+  directed to <info@broadband-forum.org>.
+-->
+
+<dm:document
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-15"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      urn:broadband-forum-org:cwmp:datamodel-1-15
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-15.xsd
+      urn:broadband-forum-org:cwmp:datamodel-report-1-0
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+    spec="urn:broadband-forum-org:tr-181-2-19-0-softwaremodules-usp"
+    file="tr-181-2-19-0-softwaremodules-usp.xml">
+  <import file="tr-069-biblio.xml" spec="urn:broadband-forum-org:tr-069"/>
+
+  <import file="tr-106-types.xml" spec="urn:broadband-forum-org:tr-106">
+    <component name="Alias" ref="_AliasUSP"/>
+    <dataType name="Alias" ref="_AliasUSP"/>
+    <dataType name="IPAddress"/>
+    <dataType name="JSONObject"/>
+    <dataType name="MACAddress"/>
+    <dataType name="StatsCounter32"/>
+    <dataType name="StatsCounter64"/>
+    <dataType name="URL"/>
+    <dataType name="UUID"/>
+  </import>
+
+  <import file="tr-181-2-common.xml"
+      spec="urn:broadband-forum-org:tr-181-2-19-common">
+    <component name="SMEEResourceConstraints"/>
+    <component name="SMApplicationData"/>
+    <component name="SMRetainData"/>
+    <component name="SMEEHostObject"/>
+    <component name="SMEEEnvVariables"/>
+  </import>
+
+  <component name="SMDUSignature">
+    <parameter name="Signature" version="2.16" access="readWrite">
+      <description>
+        The {{datatype}} which can be used to fetch the signature for this DU.
+        The {{datatype}} may use the "data" scheme defined in
+        {{bibref|RFC2397}} in order to incorporate the signature into the
+        command directly.
+
+        Several signature formats are in common use; the device may deduce the
+        format used from the Content-Type of the retrieved object and/or by
+        examining its content.
+
+        The URL MUST NOT include the "userinfo" component, as defined in
+        {{bibref|RFC3986}}.
+
+        HTTPS transport MUST be supported. Other optional transports MAY be
+        supported.
+
+        The absence of this parameter indicates that the DU is unsigned. If
+        this is contrary to the security policy of the device then the command
+        will be rejected.
+      </description>
+      <syntax>
+        <dataType ref="URL"/>
+      </syntax>
+    </parameter>
+  </component>
+
+  <component name="SoftwareModulesUSP">
+     <object base="Device.SoftwareModules." access="readOnly" minEntries="1"
+        maxEntries="1">
+      <command name="InstallDU()" async="true" version="2.12">
+        <description>
+          Install one or more Deployment Units (DUs) to the associated
+          {{object}}.
+        </description>
+        <input>
+
+          <parameter name="URL" mandatory="true">
+            <description>
+              The {{datatype}} that specifies the location of the DU to be
+              installed.
+
+              The URL MUST NOT include the "userinfo" component, as defined in
+              {{bibref|RFC3986}}.
+
+              The HTTPS transport MUST be supported, and the HTTP transport MAY
+              be supported. Other optional transports MAY also be supported.
+            </description>
+            <syntax>
+              <dataType ref="URL"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="UUID">
+            <description>
+              The UUID (see {{bibref|RFC4122}}) of the DU to be installed.
+
+              If this parameter is {{empty}} the device MUST generate the UUID
+              based on the rules defined in {{bibref|RFC4122}} and
+              {{bibref|TR-181i2|Annex C}}.
+            </description>
+            <syntax>
+              <dataType ref="UUID"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Username">
+            <description>
+              Username to be used by the device to authenticate with the file
+              server, if authentication is required.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+              <default type="parameter" value=""/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Password">
+            <description>
+              Password to be used by the device to authenticate with the file
+              server, if authentication is required.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+              <default type="parameter" value=""/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Privileged" version="2.18">
+            <description>
+              This parameter indicates whether the containerized application runs in privileged mode.
+              {{false}} - Unprivileged Container.
+              {{true}}  - Privileged Container.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="false"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="NumRequiredUIDs" version="2.18" status="deprecated">
+            <description>
+              Number of UIDs (EU User Identifiers) that this container will need as part of its
+              user namespace. UIDs are unique identifiers associated with each user and system
+              process that is used to determine the allocation and isolation of system resources.
+
+              {{deprecated|2.19|because this parameter should not be required.}}
+            </description>
+            <syntax>
+              <unsignedInt/>
+              <default type="parameter" value="1"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="ExecutionEnvRef">
+            <description>
+              A reference to the Execution Environment upon which the DU is to
+              be installed.
+
+              If {{empty}} the device MUST choose the Execution Environment to
+              use.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+                <pathRef refType="weak" targetParent="#.ExecEnv."
+                    targetType="row"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <component ref="SMDUSignature"/>
+
+          <parameter name="ShutdownDelay" version="2.18">
+            <description>
+              The delay in {{units}} before which the container is shutdown.
+              This delay ensures that the application has enough time to perform any cleanup before
+              the Execution Unit transitions to idle state.
+              The default value is 10 seconds.
+            </description>
+            <syntax>
+              <unsignedInt>
+                <units value="seconds"/>
+              </unsignedInt>
+              <default type="parameter" value="10"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="RequiredRoles" version="2.16">
+            <description>
+              The roles which the application installed by this command will
+              need to be assigned in order to be able to function at all. If
+              any of these roles are not present in the
+              {{param|#.ExecEnv.{i}.AvailableRoles}} of the
+              {{object|#.ExecEnv}} into which the DU is to be installed then
+              the command will fail. Some Agents may apply further filtering
+              for roles which are considered security- or privacy-sensitive.
+
+              Each entry in the list is the Name of a row in
+              {{object|##.LocalAgent.ControllerTrust.Role}}. If there is no
+              such row then the command will fail, as installation requires a
+              role which is not available on the Device.
+
+              If this argument is absent or empty then no roles are required in
+              order for the application to function.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="OptionalRoles" version="2.16">
+            <description>
+              The additional roles which the application installed by this
+              command would need to be assigned in order to be able to provide
+              its full functionality.
+
+              Each entry in the list is the Name of a row in
+              {{object|##.LocalAgent.ControllerTrust.Role}}. If there is no
+              such row, or the matching row is not present in the
+              {{param|#.ExecEnv.{i}.AvailableRoles}} of the Execution
+              Environment into which the DU is to be installed, then the entry
+              will be ignored. Some Agents may apply further filtering for
+              roles which are considered security- or privacy-sensitive.
+
+              If this argument is absent or empty then no additional roles are
+              required in order for the application to be able to provide its
+              full functionality.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="RequiredUserRoles" version="2.18">
+            <description>
+              The User Roles which the application installed by this command will
+              need to be assigned in order to be able to function at all. If
+              any of these User Roles are not present in the
+              {{param|#.ExecEnv.{i}.AvailableUserRoles}} of the
+              {{object|#.ExecEnv}} into which the DU is to be installed then
+              the command will fail. Some Agents may apply further filtering
+              for User Roles which are considered security- or privacy-sensitive.
+
+              Each entry in the list is the Name of a row in
+              {{object|##.Users.Role}}. If there is no
+              such row then the command will fail, as installation requires a
+              User Role which is not available on the Device.
+
+              If this argument is absent or empty then no User Roles are required in
+              order for the application to function.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="RegisterTrustPaths" version="2.19">
+            <description>
+              Each entry in the list is an Object Path, Command Path, Event Path, or Parameter Path that determines the
+              element(s) of the data model that the the application installed by this command has permission to register.
+
+              The information provided in this input arguement is placed in the {{object|##.USPServices.Trust}} table.
+
+              If this argument is absent or empty then the application has no permission to register any data model paths.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <object name="AutoRestart." minEntries="1" maxEntries="1"
+              version="2.16">
+            <description>
+              Defines the parameters of the auto-restart algorithm for any
+              {{object|##.ExecutionUnit}} which is created as a result of this
+              command.
+
+              An auto-restart may be triggered if the Agent determines that the
+              EU has terminated abnormally. An exponential backoff algorithm is
+              applied (increasing each time the delay before the EU is
+              re-launched) in order to prevent continual re-starting of the EU.
+
+              The retry interval range is controlled by two Parameters,
+              {{param|RetryMinimumWaitInterval}} and
+              {{param|RetryIntervalMultiplier}}.
+
+              Let ''m'' be the value of {{param|RetryMinimumWaitInterval}},
+              ''k'' the value of {{param|RetryIntervalMultiplier}}, and ''n''
+              the current value of
+              {{param|##.ExecutionUnit.{i}.AutoRestart.RetryCount}}. Then on
+              the next occasion that the Agent determines that the EU has
+              terminated abnormally, the delay before re-starting the EU must
+              lie between ''m * (k/1000)^n^'' and ''m * (k/1000)^(n+1)^''
+              seconds, so long as ''m * (k/1000)^n^'' evaluates to a value less
+              than {{param|RetryMaximumWaitInterval}}. Once this point has been
+              reached, on all subsequent occasions that the Agent determines
+              that the EU has terminated abnormally the delay before
+              re-starting the EU must lie between
+              {{param|RetryMaximumWaitInterval}}'' * (1000/k)'' and
+              {{param|RetryMaximumWaitInterval}} seconds.
+            </description>
+
+            <parameter name="Enable" mandatory="true">
+              <description>
+                Enable the auto-restart feature for any
+                {{object|##.ExecutionUnit}} which is created as a result of
+                this command.
+              </description>
+              <syntax>
+                <boolean/>
+              </syntax>
+            </parameter>
+
+            <parameter name="RetryMinimumWaitInterval" mandatory="true">
+              <description>
+                Configures the initial delay in {{units}} between detecting
+                that the EU has terminated abnormally and re-starting it.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <units value="seconds"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="RetryMaximumWaitInterval" mandatory="true">
+              <description>
+                Maximum delay in {{units}} between detecting that the EU has
+                terminated abnormally and re-starting it.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <units value="seconds"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="RetryIntervalMultiplier" mandatory="true">
+              <description>
+                Configures the retry interval multiplier. This value is
+                expressed in units of 0.001, so for example a value of 2000
+                will result in the retry interval being doubled each time.
+              </description>
+              <syntax>
+                <unsignedInt/>
+              </syntax>
+            </parameter>
+
+            <parameter name="MaximumRetryCount">
+              <description>
+                Configures the maximum number of consecutive restarts (as shown
+                in {{param|##.ExecutionUnit.{i}.AutoRestart.RetryCount}}) after
+                which no more attempts will be performed. A value of zero means
+                that the number of attempts is unlimited.
+              </description>
+              <syntax>
+                <unsignedInt/>
+                <default type="parameter" value="10"/>
+              </syntax>
+            </parameter>
+
+            <parameter name="ResetPeriod">
+              <description>
+                If the EU runs for this number of {{units}} without terminating
+                abnormally the Agent MAY reset its
+                {{param|##.ExecutionUnit.{i}.AutoRestart.RetryCount}} to zero,
+                thereby resetting the exponential backoff algorithm. A value of
+                zero disables this behavior.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <units value="seconds"/>
+                </unsignedInt>
+                <default type="parameter" value="0"/>
+              </syntax>
+            </parameter>
+          </object>
+
+          <object name="Resources." minEntries="1" maxEntries="1"
+              version="2.16">
+            <description>
+              Defines the resource restrictions for any Execution Unit which is
+              created by installation of the DeploymentUnit. If this object is
+              absent then no resource restrictions will be applied.
+            </description>
+
+            <parameter name="AllocatedDiskSpace" version="2.16">
+              <description>
+                The amount of disk space measured in {{units}} allocated to any
+                {{object|##.ExecutionUnit}} which is created as a result of
+                this command. If this parameter is omitted or has the value -1
+                then no disk space constraint will be applied.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1"/>
+                  <units value="KiB"/>
+                </int>
+                <default type="parameter" value="-1"/>
+              </syntax>
+            </parameter>
+
+            <parameter name="AllocatedMemory" version="2.16">
+              <description>
+                The amount of physical RAM measured in {{units}} allocated to
+                any {{object|##.ExecutionUnit}} which is created as a result of
+                this command. If this parameter is omitted or has the value -1
+                then no memory constraint will be applied.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1"/>
+                  <units value="KiB"/>
+                </int>
+                <default type="parameter" value="-1"/>
+              </syntax>
+            </parameter>
+
+            <parameter name="AllocatedCPUPercent" version="2.16">
+              <description>
+                The CPU power measured in {{units}} allocated to any
+                {{object|##.ExecutionUnit}} which is created as a result of
+                this command, as a fraction (in {{units}}) of the CPU
+                allocation of the {{object|##.ExecEnv}} into which the
+                {{object|##.DeploymentUnit}} is installed. If this parameter is
+                omitted or has the value -1 then no CPU power constraint will
+                be applied.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1" maxInclusive="100"/>
+                  <units value="%"/>
+                </int>
+                <default type="parameter" value="-1"/>
+              </syntax>
+            </parameter>
+          </object>
+
+          <component ref="SMApplicationData"/>
+
+          <object base="ApplicationData.{i}." minEntries="0"
+              maxEntries="unbounded">
+
+            <description action="replace">
+              The application data volumes which are required for correct
+              functioning of the {{object|##.DeploymentUnit}}. The device
+              should create these application data volumes and add them to the
+              {{object|##.ExecEnv.{i}.ApplicationData}} table, with the UUID of
+              the DU as ApplicationUUID.
+            </description>
+
+            <parameter base="Name" mandatory="true"/>
+
+            <parameter base="Capacity" mandatory="true"/>
+
+            <parameter base="Encrypted">
+              <syntax>
+                <boolean/>
+                <default type="parameter" value="true"/>
+              </syntax>
+            </parameter>
+
+            <parameter base="Retain" mandatory="true">
+              <syntax>
+                <string>
+                  <enumeration value="UntilStopped">
+                    <description action="replace">
+                      The application data will be lost when
+                      {{template|DUStopped}}.
+                    </description>
+                  </enumeration>
+                  <enumeration value="Forever">
+                    <description action="replace">
+                      The application data will be retained after
+                      {{template|DUStopped}}, and also across a device reboot
+                      or a restart of the {{object|##.DeploymentUnit}}.
+
+                      The application data will be lost on removal of the
+                      {{object|##.ExecEnv}} in which the DeploymentUnit is to
+                      be installed.
+
+                      The application data will be retained on {{command|##.DeploymentUnit.{i}.Update()}} or
+                      {{command|##.DeploymentUnit.{i}.Uninstall()}} if and only if {{template|RetainDataTrue}}.
+                    </description>
+                  </enumeration>
+                </string>
+              </syntax>
+            </parameter>
+
+            <parameter base="AccessPath" mandatory="true"/>
+          </object>
+
+          <component ref="SMEEHostObject"/>
+
+          <object base="HostObject.{i}." minEntries="0" maxEntries="unbounded">
+            <description action="replace">
+              This parameter describes the {{object|##.ExecutionUnit.{i}.HostObject}} instances
+              which should be added to any {{object|##.ExecutionUnit}} created by
+              installation of the DeploymentUnit.
+            </description>
+          </object>
+
+
+          <component ref="SMEEEnvVariables"/>
+
+          <object base="EnvVariable.{i}." minEntries="0" maxEntries="unbounded">
+            <description action="replace">
+              This parameter describes the {{object|##.ExecutionUnit.{i}.EnvVariable}} instances
+              which should be added to any {{object|##.ExecutionUnit}} created by
+              installation of the DeploymentUnit.
+            </description>
+          </object>
+
+          <parameter name="ModuleVersion" mandatory="false" version="2.17">
+            <description>
+              Version of the {{object}} as optionally set by the Controller.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="32"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <object name="NetworkConfig." version="2.17">
+            <description>
+              Specifies the network configuration for any ExecutionUnit which is created by the installation of the DeploymentUnit.
+
+              When this argument or any of its child objects are missing,
+              the corresponding absent part is considered unnecessary and will not be available to the ExecutionUnit.
+
+             </description>
+             <parameter name="AccessInterfaces" mandatory="false">
+               <description>
+                 The network interfaces which the application installed by this command will be allowed to send traffic through it.
+                 If any of these access interface are not present in the {{param|.SoftwareModules.ExecEnv.{i}.AvailableAccessInterfaces}}
+                 of the ExecEnv into which the DU is to be installed then the command will fail.
+
+                 Some Agents may apply further filtering for access interfaces which are considered security- or privacy-sensitive.
+                 Each entry in the list is the Name of a row within either {{object|.Logical.Interface.}} or {{object|.IP.Interface.}}.
+                 If Name is present in both {{object|.Logical.Interface.}} and {{object|.IP.Interface.}}, the Interface referenced in
+                 {{object|.Logical.Interface.}} must be selected.
+                 If there is no such row then the command will fail, as installation requires access to a network, through the interface, which is not available.
+
+                 When this argument is absent or {{empty}} then no outgoing network access is required for the ExecutionUnit to function.
+               </description>
+               <syntax>
+                 <list/>
+                 <string>
+                   <size maxLength="256"/>
+                 </string>
+               </syntax>
+             </parameter>
+           </object>
+
+           <object name="NetworkConfig.PortMapping.{i}." minEntries="0" maxEntries="unbounded" version="2.17">
+             <description>
+                 Defines the list of required port mapping rules for any ExecutionUnit which
+                 is created as a result of this command.
+                 If this command encounters any issue in providing the requested mapping, such as the port already being used or reserved, then it will fail.
+             </description>
+
+             <parameter name="Interface" mandatory="true" >
+               <description>
+                 Name of a row within either {{object|.Logical.Interface.}} or {{object|.IP.Interface.}}. If Name is present in both {{object|.Logical.Interface.}}
+                 and {{object|.IP.Interface.}}, the Interface referenced in {{object|.Logical.Interface.}} must be selected.
+                 Specifies the interface to which the port mapping applies.
+               </description>
+               <syntax>
+                 <string>
+                   <size maxLength="256"/>
+                 </string>
+               </syntax>
+             </parameter>
+
+            <parameter name="ExternalPort" mandatory="true" >
+              <description>
+                The external port that the NAT gateway would listen on for traffic to a
+                corresponding InternalPort. Inbound packets to this external port on the selected
+                interface MUST be forwarded to the IP address associated with the ExecutionUnit on the InternalPort.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <range minInclusive="0" maxInclusive="65535"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="InternalPort" mandatory="true" >
+              <description>
+                The port on ExecutionUnit that the gateway MUST forward traffic to.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <range minInclusive="0" maxInclusive="65535"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="Protocol" mandatory="true">
+              <description>
+                The protocol of the port mapping.
+              </description>
+              <syntax>
+                <string>
+                  <enumeration value="TCP"/>
+                  <enumeration value="UDP"/>
+                </string>
+              </syntax>
+            </parameter>
+          </object>
+        </input>
+        <output>
+          <parameter name="UUID" version="2.18">
+            <description>
+              The Universally Unique Identifier that was either provided by the Controller, or
+              generated by the device, when this Deployment Unit was installed.
+
+              The format of this value is defined by {{bibref|RFC4122}} Version 5
+              (Name-Based) and {{bibref|TR-181i2|Annex C}}.
+            </description>
+            <syntax>
+              <dataType ref="UUID"/>
+            </syntax>
+          </parameter>
+          <parameter name="Version" version="2.18">
+            <description>
+              Version of the installed Deployment Unit. The format of this value is Execution
+              Environment specific.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="32"/>
+              </string>
+            </syntax>
+          </parameter>
+          <parameter name="ExecEnvRef" version="2.18">
+            <description>
+              A reference to the {{object|##.ExecEnv}} where the Deployment Unit was installed.
+            </description>
+            <syntax>
+              <string>
+                <pathRef targetParent="##.ExecEnv." refType="weak"
+                    targetType="row"/>
+              </string>
+            </syntax>
+          </parameter>
+        </output>
+      </command>
+
+      <event name="DUStateChange!" version="2.12">
+        <description>
+          This event informs a Controller of the completion (successful or
+          unsuccessful) of a DU state change.
+
+          When used, this event MUST be issued after the device has completed
+          any file transfers and carried out all operations related to the DU
+          State Change.
+
+          This event MAY contain the results from multiple DU state changes; it
+          is implementation specific how the device chooses to aggregate the DU
+          state changes, although the device MUST notify the Controller of any
+          DU state changes within 24 hours of the time the operations were
+          completed by the device.
+
+          The device SHOULD make every attempt to aggregate, as much as
+          possible, the DU State Change notifications to the Controller in the
+          interest of scalability.
+        </description>
+
+        <parameter name="UUID">
+          <description>
+            The UUID as defined in {{bibref|RFC4122}} of the DU that affected
+            by the state change.
+          </description>
+          <syntax>
+            <dataType ref="UUID"/>
+          </syntax>
+        </parameter>
+
+        <parameter name="DeploymentUnitRef">
+          <description>
+            A reference to the DU that was affected by the state change.
+          </description>
+          <syntax>
+            <string>
+              <pathRef refType="weak" targetParent="#.DeploymentUnit."
+                  targetType="row"/>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="Version">
+          <description>
+            In the case of an Install, this will be the version of the DU
+            created. In the case of an Update, it will be the updated version
+            of the DU. In the case of an Uninstall, it will be the version of
+            the uninstalled DU.
+
+            This MUST match the {{param|#.DeploymentUnit.{i}.Version}}
+            Parameter contained within the instance of the DeploymentUnit that
+            is contained within the {{param|DeploymentUnitRef}} argument.
+          </description>
+          <syntax>
+            <string>
+              <size maxLength="32"/>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="CurrentState">
+          <description>
+            The current state of the created DU.
+          </description>
+          <syntax>
+            <string>
+              <enumeration value="Installed">
+                <description>
+                  The DU is in an Installed state due to one of the following:
+                  successful Install, successful Update, failed Update, or
+                  failed Uninstall. In the case of a failed Update or failed
+                  Uninstall the Fault argument will contain an explanation of
+                  the failure.
+                </description>
+              </enumeration>
+              <enumeration value="UnInstalled" status="deprecated">
+                <description>
+                  The DU was successfully uninstalled from the device.
+
+                  {{deprecated|2.19|due to a typographical error in capitalization}}
+                </description>
+              </enumeration>
+              <enumeration value="Uninstalled" version="2.19">
+                <description>
+                  The DU was successfully uninstalled from the device.
+                </description>
+              </enumeration>
+              <enumeration value="Failed">
+                <description>
+                  The DU could not be installed in which case a DU instance
+                  MUST NOT be created in the Data Model.
+                </description>
+              </enumeration>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="Resolved">
+          <description>
+            Whether or not the DU operation resolved all of its dependencies.
+
+            In the case of a successful Uninstall, this value is meaningless
+            and should be {{true}}.
+          </description>
+          <syntax>
+            <boolean/>
+          </syntax>
+        </parameter>
+
+        <parameter name="ExecutionUnitRefList">
+          <description>
+            The Execution Units affected by this operation.
+
+            In the case of an Install, this will be the list of EUs that were
+            created as a result of the DU’s installation.
+
+            In the case of an Update, this will be the list of all EUs
+            currently associated with the updated DU, including those that were
+            created through the initial DU installation and any updates that
+            had already occurred but not including any EUs that no longer exist
+            on the device because of this or previous updates.
+
+            In the case of an Uninstall, this will be the list of the EUs
+            removed from the device due to the DU being removed.
+          </description>
+          <syntax>
+            <list/>
+            <string>
+              <pathRef refType="weak" targetParent="#.ExecutionUnit."
+                  targetType="row"/>
+            </string>
+          </syntax>
+        </parameter>
+
+        <parameter name="StartTime">
+          <description>
+            The date and time transfer was started in UTC. The device SHOULD
+            record this information and report it in this argument, but if this
+            information is not available, the value of this argument MUST be
+            set to the Unknown Time value.
+          </description>
+          <syntax>
+            <dateTime/>
+          </syntax>
+        </parameter>
+
+        <parameter name="CompleteTime">
+          <description>
+            The date and time the transfer was fully completed and applied in
+            UTC. This need only be filled in if the transfer has been fully
+            completed and applied. The device SHOULD record this information
+            and report it in this argument, but if this information is not
+            available or the transfer has not completed, the value of this
+            argument MUST be set to the Unknown Time value.
+          </description>
+          <syntax>
+            <dateTime/>
+          </syntax>
+        </parameter>
+
+        <parameter name="OperationPerformed">
+          <description>
+            The operation that was performed against the DU causing the DU
+            state change.
+          </description>
+          <syntax>
+            <string>
+              <enumeration value="Install">
+                <description>
+                  The operation attempted was the Installation of a DU.
+                </description>
+              </enumeration>
+              <enumeration value="Update">
+                <description>
+                  The operation attempted was the Update of an existing DU.
+                </description>
+              </enumeration>
+              <enumeration value="Uninstall">
+                <description>
+                  The operation attempted was the Un-Installation of an
+                  existing DU.
+                </description>
+              </enumeration>
+            </string>
+          </syntax>
+        </parameter>
+
+        <object name="Fault." minEntries="1" maxEntries="1">
+          <description>
+            Fault Structure. If the operation was successful, the
+            {{param|FaultCode}} MUST be zero. Otherwise a non-zero
+            {{param|FaultCode}} is specified along with a {{param|FaultString}}
+            indicating the failure reason.
+          </description>
+
+          <parameter name="FaultCode">
+            <description>
+              The numerical fault code. Valid values are:
+
+              *If the operation was successful, the fault code is 0.
+
+              *If the device cannot complete the operation for some unknown
+               reason, it SHOULD reject the operation with a 7002 (Request
+               Denied) fault code.
+
+              *If the device detects the presence of the "userinfo" component
+               in the file source URL, it SHOULD reject the operation with a
+               7004 (Invalid Arguments) fault code.
+
+              *If the device cannot find the Execution Environment specified in
+               the Install or Update command, it SHOULD reject the operation
+               with a 7223 (Unknown Execution Environment) fault code.
+
+              *If the device determines that the Deployment Unit being
+               installed does not match either the Execution Environment
+               specified or any Execution Environment on the device, it SHOULD
+               reject the operation with a 7225 (Deployment Unit to Execution
+               Environment Mismatch) fault code
+
+              *If the device detects that the Deployment Unit being installed
+               already has the same version as one already installed on the
+               same Execution Environment, it SHOULD reject the operation with
+               a 7226 (Duplicate Deployment Unit) fault code.
+
+              *If the device detects that that there are no more system
+               resources (disk space, memory, etc.) to perform the Install or
+               Update of a Deployment Unit, it SHOULD reject the operation with
+               a 7227 (System Resources Exceeded) fault code.
+
+              *If a requested operation attempts to alter the State of a
+               Deployment Unit in a manner that conflicts with the Deployment
+               Unit State Machine Diagram {{bibref|TR-369|Appendix I "Software
+               Module Management"}}, it SHOULD reject the operation with a 7229
+               (Invalid Deployment Unit State) fault code.
+
+              *If a requested operation attempts to Uninstall a DU that caused
+               an EE to come into existence, where that EE has at least 1
+               installed DU or at least 1 child EE, then the device SHOULD
+               reject the operation with a 7229 (Invalid Deployment Unit State)
+               fault code.
+
+              *If a requested operation attempts to Uninstall a DU that caused
+               an ExecEnvClass to come into existence, where at least one EE
+               exists which instantiates that ExecEnvClass, then the device
+               SHOULD reject the operation with a 7229 (Invalid Deployment Unit
+               State) fault code.
+
+              *If a requested operation attempts to Install or Update a DU and
+               the server specified in the URL is not currently reachable or
+               the request times out, then the device SHOULD reject the
+               operation with a 7033 (Server Unreachable) fault code.
+
+              *If a requested operation attempts to Install or Update a DU and
+               the server specified in the URL fails security checks (e.g. by
+               not presenting a valid certificate), then the device SHOULD
+               reject the operation with a 7034 (Server Insecure) fault code.
+
+              *If a requested operation attempts to Install or Update a DU and
+               the file returned by the server appears to be corrupt, then the
+               device SHOULD reject the operation with a 7035 (Corrupt Data)
+               fault code.
+
+              *If a requested operation attempts to Install or Update a DU and
+               the file returned by the server does not match the signature
+               provided, or a required signature is absent, then the device
+               SHOULD reject the operation with a 7036 (Bad Signature) fault
+               code.
+
+              *If a requested operation attempts to Install or Update a DU
+               and includes a RequestedRole argument which contains at least
+               one Role which is not in the EE's AvailableRoles list, then the
+               device SHOULD reject the operation with a 7032 (Unavailable
+               Role) fault code.
+
+              *If a requested operation attempts to Install or Update a DU
+               and includes a RequestedUserRole argument which contains at least
+               one User Role which is not in the EE's AvailableUserRoles list, then the
+               device SHOULD reject the operation with a 7037 (Unavailable
+               User Role) fault code.
+            </description>
+            <syntax>
+              <unsignedInt/>
+            </syntax>
+          </parameter>
+
+          <parameter name="FaultString">
+            <description>
+              A human-readable text description of the fault. This field SHOULD
+              be empty if the FaultCode equals 0 (zero).
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+        </object>
+      </event>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecEnvClass.{i}." access="readOnly"
+        minEntries="0" maxEntries="unbounded">
+      <command name="AddExecEnv()" async="false" version="2.16">
+        <description>
+          Create a new Execution Environment of this class.
+        </description>
+
+        <input>
+          <parameter name="Alias">
+            <description>
+              An optional input the Controller can use to specify the
+              {{param|###.ExecEnv.{i}.Alias}} value for the new instance. If
+              provided as an input and the value already exists in
+              {{object|###.ExecEnv.{i}}}, this command will fail.
+            </description>
+            <syntax>
+              <dataType ref="Alias"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Name">
+            <description>
+              Suggested value for the {{param|###.ExecEnv.{i}.Name}} of the new
+              instance. If provided as an input and the value already exists in
+              {{object|###.ExecEnv.{i}}}, this command will fail.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="ParentExecEnv" mandatory="true">
+            <description>
+              The ExecEnv instance of which the new instance should be a child.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+                <pathRef refType="weak" targetParent="##.ExecEnv."
+                    targetType="row"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="AvailableRoles">
+            <description>
+              The roles which are available to Deployment Units installed into
+              the new instance. Only the listed roles may be assigned to any
+              DeploymentUnit installed into the instance. If this parameter is
+              missing or {{empty}} then no roles may be assigned to any
+              DeploymentUnit installed into the instance.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.LocalAgent.ControllerTrust.Role}}. If there is no
+              such row then the entry will be ignored.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="AvailableUserRoles" version="2.18">
+            <description>
+              The User Roles which are available to Deployment Units installed into
+              the new instance. Only the listed User Roles may be assigned to any
+              DeploymentUnit installed into the instance. If this parameter is
+              missing or {{empty}} then no User Roles may be assigned to any
+              DeploymentUnit installed into the instance.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.Users.Role}}. If there is no
+              such row then the entry will be ignored.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="Enable">
+            <description>
+              If this parameter is present and is {{true}}, the created ExecEnv
+              will have its {{param|##.ExecEnv.{i}.Enable}} flag set {{true}}
+              and it will immediately transition to Status
+              {{enum|Up|##.ExecEnv.{i}.Status}}. Otherwise the ExecEnv will
+              initially be Disabled, allowing the Controller to set further
+              parameters before enabling the ExecEnv.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="true"/>
+            </syntax>
+          </parameter>
+
+          <component ref="SMEEResourceConstraints"/>
+        </input>
+
+        <output>
+          <parameter name="ExecEnvRef">
+            <description>
+              A reference to the {{object|##.ExecEnv}} which was created.
+            </description>
+            <syntax>
+              <string>
+                <pathRef targetParent="##.ExecEnv." refType="strong"
+                    targetType="row"/>
+              </string>
+            </syntax>
+          </parameter>
+        </output>
+      </command>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecEnv.{i}." access="readOnly"
+        minEntries="0" maxEntries="unbounded">
+      <parameter base="Enable" access="readWrite">
+        <description action="append">
+          If an Update or Uninstall operation is attempted on a
+          {{object|#.DeploymentUnit}} that is to be applied against a disabled
+          {{object}}, that operation fails and the associated event will
+          contain a FaultStruct for that operation.
+
+          Disabling an Execution Environment could place the device in a
+          non-manageable state. For example, if the operating system itself was
+          modeled as an {{object}} and a Controller disabled it, the Agent
+          might be terminated leaving the device unmanageable.
+        </description>
+        <syntax>
+          <boolean/>
+        </syntax>
+      </parameter>
+
+      <parameter base="Status" access="readOnly">
+        <syntax>
+          <string>
+            <enumeration value="Up"/>
+            <enumeration value="Error" optional="true"/>
+            <enumeration value="Disabled"/>
+            <enumeration value="Restarting" version="2.16"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter base="CurrentRunLevel" access="readOnly">
+        <description action="replace">
+          The run level that this {{object}} is currently operating in. This
+          value is altered by executing the {{command|SetRunLevel()}} command.
+
+          Upon startup (whether that is caused by a device Boot or the
+          Execution Environment starting) {{param}} will be equal to
+          {{param|InitialRunLevel}}, unless Run Levels are not supported by
+          this {{object}} in which case {{param}} will be -1.
+
+          Run levels dictate which Execution Units will be started. Execution
+          Units will be started if {{param}} is greater than or equal to
+          {{param|#.ExecutionUnit.{i}.RunLevel}} and
+          {{param|#.ExecutionUnit.{i}.AutoStart}} is {{true}}.
+
+          If {{param}} is -1 then Run Levels are not supported by this
+          {{object}} and setting {{param|InitialRunLevel}} or executing the
+          command {{command|SetRunLevel()}} will not impact the Run Level of
+          this {{object}}.
+        </description>
+      </parameter>
+
+      <parameter base="AllocatedDiskSpace" access="readOnly">
+        <description action="append">
+          This value can be altered by executing the
+          {{command|ModifyConstraints()}} command.
+        </description>
+      </parameter>
+
+      <parameter base="AllocatedMemory" access="readOnly">
+        <description action="append">
+          This value can be altered by executing the
+          {{command|ModifyConstraints()}} command.
+        </description>
+      </parameter>
+
+      <parameter base="AllocatedCPUPercent" access="readOnly">
+        <description action="append">
+          This value can be altered by executing the
+          {{command|ModifyConstraints()}} command.
+        </description>
+      </parameter>
+
+      <parameter name="RestartReason" access="readOnly" version="2.16">
+        <description>
+          This parameter is set each time the {{object}} is restarted. It is
+          cleared each time that parameter {{param|Enable}} is set {{false}}
+          for any reason other than a restart of the {{object}}.
+
+          If the restart was the result of invoking the {{command|Restart()}}
+          command then the value will be taken from the Reason parameter of the
+          command.
+        </description>
+        <syntax>
+          <string>
+            <size maxLength="256"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="RestartCount" access="readOnly" version="2.16">
+        <description>
+          The number of times the {{object}} has been restarted since it was
+          last disabled.
+        </description>
+        <syntax>
+          <unsignedInt/>
+        </syntax>
+      </parameter>
+
+      <parameter name="LastRestarted" access="readOnly" version="2.16">
+        <description>
+          The time at which the {{object}} was last restarted. Initially this
+          parameter is set to the Unknown Time (0001-01-01T00:00:00Z).
+        </description>
+        <syntax>
+          <dateTime/>
+        </syntax>
+      </parameter>
+
+      <parameter name="Signers" access="readWrite" version="2.16">
+        <description>
+          If the device stores the acceptable public keys for signing in X.509
+          certificates, this parameter identifies which certificates contain
+          public keys which can be used to verify the signature of a
+          DeploymentUnit.
+
+          Not all devices will use X.509 certificates to store the public keys.
+          In devices which do not use X.509 certificates for this purpose, this
+          parameter will be empty.
+        </description>
+        <syntax>
+          <list/>
+          <string>
+            <pathRef refType="strong"
+                targetParent="Device.Security.Certificate." targetType="row"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="AvailableRoles" version="2.16">
+        <description>
+          The roles which are available to Deployment Units installed into this
+          {{object}}. Only the listed roles may be assigned to any
+          DeploymentUnit.
+
+          If this parameter is missing or {{empty}} then no roles will be
+          assigned to any DeploymentUnit installed into this {{object}}.
+        </description>
+        <syntax>
+          <list/>
+          <string>
+            <pathRef refType="strong"
+                targetParent="Device.LocalAgent.ControllerTrust.Role."
+                targetType="row"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="AvailableAccessInterfaces" access="readOnly" version="2.17">
+        <description>
+          Represents the network interface through which the outgoing traffic from the ExecutionUnit running in
+          this {{object}} may be allowed.
+
+          This value can be altered by executing the {{command|ModifyAvailableAccessInterfaces()}}.
+        </description>
+        <syntax>
+          <list/>
+          <string>
+            <pathRef refType="strong" targetParent=".IP.Interface." targetType="row"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter name="AvailableUserRoles" version="2.18">
+        <description>
+          The User Roles which are available to Deployment Units installed into this
+          {{object}}. Only the listed User Roles may be assigned to a
+          DeploymentUnit.
+
+          If this parameter is missing or {{empty}} then no User Roles will be
+          available to Deployment Units installed into this {{object}}.
+         </description>
+         <syntax>
+          <list/>
+          <string>
+            <pathRef refType="strong"
+                targetParent="Device.Users.Role."
+                targetType="row"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <command name="SetRunLevel()" version="2.12" async="false">
+        <description>
+          Provides a mechanism to remotely manipulate the run level of this
+          {{object}}, meaning that altering this command will change the value
+          of the {{param|#.CurrentRunLevel}}.
+
+          Run levels dictate which Execution Units will be started. Execution
+          Units will be started if {{param|CurrentRunLevel}} is greater than or
+          equal to {{param|#.ExecutionUnit.{i}.RunLevel}} and
+          {{param|#.ExecutionUnit.{i}.AutoStart}} is {{true}}.
+        </description>
+        <input>
+
+          <parameter name="RequestedRunLevel" mandatory="true">
+            <description>
+              This parameter will request to change the value of the
+              {{param|#.CurrentRunLevel}} to the value of this parameter.
+
+              Setting this value when {{param|#.CurrentRunLevel}} is -1 has no
+              impact to the Run Level of this instance of the {{object|##.}}
+              object.
+            </description>
+            <syntax>
+              <int>
+                <range minInclusive="-1" maxInclusive="65535"/>
+              </int>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <command name="ModifyConstraints()" async="true" version="2.16">
+        <description>
+          Provides a mechanism to remotely manipulate the resource constraints
+          applied to this {{object}}, thereby changing the value of
+          {{param|#.AllocatedDiskSpace}}, {{param|#.AllocatedMemory}}, or
+          {{param|#.AllocatedCPUPercent}}. A resource constraint will only be
+          modified if the corresponding parameter is present in the call to
+          {{command}}; all other resource constraints will be left unchanged,
+        </description>
+        <input>
+
+          <parameter name="Force">
+            <description>
+              Determines the behavior if a request is made which would reduce
+              the allocation of a resource below the amount which is currently
+              being used.
+
+              If {{param}} is {{false}} and any of the other parameters specify
+              a value which is less than the amount of the resource which is
+              currently being consumed, the Agent SHOULD reject the request
+              with error code 7022 and leave all resource allocations
+              unchanged.
+
+              if {{param}} is {{true}} and any of the other parameters specify
+              a value which is less than the amount of the resource which is
+              currently being consumed, the Agent MAY take steps to reduce the
+              resource consumption accordingly. These steps might include
+              forcing a restart of individual ExecutionUnits or of the whole
+              {{object}}. Use of Force = true may therefore lead to
+              unpredictable behaviour.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="false"/>
+            </syntax>
+          </parameter>
+
+          <component ref="SMEEResourceConstraints"/>
+        </input>
+      </command>
+
+      <command name="ModifyAvailableRoles()" async="true" version="2.16">
+        <description>
+          Modify the roles which are available to Deployment Units installed
+          into this {{object}}.
+
+          The command will fail if the new list of roles doesn't contain a required role of DeploymentUnit
+          installed previously into the {{object}}.
+        </description>
+        <input>
+
+          <parameter name="AvailableRoles" mandatory="true">
+            <description>
+              The new list of roles which may be assigned to any DeploymentUnit
+              installed into the {{object}}; this list replaces the previous
+              value of {{param|#.AvailableRoles}}. If this parameter is
+              {{empty}} then no roles may be assigned to any DeploymentUnit
+              installed into the {{object}}.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.LocalAgent.ControllerTrust.Role}}.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="AvailableUserRoles" mandatory="true" version="2.18">
+            <description>
+              The new list of User Roles which may be assigned to a DeploymentUnit
+              installed into the {{object}}; this list replaces the previous
+              value of {{param|#.AvailableUserRoles}}. If this parameter is
+              {{empty}} then no User Roles can be assigned to a DeploymentUnit
+              installed into the {{object}}.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.Users.Role}}.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <command name="ModifyAvailableAccessInterfaces()" async="true" version="2.17">
+        <description>
+           Modify the outgoing network traffic interfaces which are available to Deployment Units installed
+           into this {{object}}.
+
+           The command will fail if the new list of access interfaces doesn't contain an access interface required
+           for a DeploymentUnit installed previously into the {{object}}.
+        </description>
+        <input>
+          <parameter name="AccessInterfaces" mandatory="true">
+            <description>
+              The new list of access interfaces which may be assigned to any DeploymentUnit installed into
+              the {{object}} this list replaces the previous value of {{param|#.AvailableAccessInterfaces}}.
+              If this parameter is an empty string then no access interface may be assigned to any DeploymentUnit
+              installed into the {{object}}.
+
+              Each entry in the list is the Name of a row in {{object|.Logical.Interface}}.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <command name="Restart()" async="true" version="2.16">
+        <description>
+          Restart this ExecEnv.
+
+          If the {{object}} is currently disabled, this command will fail and
+          the state of the {{object}} will not change.
+
+          If the {{object}} is currently enabled, this command has the
+          following effect:
+
+          # The {{object}} transitions to status {{enum|Restarting|Status}}.
+
+          # All Deployment Units installed to the {{object}} will be
+            unaffected, but any Execution Units currently running on the
+            {{object}} will automatically transition to
+            {{enum|Idle|#.ExecutionUnit.{i}.Status}}, exactly as if the
+            {{object}} had transitioned to status {{enum|Disabled|Status}}.
+
+          # As soon as all the Execution Units have transitioned to
+            {{enum|Idle|#.ExecutionUnit.{i}.Status}}, the {{object}}
+            transitions to status {{enum|Up|Status}}. The Execution Units which
+            were running on the {{object}} will be restarted according to their
+            {{param|#.ExecutionUnit.{i}.AutoStart}} flag and
+            {{param|#.ExecutionUnit.{i}.RunLevel}}.
+        </description>
+        <input>
+
+          <parameter name="Reason" mandatory="false">
+            <description>
+              Textual description of the reason why this ExecEnv is being
+              restarted. This will be copied into the
+              {{param|##.RestartReason}} of the {{object|#}}.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="Force" mandatory="false">
+            <description>
+              If this parameter is set to true, the implementation MAY take
+              extra steps to ensure that all Execution Units transition to
+              {{enum|Idle|##.ExecutionUnit.{i}.Status}} within finite time.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="false"/>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <command name="Reset()" version="2.12" async="true">
+        <description>
+          This command causes this {{object}} to revert back to the state it
+          was in when the device last issued a Boot event with a cause of a
+          local or remote factory reset.
+
+          The following requirements dictate what MUST happen for the reset to
+          be complete:
+
+          # All Deployment Units that were installed after the last Boot (with
+            cause of a factory reset) event MUST be removed
+
+          # All persistent storage, configuration files, and log files that
+            were associated with the removed Deployment Units MUST be removed
+
+          # Any Deployment Unit that is still installed against the Execution
+            Environment MUST be restored to the version present when the last
+            Boot (with cause of a factory reset) event was issued
+
+          # Any Deployment Unit that was present when the last Boot (with cause
+            of a factory reset) event was issued, but was subsequently
+            uninstalled and is now not present, MUST be installed with the
+            version that was present when the last Boot (with cause of a
+            factory reset) event was issued
+
+          # The Execution Environment MUST be restored to the version and
+            configuration present when the last Boot (with cause of a factory
+            reset) event was issued
+
+          # The Execution Environment MUST be restarted after all other
+            restoration requirements have been met
+        </description>
+      </command>
+
+      <command name="Remove()" async="true" version="2.16">
+        <description>
+          This command removes the {{object}} from the device. The command will
+          always fail if the {{object}} has at least 1 child {{object}}; the
+          behaviour in the case that the {{object}} has at least 1 installed
+          {{object|#.DeploymentUnit}} depends on the value of the Force
+          parameter.
+        </description>
+        <input>
+          <parameter name="Force">
+            <description>
+              If this parameter is present and is {{true}}, the ExecEnv will be
+              removed even if one or more DU is installed in it. A
+              {{event|###.DUStateChange!}} Event with
+              {{param|###.DUStateChange!.OperationPerformed}} set to
+              {{enum|Uninstall|###.DUStateChange!.OperationPerformed}} will be
+              issued for each DU which is removed as a result of the operation.
+              Any Application Data associated with the DU will be lost.
+
+              If this parameter is absent or {{false}}, the operation will fail
+              if any DU is installed in the EE; in the case of such a failure
+              the EE will continue to exist and its Status will not change, nor
+              will any Application Data be lost.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="false"/>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <event name="Restarted!" version="2.16">
+        <description>
+          This event informs a Controller when an {{object}} has been
+          restarted.
+        </description>
+        <parameter name="RestartTime">
+          <description>
+            The time at which the restart was initiated.
+          </description>
+          <syntax>
+            <dateTime/>
+          </syntax>
+        </parameter>
+
+        <parameter name="RestartReason">
+          <description>
+            If the restart was initiated by a an invocation of the
+            {{command|#.Restart()}} command then this parameter is copied from
+            the Reason parameter of that command.
+          </description>
+          <syntax>
+            <string>
+              <size maxLength="256"/>
+            </string>
+          </syntax>
+        </parameter>
+      </event>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecEnv.{i}.ApplicationData.{i}."
+        access="readOnly" minEntries="0" maxEntries="unbounded">
+
+      <description action="append">
+        The entries in this table are created automatically as a result of
+        calls to {{command|##.InstallDU()}} and
+        {{command|##.DeploymentUnit.{i}.Update()}}, and are removed as a result
+        of calls to {{command|##.DeploymentUnit.{i}.Update()}},
+        {{command|##.DeploymentUnit.{i}.Uninstall()}}, and
+        {{command|Remove()}}.
+      </description>
+
+      <parameter base="Retain" access="readOnly">
+        <description action="append">
+          Note that if this parameter has the value {{enum|Forever}}, it is
+          possible that there is no currently installed
+          {{object|##.DeploymentUnit}} whose
+          {{param|##.DeploymentUnit.{i}.UUID}} matches the
+          {{param|ApplicationUUID}} of this {{object|#}} table entry; this
+          situation will be resolved when either a matching
+          {{object|##.DeploymentUnit}} is re-installed, or this volume is
+          removed using the {{command|Remove()}} command.
+        </description>
+
+        <syntax>
+          <string>
+            <enumeration value="UntilStopped">
+              <description action="replace">
+                The application data will be lost when {{template|DUStopped}}.
+              </description>
+            </enumeration>
+            <enumeration value="Forever">
+              <description action="replace">
+                The application data will be retained after
+                {{template|DUStopped}}, and also across a device reboot or a
+                restart of the {{object|###}}.
+
+                The application data will be lost if the {{object|###}} is
+                removed.
+
+                The application data will be retained on {{command|##.DeploymentUnit.{i}.Update()}} or
+                {{command|##.DeploymentUnit.{i}.Uninstall()}} if and only if {{template|RetainDataTrue}}.
+              </description>
+            </enumeration>
+          </string>
+        </syntax>
+      </parameter>
+
+      <command name="Remove()" async="false">
+        <description>
+          Remove this row from the table, together with the associated
+          application data volume.
+        </description>
+      </command>
+    </object>
+
+    <object base="Device.SoftwareModules.DeploymentUnit.{i}."
+      access="readOnly" minEntries="0" maxEntries="unbounded">
+      <parameter name="ModuleVersion" access="readOnly" version="2.17">
+        <description>
+          Version of the {{object}} as optionally set by the Controller during {{command|#.InstallDU()}} command or {{command|Update()}}.
+        </description>
+        <syntax>
+          <string>
+            <size maxLength="32"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter base="URL" access="readOnly">
+        <description action="replace">
+          Contains the {{datatype}} used by the most recent
+          {{command|#.InstallDU()}} or {{command|Update()}} to either Install
+          or Update this {{object}}.
+        </description>
+      </parameter>
+
+      <parameter name="InternalController"
+          dmr:previousParameter="ExecutionEnvRef" version="2.16">
+        <description>
+          The internal Controller which the application installed by this
+          {{object}} uses to access the Data Model. Will be {{empty}} if the
+          application does not require Data Model access.
+        </description>
+        <syntax>
+          <string>
+            <pathRef refType="strong"
+                targetParent="Device.LocalAgent.Controller." targetType="row"/>
+          </string>
+        </syntax>
+      </parameter>
+
+      <command name="Update()" async="true">
+        <description>
+          Update the associated {{object}}.
+        </description>
+        <input>
+
+          <parameter name="URL" version="2.12">
+            <description>
+              The {{datatype}} that specifies the location of the DU to be
+              installed.
+
+              The URL MUST NOT include the "userinfo" component, as defined in
+              {{bibref|RFC3986}}.
+
+              The HTTPS transport MUST be supported, and the HTTP transport MAY
+              be supported. Other optional transports MAY also be supported.
+
+              If the device receives an Update command with the same source URL
+              as a previous Update or Install command, the device MUST perform
+              each Update as requested, and MUST NOT assume that the content of
+              the file to be downloaded is the same each time.
+            </description>
+            <syntax>
+              <dataType ref="URL"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Username" version="2.12">
+            <description>
+              Username to be used by the device to authenticate with the file
+              server, if authentication is required.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+              <default type="parameter" value=""/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Password" version="2.12">
+            <description>
+              Password to be used by the device to authenticate with the file
+              server, if authentication is required.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="256"/>
+              </string>
+              <default type="parameter" value=""/>
+            </syntax>
+          </parameter>
+
+          <parameter name="Privileged" version="2.18">
+            <description>
+              This parameter determines whether the containerized application runs in privileged mode.
+              {{false}} - Unprivileged Container.
+              {{true}}  - Privileged Container.
+            </description>
+            <syntax>
+              <boolean/>
+              <default type="parameter" value="false"/>
+            </syntax>
+          </parameter>
+
+          <parameter name="NumRequiredUIDs" version="2.18" status="deprecated">
+            <description>
+              Number of UIDs (EU User Identifiers) that this container will need as part of its
+              user namespace. UIDs are unique identifiers associated with each user and system
+              process that is used to determine the allocation and isolation of system resources.
+
+              {{deprecated|2.19|because this parameter should not be required.}}
+            </description>
+            <syntax>
+              <unsignedInt/>
+              <default type="parameter" value="1"/>
+            </syntax>
+          </parameter>
+
+          <component ref="SMDUSignature"/>
+
+          <parameter name="RequiredRoles" version="2.16">
+            <description>
+              If this argument is present, it lists the roles which the
+              application will need to be assigned in order to be able to
+              function at all after this update. If it is absent then the
+              required roles are unchanged from the previous version.
+
+              If any of these roles are not present in the
+              {{param|##.ExecEnv.{i}.AvailableRoles}} of the
+              {{object|###.ExecEnv}} in which the DU is installed then the
+              command will fail. Some Agents may apply further filtering for
+              roles which are considered security- or privacy-sensitive.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.LocalAgent.ControllerTrust.Role}}. If there is no
+              such row then the command will fail, as installation requires a
+              role which is not available on the Device.
+
+              If this argument is empty then no roles are required in
+              order for the application to function.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="OptionalRoles" version="2.16">
+            <description>
+              If this argument is present, it lists the additional roles which
+              the application would need to be assigned in order to be able to
+              provide its full functionality after this update. If it is absent
+              then the required roles are unchanged from the previous version.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.LocalAgent.ControllerTrust.Role}}. If there is no
+              such row, or the matching row is not present in the
+              {{param|##.ExecEnv.{i}.AvailableRoles}} of the Execution
+              Environment into which the DU is to be installed, then the entry
+              will be ignored. Some Agents may apply further filtering, for
+              roles which are considered security- or privacy-sensitive.
+
+              If this argument is empty then no additional roles are
+              required in order for the application to be able to provide its
+              full functionality.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="RequiredUserRoles" version="2.18">
+            <description>
+              If this argument is present, it lists the User Roles which the
+              application will need to be assigned in order to be able to
+              function at all after this update. If it is absent then the
+              required User Roles are unchanged from the previous version.
+
+              If any of these User Roles are not present in the
+              {{param|##.ExecEnv.{i}.AvailableUserRoles}} of the
+              {{object|###.ExecEnv}} in which the DU is installed then the
+              command will fail. Some Agents may apply further filtering for
+              User Roles which are considered security- or privacy-sensitive.
+
+              Each entry in the list is the Name of a row in
+              {{object|###.Users.Role}}. If there is no
+              such row then the command will fail, as installation requires a
+              User Role which is not available on the Device.
+
+              If this argument is {{empty}} then no User Roles are required in
+              order for the application to function.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <parameter name="RegisterTrustPaths" version="2.19">
+            <description>
+              Each entry in the list is an Object Path, Command Path, Event Path, or Parameter Path that determines the 
+              element(s) of the data model that the application updated by this command has permission to register.
+
+              The information provided in this input argument is placed in the {{object|###.USPServices.Trust}} table,
+              replacing any existing paths that are associated with this application.
+
+              If this argument is absent then the registration permissions are unchanged from the previous version.
+              If this argument is {{empty}} then the application has no permission to register any data model paths.
+            </description>
+            <syntax>
+              <list/>
+              <string>
+                <size maxLength="256"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <object name="Resources." minEntries="1" maxEntries="1"
+              version="2.16">
+            <description>
+              Can be used to modify the resource restrictions for any Execution
+              Unit which is created by the DeploymentUnit. If this object is
+              absent then the resource restrictions will remain as they were
+              before the command was invoked.
+            </description>
+
+            <parameter name="AllocatedDiskSpace" version="2.16">
+              <description>
+                The amount of disk space measured in {{units}} allocated to any
+                {{object|###.ExecutionUnit}} created by this command. A value
+                of -1 indicates that no disk space constraint is applicable.
+
+                If this parameter is not present then the allocated disk space
+                will remain unchanged.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1"/>
+                  <units value="KiB"/>
+                </int>
+              </syntax>
+            </parameter>
+
+            <parameter name="AllocatedMemory" version="2.16">
+              <description>
+                The amount of physical RAM measured in {{units}} allocated to
+                any {{object|###.ExecutionUnit}} created by this command. A
+                value of -1 indicates that no memory constraint is applicable.
+
+                If this parameter is not present then the allocated memory will
+                remain unchanged.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1"/>
+                  <units value="KiB"/>
+                </int>
+              </syntax>
+            </parameter>
+
+            <parameter name="AllocatedCPUPercent" version="2.16">
+              <description>
+                The CPU power measured in {{units}} allocated to any
+                {{object|###.ExecutionUnit}} created by this command, as a
+                fraction (in {{units}}) of the CPU allocation of the
+                {{object|###.ExecEnv}} in which this {{object}} resides. A
+                value of -1 indicates that no CPU power constraint is
+                applicable.
+
+                If this parameter is not present then the allocated memory will
+                remain unchanged.
+              </description>
+              <syntax>
+                <int>
+                  <range minInclusive="-1" maxInclusive="100"/>
+                  <units value="%"/>
+                </int>
+              </syntax>
+            </parameter>
+          </object>
+
+          <component ref="SMApplicationData"/>
+
+          <object base="ApplicationData.{i}." minEntries="0"
+              maxEntries="unbounded">
+
+            <description action="replace">
+              The application data volumes which are required for correct
+              functioning of the updated {{object|##}}.
+
+              The {{object|##}} may already have one or more existing
+              application data volumes, represented by entries in the
+              {{object|###.ExecEnv.{i}.ApplicationData}} table, which have
+              {{param|###.ExecEnv.{i}.ApplicationData.{i}.Retain}} equal to
+              {{enum|Forever|###.ExecEnv.{i}.ApplicationData.{i}.Retain}} and
+              {{param|###.ExecEnv.{i}.ApplicationData.{i}.ApplicationUUID}}
+              equal to the {{param|##.UUID}} of the {{object|##}} which is
+              being updated.
+
+              The behaviour with respect to these existing application volumes
+              depends on the value of the {{param|#.RetainData}} input
+              argument.
+
+              # If the {{param|#.RetainData}} input argument is {{false}} then
+                the device SHOULD remove these existing application data
+                volumes, and SHOULD treat the rows in this argument in the same
+                way as for the {{command|###.InstallDU()}} command.
+
+              # If {{param|#.RetainData}} is {{true}}, the device SHOULD
+                attempt to transfer the existing application data volumes to
+                the updated {{object|##}}.
+
+              ## If an existing application data volume does not match the
+                 {{param|Name}} of any row of this argument, then the device
+                 SHOULD leave both the volume and its entry in the
+                 {{object|###.ExecEnv.{i}.ApplicationData}} table unchanged.
+
+              ## If the {{param|Name}} of a row of this argument does not match
+                 the {{param|###.ExecEnv.{i}.ApplicationData.{i}.Name}} of any
+                 existing application data volume, then the device SHOULD
+                 attempt to create the volume together with its entry in the
+                 {{object|###.ExecEnv.{i}.ApplicationData}} table.
+
+              ## If the {{param|Name}} of a row of this argument matches the
+                 {{param|###.ExecEnv.{i}.ApplicationData.{i}.Name}} of an
+                 existing application data volume, then the device SHOULD
+                 attempt to carry the application data forward to the updated
+                 {{object|##}}. This may imply copying of the data if the
+                 {{param|Capacity}}, {{param|Encrypted}}, or {{param|Retain}}
+                 values in this argument differ from those in the
+                 {{object|###.ExecEnv.{i}.ApplicationData}} table.
+
+              An attempt to create a new application data volume or to copy an
+              existing application data volume to a new location may cause the
+              operation to fail with a 7227 (System Resources Exceeded) fault
+              code.
+            </description>
+
+            <parameter base="Name" mandatory="true"/>
+
+            <parameter base="Capacity" mandatory="true"/>
+
+            <parameter base="Encrypted">
+              <syntax>
+                <boolean/>
+                <default type="parameter" value="true"/>
+              </syntax>
+            </parameter>
+
+            <parameter base="Retain" mandatory="true">
+              <syntax>
+                <string>
+                  <enumeration value="UntilStopped">
+                    <description action="replace">Data will be lost when {{template|DUStopped}}.</description>
+                  </enumeration>
+                  <enumeration value="Forever">
+                    <description action="replace">
+                      The application data will be retained after
+                      {{template|DUStopped}}, and also across a device reboot
+                      or a restart of the {{object|###.ExecEnv}}.
+
+                      The application data will be lost on removal of the
+                      {{object|###.ExecEnv}} in which the {{object|##}} is
+                      installed.
+
+                      The application data will be retained on
+                      {{command|###.Update()}} or {{command|###.Uninstall()}}
+                      if and only if {{template|RetainDataTrue}}.
+                    </description>
+                  </enumeration>
+                </string>
+              </syntax>
+            </parameter>
+
+            <parameter base="AccessPath" mandatory="true"/>
+          </object>
+
+          <component ref="SMRetainData"/>
+
+          <component ref="SMEEHostObject"/>
+
+          <object base="HostObject.{i}." minEntries="0" maxEntries="unbounded">
+            <description action="replace">
+              This parameter describes the
+              {{object|###.ExecutionUnit.{i}.HostObject}} instances which
+              should be present after the update in any
+              {{object|###.ExecutionUnit}} created by this DeploymentUnit. This
+              table supersedes any {{object|###.ExecutionUnit.{i}.HostObject}}
+              instances which may have been present before the update.
+            </description>
+          </object>
+
+          <component ref="SMEEEnvVariables"/>
+
+          <object base="EnvVariable.{i}." minEntries="0" maxEntries="unbounded">
+            <description action="replace">
+              This parameter describes the
+              {{object|###.ExecutionUnit.{i}.EnvVariable}} instances which
+              should be present after the update in any
+              {{object|###.ExecutionUnit}} created by this DeploymentUnit. This
+              table supersedes any {{object|###.ExecutionUnit.{i}.EnvVariable}}
+              instances which may have been present before the update.
+            </description>
+          </object>
+
+          <parameter name="ModuleVersion" mandatory="false" version="2.17">
+            <description>
+              Version of the {{object}} as optionally set by the Controller.
+              When the argument is absent then {{param}} is unchanged.
+            </description>
+            <syntax>
+              <string>
+                <size maxLength="32"/>
+              </string>
+            </syntax>
+          </parameter>
+
+          <object name="NetworkConfig." version="2.17">
+            <description>
+              Specifies the network configuration for any ExecutionUnit which is created by the update of the DeploymentUnit. The new network configuration supersedes any previous configuration.
+
+              When this argument is not present in the {{command|.SoftwareModules.DeploymentUnit.{i}.Update()}},
+              the network configuration remains unaltered.
+             </description>
+            <parameter name="AccessInterfaces" mandatory="false">
+              <description>
+                The network interfaces which the application updated by this command will be allowed to send traffic through it.
+                If any of these access interface are not present in the {{param|.SoftwareModules.ExecEnv.{i}.AvailableAccessInterfaces}}
+                of the ExecEnv into which the DU is to be updated then the command will fail.
+
+                Some Agents may apply further filtering for access interfaces which are considered security- or privacy-sensitive.
+                Each entry in the list is the Name of a row within either {{object|.Logical.Interface.}} or {{object|.IP.Interface.}}.
+                If Name is present in both {{object|.Logical.Interface.}} and {{object|.IP.Interface.}}, the Interface referenced in
+                {{object|.Logical.Interface.}} must be selected.
+
+                If there is no such row then the command will fail, as the update requires access to a network, through the interface, which is not available.
+
+                When the argument {{object|NetworkConfig}} is absent or {{empty}} for the {{command|.SoftwareModules.DeploymentUnit.{i}.Update()}},
+                the {{param}} network configuration remains unaltered.
+
+                When the argument {{object|NetworkConfig}} provided in {{command|.SoftwareModules.DeploymentUnit.{i}.Update()}}, {{param}} configuration supersedes
+                any previous configuration. If {{param}} is absent or {{empty}}, it indicate that no outgoing network access is required for the resulting
+                ExecutionUnit to function.
+              </description>
+              <syntax>
+                <list/>
+                <string>
+                  <size maxLength="256"/>
+                </string>
+              </syntax>
+            </parameter>
+          </object>
+
+          <object name="NetworkConfig.PortMapping.{i}." minEntries="0" maxEntries="unbounded" version="2.17">
+            <description>
+              Defines the list of required port mapping rules for any ExecutionUnit which
+              is created as a result of this command.
+              If this command encounters any issue in providing the requested mapping, such as the port already being used or reserved, then it will fail.
+
+              When the argument {{object|NetworkConfig}} is absent or {{empty}} for the {{command|.SoftwareModules.DeploymentUnit.{i}.Update()}},
+              the {{object}} network configuration remains unaltered.
+
+              When the argument {{object|NetworkConfig}} provided in {{command|.SoftwareModules.DeploymentUnit.{i}.Update()}}, {{object}} configuration supersedes
+              any previous configuration. If {{object}} is absent or {{empty}}, it indicate that no port mapping is required for the resulting ExecutionUnit to function.
+            </description>
+
+            <parameter name="Interface" mandatory="true" >
+              <description>
+                Name of a row within either {{object|.Logical.Interface.}} or {{object|.IP.Interface.}}. If Name is present in both {{object|.Logical.Interface.}}
+                and {{object|.IP.Interface.}}, the Interface referenced in {{object|.Logical.Interface.}} must be selected.
+                Specifies the interface to which the port mapping applies.
+              </description>
+              <syntax>
+                <string>
+                  <size maxLength="256"/>
+                </string>
+              </syntax>
+            </parameter>
+
+            <parameter name="ExternalPort" mandatory="true" >
+              <description>
+                The external port that the NAT gateway would listen on for traffic to a
+                corresponding InternalPort. Inbound packets to this external port on the selected
+                interface MUST be forwarded to the IP address associated with the ExecutionUnit on the InternalPort.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <range minInclusive="0" maxInclusive="65535"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="InternalPort" mandatory="true" >
+              <description>
+                The port on ExecutionUnit that the gateway MUST forward traffic to.
+              </description>
+              <syntax>
+                <unsignedInt>
+                  <range minInclusive="0" maxInclusive="65535"/>
+                </unsignedInt>
+              </syntax>
+            </parameter>
+
+            <parameter name="Protocol" mandatory="true">
+              <description>
+                The protocol of the port mapping.
+              </description>
+              <syntax>
+                <string>
+                  <enumeration value="TCP"/>
+                  <enumeration value="UDP"/>
+                </string>
+              </syntax>
+            </parameter>
+          </object>
+        </input>
+      </command>
+
+      <command name="Uninstall()" async="true">
+        <description>
+          Uninstall the associated {{object}}.
+        </description>
+
+        <input>
+          <component ref="SMRetainData"/>
+        </input>
+      </command>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecutionUnit.{i}." access="readOnly"
+        minEntries="0" maxEntries="unbounded">
+
+      <parameter base="Status" access="readOnly">
+        <syntax>
+          <string>
+            <enumeration value="Idle">
+            </enumeration>
+            <enumeration value="Starting">
+            </enumeration>
+            <enumeration value="Active">
+            </enumeration>
+            <enumeration value="Stopping">
+            </enumeration>
+            <enumeration value="Restarting" version="2.16">
+              <description>
+                This instance is in the process of Restarting and SHOULD
+                transition to the {{enum|Active}} state.
+              </description>
+            </enumeration>
+          </string>
+        </syntax>
+      </parameter>
+
+      <parameter base="References" access="readOnly">
+        <description action="append">
+          NOTE: All other objects and parameters (i.e. not multi-instanced
+          objects) that this {{object}} has caused to come into existence can
+          be discovered via the GetSupportedDM and GetInstances USP messages.
+        </description>
+      </parameter>
+
+      <command name="SetRequestedState()" async="false">
+        <description>
+          Set the state transition that the Controller is requesting for this
+          instance of the {{object}} object.
+
+          If this instance of the {{object}} object is associated with an
+          Execution Environment that is disabled and an attempt is made to
+          alter this value, then a error message MUST be generated.
+        </description>
+        <input>
+
+          <parameter name="RequestedState" mandatory="true" version="2.12">
+            <description>
+              Indicates the requested state to transition this instance of the
+              {{object|##.}} object. {{enum}}
+            </description>
+            <syntax>
+              <string>
+                <enumeration value="Idle">
+                  <description>
+                    If this {{object|##.}} is currently in
+                    {{enum|Starting|###.ExecutionUnit.{i}.Status}} or
+                    {{enum|Active|###.ExecutionUnit.{i}.Status}} the device
+                    will attempt to Stop the Execution Unit; otherwise this
+                    requested state is ignored.
+                  </description>
+                </enumeration>
+                <enumeration value="Active">
+                  <description>
+                    If this {{object|##.}} is currently in
+                    {{enum|Idle|###.ExecutionUnit.{i}.Status}} the device will
+                    attempt to Start the Execution Unit.
+
+                    If this {{object|##.}} is in
+                    {{enum|Stopping|###.ExecutionUnit.{i}.Status}} the request
+                    is rejected and a fault raised. Otherwise this requested
+                    state is ignored.
+                  </description>
+                </enumeration>
+              </string>
+            </syntax>
+          </parameter>
+        </input>
+      </command>
+
+      <command name="Restart()" async="false" version="2.16">
+        <description>
+          Initiate a restart of the ExecutionUnit.
+
+          If this {{object}} is currently in status
+          {{enum|Idle|##.ExecutionUnit.{i}.Status}} the device will attempt to
+          start the Execution Unit, as if {{command|#.SetRequestedState()}} had
+          been called with {{param|#.SetRequestedState().RequestedState}} set
+          to {{enum|Active|#.SetRequestedState().RequestedState}}.
+
+          If this {{object}} is in status
+          {{enum|Stopping|##.ExecutionUnit.{i}.Status}} the request is rejected
+          and a fault raised.
+
+          If this {{object}} is currently in status
+          {{enum|Starting|##.ExecutionUnit.{i}.Status}} or
+          {{enum|Active|##.ExecutionUnit.{i}.Status}} the device will attempt
+          to stop the Execution Unit and will place it in the
+          {{enum|Restarting|##.ExecutionUnit.{i}.Status}} state. Once the
+          {{object|##.}} has stopped the device will attempt to re-start the
+          Execution Unit.
+
+          If this {{object|##.}} is in any other status then this command has
+          no effect.
+        </description>
+      </command>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecutionUnit.{i}.AutoRestart."
+        access="readOnly" minEntries="1" maxEntries="1">
+      <parameter base="RetryCount" access="readWrite">
+        <description action="append">
+          Invoking the {{command|#.Restart()}} command
+          also has the effect of resetting this parameter to zero.
+        </description>
+        <syntax>
+          <unsignedInt/>
+        </syntax>
+      </parameter>
+    </object>
+
+    <object base="Device.SoftwareModules.ExecutionUnit.{i}.Extensions."
+        access="readOnly" minEntries="1" maxEntries="1">
+      <description action="append">
+        It is also possible for the Execution Unit to expose status and
+        configuration parameters within Service objects or as embedded objects
+        and parameters directly within the root data model, in which case the
+        combination of {{param|#.References}} and use of GetSupportDM and
+        GetInstances USP messages will be used to determine their locations.
+      </description>
+    </object>
+  </component>
+</dm:document>
