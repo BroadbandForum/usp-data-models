@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -2526,7 +2529,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed name = <em>Device:2.15</em> ⇒ <em>Device:2.16</em></li>
 </ul>
@@ -2557,7 +2560,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>The top-level object for a Device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.CollectionDeviceNumberOfEntries"><em>CollectionDeviceNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Logical."><em>Logical.</em></a> object</li>
@@ -2610,7 +2613,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>Reboot the entity associated with the containing <a href="#D.Device:2.Device."><em>Device</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -2677,7 +2680,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>Factory reset the entity associated with the containing <a href="#D.Device:2.Device."><em>Device</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -2767,7 +2770,7 @@ location. This string is set to an empty string if no authentication is
 required.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -2794,7 +2797,7 @@ required.</p>
 <td>
 <p>This object contains general device information.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.HostName"><em>HostName</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.MaxNumberOfActivateTimeWindows"><em>MaxNumberOfActivateTimeWindows</em></a> parameter</li>
@@ -3061,7 +3064,7 @@ sampling an internal temperature sensor.</p>
 <td>
 <p>Resets the temperature sensor.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -3306,7 +3309,7 @@ is defined by the firmware that is currently running.</p>
 <p>This object contains <span class="inserted">global </span>parameters relating <span class="inserted">to the NTP time clients and or servers that are active in the device. This object can be used to model SNTP and NTP clients and servers.</span></p>
 <p>Both NTP and SNTP have identical packet formats and use the same mathematical operations to calculate client time, clock offset, and roundtrip delay. From the perspective of an NTP or SNTP <span class="removed">time client</span><span class="inserted">server, there is no difference between NTP and SNTP clients, and from the perspective of an NTP or SNTP client, there is no difference between NTP and SNTP servers. SNTP servers are stateless like NTP servers</span> in <span class="removed">the CPE.</span><span class="inserted">non-symmetric modes and can handle numerous clients, but SNTP clients usually operate with only one server at a time, unlike most NTP clients.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Time.ClientNumberOfEntries"><em>ClientNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Time.ServerNumberOfEntries"><em>ServerNumberOfEntries</em></a> parameter</li>
@@ -3355,11 +3358,11 @@ is defined by the firmware that is currently running.</p>
 <td>
 <p><span class="removed">Status</span><span class="inserted">Reflects the global time synchronisation status</span> of<span class="removed"> Time support on</span> the CPE.  Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.Time.Status.Disabled"><em>Disabled</em></span> (Indicates that the CPE's time client services are disabled. ::::: diffs <strong>Changes since 2.16:</strong> * Added <em>Indicates that the CPE's time client services are disabled.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.Time.Status.Unsynchronized"><em>Unsynchronized</em></span> (Indicates that the CPE's absolute time has not yet been set by any of the configured time clients. ::::: diffs <strong>Changes since 2.16:</strong> * Added <em>Indicates that the CPE's absolute time has not yet been set by any of the configured time clients.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.Time.Status.Synchronized"><em>Synchronized</em></span> (Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE. ::::: diffs <strong>Changes since 2.16:</strong> * Added <em>Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>. ::::: diffs <strong>Changes since 2.16:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.Time.Status.Error"><em>Error</em></span> (MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time. ::::: diffs <strong>Changes since 2.16:</strong> * Added <em>MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time.</em> description :::::, OPTIONAL)
+<li><span id="D.Device:2.Device.Time.Status.Disabled"><em>Disabled</em></span> (Indicates that the CPE's time client services are disabled. ::::: diffs <strong>Changes since 2.14:</strong> * Added <em>Indicates that the CPE's time client services are disabled.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Unsynchronized"><em>Unsynchronized</em></span> (Indicates that the CPE's absolute time has not yet been set by any of the configured time clients. ::::: diffs <strong>Changes since 2.14:</strong> * Added <em>Indicates that the CPE's absolute time has not yet been set by any of the configured time clients.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Synchronized"><em>Synchronized</em></span> (Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE. ::::: diffs <strong>Changes since 2.14:</strong> * Added <em>Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>. ::::: diffs <strong>Changes since 2.14:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Error"><em>Error</em></span> (MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time. ::::: diffs <strong>Changes since 2.14:</strong> * Added <em>MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time.</em> description :::::, OPTIONAL)
 <span class="removed">{{div|{{classes}}|The {{enum|Unsynchronized}} value indicates that the CPE's absolute time has not yet been set.}}{{div|{{classes}}|The {{enum|Synchronized}} value indicates that the CPE has acquired accurate absolute time; its current time is accurate.}}{{div|{{classes}}|The {{enum|Error_FailedToSynchronize}} value indicates that the CPE failed to acquire accurate absolute time; its current time is not accurate.}}{{div|{{classes}}|The {{enum|Error}} value MAY be used by the CPE to indicate a locally defined error condition.}}</span></li>
 </ul>
 </td>
@@ -3393,7 +3396,7 @@ is defined by the firmware that is currently running.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -3430,7 +3433,7 @@ is defined by the firmware that is currently running.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -3467,7 +3470,7 @@ is defined by the firmware that is currently running.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -3504,7 +3507,7 @@ is defined by the firmware that is currently running.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -3541,7 +3544,7 @@ is defined by the firmware that is currently running.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -4661,7 +4664,7 @@ issues.</p>
 <p>This object contains parameters relating to the user interface of the
 CPE.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.UserInterface.HTTPAccessSupportedProtocols"><em>HTTPAccessSupportedProtocols</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.UserInterface.HTTPAccessNumberOfEntries"><em>HTTPAccessNumberOfEntries</em></a> parameter</li>
@@ -4711,7 +4714,7 @@ CPE.</p>
 <p>Present only if the Agent provides a password-protected LAN-side user interface and supports LAN-side Auto-Configuration.</p>
 <p>Reset <a href="#D.Device:2.Device.LANConfigSecurity.ConfigPassword"><em>LANConfigSecurity.ConfigPassword</em></a> to its factory value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -5556,7 +5559,7 @@ interface.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -5774,7 +5777,7 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <ul>
 <li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.Open"><em>Open</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.Short"><em>Short</em></span></li>
-<li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.PoweredonDSLAMDPU"><em>Powered on DSLAM/DPU</em></span> (This enumeration was OBSOLETED in 2.14 because it's been removed from the ITU-T Recommendation. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.PoweredonDSLAMDPU"><em>Powered on DSLAM/DPU</em></span> (This enumeration was OBSOLETED in 2.14 because it's been removed from the ITU-T Recommendation. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
 <li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.PoweredonCPE"><em>Powered on CPE</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Diagnostics.SELTP.Output.LoopTermination.Unknown"><em>Unknown</em></span></li>
 </ul>
@@ -5933,7 +5936,7 @@ the interface.</p>
 activation.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:4)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:4)</em> syntax secured = <em>true</em></li>
@@ -5985,7 +5988,7 @@ mobile network and another computer network.</p>
 Access Point.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -6308,7 +6311,7 @@ channel.</p>
 <p><span class="mark"><strong>[docsIfUpChannelSlotSize/1.3.6.1.2.1.10.127.1.1.2.1.5]</strong></span> Applicable to TDMA and ATDMA channel types only. The number of <span class="removed">6.25 microsecond</span><span class="inserted"><em>6.25 microsecond</em></span> ticks in each upstream mini-slot. Returns zero if the value is undefined or unknown or in case of an SCDMA channel.</p>
 <p>See [<a href="#R.CM-SP-RFIv2.0">Section 8.1.2.4/CM-SP-RFIv2.0</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed units value = <em>ticks</em> ⇒ <em>6.25 microsecond</em></li>
 </ul>
@@ -6374,7 +6377,7 @@ in the SNMP table docsIfCmStatusTable.</p>
 </td>
 <td>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added description</li>
 </ul>
@@ -6665,7 +6668,7 @@ Connection Access Method of the Ethernet interface MAC. A
 device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Interface.SupportedLinkModes"><em>SupportedLinkModes</em></a> parameter</li>
 </ul>
@@ -6853,7 +6856,7 @@ carrying Ethernet frames.</p>
 <p>This command sends a magic packet over the CPE active Ethernet
 interfaces.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed async = <em>true</em> ⇒ <em>false</em></li>
 </ul>
@@ -7011,7 +7014,7 @@ the USB Communication Device Class.</p>
 [<a href="#R.USB2.0">Chapter 7.1.7.5/USB2.0</a>]) to all of the Host Controller Hub
 downstream ports.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -7220,7 +7223,7 @@ Possible patterns:</p>
 [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(12:17)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(12:17)</em> syntax secured = <em>true</em></li>
@@ -7315,7 +7318,7 @@ media such as power line, phone line and coaxial cable.</p>
 <td>
 <p>Comma-separated list of DeviceIDs of nodes that need to enable their PHY throughput diagnostics mode. All devices that are enabled will participate in the G.hn network PHY throughput diagnostics process.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>unsignedInt[]</em></li>
 <li>Added <em>unsignedInt[]</em> syntax <em>unsignedInt</em></li>
@@ -7342,7 +7345,7 @@ media such as power line, phone line and coaxial cable.</p>
 <td>
 <p>Comma-separated list of DeviceIDs of nodes that need to enable their Performance Monitoring diagnostics mode on this node. All devices that are enabled will participate in the G.hn network Performance Monitoring diagnostics process.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>unsignedInt[]</em></li>
 <li>Added <em>unsignedInt[]</em> syntax <em>unsignedInt</em></li>
@@ -7570,7 +7573,7 @@ setting this parameter as it might prohibit communication with other
 adapters or equipment connected via the powerline network.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:32)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:32)</em> syntax secured = <em>true</em></li>
@@ -7668,7 +7671,7 @@ extended ASCII characters (i.e. printable 7-bit ASCII character codes
 example: bvjPekZiYUf9kjNKJASkgJ09adfoP01Fjvgd</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:36)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:36)</em> syntax secured = <em>true</em></li>
@@ -7804,7 +7807,7 @@ WPA3-Personal-Transition.</p>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -7837,7 +7840,7 @@ operating.</p>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand.6GHz"><em>6GHz</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>6GHz</em> enumeration</li>
 </ul>
@@ -7941,7 +7944,7 @@ operating.</p>
 <p>This command represents a request to reset or reboot the Wi-Fi
 sub-system without resetting or rebooting the device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -8149,7 +8152,7 @@ Enumeration of:</p>
 <div class="hide">
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>6GHz</em> enumeration</li>
 </ul>
@@ -8675,7 +8678,7 @@ device in the Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -8745,7 +8748,7 @@ device in the Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -9242,7 +9245,7 @@ the identified Access Point device known to the controller.</p>
 <p><em>false</em>: do not include Associated Wi-Fi6 STA Status TLV [3] in AP Metrics Response.</p>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -10482,7 +10485,7 @@ WPA3-Personal-Transition.</p>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -10710,7 +10713,7 @@ WPA3-Personal-Transition.</p>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -10850,7 +10853,7 @@ BSS.</p>
 <p>The event is generated when an Associated Device (STA) associates to
 a BSS.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.DataElements.AssociationEvent.Associated.ClientCapabilities"><em>ClientCapabilities</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.DataElements.AssociationEvent.Associated.WiFi6Capabilities."><em>WiFi6Capabilities</em></a> object</li>
@@ -10887,7 +10890,7 @@ a BSS.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11410,7 +11413,7 @@ and Spatial Reuse.</p>
 <p>The events generated when an Associated Device (STA) associates to a
 BSS.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.DataElements.AssociationEvent.AssociationEventData.ClientCapabilities"><em>ClientCapabilities</em></a> parameter</li>
 </ul>
@@ -11446,7 +11449,7 @@ BSS.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11558,7 +11561,7 @@ can operate.</p>
 <li><span id="D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.6GHz"><em>6GHz</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>6GHz</em> enumeration</li>
 </ul>
@@ -11750,7 +11753,7 @@ can operate.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -11790,7 +11793,7 @@ can operate.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -11865,7 +11868,7 @@ can operate.</p>
 <td>
 <p>This specifies the number of beacon intervals<span class="inserted"> (measured in <em>ms</em>)</span> that elapse between transmission of Beacon frames containing a TIM element whose DTIM Count field is 0. This parameter is based on <em>dot11DTIMPeriod</em> from [<a href="#R.802.11-2020">802.11-2020</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added unsignedInt <em>ms</em> units</li>
 </ul>
@@ -11935,7 +11938,7 @@ can operate.</p>
 Assessment (CCA) measurement scan on this radio on the given channel
 using a specific <a href="#D.Device:2.Device.WiFi.Radio.InitiateCCAMeasurement.Input.DwellTime"><em>DwellTime</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.WiFi.Radio.InitiateCCAMeasurement.Input.Frequency"><em>Frequency</em></a> parameter</li>
 </ul>
@@ -12161,7 +12164,7 @@ WPA3-Personal-Transition.</p>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -12389,7 +12392,7 @@ WPA3-Personal-Transition.</p>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -12864,7 +12867,7 @@ disable the offending <em>AccessPoint</em> row.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -12892,7 +12895,7 @@ disable the offending <em>AccessPoint</em> row.</p>
 <p>This object contains security related parameters that apply to a CPE
 acting as an Access Point [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.SPPAMSDU"><em>SPPAMSDU</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.TransitionDisableIndication"><em>TransitionDisableIndication</em></a> parameter</li>
@@ -12941,7 +12944,7 @@ WPA2-PSK-WPA3-SAE.</p>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -12973,7 +12976,7 @@ WPA2-PSK-WPA3-SAE.</p>
 security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary(5,13)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary(5,13)</em> syntax secured = <em>true</em></li>
@@ -13009,7 +13012,7 @@ generated. The Controller SHOULD NOT set both the
 doing this is undefined).</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary(:32)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary(:32)</em> syntax secured = <em>true</em></li>
@@ -13046,7 +13049,7 @@ which uses PBKDF2 from PKCS #5: Password-based Cryptography
 Specification Version 2.0 ([<a href="#R.RFC2898">RFC2898</a>]).</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(8:63)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(8:63)</em> syntax secured = <em>true</em></li>
@@ -13077,7 +13080,7 @@ Specification Version 2.0 ([<a href="#R.RFC2898">RFC2898</a>]).</p>
 generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -13106,7 +13109,7 @@ generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphra
 [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -13137,7 +13140,7 @@ generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphra
 will use the same secret as the primary RADIUS server.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -13227,7 +13230,7 @@ Possible failure reasons include a lack of default values or if
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -13306,7 +13309,7 @@ Possible failure reasons include a lack of default values or if
 </ul>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:8)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:8)</em> syntax secured = <em>true</em></li>
@@ -13721,7 +13724,7 @@ functionality for the access point.</p>
 [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -13752,7 +13755,7 @@ server [<a href="#R.RFC2865">RFC2865</a>].</p>
 will use the same secret as the primary RADIUS server.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -13855,7 +13858,7 @@ capable of supporting.</p>
 <li><span id="D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.OWE"><em>OWE</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>OWE</em> enumeration</li>
 </ul>
@@ -13929,7 +13932,7 @@ End Point profile [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary(5,13)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary(5,13)</em> syntax secured = <em>true</em></li>
@@ -13965,7 +13968,7 @@ generated. The Controller SHOULD NOT set both the
 doing this is undefined).</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary(:32)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary(:32)</em> syntax secured = <em>true</em></li>
@@ -14002,7 +14005,7 @@ PBKDF2 from PKCS #5: Password-based Cryptography Specification
 Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(8:63)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(8:63)</em> syntax secured = <em>true</em></li>
@@ -14033,7 +14036,7 @@ Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
 generated from <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -14114,7 +14117,7 @@ generated from <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPas
 </ul>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt(4,8)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:8)</em> syntax secured = <em>true</em></li>
@@ -14358,7 +14361,7 @@ provider bridges.</p>
 <p>Bridge table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Bridging.Bridge.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Bridging.Bridge.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Bridging.Bridge.Name"><em>Name</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Bridging.Bridge.AgingTime"><em>AgingTime</em></a> parameter</li>
@@ -14624,7 +14627,7 @@ above all non-management bridge ports that share the same
 <a href="#D.Device:2.Device.Bridging.Bridge."><em>Bridge</em></a> instance.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Bridging.Bridge.Port.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Bridging.Bridge.Port.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Bridging.Bridge.Port.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Bridging.Bridge.Port.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Bridging.Bridge.Port.PathCost"><em>PathCost</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Bridging.Bridge.Port.Priority"><em>Priority</em></a> parameter</li>
@@ -14803,7 +14806,7 @@ associated with either DHCPv4 or DHCPv6, as indicated by the
 [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PPP.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.PPP.Interface.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.PPP.Interface.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.PPP.Interface.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.PPP.Interface.LCPEchoAdaptive"><em>LCPEchoAdaptive</em></a> parameter</li>
 </ul>
@@ -14833,7 +14836,7 @@ represented by this object and establish a new one.</p>
 interruption of a user service such as an ongoing voice call.</p>
 <p>Reset on a disabled interface is a no-op (not an error).</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -14860,7 +14863,7 @@ interruption of a user service such as an ongoing voice call.</p>
 <p>Password to be used for authentication.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:64)</em> syntax secured = <em>true</em></li>
@@ -14887,7 +14890,7 @@ interruption of a user service such as an ongoing voice call.</p>
 <td>
 <p><span class="inserted">A </span>PPP LCP Echo <span class="removed">period</span><span class="inserted">Request</span> <span class="removed">in</span><span class="inserted">is sent every <em>LCPEcho</em></span> <em>seconds</em>.<span class="inserted"> A value 0 means that no LCP Echo Requests are sent. [<a href="#R.RFC1661">Section 5.8 Echo-Request and Echo-Reply/RFC1661</a>] describes the relevant LCP Echo frames.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -14913,7 +14916,7 @@ interruption of a user service such as an ongoing voice call.</p>
 <td>
 <p><span class="removed">Number</span><span class="inserted">Applicable only when <a href="#D.Device:2.Device.PPP.Interface.LCPEcho"><em>LCPEcho</em></a> is greater than 0. When number</span> of <span class="removed">PPP</span><span class="inserted">consecutive <em>LCPEchoRetry</em></span> LCP Echo <span class="removed">retries</span><span class="inserted">Replies</span> <span class="removed">within</span><span class="inserted">have</span> <span class="removed">an</span><span class="inserted">been</span> <span class="removed">echo</span><span class="inserted">missed.</span> <span class="removed">period.</span><span class="inserted">The remote peer will be assumed dead and the connection will be terminated.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -15042,7 +15045,7 @@ represented by this object and establish a new one.</p>
 interruption of a user service such as an ongoing voice call.</p>
 <p>Reset on a disabled interface is a no-op (not an error).</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -15313,7 +15316,7 @@ up to 1.</p>
 <p>The number of list entries is determined by the value of
 <a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.NumberOfTries"><em>NumberOfTries</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em><a href=":16">1:3</a></em> list <em>:16</em>  size</li>
 </ul>
@@ -15430,7 +15433,7 @@ interface.</p>
 including FTP/HTTP headers, between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> across all connections.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15461,7 +15464,7 @@ object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.
 If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be
 determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15492,7 +15495,7 @@ by sampling Stats.BytesSent on the <a href="#D.Device:2.Device.IP.Diagnostics.Do
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined
 and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15520,7 +15523,7 @@ and SHOULD be 0.</p>
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15551,7 +15554,7 @@ sampling Stats.BytesReceived on the <a href="#D.Device:2.Device.IP.Diagnostics.D
 latest <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15582,7 +15585,7 @@ sampling Stats.BytesSent on the <a href="#D.Device:2.Device.IP.Diagnostics.Downl
 latest <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15635,7 +15638,7 @@ and sequentially increment as new instances are created.</p>
 transaction including FTP/HTTP headers, between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15665,7 +15668,7 @@ be calculated by sampling Stats.BytesReceived on the
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15694,7 +15697,7 @@ between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.Pe
 calculated by sampling Stats.BytesSent on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a>
 object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15747,7 +15750,7 @@ sequentially increment as new instances are created.</p>
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Change in the value of <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.TestBytesReceivedUnderFullLoading"><em>TestBytesReceivedUnderFullLoading</em></a> between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a><span class="inserted">, measured in <em>bytes</em></span>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15778,7 +15781,7 @@ be calculated by sampling Stats.BytesReceived on the
 <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting. If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is
 an empty string, this parameter cannot be determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15809,7 +15812,7 @@ object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.
 subtracting. If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter
 cannot be determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15905,7 +15908,7 @@ interface.</p>
 <p>The size of the file <span class="removed">(in bytes)</span><span class="inserted"><em>bytes</em></span> to be uploaded to the server.</p>
 <p>The CPE MUST insure the appropriate number of bytes are sent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>unsignedLong</em></li>
 </ul>
@@ -15953,7 +15956,7 @@ interface.</p>
 transaction including FTP/HTTP headers, between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> acrosss all connections.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15984,7 +15987,7 @@ object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BO
 If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be
 determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16015,7 +16018,7 @@ by sampling Stats.BytesSent on the <a href="#D.Device:2.Device.IP.Diagnostics.Up
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined
 and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16043,7 +16046,7 @@ and SHOULD be 0.</p>
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16077,7 +16080,7 @@ test. This MAY be calculated by sampling Stats.BytesReceived on the
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined
 and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16111,7 +16114,7 @@ test. This MAY be calculated by sampling Stats.BytesSent on the
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined
 and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16164,7 +16167,7 @@ and sequentially increment as new instances are created.</p>
 transaction including FTP/HTTP headers, between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16195,7 +16198,7 @@ be calculated by sampling Stats.BytesReceived on the
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting. If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is
 an empty string, this parameter cannot be determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16226,7 +16229,7 @@ object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.Pe
 If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be
 determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16279,7 +16282,7 @@ sequentially increment as new instances are created.</p>
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Change in the value of <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.TestBytesSent"><em>TestBytesSent</em></a> between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a><span class="inserted">, measured in <em>bytes</em></span>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16310,7 +16313,7 @@ be calculated by sampling Stats.BytesReceived on the
 <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting. If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is
 an empty string, this parameter cannot be determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16341,7 +16344,7 @@ object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.In
 subtracting. If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter
 cannot be determined and SHOULD be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -16436,7 +16439,7 @@ interface.</p>
 <p><strong>[MANDATORY]</strong> Port on the host to perform tests to.</p>
 <p>The default value MUST be <em>7</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>unsignedInt(1:65535)</em> syntax <em>7</em> default</li>
 </ul>
@@ -16553,7 +16556,7 @@ IP Layer Capacity measurement is specified in [<a href="#R.TR-471">TR-471</a>].<
 <p>Data received in the IP Layer Capacity measurement do not require
 storage on the device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.StartSendingRateIndex"><em>StartSendingRateIndex</em></a> parameter</li>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.RetryThresh"><em>RetryThresh</em></a> parameter</li>
@@ -16649,7 +16652,7 @@ interface.</p>
 Sending Rate value for a <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType.Search"><em>Search</em></a> test. Value specified
 in <em>kbps</em>. The default value SHOULD be 500 <em>kbps</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed <em>500:40000000</em> range maxInclusive = <em>10000000</em> ⇒ <em>40000000</em></li>
 </ul>
@@ -17336,7 +17339,7 @@ then violate the table's unique key constraint; if this occurs, the CPE
 MUST disable the offending <em>IPv4Forwarding</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.Alias"><em>Alias</em></a>, or with the same values for all of <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.DestIPAddress"><em>DestIPAddress</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.DestSubnetMask"><em>DestSubnetMask</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.ForwardingPolicy"><em>ForwardingPolicy</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.GatewayIPAddress"><em>GatewayIPAddress</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.Interface"><em>Interface</em></a> and <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.ForwardingMetric"><em>ForwardingMetric</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding.Type"><em>Type</em></a> parameter</li>
 </ul>
@@ -17441,7 +17444,7 @@ stack), then the table entry is inoperable and the CPE MUST set
 <p>This object is based on <em>inetCidrRouteTable</em> from [<a href="#R.RFC4292">RFC4292</a>].</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.Alias"><em>Alias</em></a>, or with the same values for all of <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.DestIPPrefix"><em>DestIPPrefix</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.ForwardingPolicy"><em>ForwardingPolicy</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.NextHop"><em>NextHop</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.Interface"><em>Interface</em></a> and <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.ForwardingMetric"><em>ForwardingMetric</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding.Type"><em>Type</em></a> parameter</li>
 </ul>
@@ -17541,7 +17544,7 @@ information [<a href="#R.RFC4191">RFC4191</a>]. As such, the data in this table 
 be modified.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Routing.RouteInformation.InterfaceSetting.Interface"><em>Interface</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Routing.RouteInformation.InterfaceSetting.ManagedAddressConfiguration"><em>ManagedAddressConfiguration</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Routing.RouteInformation.InterfaceSetting.OtherConfiguration"><em>OtherConfiguration</em></a> parameter</li>
@@ -17835,7 +17838,7 @@ model is based on the Babel information model defined in
 zero. Statistics are provided in
 <a href="#D.Device:2.Device.Routing.Babel.InterfaceSetting.Stats."><em>InterfaceSetting.{i}.Stats.</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -17981,7 +17984,7 @@ as specified in [<a href="#R.RFC7693">RFC7693</a>].</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary</em> syntax secured = <em>true</em></li>
@@ -18013,7 +18016,7 @@ if they produce an expected outcome. The command calculates a MAC for
 <a href="#D.Device:2.Device.Routing.Babel.MACKeySet.MACKey.MACTest.Input.InputMAC"><em>InputMAC</em></a>. If the values match, the output <a href="#D.Device:2.Device.Routing.Babel.MACKeySet.MACKey.MACTest.Output.Match"><em>Match</em></a>
 is <em>true</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -18088,7 +18091,7 @@ is immutable, once written.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>hexBinary</em> syntax hidden = <em>true</em></li>
 <li>Added <em>hexBinary</em> syntax secured = <em>true</em></li>
@@ -18439,7 +18442,7 @@ VII/TR-181i2</a>] for a description of the working of this DS-Lite data model.</
 <td>
 <p>Queue management configuration object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.QoS.MaxSchedulerEntries"><em>MaxSchedulerEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.QoS.SchedulerNumberOfEntries"><em>SchedulerNumberOfEntries</em></a> parameter</li>
@@ -18521,7 +18524,7 @@ will be associated with either DHCPv4 or DHCPv6, as indicated by the
 <a href="#D.Device:2.Device.QoS.Classification.DHCPType"><em>DHCPType</em></a> parameter.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.QoS.Classification.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.QoS.Classification.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.QoS.Classification.IPVersion"><em>IPVersion</em></a> parameter</li>
 </ul>
@@ -18621,7 +18624,7 @@ For example:</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">List</span><span class="inserted">Each</span> <span class="removed">of</span><span class="inserted">entry is a</span> name-value <span class="removed">pairs</span><span class="inserted">pair</span> representing additional criteria to identify the flow type. The use and interpretation is specific to the particular FlowType URN.Encoded using the &quot;x-www-form-urlencoded&quot; content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>string(:256)[]</em> syntax <em>[]</em> list</li>
 </ul>
@@ -18659,7 +18662,7 @@ entry is inoperable and the CPE MUST set <a href="#D.Device:2.Device.QoS.Queue.S
 <a href="#D.Device:2.Device.QoS.Queue.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.QoS.Queue.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.QoS.Queue.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.QoS.Queue.Children"><em>Children</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.QoS.Queue.CurrentShapingRate"><em>CurrentShapingRate</em></a> parameter</li>
@@ -18794,7 +18797,7 @@ MUST set <a href="#D.Device:2.Device.QoS.Shaper.Status"><em>Status</em></a> to <
 disable the offending <em>Shaper</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.QoS.Shaper.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.QoS.Shaper.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.QoS.Shaper.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.QoS.Shaper.Children"><em>Children</em></a> parameter</li>
 </ul>
@@ -19116,7 +19119,7 @@ MUST be set to an empty string.</p>
 <p>If the CPE has a user interface with password protection enabled, this parameter is also to be used as the user password for password-protected operations. However, this parameter MUST NOT be used to set the user password if the parameter <a href="#D.Device:2.Device.UserInterface.PasswordUserSelectable"><em>UserInterface.PasswordUserSelectable</em></a> is <em>true</em>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:64)</em> syntax secured = <em>true</em></li>
@@ -19209,7 +19212,7 @@ include non-IP hosts.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -19331,7 +19334,7 @@ interface.</p>
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Client.Server.DNSServer"><em>DNSServer</em></a> address.  Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (This enumeration was OBSOLETED in 2.14 because it's been replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (This enumeration was OBSOLETED in 2.14 because it's been replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -19439,7 +19442,7 @@ interface.</p>
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Relay.Forwarding.DNSServer"><em>DNSServer</em></a> address.  Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (This enumeration was OBSOLETED in 2.14 because it's been replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (This enumeration was OBSOLETED in 2.14 because it's been replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -19631,7 +19634,7 @@ _<TransportProtocol></p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>all Host table entries, active or inactive, that correspond to this discovered DNS.SD service.<span class="removed"> As such, when entries are added or removed from the Host tables the value of this parameter MUST be updated accordingly|ignore}}</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em><a href=":1024"></a></em> list <em>:1024</em>  size</li>
 </ul>
@@ -19658,7 +19661,7 @@ _<TransportProtocol></p>
 <p>Properties for Network Address Translation (NAT).</p>
 <p>The entire <em>NAT</em> object only applies to IPv4.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NAT.PortTriggerNumberOfEntries"><em>PortTriggerNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.NAT.PortTrigger."><em>PortTrigger.{i}.</em></a> object</li>
@@ -19716,7 +19719,7 @@ MUST set <a href="#D.Device:2.Device.NAT.InterfaceSetting.Status"><em>Status</em
 disable the offending <em>InterfaceSetting</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NAT.InterfaceSetting.SourceNetwork"><em>SourceNetwork</em></a> parameter</li>
 </ul>
@@ -20367,7 +20370,7 @@ equal to the value of <a href="#D.Device:2.Device.NAT.PortTrigger.Rule.Port"><em
 <p>See the PCP Theory of Operation [<a href="#R.TR-181i2">Appendix XIV/TR-181i2</a>] for a
 description of the working of this PCP data model.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.PCP.Enable"><em>Enable</em></a> parameter</li>
 </ul>
@@ -20468,7 +20471,7 @@ Interworking functions.</p>
 <p>The <a href="#D.Device:2.Device.PCP.Client.Status.Error"><em>Error</em></a> value MAY be used by the CPE to indicate a locally
 defined error condition.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>StackDisabled</em> enumeration</li>
 </ul>
@@ -20550,7 +20553,7 @@ disable the offending <em>Client</em> row.</p>
 <td>
 <p>The DHCP client will renew its DHCP lease.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -20816,7 +20819,7 @@ Agent will do a renew or information request as needed, updating both
 stateful and stateless parameter values discovered by this Client
 instance).</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -21053,7 +21056,7 @@ Initialize Port by sending out the EAP start message.</p>
 <p>The device MAY delay resetting the resource in order to avoid
 interruption of a user service such as an ongoing voice call.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -21082,7 +21085,7 @@ resource.</p>
 <p>The device MAY delay re-authentication of the resource in order to
 avoid interruption of a user service such as an ongoing voice call.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -21132,7 +21135,7 @@ supported authentication type.</p>
 authenticator.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -21182,7 +21185,7 @@ authenticator.</p>
 are valid for allowing access to the user interface on the device. If
 not valid, then an indication of why they are not valid is output.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed async = <em>true</em> ⇒ <em>false</em></li>
 </ul>
@@ -21239,7 +21242,7 @@ not valid, then an indication of why they are not valid is output.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -21269,7 +21272,7 @@ not valid, then an indication of why they are not valid is output.</p>
 <p>The user's password.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:64)</em> syntax secured = <em>true</em></li>
@@ -21380,7 +21383,7 @@ table.</p>
 <td>
 <p>Reset the SmartCard Reader and the associated SmartCard.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -21472,7 +21475,7 @@ device that has been discovered via SSDP.</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}} </span>Indicates the full path names of all Host table entries, whether active or inactive, that correspond to this UPnP root device.<span class="removed">{{div|{{classes}}|As such entries are added to or removed from the Host tables, the value of this parameter MUST be updated accordingly.}}</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em><a href=":1024"></a></em> list <em>:1024</em>  size</li>
 <li>Added string <em>###.Hosts.Host.</em> pathRef</li>
@@ -21521,7 +21524,7 @@ embedded device that has been discovered via SSDP.</p>
 <td>
 <p>Comma-separated list (up to 1024 items) of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}} </span>Indicates the full path names of all Host table entries, whether active or inactive, that correspond to this UPnP embedded device.<span class="removed">{{div|{{classes}}|As such entries are added to or removed from the Host tables, the value of this parameter MUST be updated accordingly.}}</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>[:1024]</em> list maxItems = <em>1024</em></li>
 <li>Removed <em><a href=":1024"></a></em> list <em>:1024</em>  size</li>
@@ -21571,7 +21574,7 @@ embedded service that has been discovered via SSDP.</p>
 <td>
 <p>Comma-separated list (up to 1024 items) of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}} </span>Indicates the full path names of all Host table entries, whether active or inactive, that correspond to this UPnP embedded service.<span class="removed">{{div|{{classes}}|As such entries are added to or removed from the Host tables, the value of this parameter MUST be updated accordingly.}}</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>[:1024]</em> list maxItems = <em>1024</em></li>
 <li>Removed <em><a href=":1024"></a></em> list <em>:1024</em>  size</li>
@@ -21648,7 +21651,7 @@ instances MUST be set to the empty string.</p>
 <td>
 <p>Comma-separated list (up to 1024 items) of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>the Host table entries associated with the root device from which the device description was <span class="removed">retrieved|ignore}}</span><span class="inserted">retrieved.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>[:1024]</em> list maxItems = <em>1024</em></li>
 <li>Removed <em><a href=":1024"></a></em> list <em>:1024</em>  size</li>
@@ -21679,7 +21682,7 @@ instances MUST be set to the empty string.</p>
 <p>Traffic destined for or generated by the device itself can use the <a href="#D.Device:2.Device.Firewall.Service."><em>Service</em></a> object <span class="removed">operate only on the forwarding path. This means that they affect only routed traffic, and do not affect traffic that is destined for or generated by the CPE. </span><span class="inserted">to model the appropriate Firewall rules.</span>Note that any <a href="#D.Device:2.Device.NAT."><em>NAT</em></a> processing on the ingress packet occurs before Firewall rules are applied so, for example, the Firewall rules will see the translated destination IP address and port in a downstream packet that has passed through the NAT.</p>
 <p>See [<a href="#R.TR-181i2">Appendix VIII/TR-181i2</a>] for an example <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> configuration.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Firewall.DMZNumberOfEntries"><em>DMZNumberOfEntries</em></a> parameter</li>
@@ -21715,7 +21718,7 @@ instances MUST be set to the empty string.</p>
 <ul>
 <li><span id="D.Device:2.Device.Firewall.Config.High"><em>High</em></span> (The firewall implements the &quot;Traffic Denied Inbound&quot; and &quot;Minimally Permit Common Services Outbound&quot; components of the ICSA residential certification's Required Services Security Policy [<a href="#R.ICSA-Residential">ICSA-Residential</a>]. If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Low"><em>Low</em></span> (All Outbound traffic and pinhole-defined Inbound traffic is allowed. If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
-<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled). If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled. This enumeration was OBSOLETED in 2.14 because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled). If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled. This enumeration was OBSOLETED in 2.14 because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>. This enumeration was DELETED in 2.16. :::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></span> (Advanced firewall configuration applies, as specified by <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a>, OPTIONAL)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></span> (Policy firewall configuration applies, as specified by <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a>, OPTIONAL, added in 2.16)</li>
 </ul>
@@ -21723,7 +21726,7 @@ instances MUST be set to the empty string.</p>
 extensions, in which case the rules outlined in
 [<a href="#R.TR-106">Section 3.3/TR-106</a>] MUST be adhered to.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>Policy</em> enumeration</li>
 </ul>
@@ -21852,7 +21855,7 @@ extensions, in which case the rules outlined in
 <p>Firewall Level table. When an <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> <span class="inserted">or <a href="#D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></a> </span>configuration is selected, <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a><span class="inserted"> or <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a></span> selects the currently active entry in this table. Each <em>Level</em> table entry references the <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> that contains the rules for this level.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.Level.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Firewall.Level.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Firewall.Level.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Firewall.Level.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.Level.Policies"><em>Policies</em></a> parameter</li>
 </ul>
@@ -22229,7 +22232,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.Firewall.Chain.Rule.
 <a href="#D.Device:2.Device.Firewall.Chain.Rule.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.Chain.Rule.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Firewall.Chain.Rule.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.Chain.Rule.ConnectionState"><em>ConnectionState</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Firewall.Chain.Rule.SourceMAC"><em>SourceMAC</em></a> parameter</li>
@@ -23278,7 +23281,7 @@ entire device unless overridden locally.</p>
 sample interval etc.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</li>
 <li>Added <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ForceCollection"><em>ForceCollection()</em></a> command</li>
@@ -23326,7 +23329,7 @@ sample interval etc.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -23453,7 +23456,7 @@ sample interval etc.</p>
 <p>The absolute time at which the sample interval for the first stored
 sample (for each statistic) started.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>0001-01-01T00:00:00Z</em></li>
 </ul>
@@ -23484,7 +23487,7 @@ statistics for the current sample to be calculated and updated in the
 data model, then <em>ReportEndTime</em> MUST be updated to reflect the actual time
 over which stored data was collected.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>0001-01-01T00:00:00Z</em></li>
 </ul>
@@ -23512,7 +23515,7 @@ over which stored data was collected.</p>
 <p>If this SampleSet is enabled and <em>FetchSamples</em> is in the range [1:<a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a>] then <span class="removed">{{param|Status}}</span><span class="inserted">a <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</span> MUST <span class="removed">transition</span><span class="inserted">be</span> <span class="removed">from {{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}}</span><span class="inserted">sent</span> on completion of every <em>FetchSamples</em> sample intervals.<span class="removed"> Otherwise, the transition MUST NOT occur.</span></p>
 <p>For example, if <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a> is 25 and <em>FetchSamples</em> is 24, then the CPE will store 25 values for each monitored parameter and the <span class="removed">above</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">{{param|Status}} transition</span><span class="inserted">event</span> will occur as the CPE stores each 24th of 25 sample <span class="removed">intervals, which means that the Controller could delay for up to two sample intervals before reading the stored values and would still not miss any samples (see also {{template|PERIODICSTATISTICS-FORCESAMPLE}}).</span><span class="inserted">intervals.</span><span class="removed">{{div|{{classes}}|To disable this trigger mechanism and still collect sampled statistics, {{param}} can be set to either 0 or a value greater than {{param|ReportSamples}}.}}</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added unsignedInt <em>1:</em> range</li>
 <li>Changed default value = <em>0</em> ⇒ <em>1</em></li>
@@ -23752,7 +23755,7 @@ ignored for such parameters.</p>
 <p>Note that <span class="removed">{{param}}</span><span class="inserted"><em>ForceSample()</em></span> just provides a &quot;sneak preview&quot; of the current sample. It does not create a new sample and it does not interfere with the sample interval schedule.</p>
 <p>At the end of each sample interval, if this command was executed during the sample interval then the new values that were added as described above, and the <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportEndTime"><em>ReportEndTime</em></a> and all <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleSeconds"><em>SampleSeconds</em></a> parameters, will be updated accordingly. In other words, the partial sample data that was created when the command was executed will be updated one last time at the end of the sample interval.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -24128,7 +24131,7 @@ FAP specific objects.</p>
 <td>
 <p>Reset the GPS Hardware.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -24178,7 +24181,7 @@ Global Positioning System (A-GPS) server. See also
 server. This string is set to an empty string if no authentication is used.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:64)</em> syntax secured = <em>true</em></li>
@@ -24254,7 +24257,7 @@ that reference it.</p>
 server. This string is set to an empty string if no authentication is used.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -24381,7 +24384,7 @@ in USP</span>.<span class="click"></span></p>
 <div class="hide">
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:64)</em> syntax secured = <em>true</em></li>
@@ -24415,7 +24418,7 @@ profile immediately, regardless of the current values of the
 mechanism and profile but also to preempt any regular schedule
 without affecting it.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -24442,7 +24445,7 @@ without affecting it.</p>
 <p>Bulk data parameter table.</p>
 <p>Each entry in this table represents a parameter (or set of parameters if a partial path is provided) to be <span class="inserted">either </span>collected and <span class="removed">reported.</span><span class="inserted">reported, or omitted if <a href="#D.Device:2.Device.BulkData.Profile.Parameter.Exclude"><em>Exclude</em></a> is <em>true</em>.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.BulkData.Profile.Parameter.Exclude"><em>Exclude</em></a> parameter</li>
 </ul>
@@ -24512,7 +24515,7 @@ without affecting it.</p>
 collection server.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -24539,7 +24542,7 @@ collection server.</p>
 <td>
 <p>Top level object for dynamically managed software applications.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecEnvClassNumberOfEntries"><em>ExecEnvClassNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecEnvClass."><em>ExecEnvClass.{i}.</em></a> object</li>
@@ -24587,7 +24590,7 @@ collection server.</p>
 <p><strong>[ASYNC]</strong> Install one or more Deployment Units (DUs) to the associated
 <a href="#D.Device:2.Device.SoftwareModules."><em>SoftwareModules</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.Signature"><em>Signature</em></a> parameter</li>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.RequiredRoles"><em>RequiredRoles</em></a> parameter</li>
@@ -25924,7 +25927,7 @@ is known to be supported by this <a href="#D.Device:2.Device.SoftwareModules.Exe
 their properties and configurable settings.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AllocatedCPUPercent"><em>AllocatedCPUPercent</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableCPUPercent"><em>AvailableCPUPercent</em></a> parameter</li>
@@ -25972,7 +25975,7 @@ their properties and configurable settings.</p>
 <li><span id="D.Device:2.Device.SoftwareModules.ExecEnv.Status.Restarting"><em>Restarting</em></span> (Added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>Restarting</em> enumeration</li>
 </ul>
@@ -26000,7 +26003,7 @@ their properties and configurable settings.</p>
 <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> from all other <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> instances.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed <em>:256</em> size maxLength = <em>32</em> ⇒ <em>256</em></li>
 </ul>
@@ -26028,7 +26031,7 @@ their properties and configurable settings.</p>
 <p><span class="inserted">This value can be altered by executing the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ModifyConstraints"><em>ModifyConstraints()</em></a> command.</span></p>
 <p>The default value SHOULD be <em>-1</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>int(-1:)</em> syntax <em>-1</em> default</li>
 </ul>
@@ -26056,7 +26059,7 @@ their properties and configurable settings.</p>
 <p><span class="inserted">This value can be altered by executing the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ModifyConstraints"><em>ModifyConstraints()</em></a> command.</span></p>
 <p>The default value SHOULD be <em>-1</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>int(-1:)</em> syntax <em>-1</em> default</li>
 </ul>
@@ -26318,7 +26321,7 @@ Units will be started if <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Cur
 equal to <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.RunLevel"><em>ExecutionUnit.{i}.RunLevel</em></a> and
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoStart"><em>ExecutionUnit.{i}.AutoStart</em></a> is <em>true</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -26703,7 +26706,7 @@ restoration requirements have been met</p>
 </li>
 </ol>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>true</em></li>
 </ul>
@@ -27116,7 +27119,7 @@ information about each Deployment Unit.</p>
 Software Module.</p>
 <p>At most one entry in this table can exist with the same values for all of <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.UUID"><em>UUID</em></a>, <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Version"><em>Version</em></a> and <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.ExecutionEnvRef"><em>ExecutionEnvRef</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.InternalController"><em>InternalController</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Installed"><em>Installed</em></a> parameter</li>
@@ -27148,7 +27151,7 @@ generated by the device, at the time of Deployment Unit Installation.</p>
 (Name-Based) and [<a href="#R.TR-181i2">Annex C/TR-181i2</a>].</p>
 <p>This value MUST NOT be altered when the <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a> is updated.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:36)</em> syntax</li>
 <li>Added <em>UUID</em></li>
@@ -27179,7 +27182,7 @@ of the Deployment Unit.</p>
 <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.UUID"><em>UUID</em></a> based on the rules defined in [<a href="#R.TR-181i2">Annex
 C/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed <em>:256</em> size maxLength = <em>64</em> ⇒ <em>256</em></li>
 </ul>
@@ -27267,7 +27270,7 @@ application does not require Data Model access.</p>
 <td>
 <p><strong>[ASYNC]</strong> Update the associated <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.Signature"><em>Signature</em></a> parameter</li>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.RequiredRoles"><em>RequiredRoles</em></a> parameter</li>
@@ -27844,7 +27847,7 @@ applied to the mapping,</p>
 <td>
 <p><strong>[ASYNC]</strong> Uninstall the associated <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input</li>
 </ul>
@@ -27937,7 +27940,7 @@ displaying status and maintaining configuration that reside under the
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Extensions."><em>Extensions</em></a> object.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EUID"><em>EUID</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AllocatedDiskSpace"><em>AllocatedDiskSpace</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AllocatedMemory"><em>AllocatedMemory</em></a> parameter</li>
@@ -27974,7 +27977,7 @@ displaying status and maintaining configuration that reside under the
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> instances contained within its associated
 <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed <em>:256</em> size maxLength = <em>32</em> ⇒ <em>256</em></li>
 </ul>
@@ -28008,7 +28011,7 @@ displaying status and maintaining configuration that reside under the
 <li><span id="D.Device:2.Device.SoftwareModules.ExecutionUnit.Status.Restarting"><em>Restarting</em></span> (This instance is in the process of Restarting and SHOULD transition to the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Status.Active"><em>Active</em></a> state, added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>Restarting</em> enumeration</li>
 </ul>
@@ -28170,7 +28173,7 @@ instance of the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>
 Execution Environment that is disabled and an attempt is made to
 alter this value, then a error message MUST be generated.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -28646,7 +28649,7 @@ situation that the original value is restored as the result of a
 factory reset.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -28739,7 +28742,7 @@ Methods/IEEE1905.1a</a>].</p>
 <p>1905 network passphrase for generating security keys.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string</em> syntax secured = <em>true</em></li>
@@ -28787,7 +28790,7 @@ Methods/IEEE1905.1a</a>].</p>
 <p>MQTT client table. Contains a list of configured MQTT clients.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.MQTT.Client.Interface"><em>Interface</em></a> parameter</li>
 </ul>
@@ -28843,7 +28846,7 @@ effect.</p>
 <p>This command may be used to immediately apply changes in the MQTT
 connection settings.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -28875,7 +28878,7 @@ packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>], [<a href="#R.MQTT311
 <a href="#D.Device:2.Device.MQTT.Client.Username"><em>Username</em></a> is not an empty string.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -28926,7 +28929,7 @@ the MQTT broker.</p>
 <p>This password is only used if <a href="#D.Device:2.Device.MQTT.Broker.Username"><em>Username</em></a> is not an empty string.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -28982,7 +28985,7 @@ effect.</p>
 <p>This command may be used to immediately apply changes in the MQTT
 connection settings.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -29015,7 +29018,7 @@ CONNECT packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>],
 <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Username"><em>Username</em></a> is not an empty string.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -29118,7 +29121,7 @@ interface.</p>
 Server.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -29167,7 +29170,7 @@ Server.</p>
 <p>Enables or disables Dynamic DNS Server.</p>
 <p><span class="inserted">Note: This parameter was previously wrongly defined as a string.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:64)</em> -&gt; <em>boolean</em></li>
 </ul>
@@ -29355,7 +29358,7 @@ value specifies the Communication Channel used for this scheduled
 task.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>int</em> -&gt; <em>string(:256)</em></li>
 </ul>
@@ -29429,7 +29432,7 @@ performed by <a href="#D.Device:2.Device.LMAP.MeasurementAgent."><em>Measurement
 value specifies the Communication Channel used for this task.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed syntax = <em>int</em> -&gt; <em>string(:256)</em></li>
 </ul>
@@ -29523,7 +29526,7 @@ defined in [<a href="#R.3GPP-TS.24.008">Clause 10.5.6.3/3GPP-TS.24.008</a>].</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv6 DNS <span class="removed">servers.</span><span class="inserted">server.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>string(:256)[]</em> syntax <em>[]</em> list</li>
 </ul>
@@ -29549,7 +29552,7 @@ defined in [<a href="#R.3GPP-TS.24.008">Clause 10.5.6.3/3GPP-TS.24.008</a>].</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv4 DNS <span class="removed">servers.</span><span class="inserted">server.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>string(:256)[]</em> syntax <em>[]</em> list</li>
 </ul>
@@ -34760,7 +34763,7 @@ Agent functionality.</p>
 <p>This object contains general information about the USP Agent itself. For information related to the Device that hosts the Agent, please reference the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> object.</p>
 <p>NOTE: The Vendor Log File table (<a href="#D.Device:2.Device.DeviceInfo.VendorLogFile."><em>DeviceInfo.VendorLogFile</em></a>) details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.MonitorNumberOfEntries"><em>MonitorNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.SupportedNumberOfSubscriptions"><em>SupportedNumberOfSubscriptions</em></a> parameter</li>
@@ -34797,7 +34800,7 @@ Agent MUST support at least one Protocol.</p>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.UDS"><em>UDS</em></span> (See [<a href="#R.TR-369">TR-369</a>], added in 2.16)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added string <em>UDS</em> enumeration</li>
 </ul>
@@ -34840,7 +34843,7 @@ fail. To replace an instance with the same
 <a href="#D.Device:2.Device.LocalAgent.Certificate.Issuer"><em>Certificate.{i}.Issuer</em></a>, the existing instance must first
 be deleted.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -34950,7 +34953,7 @@ exists.</p>
 <p>Each instance of this table represents a MTP used by the local Agent.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.MTP.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.LocalAgent.MTP.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.MTP.UDS."><em>UDS.</em></a> object</li>
 </ul>
@@ -34978,7 +34981,7 @@ exists.</p>
 a USP Endpoint.</p>
 <p>This parameter discriminates between the <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP."><em>CoAP</em></a>, <a href="#D.Device:2.Device.LocalAgent.MTP.WebSocket."><em>WebSocket</em></a>, <a href="#D.Device:2.Device.LocalAgent.MTP.UDS."><em>UDS</em></a> union objects.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax <em>WebSocket</em>  default</li>
 </ul>
@@ -35053,7 +35056,7 @@ then this object contains CoAP specific configuration parameters.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -35108,7 +35111,7 @@ configuration parameters.</p>
 are transmitted by the Agent's WebSocket server to the Controller's
 WebSocket client.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>unsignedInt(1:)</em> syntax <em>60</em> default</li>
 </ul>
@@ -35702,7 +35705,7 @@ last notification sent to this Controller.</p>
 <td>
 <p>Comma-separated list of strings, the set of certificates from <a href="#D.Device:2.Device.LocalAgent.Certificate."><em>Certificate.{i}</em></a> that a Controller can present for use in authenticating the identity of this <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Controller</em></a> instance.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <em>string[]</em> syntax <em>[]</em> list</li>
 </ul>
@@ -35741,7 +35744,7 @@ last notification sent to this Controller.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 <li>Added async = <em>false</em></li>
@@ -35781,7 +35784,7 @@ last notification sent to this Controller.</p>
 <p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -35828,7 +35831,7 @@ be deleted.</p>
 belongs. If the Controller issuing the USP Operate message is a
 different Controller, the message MUST be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -35895,7 +35898,7 @@ different Controller, the message MUST be denied.</p>
 <p>Requests the Agent to send an <em>OnBoardRequest</em> notification to this
 Controller.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -35922,7 +35925,7 @@ Controller.</p>
 <p>Each instance of this table represents a MTP used by this Controller.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a>, or with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a> and <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.UDS."><em>UDS.</em></a> object</li>
 </ul>
@@ -35951,7 +35954,7 @@ a USP Endpoint.</p>
 <p>This parameter discriminates between the <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.STOMP."><em>STOMP</em></a>, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a>, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT."><em>MQTT</em></a>, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.UDS."><em>UDS</em></a> union objects.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string</em> syntax <em>WebSocket</em>  default</li>
 </ul>
@@ -35982,7 +35985,7 @@ Server.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a> is <a href="#D.Device:2.Device.LocalAgent.SupportedProtocols.STOMP"><em>STOMP</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.STOMP.USPServiceRef"><em>USPServiceRef</em></a> parameter</li>
 </ul>
@@ -36033,7 +36036,7 @@ configuration parameters.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a> is <a href="#D.Device:2.Device.LocalAgent.SupportedProtocols.WebSocket"><em>WebSocket</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket.USPServiceRef"><em>USPServiceRef</em></a> parameter</li>
 </ul>
@@ -36072,7 +36075,7 @@ configuration parameters.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -36123,7 +36126,7 @@ communicating via the WebSocket MTP.</p>
 <p>If enabled, this command will either request to start or restart an
 WebSocket session with the Controller.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed async = <em>true</em> ⇒ <em>false</em></li>
 </ul>
@@ -36153,7 +36156,7 @@ related to how this Controller communicates with the MQTT broker.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a> is <a href="#D.Device:2.Device.LocalAgent.SupportedProtocols.MQTT"><em>MQTT</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT.AgentMTPReference"><em>AgentMTPReference</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT.USPServiceRef"><em>USPServiceRef</em></a> parameter</li>
@@ -36190,7 +36193,7 @@ related to how this Controller communicates with the MQTT broker.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -36330,7 +36333,7 @@ communicating via the UDS MTP.</p>
 <p>The <em>E2ESession</em> object represents the End to End (E2E) Session Context
 functionality for this <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Controller.{i}</em></a> object instance.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.E2ESession.MaxUSPRecordSize"><em>MaxUSPRecordSize</em></a> parameter</li>
 </ul>
@@ -36369,7 +36372,7 @@ functionality for this <a href="#D.Device:2.Device.LocalAgent.Controller."><em>C
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -36431,7 +36434,7 @@ the remote endpoint.</p>
 <p>If the <a href="#D.Device:2.Device.LocalAgent.Controller.E2ESession."><em>E2ESession</em></a> is not enabled and there is no active Session
 Context then this command does nothing.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed async = <em>true</em> ⇒ <em>false</em></li>
 </ul>
@@ -36488,7 +36491,7 @@ Certificate in <a href="#D.Device:2.Device.LocalAgent.Controller.Credential"><em
 removes any X.509 certificate data the Agent had stored related to
 the entry.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -36516,7 +36519,7 @@ the entry.</p>
 a fingerprint calculated for the specified table entry using the
 input <a href="#D.Device:2.Device.LocalAgent.Certificate.GetFingerprint.Input.FingerprintAlgorithm"><em>FingerprintAlgorithm</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -36543,7 +36546,7 @@ input <a href="#D.Device:2.Device.LocalAgent.Certificate.GetFingerprint.Input.Fi
 <p>This object contains information that an Agent applies when
 establishing a trust relationship with a Controller.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.SecuredRoles"><em>SecuredRoles</em></a> parameter</li>
 </ul>
@@ -36606,7 +36609,7 @@ current RequestChallenge expires.</p>
 RequestChallenge does not exist, the Agent returns an &quot;Invalid Value&quot;
 error.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -36632,7 +36635,7 @@ error.</p>
 <td>
 <p>This command is issued to return the response of challenge.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -36899,7 +36902,7 @@ received in order to authenticate the identity of the Controller.</p>
 <p>The value of the challenge that is specific to the type of challenge.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>base64</em> syntax hidden = <em>true</em></li>
 <li>Added <em>base64</em> syntax secured = <em>true</em></li>
@@ -36927,7 +36930,7 @@ received in order to authenticate the identity of the Controller.</p>
 <p>A Subscription dictates how a USP Agent issues USP Notification Messages to a USP <span class="removed">Controller.</span><span class="inserted">Controller, executes an automated configuration action, or both, as controlled by <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>TriggerAction</em></a>.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.Subscription.Alias"><em>Alias</em></a>, or with the same values for both <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a> and <a href="#D.Device:2.Device.LocalAgent.Subscription.ID"><em>ID</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.LocalAgent.Subscription.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a> and <a href="#D.Device:2.Device.LocalAgent.Subscription.ID"><em>ID</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>TriggerAction</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerConfigSettings"><em>TriggerConfigSettings</em></a> parameter</li>
@@ -37035,7 +37038,7 @@ if the <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>Tr
 will immediately change to <a href="#D.Device:2.Device.LocalAgent.Request.Status.Canceling"><em>Canceling</em></a> and will change
 to <a href="#D.Device:2.Device.LocalAgent.Request.Status.Canceled"><em>Canceled</em></a> when the cancelation is complete.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added async = <em>false</em></li>
 </ul>
@@ -37443,7 +37446,7 @@ instance corresponding to this <a href="#D.Device:2.Device.CollectionDevice."><e
 </td>
 <td>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Added description</li>
 </ul>
@@ -37515,7 +37518,7 @@ this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> duri
 Server.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(:256)</em> syntax secured = <em>true</em></li>
@@ -37555,7 +37558,7 @@ Server.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -37923,7 +37926,7 @@ there is no associated gateway that has been detected.</p>
 <p>This list of IoT capability objects.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IoTCapability.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.IoTCapability.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Removed mountType = <em>mountable</em></li>
 </ul>
@@ -37955,7 +37958,7 @@ is locked.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.BinaryControl"><em>BinaryControl</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -37990,7 +37993,7 @@ commands with a configurable <a href="#D.Device:2.Device.IoTCapability.LevelCont
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.LevelControl"><em>LevelControl</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38022,7 +38025,7 @@ configuring via the <a href="#D.Device:2.Device.IoTCapability.EnumControl.Value"
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.EnumControl"><em>EnumControl</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38058,7 +38061,7 @@ will respond to continuous events.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.BinarySensor"><em>BinarySensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38088,7 +38091,7 @@ reports a <a href="#D.Device:2.Device.IoTCapability.LevelSensor.Value"><em>Value
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.LevelSensor"><em>LevelSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38118,7 +38121,7 @@ reports multiple <a href="#D.Device:2.Device.IoTCapability.MultiLevelSensor.Valu
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.MultiLevelSensor"><em>MultiLevelSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38148,7 +38151,7 @@ reports explicit non-continuous values.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.EnumSensor"><em>EnumSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.16:</strong></p>
+<p><strong>Changes since 2.14:</strong></p>
 <ul>
 <li>Changed minEntries = <em>1</em> ⇒ <em>0</em></li>
 <li>Added discriminatorParameter = <em>Class</em></li>
@@ -38165,7 +38168,7 @@ reports explicit non-continuous values.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:44:42 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:07:34 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-16-0-usp-diffs.html --show --transform diff --format html tr-181-2-15-1-usp.xml tr-181-2-16-0-usp.xml</p>
 </div>
 <div id="TOC">

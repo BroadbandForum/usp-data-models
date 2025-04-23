@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -1185,7 +1188,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Changed name = <em>STBService:1.3</em> ⇒ <em>STBService:1.4</em></li>
 </ul>
@@ -1317,7 +1320,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>This object describes the capabilities of the <a href="#D.STBService:1.STBService.ServiceMonitoring."><em>ServiceMonitoring</em></a> object.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Added <a href="#D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries"><em>MaxMainStreamEventLogEntries</em></a> parameter</li>
 </ul>
@@ -1405,7 +1408,7 @@ the <strong>Version</strong> column.</p>
 <p>DVB-T front-end details. This object will normally be present if and only if this front-end is a DVB-T front-end.
 Parameters are taken from the DGTVi D-Book [<a href="#R.D-Book">D-Book</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Changed minEntries = <em>0</em> ⇒ <em>1</em></li>
 <li>Removed <em>Install.</em>  object</li>
@@ -1704,7 +1707,7 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.0"><em>0</em></span> (no hierarchy)</li>
-<li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.1"><em>1</em></span> (:::: diffs <strong>Changes since 1.4:</strong> * Removed  description ::::)</li>
+<li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.1"><em>1</em></span> (:::: diffs <strong>Changes since 1.3:</strong> * Removed  description ::::)</li>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.2"><em>2</em></span></li>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.4"><em>4</em></span></li>
 </ul>
@@ -1729,7 +1732,7 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <td>
 <p>DVB-T service list database.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.Components.FrontEnd.DVBT.ServiceListDatabase.Reset"><em>Reset()</em></a> command</li>
@@ -1776,7 +1779,7 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <td>
 <p>IP front-end details. This object will normally be present if and only if the front-end is an IP front-end.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Changed minEntries = <em>0</em> ⇒ <em>1</em></li>
 <li>Removed <em>ServiceConnect.</em>  object</li>
@@ -1928,7 +1931,7 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 <p>Audio output instance table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.Components.AudioOutput.Name"><em>Name</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Components.AudioOutput.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>CancelMute</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.Components.AudioOutput.CancelMute"><em>CancelMute()</em></a> command</li>
@@ -1977,7 +1980,7 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 AV players are created statically. Each AV player corresponds to a combination of several AV streams (one main screen video, several PIP, one audio) being connected to an AV presentation device (such as a TV set).
 There is no guarantee that the STB has the resources to enable all of its AV players at the same time.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>ResetPINCode</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.AVPlayers.ResetPINCode"><em>ResetPINCode()</em></a> command</li>
@@ -2024,7 +2027,7 @@ There is no guarantee that the STB has the resources to enable all of its AV pla
 <td>
 <p><span class="removed">Contains statistics relating to the</span><span class="inserted">Records events and collects</span> QoS / QoE <span class="removed">of</span><span class="inserted">related statistics for</span> Main AV streams. These statistics are broken down into categories, e.g. de-jittering and RTP, and for each category there are two types of statistics: * <strong>Total</strong> statistics, which count the number of occurrences of something. * <strong>Sample</strong> statistics, which are measured over a sample interval, and are made available to the ACS as a list of the most recent n samples. Total statistics are always collected (collection cannot be disabled, but the values can be reset). For Sample statistics, an STB uses a single sample interval and number of samples (n) for all <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>MainStream</em></a> instances. The sample interval can be aligned with absolute time. When Sample statistics collection is enabled, statistics collection MUST proceed regardless of whether there are any active Main AV streams. For example, even when the STB is not receiving any data, sample intervals will continue to be timed as normal. Refer to [<a href="#R.TR-135">I.3/TR-135</a>] for non-normative explanation of the operation of the <em>ServiceMonitoring</em> object.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>ForceSample</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.ForceSample"><em>ForceSample()</em></a> command</li>
@@ -2098,7 +2101,7 @@ When the collection of events is enabled, any previously collected events are di
 <p>List of Main AV stream objects. Each instance is associated with a specified service type and will collect statistics only for the main stream that matches that service type. Note that this means that streams that do not match an instance's service type MUST NOT contribute to the instance's Total and Sample statistics. It is up to the STB to determine which AV stream should be regarded as the Main AV stream for a given service type at any given time. For example, if two active streams are associated with the same service type, the STB might prefer streams that are associated with an AV player, or if more than one stream is associated with an AV player, the STB might prefer a player that is outputting a DVI stream to a player that is outputting an RF stream.<span class="removed"> </span><span class="inserted">Note that some parameters, e.g. <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>Components.FrontEnd.{i}.IP.ServiceConnect().URI</em></a>, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.ServiceType"><em>ServiceType</em></a>, or with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.SessionId"><em>SessionId</em></a> parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.EventLog."><em>EventLog.</em></a> object</li>
@@ -2191,7 +2194,7 @@ The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Erro
 <td>
 <p>Total statistics since this <em>ServiceMonitoring</em> main stream instance was last enabled or Total statistics were last reset.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Total.Reset"><em>Reset()</em></a> command</li>
@@ -2483,7 +2486,7 @@ When the value of the parameter exceeds the maximium range, the lowest value of 
 <td>
 <p>Audience viewing statistics.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.Applications.AudienceStats.Reset"><em>Reset()</em></a> command</li>
@@ -2552,7 +2555,7 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 <p>Content Item instance table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.Applications.CDSPush.ContentItem.ContentReferenceId"><em>ContentReferenceId</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Applications.CDSPush.ContentItem.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>DeleteItem</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.Applications.CDSPush.ContentItem.DeleteItem"><em>DeleteItem()</em></a> command</li>
@@ -2620,7 +2623,7 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 <p>Content Item instance table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.Applications.CDSPull.ContentItem.ContentReferenceId"><em>ContentReferenceId</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Applications.CDSPull.ContentItem.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 1.4:</strong></p>
+<p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Removed <em>DeleteItem</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.Applications.CDSPull.ContentItem.DeleteItem"><em>DeleteItem()</em></a> command</li>
@@ -2657,7 +2660,7 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:46:46 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:09:55 UTC.<br />
 report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --show --transform diff --format html tr-135-1-3-0.xml tr-135-1-4-1-usp.xml</p>
 </div>
 <div id="TOC">

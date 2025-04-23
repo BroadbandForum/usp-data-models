@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -1875,7 +1878,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed name = <em>Device:2.13</em> ⇒ <em>Device:2.14</em></li>
 </ul>
@@ -1906,7 +1909,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>The top-level object for a Device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.ScheduleTimer"><em>ScheduleTimer()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.WWC."><em>WWC.</em></a> object</li>
@@ -1975,7 +1978,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p><span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the destination file location. HTTP and HTTPS transports MUST be supported. Other transports MAY be supported.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:2048)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2042,7 +2045,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p><span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the resulting file location of the packet capture record that triggered this result. This MAY be different than the location specified in FileTarget.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:2048)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2253,7 +2256,7 @@ All results of the actual upload will be contained within the <a href="#D.Device
 <td>
 <p><strong>[MANDATORY]</strong> <span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the destination file location. HTTP and HTTPS transports MUST be supported. This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded. If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time. This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -2321,7 +2324,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p><strong>[MANDATORY]</strong> <span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the source file location. HTTP and HTTPS transports MUST be supported. If the Agent receives multiple download requests with the same source URL, the Agent MUST perform each download as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time. This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -2411,7 +2414,7 @@ All results of the actual upload will be contained within the <a href="#D.Device
 <td>
 <p><strong>[MANDATORY]</strong> <span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the destination file location. HTTP and HTTPS transports MUST be supported. This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded. If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time. This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -2491,7 +2494,7 @@ This is a static table – the number of object instances in this table is defin
 <li><span id="D.Device:2.Device.DeviceInfo.FirmwareImage.Status.ActivationFailed"><em>ActivationFailed</em></span> (The Agent has attempted to active this Firmware Image instance, but ultimately failed while being activated)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added string <em>Active</em> enumeration</li>
 </ul>
@@ -2558,7 +2561,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p><strong>[MANDATORY]</strong> <span class="removed">URL,</span><span class="inserted">The</span> <span class="removed">as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the source file location. HTTP and HTTPS transports MUST be supported. If the Agent receives multiple download requests with the same source URL, the Agent MUST perform each download as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time. This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -2605,7 +2608,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the ISP's home page.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2631,7 +2634,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the ISP's on-line support page.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2657,7 +2660,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the ISP's mail server.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2683,7 +2686,7 @@ All results of the actual download will be contained within the <a href="#D.Devi
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the ISP's news server.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -2780,7 +2783,7 @@ This table models physical DSL lines.</p>
 Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabilities&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> is supported.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -2806,7 +2809,7 @@ Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabi
 <td>
 <p>The value MUST be a member of the list reported by the <a href="#D.Device:2.Device.DSL.Line.StandardsSupported"><em>StandardsSupported</em></a> parameter. Indicates the standard that the <a href="#D.Device:2.Device.DSL.Line."><em>Line</em></a> instance is using for the connection. Note: In G.997.1, this parameter is called &quot;xDSL Transmission system&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSUsed"><em>XTSUsed</em></a> is supported.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -2875,7 +2878,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (ES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -2902,7 +2905,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (SES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -2950,7 +2953,7 @@ Note: The <em>Showtime</em> parameters SHOULD NOT be reset when the interface st
 <p>Number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the most recent DSL Showtime (ES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -2977,7 +2980,7 @@ Note: The <em>Showtime</em> parameters SHOULD NOT be reset when the interface st
 <p>Number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the most recent DSL Showtime (SES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3025,7 +3028,7 @@ Note: The <em>LastShowtime</em> parameters SHOULD NOT be reset when the interfac
 <p>Number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (ES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3052,7 +3055,7 @@ Note: The <em>LastShowtime</em> parameters SHOULD NOT be reset when the interfac
 <p>Number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (SES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3100,7 +3103,7 @@ Note: The <em>CurrentDay</em> parameters SHOULD NOT be reset when the interface 
 <p>Number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (ES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3127,7 +3130,7 @@ Note: The <em>CurrentDay</em> parameters SHOULD NOT be reset when the interface 
 <p>Number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (SES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3175,7 +3178,7 @@ Note: The <em>QuarterHour</em> parameters SHOULD NOT be reset when the interface
 <p>Number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (ES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3202,7 +3205,7 @@ Note: The <em>QuarterHour</em> parameters SHOULD NOT be reset when the interface
 <p>Number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> since the second most recent DSL Showtime (SES-L as defined in ITU-T Rec. [<a href="#R.G.997.1">G.997.1</a>]). Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1. If the parameter is implemented but no value is available, its value MUST be 4294967295 (the maximum for its data type).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3420,7 +3423,7 @@ Reference: ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2, SELT-PMD manag
 This command is for the CPE, aka the Transmission Unit - Remote end (TU-R).
 Reference: ITU-T Recommendation [<a href="#R.G.996.2">G.996.2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.DSL.Diagnostics.SELTP.Output.TFlogGroupSize"><em>TFlogGroupSize</em></a> parameter</li>
 </ul>
@@ -3534,7 +3537,7 @@ Both values are represented as unsignedInt. This capacity estimate noise PSD par
 <td>
 <p>Loop termination <span class="removed">indicator,</span><span class="inserted">indicator.</span> <span class="removed">one of the following state indications: 'Open' 'Short' 'Powered on DSLAM/DPU' 'Unknown'</span><span class="inserted"><strong>{{enum: only valid as  argument}}</strong></span> This parameter is defined as LOOP-TERM in ITU-T Recommendation [<a href="#R.G.996.2">Clause B.1.1.1/G.996.2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed string <em>:21</em>  size</li>
 <li>Added string <em>Open</em> enumeration</li>
@@ -3573,7 +3576,7 @@ Both values are represented as unsignedInt.</li>
 </div>
 <p>TFlog(i * <span class="inserted"><a href="#D.Device:2.Device.DSL.Diagnostics.SELTP.Output.TFlogGroupSize"><em>TFlogGroupSize</em></a> * </span>Df) <span class="removed">spans</span><span class="inserted">is</span> <span class="removed">a</span><span class="inserted">represented by an integer k, 0 &lt;= k &lt;= 1022, where TFlog(i * <a href="#D.Device:2.Device.DSL.Diagnostics.SELTP.Output.TFlogGroupSize"><em>TFlogGroupSize</em></a> * Df) = 6.0 - k * 0.1. The special value of k of 1023 is used to indicate that no measurement could be done for this subcarrier because the attenuation is out of the</span> range <span class="removed">from</span><span class="inserted">that</span> <span class="removed">+6.0</span><span class="inserted">can</span> <span class="removed">dB</span><span class="inserted">be</span> <span class="removed">down to -96.2 dB with units of 0.1 dB.</span><span class="inserted">represented.</span> The <span class="removed">Attenuation</span><span class="inserted">attenuation</span> characteristics TFlog(f) parameter is defined in ITU-T Recommendation [<a href="#R.G.996.2">Clause B.1.1.6/G.996.2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <em>[0:8191]</em> list minItems = <em>0</em></li>
 <li>Added <em>[0:8191]</em> list maxItems = <em>8191</em></li>
@@ -3624,7 +3627,7 @@ This parameter is defined as part of the SELT attenuation characteristics, <a hr
 <td>
 <p>Capacity Estimate: <span class="inserted">Comma-separated list (1 to 2 items) of unsigned integers. </span>This parameter <span class="removed">is an unsigned integer representing</span><span class="inserted">represents</span> the <span class="inserted">downstream and/or upstream </span>capacity <span class="removed">estimate</span><span class="inserted">estimates</span> in <span class="removed">kbit/s,</span><span class="inserted"><em>kbit/s</em>.</span> <span class="removed">with</span><span class="inserted">If</span> <span class="removed">units</span><span class="inserted">only one value is supplied, then it's not specified whether it's the downstream value, the upstream value or some combination</span> of <span class="removed">{{units}}.</span><span class="inserted">the two. If two values are supplied, then the first is the downstream value and the second is the upstream value.</span> The capacity estimate <span class="removed">parameter</span><span class="inserted">parameters</span> <span class="removed">is</span><span class="inserted">are</span> defined in [<a href="#R.G.996.2">Clause B.1.1.7/G.996.2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <em>unsignedInt[1:2]</em> syntax <em>[1:2]</em> list</li>
 </ul>
@@ -3735,7 +3738,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. An errored second (ES) is declared if, during a 1-second interval, there are one or more crc anomalies, or one or more los defects, or one or more lor defects, or one or more lpr primitives.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3762,7 +3765,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3789,7 +3792,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of loss of signal <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LOSS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LOSS is declared if, during a 1-second interval, there are one or more los defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3816,7 +3819,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of loss of RMC <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LORS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LORS is declared if, during a 1-second interval, there are one or more lor defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3843,7 +3846,7 @@ Note: The <em>Total</em> parameters SHOULD NOT be reset when the interface stati
 <p>Total number of unavailable <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (UAS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3891,7 +3894,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. An errored second (ES) is declared if, during a 1-second interval, there are one or more crc anomalies, or one or more los defects, or one or more lor defects, or one or more lpr primitives.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3918,7 +3921,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3945,7 +3948,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of signal <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LOSS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LOSS is declared if, during a 1-second interval, there are one or more los defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3972,7 +3975,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of RMC <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LORS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LORS is declared if, during a 1-second interval, there are one or more lor defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -3999,7 +4002,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of unavailable <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (UAS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4047,7 +4050,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. An errored second (ES) is declared if, during a 1-second interval, there are one or more crc anomalies, or one or more los defects, or one or more lor defects, or one or more lpr primitives.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4074,7 +4077,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4101,7 +4104,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of signal <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LOSS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LOSS is declared if, during a 1-second interval, there are one or more los defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4128,7 +4131,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of RMC <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LORS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LORS is declared if, during a 1-second interval, there are one or more lor defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4155,7 +4158,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of unavailable <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (UAS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4203,7 +4206,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. An errored second (ES) is declared if, during a 1-second interval, there are one or more crc anomalies, or one or more los defects, or one or more lor defects, or one or more lpr primitives.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4230,7 +4233,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4257,7 +4260,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of signal <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LOSS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LOSS is declared if, during a 1-second interval, there are one or more los defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4284,7 +4287,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of RMC <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LORS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LORS is declared if, during a 1-second interval, there are one or more lor defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4311,7 +4314,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of unavailable <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (UAS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4359,7 +4362,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. An errored second (ES) is declared if, during a 1-second interval, there are one or more crc anomalies, or one or more los defects, or one or more lor defects, or one or more lpr primitives.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4386,7 +4389,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of severely errored <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4413,7 +4416,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of signal <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LOSS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LOSS is declared if, during a 1-second interval, there are one or more los defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4440,7 +4443,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of loss of RMC <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (LORS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>]. A LORS is declared if, during a 1-second interval, there are one or more lor defects.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4467,7 +4470,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 <p>Total number of unavailable <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> (UAS) as defined in ITU-T Rec. [<a href="#R.G.997.2">G.997.2</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added unsignedInt <em>seconds</em> units</li>
 </ul>
@@ -4536,7 +4539,7 @@ Note: The Total parameters SHOULD NOT be reset when the interface statistics are
 dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 (1 mW) and 12345 means 12.345 dBm. Valid values are <span class="removed">-127.5</span><span class="inserted">-65.536</span> dBm (coded as <span class="removed">-127500)</span><span class="inserted">-65536),</span> to <span class="removed">0</span><span class="inserted">65.534</span> dBm (coded as <span class="removed">0)</span><span class="inserted">65534)</span> in <span class="removed">0.5</span><span class="inserted">0.002</span> dB increments.<span class="removed"> The value -127500 indicates the device's internal policy.</span> This parameter is based on <em>Transmit optical level</em> from [<a href="#R.G.988">Section 9.2.1/G.988</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed <em>-65536:65533:2</em> range minInclusive = <em>-127000</em> ⇒ <em>-65536</em></li>
 <li>Changed <em>-65536:65533:2</em> range maxInclusive = <em>0</em> ⇒ <em>65534</em></li>
@@ -4585,7 +4588,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <p>Cellular interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).  Each instance of this object models a cellular modem with a single radio and a single <a href="#D.Device:2.Device.Cellular.Interface.USIM."><em>USIM</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Cellular.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Cellular.Interface.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Cellular.Interface.RSRP"><em>RSRP</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Cellular.Interface.RSRQ"><em>RSRQ</em></a> parameter</li>
@@ -4623,7 +4626,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <li><span id="D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></span> (5G New Radio)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added string <em>NR</em> enumeration</li>
 </ul>
@@ -4719,7 +4722,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <td>
 <p>Ethernet object. This object models several Ethernet interface objects, each representing a different stack layer, including: <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a>, <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a>, and <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>. <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a> is media-specific and models a port, the PHY layer, and the MAC layer. <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is media-independent and models the Logical Link Control (LLC) layer. An &quot;outer&quot; <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>, when present, is expected to be stacked on top of <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> objects to receive and send frames with a configured VLANID.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.FlowControlSupported"><em>FlowControlSupported</em></a> parameter</li>
 </ul>
@@ -4766,7 +4769,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <p>Ethernet link layer table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]). Table entries model the Logical Link Control (LLC) layer. It is expected that an <em>Ethernet Link</em> interface can be stacked above any lower-layer interface object capable of carrying Ethernet frames.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.Link.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Link.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>MACAddress</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Ethernet.Link.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.Ethernet.Link.Name"><em>Name</em></a> and <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>MACAddress</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Link.FlowControl"><em>FlowControl</em></a> parameter</li>
 </ul>
@@ -4859,7 +4862,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <li><span id="D.Device:2.Device.Ghn.Interface.ConnectionType.Coax"><em>Coax</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4910,7 +4913,7 @@ Both values are represented as unsignedInt.
 <td>
 <p>The WiFi object is based on the WiFi Alliance 802.11 specifications ([<a href="#R.802.11-2007">802.11-2007</a>]). It defines interface objects (<a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> and <a href="#D.Device:2.Device.WiFi.SSID."><em>SSID</em></a>), and application objects (<a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> and <a href="#D.Device:2.Device.WiFi.EndPoint."><em>EndPoint</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.ResetCause"><em>ResetCause</em></a> parameter</li>
 </ul>
@@ -5080,7 +5083,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <p>Each instance of this object represents an individual Access Point device in the Wi-Fi network.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.MACAddress"><em>MACAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.RadarDetections"><em>RadarDetections</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.DFSEnable"><em>DFSEnable</em></a> parameter</li>
@@ -5188,7 +5191,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <p>This object represents all of the individual Radios contained within the identified Access Point device known to the controller.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.MACAddress"><em>MACAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.PossibleChannels"><em>PossibleChannels</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.TransmitPowerLimit"><em>TransmitPowerLimit</em></a> parameter</li>
@@ -5244,7 +5247,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <td>
 <p>The current radio channel used by the connection.<span class="inserted"> To request automatic channel selection, set <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> to <em>true</em>. Whenever <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> is <em>true</em>, the value of the <em>Channel</em> parameter MUST be the channel selected by the automatic channel selection procedure. For channels in &quot;wide mode&quot; (where a channel bandwidth strictly greater than 20 MHz is used), this parameter is used for Primary Channel only. The secondary or extension channel information is available through <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.ExtensionChannel"><em>ExtensionChannel</em></a>. Note: Valid <em>Channel</em> values depend on the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> value specified and the regulatory domain.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -5356,7 +5359,7 @@ If the device can establish more than one connection simultaneously (e.g. a dual
 Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configured to operate at 2.4 or 5 GHz frequency bands, but only a single frequency band is used to transmit/receive at a given time. Therefore, a single <em>Radio</em> instance is used even for a dual-band radio.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment0"><em>CenterFrequencySegment0</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment1"><em>CenterFrequencySegment1</em></a> parameter</li>
@@ -5384,7 +5387,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <td>
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example: * For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces. * For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface. * For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -5462,7 +5465,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.Auto"><em>Auto</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed string <em>1600nsec</em>  enumeration</li>
 <li>Removed string <em>3200nsec</em>  enumeration</li>
@@ -5495,7 +5498,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <td>
 <p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 0 for the first 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment0"><em>CenterFrequencySegment0</em></a> instead.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -5521,7 +5524,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <td>
 <p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 1 for the second 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment1"><em>CenterFrequencySegment1</em></a> instead.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -5627,7 +5630,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <td>
 <p>Throughput statistics for this interface. Packet counters here count 802.11 WiFi frames. See [<a href="#R.TR-181i2">Appendix III/TR-181i2</a>] for further details. The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.Stats.CtsReceived"><em>CtsReceived</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.Stats.NoCtsReceived"><em>NoCtsReceived</em></a> parameter</li>
@@ -5843,7 +5846,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 WiFi SSID is also a multiplexing layer, i.e. more than one <em>SSID</em> can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.SSID.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.SSID.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.SSID.BSSID"><em>BSSID</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.WiFi.SSID.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.WiFi.SSID.Name"><em>Name</em></a> and <a href="#D.Device:2.Device.WiFi.SSID.BSSID"><em>BSSID</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.SSID.ATFEnable"><em>ATFEnable</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.SSID.FlushATFTable"><em>FlushATFTable</em></a> parameter</li>
@@ -5951,7 +5954,7 @@ WiFi SSID is also a multiplexing layer, i.e. more than one <em>SSID</em> can be 
 <td>
 <p>Throughput statistics for this interface. Packet counters here count 802.11 WiFi frames. See [<a href="#R.TR-181i2">Appendix III/TR-181i2</a>] for further details. The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.WiFi.SSID.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.WiFi.SSID.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.SSID.Stats.DiscardPacketsSentBufOverflow"><em>DiscardPacketsSentBufOverflow</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.SSID.Stats.DiscardPacketsSentNoAssoc"><em>DiscardPacketsSentNoAssoc</em></a> parameter</li>
@@ -6147,7 +6150,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.WiFi.AccessPoint.SSIDR
 Note: The <em>AccessPoint</em> table includes a unique key parameter that is a strong reference. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>AccessPoint</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.WiFi.AccessPoint.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>AccessPoint</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.SSIDReference"><em>SSIDReference</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.WiFi.AccessPoint.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.CpeOperationMode"><em>CpeOperationMode</em></a> parameter</li>
 </ul>
@@ -6173,7 +6176,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <td>
 <p>The maximum number of retransmission for a packet. This corresponds to IEEE 802.11 parameter <em>dot11ShortRetryLimit</em>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it is really a <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> attribute. Use <a href="#D.Device:2.Device.WiFi.Radio.RetryLimit"><em>Radio.{i}.RetryLimit</em></a>.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -6199,7 +6202,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <td>
 <p>The maximum number of devices that can simultaneously be connected to the access point. A value of 0 means that there is no specific limit. This parameter has been DEPRECATED in favor of <a href="#D.Device:2.Device.WiFi.AccessPoint.MaxAllowedAssociations"><em>MaxAllowedAssociations</em></a>.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -6250,7 +6253,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <td>
 <p>This object contains security related parameters that apply to a CPE acting as an Access Point [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *SecondaryRadiusServerIPAddr *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode"><em>EncryptionMode</em></a> parameter</li>
@@ -6361,7 +6364,7 @@ The client can forward requests to the secondary server in the event that the pr
 <p>A table of the devices currently associated with the access point.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.MACAddress"><em>MACAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.Type"><em>Type</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.SetStaATF"><em>SetStaATF</em></a> parameter</li>
@@ -6429,7 +6432,7 @@ The client can forward requests to the secondary server in the event that the pr
 <p>These count bytes or packets sent to, or received from, this Associated Device, which is a WiFi station associated to this access point. Packet counters here count 802.11 WiFi frames.
 The CPE MUST reset these <em>Stats</em> parameters (unless otherwise stated in individual object or parameter descriptions) either when the <a href="#D.Device:2.Device.WiFi.AccessPoint.Status"><em>Status</em></a> of the parent <a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> object transitions from <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Disabled"><em>Disabled</em></a> to <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Enabled"><em>Enabled</em></a>, or when it transitions from <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Enabled"><em>Enabled</em></a> to <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Disabled"><em>Disabled</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.Stats.ErrorsReceived"><em>ErrorsReceived</em></a> parameter</li>
 </ul>
@@ -6537,7 +6540,7 @@ It is possible that instances of this object have the same key value when the va
 <td>
 <p>Specifies the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> through which more information relating to the ZigBee device can be obtained.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>URL</em></li>
 </ul>
@@ -6563,7 +6566,7 @@ It is possible that instances of this object have the same key value when the va
 <td>
 <p>Specifies the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> through which the icon for the ZigBee device can be obtained.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>URL</em></li>
 </ul>
@@ -6632,7 +6635,7 @@ It is possible that instances of this object have the same key value when the va
 This object is OBSOLETED because it contains no standard parameters and its existence causes confusion.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>obsoleted</em></li>
 </ul>
@@ -6678,7 +6681,7 @@ This object is OBSOLETED because it contains no standard parameters and its exis
 <td>
 <p>The IP Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacitySupported"><em>IPLayerCapacitySupported</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerMaxConnections"><em>IPLayerMaxConnections</em></a> parameter</li>
@@ -6769,7 +6772,7 @@ Files received in the DownloadDiagnostics do not require file storage on the CPE
 <td>
 <p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to perform the download on. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL. * When using FTP transport, FTP binary transfer MUST be used. * When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used. * When using HTTP transport the HTTP Authentication MUST NOT be used. Note: For time based tests (<a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.TimeBasedTestDuration"><em>TimeBasedTestDuration</em></a> &gt; 0) the Controller MAY add a hint to duration of the test to the URL. See [<a href="#R.TR-143">Section 4.3/TR-143</a>] for more details.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -6856,7 +6859,7 @@ Files sent by the UploadDiagnostics do not require file storage on the CPE devic
 <td>
 <p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to Upload to. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL. * When using FTP transport, FTP binary transfer MUST be used. * When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used. * When using HTTP transport the HTTP Authentication MUST NOT be used.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -8193,7 +8196,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8219,7 +8222,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8245,7 +8248,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8294,7 +8297,7 @@ When the captive portal is enabled, upstream HTTP (port 80) traffic MUST be perm
 <td>
 <p>Captive portal <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> to which upstream HTTP (port 80) traffic to destinations not listed in the <a href="#D.Device:2.Device.CaptivePortal.AllowedList"><em>AllowedList</em></a> will be redirected. The captive portal URL MUST be an HTTP (not HTTPS) URL. The CPE MUST permit the captive portal URL to be set to an empty string, which has the effect of disabling the captive portal (if <a href="#D.Device:2.Device.CaptivePortal.Enable"><em>Enable</em></a> is <em>true</em> and the captive portal URL is an empty string, <a href="#D.Device:2.Device.CaptivePortal.Status"><em>Status</em></a> MUST be <a href="#D.Device:2.Device.CaptivePortal.Status.Error_URLEmpty"><em>Error_URLEmpty</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:2000)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -8321,7 +8324,7 @@ When the captive portal is enabled, upstream HTTP (port 80) traffic MUST be perm
 <td>
 <p>This object provides information about each of the hosts on the LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It can also include non-IP  hosts.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Hosts.AccessControlNumberOfEntries"><em>AccessControlNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Hosts.AccessControl."><em>AccessControl.{i}.</em></a> object</li>
@@ -8404,7 +8407,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix. This parameter <span 
 </ul>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8437,7 +8440,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix. This parameter <span 
 This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because only <a href="#D.Device:2.Device.Hosts.Host.AddressSource.None"><em>None</em></a> and <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> made sense (the CPE doesn't know whether the address is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.Static"><em>Static</em></a> or <a href="#D.Device:2.Device.Hosts.Host.AddressSource.AutoIP"><em>AutoIP</em></a>). The <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> case is now handled via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8463,7 +8466,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <td>
 <p>DHCP lease time remaining in <em>seconds</em>. A value of -1 indicates an infinite lease. The value MUST be 0 (zero) if the <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is not <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because DHCP lease/lifetime information can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8509,7 +8512,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <td>
 <p>Vendor Class Identifier DHCP option (Option 60) of the host. This is a normal string, e.g. &quot;abc&quot; is represented as &quot;abc&quot; and not say &quot;616263&quot; hex. However, if the value includes non-printing characters then such characters have to be represented using XML escapes, e.g. #x0a for line-feed. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8535,7 +8538,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <td>
 <p>A hexbinary string, Client Identifier DHCP option (Option 61) for the specific IP connection of the client. The option value is binary, so an exact match is REQUIRED. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8564,7 +8567,7 @@ It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em
 Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535.
 This parameter is DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -8994,7 +8997,7 @@ If a <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule.StartTime"><em>Sta
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Client.Server.DNSServer"><em>DNSServer</em></a> address.   Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -9086,7 +9089,7 @@ Note: Management of re-directing queries to the device embedded DNS server is no
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Relay.Forwarding.DNSServer"><em>DNSServer</em></a> address.   Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -9308,7 +9311,7 @@ Each OPTION_V4_PCP_SERVER or OPTION_V6_PCP_SERVER option corresponds to a <em>Se
 <td>
 <p>This object defines the UPnP devices and UPnP services that are implemented by the CPE.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *UPnPQoSDevice *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.UPnP.Device.UPnPQoSDevice"><em>UPnPQoSDevice</em></a> parameter</li>
@@ -9397,7 +9400,7 @@ The CPE MAY, but need not, retain some or all of the information in this object 
 <td>
 <p>The value of the LOCATION header for this UPnP root device, which is the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the root device's DDD (Device Description Document).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9444,7 +9447,7 @@ The CPE MAY, but need not, retain some or all of the information in this object 
 <td>
 <p>The value of the LOCATION header for this UPnP embedded device, which is the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the root device's DDD (Device Description Document).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9491,7 +9494,7 @@ The CPE MAY, but need not, retain some or all of the information in this object 
 <td>
 <p>The value of the LOCATION header for this UPnP embedded service, which is the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the root device's DDD (Device Description Document).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9560,7 +9563,7 @@ In case the SSDP advertisement expires and the CPE deletes the related instances
 <td>
 <p>The value extracted from the URLBase element in the Device Description Document of the discovered root device. If the URLBase element in the root device's Device Description Document is empty or absent, the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> from which the device description was retrieved (e.g. the LOCATION from the SSDP message) is utilized as the URLBase. Note: the URLBase element is not recommended by [<a href="#R.UPnP-DAv1">UPnP-DAv1</a>] and is not permitted by [<a href="#R.UPnP-DAv11">UPnP-DAv11</a>], so the value of <em>URLBase</em> will usually be the URL from which the device description was retrieved.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9607,7 +9610,7 @@ In case the SSDP advertisement expires and the CPE deletes the related instances
 <td>
 <p>[<a href="#T.URL">URL</a>] The value of the UPnP manufacturerURL element in the Device Description Document for this <a href="#D.Device:2.Device.UPnP.Description.DeviceInstance."><em>DeviceInstance</em></a>, or an empty string if this value is not provided by the device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9633,7 +9636,7 @@ In case the SSDP advertisement expires and the CPE deletes the related instances
 <td>
 <p>[<a href="#T.URL">URL</a>] The value of the UPnP modelURL element in the Device Description Document for this <a href="#D.Device:2.Device.UPnP.Description.DeviceInstance."><em>DeviceInstance</em></a>, or an empty string if this value is not provided by the device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9661,7 +9664,7 @@ In case the SSDP advertisement expires and the CPE deletes the related instances
 The way to obtain an absolute URL from the presentationURL element is specified in [<a href="#R.UPnP-DAv1">UPnP-DAv1</a>] and [<a href="#R.UPnP-DAv11">UPnP-DAv11</a>].
 If the presentationURL is not provided by the device then this value MUST be an empty string.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9708,7 +9711,7 @@ If the presentationURL is not provided by the device then this value MUST be an 
 <td>
 <p>The value of the UPnP SCPDURL element in the Device Description Document for this <a href="#D.Device:2.Device.UPnP.Description.ServiceInstance."><em>ServiceInstance</em></a> and MUST be an absolute <span class="removed">URL.</span><span class="inserted">[<a href="#T.URL">URL</a>].</span> The way to obtain an absolute URL from the SCPDURL element is specified in [<a href="#R.UPnP-DAv1">UPnP-DAv1</a>] and [<a href="#R.UPnP-DAv11">UPnP-DAv11</a>]. If the SCPDURL is not provided by the device then this value MUST be an empty string.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9734,7 +9737,7 @@ If the presentationURL is not provided by the device then this value MUST be an 
 <td>
 <p>The value of the UPnP controlURL element in the Device Description Document for this <a href="#D.Device:2.Device.UPnP.Description.ServiceInstance."><em>ServiceInstance</em></a> and MUST be an absolute <span class="removed">URL.</span><span class="inserted">[<a href="#T.URL">URL</a>].</span> The way to obtain an absolute URL from the controlURL element is specified in [<a href="#R.UPnP-DAv1">UPnP-DAv1</a>] and [<a href="#R.UPnP-DAv11">UPnP-DAv11</a>]. If the controlURL is not provided by the device then this value MUST be an empty string</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9760,7 +9763,7 @@ If the presentationURL is not provided by the device then this value MUST be an 
 <td>
 <p>The value of the UPnP eventSubURL element in the Device Description Document for this <a href="#D.Device:2.Device.UPnP.Description.ServiceInstance."><em>ServiceInstance</em></a> and MUST be an absolute <span class="removed">URL.</span><span class="inserted">[<a href="#T.URL">URL</a>].</span> The way to obtain an absolute URL from the eventSubURLL element is specified in [<a href="#R.UPnP-DAv1">UPnP-DAv1</a>] and [<a href="#R.UPnP-DAv11">UPnP-DAv11</a>]. If the eventSubURL is not provided by the device then this value MUST be an empty string</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>URL</em></li>
 </ul>
@@ -9811,7 +9814,7 @@ See [<a href="#R.TR-181i2">Appendix VIII/TR-181i2</a>] for an example <a href="#
 <ul>
 <li><span id="D.Device:2.Device.Firewall.Config.High"><em>High</em></span> (The firewall implements the &quot;Traffic Denied Inbound&quot; and &quot;Minimally Permit Common Services Outbound&quot; components of the ICSA residential certification's Required Services Security Policy [<a href="#R.ICSA-Residential">ICSA-Residential</a>].  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Low"><em>Low</em></span> (All Outbound traffic and pinhole-defined Inbound traffic is allowed.  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
-<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled).  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled. This value is DEPRECATED because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>. ::::: diffs <strong>Changes since 2.14:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled).  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled. This value is DEPRECATED because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></span> (Advanced firewall configuration applies, as specified by <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a>, OPTIONAL)
 Vendors can extend the enumerated values with vendor specific extensions, in which case the rules outlined in [<a href="#R.TR-106">Section 3.3/TR-106</a>] MUST be adhered to.</li>
 </ul>
@@ -9898,7 +9901,7 @@ Vendors can extend the enumerated values with vendor specific extensions, in whi
 <p><span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> specifying the destination file location. HTTP and HTTPS transports MUST be supported. Other transports MAY be supported. This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that (together with <a href="#D.Device:2.Device.FAP.PerfMgmt.Config.PeriodicUploadInterval"><em>PeriodicUploadInterval</em></a> and <a href="#D.Device:2.Device.FAP.PerfMgmt.Config.PeriodicUploadTime"><em>PeriodicUploadTime</em></a>)  doesn't conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -9973,7 +9976,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <td>
 <p>This object contains parameters related to the Femto Awareness API.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *Queueing *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.FAP.ApplicationPlatform.Control.FemtoAwareness.Queueing"><em>Queueing</em></a> parameter</li>
@@ -10025,7 +10028,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <td>
 <p>This object contains parameters related to the SMS API.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *Queueing *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.FAP.ApplicationPlatform.Control.SMS.Queueing"><em>Queueing</em></a> parameter</li>
@@ -10077,7 +10080,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <td>
 <p>This object contains parameters related to the MMS API.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *Queueing *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.FAP.ApplicationPlatform.Control.MMS.Queueing"><em>Queueing</em></a> parameter</li>
@@ -10129,7 +10132,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <td>
 <p>This object contains parameters related to the TerminalLocation API.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *Queueing *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.FAP.ApplicationPlatform.Control.TerminalLocation.Queueing"><em>Queueing</em></a> parameter</li>
@@ -10250,7 +10253,7 @@ Each profile represents a bulk data report, including its own timing configurati
 <td>
 <p>This is the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> within the CPE that is used by an IPDR Collector to retrieve the IPDRDocs when this collection profile is configured for the IPDR File Transfer Protocol [<a href="#R.IPDR-FTP">IPDR-FTP</a>] (the <a href="#D.Device:2.Device.BulkData.Profile.Protocol"><em>Protocol</em></a> parameter has a value of <a href="#D.Device:2.Device.BulkData.Protocols.File"><em>File</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -10479,7 +10482,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <td>
 <p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the collection server to receive the Bulk Data transmitted by the CPE.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:1024)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -10708,7 +10711,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <td>
 <p><span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> to<span class="inserted"> the</span> Generic Phy XML Description of the Generic Phy networking technology of the local interface that would be included in a Generic Phy Device Information Type TLV defined in [<a href="#R.IEEE1905.1a">Table 6-29: Generic Phy device information type TLV/IEEE1905.1a</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:1024)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -10755,7 +10758,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <td>
 <p><span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> to<span class="inserted"> the</span> Generic Phy XML Description of the Generic Phy networking technology of the interface of the Neighbor for this <a href="#D.Device:2.Device.IEEE1905.AL.Interface.Link."><em>Link</em></a>. This value is from a Generic Phy response message URL to Generic Phy field as defined in [<a href="#R.IEEE1905.1a">Table 6-29: Generic Phy device information type TLV/IEEE1905.1a</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:1024)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -10822,7 +10825,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <td>
 <p>Control <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> received in Higher Layer response message as defined in defined in [<a href="#R.IEEE1905.1a">Table 6-31: Control URL Type TLV/IEEE1905.1a</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:1024)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -10869,7 +10872,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <td>
 <p><span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> to<span class="inserted"> the</span> Generic Phy XML Description of the Generic Phy networking technology of this <a href="#D.Device:2.Device.IEEE1905.AL.NetworkTopology.IEEE1905Device.Interface."><em>Interface</em></a>. This value is from a Generic Phy response message URL to generic phy field as defined in [<a href="#R.IEEE1905.1a">Table 6-29: Generic Phy device information type TLV/IEEE1905.1a</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:1024)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -10916,7 +10919,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>MQTT client table. Contains a list of configured MQTT clients.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.MQTT.Client.EnableEncryption"><em>EnableEncryption</em></a> parameter</li>
 </ul>
@@ -11567,7 +11570,7 @@ When this object uses the BulkData capability, a <a href="#D.Device:2.Device.Bul
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> of the LMAP component that is the target of this communication channel.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Changed syntax = <em>string(:256)</em> -&gt; <em>URL</em></li>
 </ul>
@@ -14174,7 +14177,7 @@ The file transfer can be requested via a USP operation or via some other mechani
 <td>
 <p>The <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> from or to which this transfer was performed, or an empty string if no such URL is available.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:1024)</em> syntax</li>
 <li>Changed syntax = <em>string(:1024)</em> -&gt; <em>URL</em></li>
@@ -14242,7 +14245,7 @@ The file transfer can be requested via a USP operation or via some other mechani
 <td>
 <p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP."><em>CoAP</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections to this CoAP server instance are or are not encrypted.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -14328,7 +14331,7 @@ The file transfer can be requested via a USP operation or via some other mechani
 <td>
 <p>If the USP Endpoint uses the WebSocket Message Transport Protocol (MTP) as a WebSocket server, then this object contains WebSocket specific configuration parameters.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.MTP.WebSocket.EnableEncryption"><em>EnableEncryption</em></a> parameter</li>
 </ul>
@@ -14374,7 +14377,7 @@ The file transfer can be requested via a USP operation or via some other mechani
 <td>
 <p>If the USP Endpoint uses the MQTT Message Transport Protocol (MTP), then this object contains MQTT Client specific configuration parameters related to how the Agent communicates with the MQTT broker.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed *PublishQoS *  parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.MTP.MQTT.PublishQoS"><em>PublishQoS</em></a> parameter</li>
@@ -14528,7 +14531,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>Schedule a <em>Timer!</em> event on the associated <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Controller</em></a>.<span class="inserted"> This command is DEPRECATED because it was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -14595,7 +14598,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message.<span class="inserted"> This event is DEPRECATED because the associated <a href="#D.Device:2.Device.LocalAgent.Controller.ScheduleTimer"><em>ScheduleTimer()</em></a> was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -14703,7 +14706,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>If the USP Endpoint uses the WebSocket Message Transport Protocol (MTP) as a WebSocket client, then this object contains WebSocket specific configuration parameters.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket.EnableEncryption"><em>EnableEncryption</em></a> parameter</li>
 </ul>
@@ -14729,7 +14732,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> is or is not encrypted.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -14775,7 +14778,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>If the USP Endpoint uses the MQTT Message Transport Protocol (MTP), then this object contains MQTT Client specific configuration parameters related to how this Controller communicates with the MQTT broker.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT.PublishRetainResponse"><em>PublishRetainResponse</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT.PublishRetainNotify"><em>PublishRetainNotify</em></a> parameter</li>
@@ -14865,7 +14868,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that (together with <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a>)  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <em>1:64</em> size minLength = <em>1</em></li>
 <li>Removed <em>string(:64)</em> syntax  default</li>
@@ -14953,7 +14956,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>The <em>Connection</em> represents a STOMP connection between the Agent and a STOMP server.</p>
 <p>At most one entry in this table can exist with the same values for all of <a href="#D.Device:2.Device.STOMP.Connection.Host"><em>Host</em></a>, <a href="#D.Device:2.Device.STOMP.Connection.Username"><em>Username</em></a> and <a href="#D.Device:2.Device.STOMP.Connection.VirtualHost"><em>VirtualHost</em></a>, or with a given value for <a href="#D.Device:2.Device.STOMP.Connection.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.STOMP.Connection.Host"><em>Host</em></a>, <a href="#D.Device:2.Device.STOMP.Connection.Username"><em>Username</em></a> and <a href="#D.Device:2.Device.STOMP.Connection.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.STOMP.Connection.EnableEncryption"><em>EnableEncryption</em></a> parameter</li>
 </ul>
@@ -14979,7 +14982,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.STOMP.Connection.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections for this STOMP instance are or are not encrypted.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -15085,7 +15088,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <td>
 <p><strong>[MANDATORY]</strong> The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> that specifies the location of the DU to be installed. The URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>]. HTTP and HTTPS transports MUST be supported. Other optional transports MAY be supported.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -15175,7 +15178,7 @@ A new instance of this table gets created during the installation of a Software 
 <td>
 <p>Contains the <span class="removed">URL</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> used by the most recent <span class="removed">ChangeDUState</span><span class="inserted"><a href="#D.Device:2.Device.SoftwareModules.InstallDU"><em>InstallDU()</em></a></span> <span class="removed">RPC</span><span class="inserted">or <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update"><em>Update()</em></a></span> to either Install or Update this <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:1024)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -15242,7 +15245,7 @@ A new instance of this table gets created during the installation of a Software 
 <td>
 <p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> that specifies the location of the DU to be installed. The URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>]. HTTP and HTTPS transports MUST be supported. Other optional transports MAY be supported. If the device receives an Update command with the same source URL as a previous Update or Install comamnd, the device MUST perform each Update as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.14:</strong></p>
+<p><strong>Changes since 2.13:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax</li>
 <li>Added <em>URL</em></li>
@@ -15305,7 +15308,7 @@ Each <em>ExecutionUnit</em> MAY also contain a set of vendor specific parameters
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:45:52 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:08:52 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-14-1-usp-diffs.html --show --transform diff --format html tr-181-2-13-0-usp.xml tr-181-2-14-1-usp.xml</p>
 </div>
 <div id="TOC">

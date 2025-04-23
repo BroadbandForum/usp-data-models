@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -2216,7 +2219,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed name = <em>Device:2.17</em> ⇒ <em>Device:2.18</em></li>
 </ul>
@@ -2247,7 +2250,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>The top-level object for a Device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Schedules."><em>Schedules.</em></a> object</li>
 </ul>
@@ -2273,7 +2276,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>Reboot the entity associated with the containing <a href="#D.Device:2.Device."><em>Device</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input</li>
 </ul>
@@ -2366,7 +2369,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Reboo
 <td>
 <p>Boot event indicating that the <a href="#D.Device:2.Device."><em>Device</em></a> was rebooted.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Boot.Reason"><em>Reason</em></a> parameter</li>
 </ul>
@@ -2440,7 +2443,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Reboo
 <td>
 <p>Factory reset the entity associated with the containing <a href="#D.Device:2.Device."><em>Device</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input</li>
 </ul>
@@ -2533,7 +2536,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Facto
 <td>
 <p>This object contains general device information.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.Reboots."><em>Reboots.</em></a> object</li>
 </ul>
@@ -2569,7 +2572,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Facto
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -2666,7 +2669,7 @@ of the <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore"><em>Rest
 <td>
 <p>Status of the device's physical memory.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.MemoryStatus.MemoryMonitor."><em>MemoryMonitor.</em></a> object</li>
 </ul>
@@ -3009,7 +3012,7 @@ whole <em>percent</em>, collected at the polling interval.</p>
 <td>
 <p>Status of the processes on the device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.ProcessStatus.CPUNumberOfEntries"><em>CPUNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.ProcessStatus.CPU."><em>CPU.{i}.</em></a> object</li>
@@ -3605,7 +3608,7 @@ distinguish this CPU from other CPUs.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 <li>Added status = <em>deprecated</em></li>
@@ -3678,7 +3681,7 @@ the state of the system at the time of the error, and a stack trace of function 
 <p>Each table entry represents a Kernel fault that is stored on the device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.KernelFaults.KernelFault.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -3720,7 +3723,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -3808,7 +3811,7 @@ is essential for diagnosing and troubleshooting issues with applications and pro
 <p>Each table entry represents a process fault that is stored on the device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.ProcessFaults.ProcessFault.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -3850,7 +3853,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -4308,7 +4311,7 @@ with only one server at a time, unlike most NTP clients.</p>
 <li><span id="D.Device:2.Device.Time.Status.Disabled"><em>Disabled</em></span> (Indicates that the CPE's time client services are disabled)</li>
 <li><span id="D.Device:2.Device.Time.Status.Unsynchronized"><em>Unsynchronized</em></span> (Indicates that the CPE's absolute time has not yet been set by any of the configured time clients)</li>
 <li><span id="D.Device:2.Device.Time.Status.Synchronized"><em>Synchronized</em></span> (Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE)</li>
-<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>. This enumeration was OBSOLETED in 2.18. :::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>. This enumeration was OBSOLETED in 2.18. :::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> ::::::)</li>
 <li><span id="D.Device:2.Device.Time.Status.Error"><em>Error</em></span> (MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time, OPTIONAL)</li>
 </ul>
 </td>
@@ -4345,7 +4348,7 @@ with only one server at a time, unlike most NTP clients.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4385,7 +4388,7 @@ with only one server at a time, unlike most NTP clients.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4425,7 +4428,7 @@ with only one server at a time, unlike most NTP clients.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4465,7 +4468,7 @@ with only one server at a time, unlike most NTP clients.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4505,7 +4508,7 @@ with only one server at a time, unlike most NTP clients.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -4558,7 +4561,7 @@ be specified as an IP address or a host name. It is expected that the
 NTP client resolves multiple addresses which can change over time
 when <a href="#D.Device:2.Device.Time.Client.ResolveAddresses"><em>ResolveAddresses</em></a> is enabled.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -4646,7 +4649,7 @@ NTP Server.</p>
 <td>
 <p>Comma-separated list of strings. Points to a CSV list of NTP servers. A NTP server can either be specified as an IP address or a host name. When used the NTS-KE server will tell the remote NTS-KE client the NTP hostname or address of the NTP server(s) that should be used. This allows to <span class="removed">seperate</span><span class="inserted">separate</span> the NTP server and NTS-KE server implementation.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -4696,7 +4699,7 @@ CPE.</p>
 <p>Access to the web interface MAY require user authentication. To have access authentication the device MUST support a <a href="#D.Device:2.Device.Users.User."><em>Users.User.</em></a> object with at least one instance and an assigned relevant role in <a href="#D.Device:2.Device.Users.User.RoleParticipation"><em>Users.User.{i}.RoleParticipation</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.UserInterface.HTTPAccess.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.UserInterface.HTTPAccess.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv4"><em>AllowAllIPv4</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.UserInterface.HTTPAccess.IPv4AllowedSourcePrefix"><em>IPv4AllowedSourcePrefix</em></a> parameter</li>
@@ -4727,7 +4730,7 @@ CPE.</p>
 web instance represented by this <a href="#D.Device:2.Device.UserInterface.HTTPAccess."><em>HTTPAccess</em></a> instance that have the
 following roles assigned that are defined in <a href="#D.Device:2.Device.Users.Role."><em>Users.Role.</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -4754,7 +4757,7 @@ following roles assigned that are defined in <a href="#D.Device:2.Device.Users.R
 <p>Comma-separated list of strings. Each string must be a partial path which will result in an incoming
 request being routed to this instance.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>/</em> ⇒ <em>[/]</em></li>
 </ul>
@@ -4866,7 +4869,7 @@ request being routed to this instance.</p>
 <p>Note: This parameter was demoted to readOnly in the Device:2.17 version.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.UserInterface.HTTPAccess.Session.SessionID"><em>SessionID</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>readOnly</em></li>
 </ul>
@@ -4894,7 +4897,7 @@ request being routed to this instance.</p>
 an empty string string SHOULD be used.</p>
 <p>Note: This parameter was demoted to readOnly in the Device:2.17 version.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed <em>string(:256)</em> syntax  default</li>
 </ul>
@@ -4939,7 +4942,7 @@ an empty string string SHOULD be used.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -5149,7 +5152,7 @@ either.</p>
 interfaces.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Optical.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Optical.Interface.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Optical.Interface.MaxBitRate"><em>MaxBitRate</em></a> parameter</li>
 </ul>
@@ -5300,7 +5303,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -5356,7 +5359,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -5412,7 +5415,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -5468,7 +5471,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -5504,7 +5507,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Optical.Interface.Stats.Reset"><em>Reset()</em></a> command</li>
 </ul>
@@ -5554,7 +5557,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -5582,7 +5585,7 @@ framing characters.</p>
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -5609,7 +5612,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets transmitted out of the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -5636,7 +5639,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets received on the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -5664,7 +5667,7 @@ framing characters.</p>
 because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -5692,7 +5695,7 @@ because of errors.</p>
 them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -5722,7 +5725,7 @@ being transmitted. One possible reason for discarding such a packet
 could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -5752,7 +5755,7 @@ delivered. One possible reason for discarding such a packet could be
 to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -5925,7 +5928,7 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -5960,7 +5963,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.ATM.Link.Stats.Reset"><em>Reset()</em></a> command</li>
 </ul>
@@ -6008,7 +6011,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6036,7 +6039,7 @@ framing characters.</p>
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6063,7 +6066,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets transmitted out of the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6090,7 +6093,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets received on the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6118,7 +6121,7 @@ framing characters.</p>
 because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6146,7 +6149,7 @@ because of errors.</p>
 them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6175,7 +6178,7 @@ addressed to a multicast or broadcast address at this layer,
 including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6205,7 +6208,7 @@ being transmitted. One possible reason for discarding such a packet
 could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6235,7 +6238,7 @@ delivered. One possible reason for discarding such a packet could be
 to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6264,7 +6267,7 @@ transmission and which were addressed to a multicast address at this
 layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6293,7 +6296,7 @@ higher layer, which were not addressed to a multicast or broadcast
 address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6322,7 +6325,7 @@ higher layer, which were addressed to a multicast address at this
 layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6350,7 +6353,7 @@ layer.</p>
 transmission and which were addressed to a broadcast address at this
 layer, including those that were discarded or not sent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6378,7 +6381,7 @@ layer, including those that were discarded or not sent.</p>
 higher layer, which were addressed to a broadcast address at this
 layer.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6406,7 +6409,7 @@ layer.</p>
 discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6482,7 +6485,7 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -6541,7 +6544,7 @@ Connection Access Method of the Ethernet interface MAC. A
 <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is also required to model a full Ethernet device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Interface.CurrentDuplexMode"><em>CurrentDuplexMode</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Interface.MDIX"><em>MDIX</em></a> parameter</li>
@@ -6728,7 +6731,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Interface.Stats.Reset"><em>Reset()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Interface.Stats.Collisions"><em>Collisions</em></a> parameter</li>
@@ -6777,7 +6780,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6805,7 +6808,7 @@ framing characters.</p>
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6832,7 +6835,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> transmitted out of the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6859,7 +6862,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> received on the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6886,7 +6889,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that could not be transmitted because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6913,7 +6916,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that contained errors preventing them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6940,7 +6943,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> requested for transmission which were not addressed to a multicast or broadcast address at this layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -6967,7 +6970,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> which were chosen to be discarded even though no errors had been detected to prevent their being transmitted. One possible reason for discarding such a packet could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -6994,7 +6997,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> which were chosen to be discarded even though no errors had been detected to prevent their being delivered. One possible reason for discarding such a packet could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7021,7 +7024,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that higher-level protocols requested for transmission and which were addressed to a multicast address at this layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7048,7 +7051,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">received</span> packets, delivered by this layer to a higher layer, which were not addressed to a multicast or broadcast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7075,7 +7078,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">Ethernet frames,</span><span class="inserted">packets,</span> delivered by this layer to a higher layer, which were addressed to a multicast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7101,7 +7104,7 @@ framing characters.</p>
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that higher-level protocols requested for transmission and which were addressed to a broadcast address at this layer, including those that were discarded or not sent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7127,7 +7130,7 @@ framing characters.</p>
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">Ethernet frames,</span><span class="inserted">packets,</span> delivered by this layer to a higher layer, which were addressed to a broadcast address at this layer.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7154,7 +7157,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> received via the interface which were discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7206,7 +7209,7 @@ can be stacked above any lower-layer interface object capable of
 carrying Ethernet frames.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.Link.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Link.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>MACAddress</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Ethernet.Link.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.Ethernet.Link.Name"><em>Name</em></a> and <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>MACAddress</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Link.MTU"><em>MTU</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Link.NoARP"><em>NoARP</em></a> parameter</li>
@@ -7330,7 +7333,7 @@ carrying Ethernet frames.</p>
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -7399,7 +7402,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>Throughput statistics for this <span class="removed">link.</span><span class="inserted">interface.</span></p>
 <p>The CPE MUST reset the <span class="removed">link's</span><span class="inserted">interface's</span> Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the <span class="removed">link</span><span class="inserted">interface</span> becomes operationally down due to a previous administrative down (i.e. the <span class="removed">link's</span><span class="inserted">interface's</span> <a href="#D.Device:2.Device.Ethernet.Link.Status"><em>Status</em></a> parameter transitions to a down state after the <span class="removed">link</span><span class="inserted">interface</span> is disabled) or when the <span class="removed">link</span><span class="inserted">interface</span> becomes administratively up (i.e. the <span class="removed">link's</span><span class="inserted">interface's</span> <a href="#D.Device:2.Device.Ethernet.Link.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational <span class="removed">link</span><span class="inserted">interface</span> status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Link.Stats.Reset"><em>Reset()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.Link.Stats.PausePacketsSent"><em>PausePacketsSent</em></a> parameter</li>
@@ -7448,7 +7451,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of bytes transmitted out of the <span class="removed">link,</span><span class="inserted">interface,</span> including framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7475,7 +7478,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of bytes received on the <span class="removed">link,</span><span class="inserted">interface,</span> including framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7502,7 +7505,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> transmitted out of the <span class="removed">link.</span><span class="inserted">interface.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7529,7 +7532,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> received on the <span class="removed">link.</span><span class="inserted">interface.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7556,7 +7559,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that could not be transmitted because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7583,7 +7586,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that contained errors preventing them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7610,7 +7613,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> requested for transmission which were not addressed to a multicast or broadcast address at this layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7637,7 +7640,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> which were chosen to be discarded even though no errors had been detected to prevent their being transmitted. One possible reason for discarding such a packet could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7664,7 +7667,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted">packets</span> which were chosen to be discarded even though no errors had been detected to prevent their being delivered. One possible reason for discarding such a packet could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7691,7 +7694,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that higher-level protocols requested for transmission and which were addressed to a multicast address at this layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7718,7 +7721,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">Ethernet frames,</span><span class="inserted">packets,</span> delivered by this layer to a higher layer, which were not addressed to a multicast or broadcast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7745,7 +7748,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">Ethernet frames,</span><span class="inserted">packets,</span> delivered by this layer to a higher layer, which were addressed to a multicast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7771,7 +7774,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> that higher-level protocols requested for transmission and which were addressed to a broadcast address at this layer, including those that were discarded or not sent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7797,7 +7800,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <td>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">Ethernet frames,</span><span class="inserted">packets,</span> delivered by this layer to a higher layer, which were addressed to a broadcast address at this layer.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -7824,7 +7827,7 @@ If <em>true</em>, the kernel will not send ARP requests and won't send ARP repli
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="removed">Ethernet frames</span><span class="inserted">packets</span> received via the <span class="removed">link</span><span class="inserted">interface</span> which were discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -7896,7 +7899,7 @@ stacked on top of a <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a
 with the configured <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANID"><em>VLANID</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.VLANTermination.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.VLANTermination.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Ethernet.VLANTermination.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Ethernet.VLANTermination.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANPriority"><em>VLANPriority</em></a> parameter</li>
 </ul>
@@ -8019,7 +8022,7 @@ with the configured <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANID"
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -8076,7 +8079,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.VLANTermination.Stats.Reset"><em>Reset()</em></a> command</li>
 </ul>
@@ -8124,7 +8127,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8152,7 +8155,7 @@ framing characters.</p>
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8179,7 +8182,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets transmitted out of the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8206,7 +8209,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets received on the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8234,7 +8237,7 @@ framing characters.</p>
 because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -8262,7 +8265,7 @@ because of errors.</p>
 them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -8291,7 +8294,7 @@ addressed to a multicast or broadcast address at this layer,
 including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8321,7 +8324,7 @@ being transmitted. One possible reason for discarding such a packet
 could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -8351,7 +8354,7 @@ delivered. One possible reason for discarding such a packet could be
 to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -8380,7 +8383,7 @@ transmission and which were addressed to a multicast address at this
 layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8409,7 +8412,7 @@ higher layer, which were not addressed to a multicast or broadcast
 address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8438,7 +8441,7 @@ higher layer, which were addressed to a multicast address at this
 layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8466,7 +8469,7 @@ layer.</p>
 transmission and which were addressed to a broadcast address at this
 layer, including those that were discarded or not sent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8494,7 +8497,7 @@ layer, including those that were discarded or not sent.</p>
 higher layer, which were addressed to a broadcast address at this
 layer.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -8522,7 +8525,7 @@ layer.</p>
 discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -8576,7 +8579,7 @@ this would exceed its capabilities.</p>
 <p>Enables or disables the interface.</p>
 <p>This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>boolean</em> syntax <em>false</em> default</li>
 </ul>
@@ -8631,7 +8634,7 @@ change to <a href="#D.Device:2.Device.Ethernet.LAG.Status.Unknown"><em>Unknown</
 determined for some reason.</p>
 <p>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>string</em> syntax <em>Down</em> default</li>
 </ul>
@@ -8681,7 +8684,7 @@ determined for some reason.</p>
 <p><em>LowerLayers</em> must reference to Device.Ethernet.Interface instances where Link Aggregation Group is configured by the CPE.</p>
 <p>For example, &quot;Device.Ethernet.Interface.1, Device.Ethernet.Interface.2&quot;</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>string<a href=":1024"></a></em> syntax <em>[]</em> default</li>
 </ul>
@@ -8716,7 +8719,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.LAG.Stats.Reset"><em>Reset()</em></a> command</li>
 </ul>
@@ -8880,7 +8883,7 @@ then the table entry is inoperable and the CPE MUST set
 <p>Comma-separated list (maximum number of characters 256) of unsigned integers. This list identifies the set of traffic classes associated
 with this flow spec.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -8955,7 +8958,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <p>The factory default value MUST be an empty string.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed <em>string(12:64,0)</em> syntax hidden = <em>true</em></li>
 <li>Added <em>string(12:64,0)</em> syntax secured = <em>true</em></li>
@@ -8984,7 +8987,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>See [<a href="#R.MoCAv2.5">Section 11 and Table 17-1/MoCAv2.5</a>].</p>
 <p>The factory default value MUST be <em>[moca1Privacy,moca20Privacy,moca2EnhancedPrivacy]</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>moca1Privacy,moca20Privacy,moca2EnhancedPrivacy</em> ⇒ <em>[moca1Privacy,moca20Privacy,moca2EnhancedPrivacy]</em></li>
 </ul>
@@ -9099,7 +9102,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9140,7 +9143,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9184,7 +9187,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9228,7 +9231,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9269,7 +9272,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9310,7 +9313,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9354,7 +9357,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9398,7 +9401,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9442,7 +9445,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9483,7 +9486,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9524,7 +9527,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9568,7 +9571,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9609,7 +9612,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9655,7 +9658,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9716,7 +9719,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9769,7 +9772,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9818,7 +9821,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9865,7 +9868,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9912,7 +9915,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9953,7 +9956,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -9994,7 +9997,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10035,7 +10038,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10076,7 +10079,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10120,7 +10123,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10161,7 +10164,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10205,7 +10208,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10254,7 +10257,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10298,7 +10301,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10339,7 +10342,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10380,7 +10383,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10424,7 +10427,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10471,7 +10474,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -10544,7 +10547,7 @@ objects whose names begin with MultiAP.</p>
 <p>The time this group was collected. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -10641,7 +10644,7 @@ implementation on all agents/devices/APs in this Multi-AP network.</p>
 <p><strong>[MANDATORY]</strong> [<a href="#T.MACAddress">MACAddress</a>] The MAC address of the backhaul STA (bSTA), or similar Ethernet
 interface, on this preferred backhaul link.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added dmr_noNameCheck = <em>true</em></li>
 </ul>
@@ -10713,7 +10716,7 @@ or single-AP device in the Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -10763,7 +10766,7 @@ or single-AP device in the Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -10795,7 +10798,7 @@ this EasyMesh Agent. Set to a value between 0 and 14, which is the
 number of affiliated bSTAs minus 1. The value of 15 is reserved.
 [<a href="#R.EasyMesh">EasyMesh</a>] source: Wi-Fi 7 Agent Capabilities TLV.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added dmr_noNameCheck = <em>true</em></li>
 </ul>
@@ -10844,7 +10847,7 @@ number of affiliated bSTAs minus 1. The value of 15 is reserved.
 Availability Check (CAC).</p>
 <p>At most one entry in this table can exist with the same values for both <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACAvailableChannel.OpClass"><em>OpClass</em></a> and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACAvailableChannel.Channel"><em>Channel</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{OpClass,Channel}</em> uniqueKey <em>Channel</em> parameterRef</li>
 </ul>
@@ -10872,7 +10875,7 @@ Availability Check (CAC).</p>
 (CAC) that may not be occupied.</p>
 <p>At most one entry in this table can exist with the same values for both <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACNonOccupancyChannel.OpClass"><em>OpClass</em></a> and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACNonOccupancyChannel.Channel"><em>Channel</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{OpClass,Channel}</em> uniqueKey <em>Channel</em> parameterRef</li>
 </ul>
@@ -10900,7 +10903,7 @@ Availability Check (CAC).</p>
 (CAC).</p>
 <p>At most one entry in this table can exist with the same values for both <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACActiveChannel.OpClass"><em>OpClass</em></a> and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CACStatus.CACActiveChannel.Channel"><em>Channel</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{OpClass,Channel}</em> uniqueKey <em>Channel</em> parameterRef</li>
 </ul>
@@ -11039,7 +11042,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11081,7 +11084,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11150,7 +11153,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11190,7 +11193,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11227,7 +11230,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11264,7 +11267,7 @@ is operating.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11521,7 +11524,7 @@ per Operating Class and Channel tuple.</p>
 <p>The timestamp of the last scan. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -11593,7 +11596,7 @@ Points discovered by a Radio during a channel scan.</p>
 date-and-time string format as defined in [<a href="#R.RFC3339">Section
 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -11651,7 +11654,7 @@ date-and-time string format as defined in [<a href="#R.RFC3339">Section
 <p>4: Radio unavailable for &gt;= 2 seconds.</p>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed <em>1:4</em> range maxInclusive = <em>3</em> ⇒ <em>4</em></li>
 <li>Added <em>1:4</em> range minInclusive = <em>1</em></li>
@@ -11715,7 +11718,7 @@ different from the current operational configuration.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -11770,7 +11773,7 @@ current primary channel.</p>
 <p>The time this group was collected. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -11819,7 +11822,7 @@ string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <p>The time this group was collected. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -11868,7 +11871,7 @@ string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <p>The time this group was collected. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -11910,7 +11913,7 @@ string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -11994,7 +11997,7 @@ Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12037,7 +12040,7 @@ Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12074,7 +12077,7 @@ Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12151,7 +12154,7 @@ Wi-Fi network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12209,7 +12212,7 @@ network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12249,7 +12252,7 @@ network.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12319,7 +12322,7 @@ per Operating Class and Channel tuple.</p>
 <p>The timestamp of the last scan. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12393,7 +12396,7 @@ Points discovered by a Radio during a channel scan.</p>
 date-and-time string format as defined in [<a href="#R.RFC3339">Section
 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12432,7 +12435,7 @@ date-and-time string format as defined in [<a href="#R.RFC3339">Section
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -12502,7 +12505,7 @@ per Operating Class and Channel tuple.</p>
 <p>The timestamp of the last scan. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12576,7 +12579,7 @@ Points discovered by a Radio during a channel scan.</p>
 date-and-time string format as defined in [<a href="#R.RFC3339">Section
 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12651,7 +12654,7 @@ this MLO capable Access Point.
 including Multi-Link Operation (MLO) capabilities.
 [<a href="#R.EasyMesh">EasyMesh</a>] Source: Wi-Fi 7 Agent Capabilities TLV.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed numEntriesParameter = <em>WiFi7CapabilitiesNumberOfEntries</em></li>
 </ul>
@@ -12680,7 +12683,7 @@ station (bSTA) operating on this EasyMesh Agent. Only one MLO capable
 bSTA per EasyMesh Agent is allowed.
 [<a href="#R.EasyMesh">EasyMesh</a>] source: Backhaul STA MLD Configuration TLV.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added dmr_noNameCheck = <em>true</em></li>
 </ul>
@@ -12708,7 +12711,7 @@ bSTA per EasyMesh Agent is allowed.
 a Multi-Link Device (MLD) backhaul STA (bSTA).
 [<a href="#R.EasyMesh">EasyMesh</a>] source: Backhaul STA MLD Configuration TLV.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added dmr_noNameCheck = <em>true</em></li>
 </ul>
@@ -12760,7 +12763,7 @@ a Multi-Link Device (MLD) backhaul STA (bSTA).
 or similar Ethernet interface, on this preferred backhaul link.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added dmr_noNameCheck = <em>true</em></li>
 </ul>
@@ -12829,7 +12832,7 @@ a BSS.</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12868,7 +12871,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -12924,7 +12927,7 @@ BSS.</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -12961,7 +12964,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -13035,7 +13038,7 @@ from a BSS.</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13110,7 +13113,7 @@ a BSS.</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13201,7 +13204,7 @@ connect to a BSS.</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13255,7 +13258,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <p>The time this event happened. Formatted with the date-and-time string
 format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13387,7 +13390,7 @@ per Operating Class and Channel tuple.</p>
 <p>The timestamp of the last scan. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13461,7 +13464,7 @@ Points discovered by a Radio during a channel scan.</p>
 date-and-time string format as defined in [<a href="#R.RFC3339">Section
 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13557,7 +13560,7 @@ per Operating Class and Channel tuple.</p>
 <p>The timestamp of the last scan. Formatted with the date-and-time
 string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13631,7 +13634,7 @@ Points discovered by a Radio during a channel scan.</p>
 date-and-time string format as defined in [<a href="#R.RFC3339">Section
 3/RFC3339</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>string</em> -&gt; <em>dateTime</em></li>
 </ul>
@@ -13684,7 +13687,7 @@ can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -13833,7 +13836,7 @@ fixed, with four entries which are identified by the
 <p>This table MUST contain exactly 4 entries.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.AC.AccessCategory"><em>AccessCategory</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.AC.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{Alias}</em> uniqueKey</li>
 </ul>
@@ -13875,7 +13878,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -13918,7 +13921,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -13961,7 +13964,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14004,7 +14007,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14090,7 +14093,7 @@ fixed, with four entries which are identified by the
 <p>This table MUST contain exactly 4 entries.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.EndPoint.AC.AccessCategory"><em>AccessCategory</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.EndPoint.AC.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{Alias}</em> uniqueKey</li>
 </ul>
@@ -14132,7 +14135,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14175,7 +14178,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14218,7 +14221,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14261,7 +14264,7 @@ fixed, with four entries which are identified by the
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -14356,7 +14359,7 @@ interface of a ZigBee end device, ZigBee router or ZigBee coordinator.</p>
 <p>At most one entry in this table can exist with the same values for both <a href="#D.Device:2.Device.ZigBee.ZDO.IEEEAddress"><em>IEEEAddress</em></a> and <a href="#D.Device:2.Device.ZigBee.ZDO.NetworkAddress"><em>NetworkAddress</em></a>, or with a given value for <a href="#D.Device:2.Device.ZigBee.ZDO.Alias"><em>Alias</em></a>.</p>
 <p>It is possible that instances of this object have the same key value when the value of <a href="#D.Device:2.Device.ZigBee.ZDO.IEEEAddress"><em>IEEEAddress</em></a> parameter is &quot;FF:FF:FF:FF:FF:FF:FF:FF&quot; and the ZigBee Coordinators on two or more separate area networks assign the same value for the <a href="#D.Device:2.Device.ZigBee.ZDO.NetworkAddress"><em>NetworkAddress</em></a>. This is because the ZigBee specification describes only intra-area network topologies [<a href="#R.ZigBee2007">Section 1.1.4 Network Topology/ZigBee2007</a>]. As such if two or more <em>ZDO</em> instances have the same key value the <span class="removed">implemenation</span><span class="inserted">implementation</span> is undefined</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{Alias}</em> uniqueKey</li>
 </ul>
@@ -14483,7 +14486,7 @@ for remote management of the ZigBee Area Network as defined in
 [<a href="#R.ZigBee2007">Table 3.51 Routing Table Entry/ZigBee2007</a>].</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.ZigBee.ZDO.NodeManager.RoutingTable.DestinationAddress"><em>DestinationAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -14595,7 +14598,7 @@ when subsequent non-management bridge ports are added or deleted on
 that <em>Bridge</em>). The Controller SHOULD NOT set <em>LowerLayers</em> in this
 case.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -14622,7 +14625,7 @@ case.</p>
 <p>Comma-separated list (8 items) (length ) of unsigned integers (0 to 7). List items represent user priority regeneration values for
 each ingress user priority on this Bridge Port.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>0,1,2,3,4,5,6,7</em> ⇒ <em>[0,1,2,3,4,5,6,7]</em></li>
 </ul>
@@ -14653,7 +14656,7 @@ values for each ingress priority on this <a href="#D.Device:2.Device.Bridging.Br
 instances that are referenced by
 <a href="#D.Device:2.Device.Bridging.ProviderBridge.SVLANcomponent"><em>Bridging.ProviderBridge.{i}.SVLANcomponent</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>0,1,2,3,4,5,6,7</em> ⇒ <em>[0,1,2,3,4,5,6,7]</em></li>
 </ul>
@@ -14721,7 +14724,7 @@ Table 6-3 (mentioned above):</p>
 <blockquote></blockquote>
 <p>[7,7,6,6,5,5,4,4,3,3,2,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,3,2,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,2,3,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,2,3,2,1,0,1,0]</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em><a href="">4:4</a></em> list nestedBrackets = <em>required</em></li>
 </ul>
@@ -14762,7 +14765,7 @@ Table 6-4 (mentioned above):</p>
 <blockquote></blockquote>
 <p>[7,0,6,0,5,0,4,0,3,0,2,0,1,0,0,0],[7,0,6,0,4,0,4,1,3,0,2,0,1,0,0,0],[7,0,6,0,4,0,4,1,2,0,2,1,1,0,0,0],[7,0,6,0,4,0,4,1,2,0,2,1,0,0,0,1]</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em><a href="">4:4</a></em> list nestedBrackets = <em>required</em></li>
 </ul>
@@ -14828,7 +14831,7 @@ associated with either DHCPv4 or DHCPv6, as indicated by the
 <p>Note that neither 802.1D [<a href="#R.802.1D-2004">802.1D-2004</a>] nor 802.1Q
 [<a href="#R.802.1Q-2011">802.1Q-2011</a>] support classification based on Ethertype.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -14864,7 +14867,7 @@ are to be used for matching.</p>
 [<a href="#R.802.1Q-2011">802.1Q-2011</a>] support classification based on source MAC
 address.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -14897,7 +14900,7 @@ are to be used for matching.</p>
 <p>For example, the list might be: <em>01:02:03:04:05:06,
 1:22:33:00:00:00/FF:FF:FF:00:00:00, 88:77:66:55:44:33</em></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -15095,7 +15098,7 @@ only VLAN tags from the S-VLAN component are utilized.</p>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a <a href="#D.Device:2.Device.Bridging.Bridge."><em>Bridge</em></a> instance that specifies a
 C-VLAN component for the <a href="#D.Device:2.Device.Bridging.ProviderBridge."><em>ProviderBridge</em></a>. If the referenced object is deleted, the corresponding item MUST be removed from the list.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -15165,7 +15168,7 @@ C-VLAN component for the <a href="#D.Device:2.Device.Bridging.ProviderBridge."><
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately
 below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -15213,7 +15216,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 2 items) (length ) of IPv4Addresses. Items represent DNS Server IPv4 address(es) received via
 IPCP [<a href="#R.RFC1877">RFC1877</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -15321,7 +15324,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <a href="#D.Device:2.Device.IP.Interface.Type.Loopback"><em>Loopback</em></a>, <a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a>, or
 <a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -15376,7 +15379,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <li><span id="D.Device:2.Device.IP.Interface.IPv4Address.AddressingType.3GPP-NAS"><em>3GPP-NAS</em></span> (Assigned by the core network (fixed or cellular) using 3GPP NAS signalling methods. e.g. PDU Session Establishment Request [<a href="#R.3GPP-TS.24.501">Clause 6.2.4.2/3GPP-TS.24.501</a>], PDN Connectivity Request [<a href="#R.3GPP-TS.24.301">Clause 6.2.2/3GPP-TS.24.301</a>], PDP Context Activation Request [<a href="#R.3GPP-TS.24.008">Clause 6.1.2A/3GPP-TS.24.008</a>], ... This information is available from the AT commands [<a href="#R.3GPP-TS.27.007">Clause 10.1.23/3GPP-TS.27.007</a>] PDP context read dynamic parameters +CGCONTRDP, added in 2.18)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>3GPP-NAS</em> enumeration</li>
 </ul>
@@ -15411,7 +15414,7 @@ parameter transitions from <em>false</em> to <em>true</em>). Administrative and
 operational interface status is discussed in [<a href="#R.TR-181i2">Section
 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IP.Interface.Stats.Reset"><em>Reset()</em></a> command</li>
 </ul>
@@ -15459,7 +15462,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15487,7 +15490,7 @@ framing characters.</p>
 framing characters.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15514,7 +15517,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets transmitted out of the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15541,7 +15544,7 @@ framing characters.</p>
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets received on the interface.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15569,7 +15572,7 @@ framing characters.</p>
 because of errors.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -15597,7 +15600,7 @@ because of errors.</p>
 them from being delivered to a higher-layer protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -15626,7 +15629,7 @@ addressed to a multicast or broadcast address at this layer,
 including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15656,7 +15659,7 @@ being transmitted. One possible reason for discarding such a packet
 could be to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -15686,7 +15689,7 @@ delivered. One possible reason for discarding such a packet could be
 to free up buffer space.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -15715,7 +15718,7 @@ transmission and which were addressed to a multicast address at this
 layer, including those that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15744,7 +15747,7 @@ higher layer, which were not addressed to a multicast or broadcast
 address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15773,7 +15776,7 @@ higher layer, which were addressed to a multicast address at this
 layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15803,7 +15806,7 @@ layer, including those that were discarded or not sent.</p>
 <p>Note that IPv6 does not define broadcast addresses, so IPv6 packets
 will never cause this counter to increment.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15833,7 +15836,7 @@ layer.</p>
 <p>Note that IPv6 does not define broadcast addresses, so IPv6 packets
 will never cause this counter to increment.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedLong</em> -&gt; <em>StatsCounter64</em></li>
 </ul>
@@ -15861,7 +15864,7 @@ will never cause this counter to increment.</p>
 discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>StatsCounter32</em></li>
 </ul>
@@ -15984,7 +15987,7 @@ Protocol (TWAMP) reflector as defined in [<a href="#R.TR-390">TR-390</a>].</p>
 </ul>
 <p>This parameter is based on <em>ipOrigin</em> from [<a href="#R.RFC4293">RFC4293</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>3GPP-NAS</em> enumeration</li>
 </ul>
@@ -16247,7 +16250,7 @@ storage on the device.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -16683,7 +16686,7 @@ entries that reference the entry.</p>
 <p>Comma-separated list of strings. Each list item MUST be a member of the list reported by the <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms"><em>IPsec.SupportedIntegrityAlgorithms</em></a> parameter. Allowed AH integrity algorithms [<a href="#R.IKEv2-params">Transform Type
 3/IKEv2-params</a>] [<a href="#R.RFC4835">Section 3.2/RFC4835</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -16710,7 +16713,7 @@ entries that reference the entry.</p>
 <p>Comma-separated list of strings. Each list item MUST be a member of the list reported by the <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms"><em>IPsec.SupportedIntegrityAlgorithms</em></a> parameter. Allowed ESP integrity algorithms [<a href="#R.IKEv2-params">Transform Type
 3/IKEv2-params</a>] [<a href="#R.RFC4835">Section 3.1.1/RFC4835</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -16739,7 +16742,7 @@ IKEv2 session. Instances are automatically created and deleted as IKEv2
 SAs are created and deleted.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IPsec.IKEv2SA.Tunnel"><em>Tunnel</em></a>, or with a given value for <a href="#D.Device:2.Device.IPsec.IKEv2SA.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 <li>Added <em>{Alias}</em> uniqueKey</li>
@@ -16768,7 +16771,7 @@ SAs are created and deleted.</p>
 child SA and an outbound child SA.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IPsec.IKEv2SA.ChildSA.InboundSPI"><em>InboundSPI</em></a>, or with a given value for <a href="#D.Device:2.Device.IPsec.IKEv2SA.ChildSA.OutboundSPI"><em>OutboundSPI</em></a>, or with a given value for <a href="#D.Device:2.Device.IPsec.IKEv2SA.ChildSA.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>{Alias}</em> uniqueKey</li>
 </ul>
@@ -16884,7 +16887,7 @@ disable the offending <em>Domain</em> row.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -16930,7 +16933,7 @@ disable the offending <em>Domain</em> row.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -16979,7 +16982,7 @@ disable the offending <em>Domain</em> row.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -17025,7 +17028,7 @@ disable the offending <em>Domain</em> row.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -17177,7 +17180,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -17291,7 +17294,7 @@ configuration of the device.</p>
 <li><span id="D.Device:2.Device.Routing.Router.IPv4Forwarding.Origin.Static"><em>Static</em></span> (For example, present in the factory default configuration, created by the Controller, or created by some other management entity (e.g. via a GUI))</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>3GPP-NAS</em> enumeration</li>
 </ul>
@@ -17358,7 +17361,7 @@ configuration of the device.</p>
 <li><span id="D.Device:2.Device.Routing.Router.IPv6Forwarding.Origin.Static"><em>Static</em></span> (For example, present in the factory default configuration, created by the Controller, or created by some other management entity (e.g. via a GUI))</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>3GPP-NAS</em> enumeration</li>
 </ul>
@@ -17490,7 +17493,7 @@ disable the offending <em>InterfaceSetting</em> row.</p>
 <p>When <a href="#D.Device:2.Device.RouterAdvertisement.InterfaceSetting.RDNSSMode"><em>RDNSSMode</em></a> is not <a href="#D.Device:2.Device.RouterAdvertisement.InterfaceSetting.RDNSSMode.Static"><em>Static</em></a>, this parameter will contain the list of IPv6 addresses, automatically filled in by the system, that needs to be advertised.</p>
 <p>An empty string means that no RDNSS information is being advertised.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -17517,7 +17520,7 @@ disable the offending <em>InterfaceSetting</em> row.</p>
 <p>Comma-separated list of strings. The DNSSL parameter contains one or more domain names of DNS suffixes as described in [<a href="#R.RFC8106">Section 5.2. DNS Search List Option/RFC8106</a>].</p>
 <p>An empty string means that no DNSSL information is being advertised.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -17554,7 +17557,7 @@ infinite or in the future) prefixes in this list.</p>
 <p>Prefixes MUST be associated with the interface instance referenced by
 <a href="#D.Device:2.Device.RouterAdvertisement.InterfaceSetting.Interface"><em>Interface</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -17917,7 +17920,7 @@ will be associated with either DHCPv4 or DHCPv6, as indicated by the
 <p>Classification criterion.</p>
 <p>Minimum IP Packet Length (including header) in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -17945,7 +17948,7 @@ will be associated with either DHCPv4 or DHCPv6, as indicated by the
 <p>Maximum IP Packet Length (including header) in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span></p>
 <p>A value of zero indicates that no maximum is specified (an umlimited maximum length).</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -17995,7 +17998,7 @@ identify the flow type. The use and interpretation is specific to the
 particular FlowType URN.Encoded using the &quot;x-www-form-urlencoded&quot;
 content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -18043,7 +18046,7 @@ content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <p>Committed rate allowed for this policer in <em>bits per second</em>.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>unsignedLong</em></li>
 </ul>
@@ -18069,7 +18072,7 @@ content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <td>
 <p>Committed Burstsize in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18096,7 +18099,7 @@ content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <p>Excess Burstsize in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span></p>
 <p>Applied for a <a href="#D.Device:2.Device.QoS.Policer.PossibleMeterTypes.SingleRateThreeColor"><em>SingleRateThreeColor</em></a> meter.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18124,7 +18127,7 @@ content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <p>Applied for <a href="#D.Device:2.Device.QoS.Policer.PossibleMeterTypes.TwoRateThreeColor"><em>TwoRateThreeColor</em></a> meters.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>unsignedInt</em> -&gt; <em>unsignedLong</em></li>
 </ul>
@@ -18151,7 +18154,7 @@ content type defined in [<a href="#R.HTML4.01">HTML4.01</a>].</p>
 <p>Peak Burstsize in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span></p>
 <p>Applied for <a href="#D.Device:2.Device.QoS.Policer.PossibleMeterTypes.TwoRateThreeColor"><em>TwoRateThreeColor</em></a> meters.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18217,7 +18220,7 @@ parameter.</p>
 a given traffic class, the implementation will choose which queue to
 send traffic of this class to.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -18244,7 +18247,7 @@ send traffic of this class to.</p>
 <p>Number of <span class="removed">bytes</span><span class="inserted"><em>bytes</em></span> in the buffer.</p>
 <p>Queue buffer size for all egress interfaces for which this queue exists. If the buffer size is not the same for all such egress interfaces, this parameter MUST be 0.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18275,7 +18278,7 @@ send traffic of this class to.</p>
 <p>For example, for packets destined for a WAN DSL interface, if the egress will be on a PPP or IP link with a specified <em>ShapingRate</em>, the percentage is calculated relative to this rate. Otherwise, if the ATM layer is rate-constrained, then the rate is calculated relative to this rate. Otherwise, the rate is calculated relative to the physical-layer DSL rate.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18302,7 +18305,7 @@ send traffic of this class to.</p>
 <p>If the Queue is active, the CurrentShapingRate must reflect the actual configured ShapingRate, in <em>bits per second</em> per second. -1 means no rate due to do Queue not active.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18332,7 +18335,7 @@ send traffic of this class to.</p>
 <p>A value of -1 indicates no shaping.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18359,7 +18362,7 @@ send traffic of this class to.</p>
 <p>If the Queue is active, the CurrentAssuredRate must reflect the actual configured AssuredRate, in bits per second. -1 means no rate due to do Queue not active.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18385,7 +18388,7 @@ send traffic of this class to.</p>
 <td>
 <p>Burst size in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span> For both leaky bucket (constant rate shaping) and token bucket (variable rate shaping) this is the bucket size and is therefore the maximum burst size.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18441,7 +18444,7 @@ MUST disable the offending <em>QueueStats</em> row.</p>
 <p>Number of <span class="removed">bytes</span><span class="inserted"><em>bytes</em></span> output through the queue.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18468,7 +18471,7 @@ MUST disable the offending <em>QueueStats</em> row.</p>
 <p>Number of <span class="removed">bytes</span><span class="inserted"><em>bytes</em></span> dropped by the queue.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18534,7 +18537,7 @@ disable the offending <em>Shaper</em> row.</p>
 <p>For example, for packets destined for a WAN DSL interface, if the ATM layer is rate-constrained, then the rate is calculated relative to this rate. Otherwise, the rate is calculated relative to the physical-layer DSL rate.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18560,7 +18563,7 @@ disable the offending <em>Shaper</em> row.</p>
 <td>
 <p>Burst size in <span class="removed">bytes.</span><span class="inserted"><em>bytes</em>.</span> For both leaky bucket (constant rate shaping) and token bucket (variable rate shaping) this is the bucket size and is therefore the maximum burst size.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added unsignedInt <em>bytes</em> units</li>
 </ul>
@@ -18611,7 +18614,7 @@ disable the offending <em>Shaper</em> row.</p>
 <p>A value of -1 indicates no shaping.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18640,7 +18643,7 @@ disable the offending <em>Shaper</em> row.</p>
 <p>A value of -1 indicates the ShapingRate's value is not used.</p>
 <p><span class="inserted">Note: To be able to support higher bit rates, this parameter was changed to unsignedLong in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed syntax = <em>int(-1:)</em> -&gt; <em>long(-1:)</em></li>
 </ul>
@@ -18693,7 +18696,7 @@ include non-IP hosts.</p>
 broadband network.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Hosts.AccessControl.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Hosts.AccessControl.PhysAddress"><em>PhysAddress</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Hosts.AccessControl.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Hosts.AccessControl.PhysAddress"><em>PhysAddress</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Hosts.AccessControl.ScheduleRef"><em>ScheduleRef</em></a> parameter</li>
 </ul>
@@ -18727,7 +18730,7 @@ broadband network.</p>
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -18815,7 +18818,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.Hos
 <div class="hide">
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -18862,7 +18865,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.Hos
 <div class="hide">
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -18943,7 +18946,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.Hos
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -18998,7 +19001,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.Hos
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -19122,7 +19125,7 @@ interface.</p>
 </ul>
 <p>Table entries that are automatically created as result of DHCP, IPCP, <span class="inserted">3GPP-NAS, </span>or RA received DNS server information will have <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>, <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv6"><em>DHCPv6</em></a>, <a href="#D.Device:2.Device.DNS.Client.Server.Type.IPCP"><em>IPCP</em></a>, <span class="inserted"><a href="#D.Device:2.Device.DNS.Client.Server.Type.3GPP-NAS"><em>3GPP-NAS</em></a> </span>or <a href="#D.Device:2.Device.DNS.Client.Server.Type.RouterAdvertisement"><em>RouterAdvertisement</em></a>, as the case may be. Manually created table <span class="removed">entires</span><span class="inserted">entries</span> will have their <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Client.Server.Type.Static"><em>Static</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>3GPP-NAS</em> enumeration</li>
 </ul>
@@ -19191,7 +19194,7 @@ server(s) [<a href="#R.RFC5625">RFC5625</a>].</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.DNS.Relay.Forwarding."><em>Forwarding.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Specifies the list of the DNS forwarders to be used.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -19354,7 +19357,7 @@ field) in the form:</p>
 <p>Human-readable instance name [<a href="#R.DNS-SD">Section 4.1.1 Instance Names/DNS-SD</a>] (i.e. The &quot;[<em>InstanceName</em>]&quot; portion of the '&quot;Service Instance Name'&quot;).</p>
 <p><span class="inserted">Note: This parameter was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19381,7 +19384,7 @@ field) in the form:</p>
 <p>The Application Protocol, without the leading underscore, associated with the service (e.g., daap) as defined by the DNS-SD service [<a href="#R.DNS-SD">Section 7 Application Protocol Names/DNS-SD</a>].</p>
 <p><span class="inserted">Note: This parameter was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19413,7 +19416,7 @@ field) in the form:</p>
 <li><span id="D.Device:2.Device.DNS.SD.Advertise.TransportProtocol.UDP"><em>UDP</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19440,7 +19443,7 @@ field) in the form:</p>
 <p>The value to be entered into the Name field of the DNS SRV record [<a href="#R.RFC2782">RFC2782</a>] which represents the fully qualified domain name (FQDN) associated with the service as defined by the DNS-SD service [<a href="#R.DNS-SD">Section 4.1.3 Domain Names/DNS-SD</a>].</p>
 <p><span class="inserted">Note: This parameter was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19467,7 +19470,7 @@ field) in the form:</p>
 <p>The value to be entered into the Port field of the DNS SRV record [<a href="#R.RFC2782">RFC2782</a>] that is used to contact the service.</p>
 <p><span class="inserted">Note: This parameter was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19495,7 +19498,7 @@ field) in the form:</p>
 <p>When multiple instances of the <em>TextRecord</em> table have the same value for the <a href="#D.Device:2.Device.DNS.SD.Advertise.TextRecord.Key"><em>Key</em></a> parameter, the implementation is CPE specific.</p>
 <p><span class="inserted">Note: This object was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -19584,7 +19587,7 @@ outgoing traffic associated with the <a href="#D.Device:2.Device.NAT.InterfaceSe
 construct an additional filter rule that specifies which address
 range needs to be translated.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -19623,7 +19626,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.NAT.PortMapping.Stat
 <a href="#D.Device:2.Device.NAT.PortMapping.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.NAT.PortMapping.Alias"><em>Alias</em></a>, or with the same values for all of <a href="#D.Device:2.Device.NAT.PortMapping.RemoteHost"><em>RemoteHost</em></a>, <a href="#D.Device:2.Device.NAT.PortMapping.ExternalPort"><em>ExternalPort</em></a> and <a href="#D.Device:2.Device.NAT.PortMapping.Protocol"><em>Protocol</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.NAT.PortMapping.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.NAT.PortMapping.ExternalPort"><em>ExternalPort</em></a> and <a href="#D.Device:2.Device.NAT.PortMapping.Protocol"><em>Protocol</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NAT.PortMapping.RemainingLeaseTime"><em>RemainingLeaseTime</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.NAT.PortMapping.ScheduleRef"><em>ScheduleRef</em></a> parameter</li>
@@ -19661,7 +19664,7 @@ configuration value is undefined or invalid.</p>
 <p>The <a href="#D.Device:2.Device.NAT.PortMapping.Status.Error"><em>Error</em></a> value MAY be used by the CPE to indicate a locally
 defined error condition.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>Inactive</em> enumeration</li>
 </ul>
@@ -19696,7 +19699,7 @@ defined error condition.</p>
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -19792,7 +19795,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.NAT
 <p>Firewall PortTrigger table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.NAT.PortTrigger.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.NAT.PortTrigger.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NAT.PortTrigger.ScheduleRef"><em>ScheduleRef</em></a> parameter</li>
 </ul>
@@ -19826,7 +19829,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.NAT
 <li><span id="D.Device:2.Device.NAT.PortTrigger.Status.Error"><em>Error</em></span> (MAY be used to define an error condition, OPTIONAL)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>Inactive</em> enumeration</li>
 </ul>
@@ -19860,7 +19863,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.NAT
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -19887,7 +19890,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.NAT
 <p>Indicates when the port trigger was enabled. When the port trigger is no longer active.</p>
 <p><span class="inserted">Note: This parameter was demoted to readOnly in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>readOnly</em></li>
 </ul>
@@ -20066,7 +20069,7 @@ defined in [<a href="#R.RFC6887">RFC6887</a>].</p>
 <p>A value of zero (0) indicates that no remote port range is specified, i.e. that the range consists only of <a href="#D.Device:2.Device.PCP.Client.Server.InboundMapping.Filter.RemotePort"><em>RemotePort</em></a>.</p>
 <p><span class="inserted">Note: This parameter was promoted to readWrite in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -20128,7 +20131,7 @@ disable the offending <em>Client</em> row.</p>
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv4.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv4.Client.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.DHCPv4.Client.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DHCPv4.Client.Retransmission."><em>Retransmission.</em></a> object</li>
 </ul>
@@ -20157,7 +20160,7 @@ DHCP server. An empty string when <a href="#D.Device:2.Device.DHCPv4.Client.Stat
 <a href="#D.Device:2.Device.DHCPv4.Client.DHCPStatus.Bound"><em>Bound</em></a>.</p>
 <p>Value is information received via DHCP Options 3, 33 or 121.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -20186,7 +20189,7 @@ the DHCP server. An empty string when <a href="#D.Device:2.Device.DHCPv4.Client.
 <a href="#D.Device:2.Device.DHCPv4.Client.DHCPStatus.Bound"><em>Bound</em></a>.</p>
 <p>Value is information received via DHCP Option 6.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -20429,7 +20432,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.DHCPv4.Server.Pool.S
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 32 items) (length ) of IPv4Addresses. List items represent addresses marked reserved from the
 address allocation pool.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -20489,7 +20492,7 @@ disable the offending <em>Client</em> row.</p>
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv6.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv6.Client.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.DHCPv6.Client.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DHCPv6.Client.Retransmission."><em>Retransmission.</em></a> object</li>
 </ul>
@@ -21553,7 +21556,7 @@ infinite or in the future) /64 prefixes in this list.</p>
 <p>Prefixes MUST be associated with the interface instance referenced by
 <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -21603,7 +21606,7 @@ of the <em>Valid</em>
 (<a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.ValidLifetime"><em>IP.Interface.{i}.IPv6Prefix.{i}.ValidLifetime</em></a> is
 infinite or in the future) prefixes in this list.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -21796,7 +21799,7 @@ disable the offending <em>Supplicant</em> row.</p>
 <p>802.1x Authentication Supplicant EAP statistics information for this
 resource.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IEEE8021x.Supplicant.Stats.SuccessCount"><em>SuccessCount</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.IEEE8021x.Supplicant.Stats.FailureCount"><em>FailureCount</em></a> parameter</li>
@@ -21887,7 +21890,7 @@ of this supplicant.</p>
 <p>Users object that contains the <a href="#D.Device:2.Device.Users.User."><em>User</em></a>, <a href="#D.Device:2.Device.Users.Group."><em>Group</em></a>, and
 <a href="#D.Device:2.Device.Users.Role."><em>Role</em></a> tables.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Users.SupportedCapabilities"><em>SupportedCapabilities</em></a> parameter</li>
 </ul>
@@ -22014,7 +22017,7 @@ on capabilities  (&quot;capabilities(7) - Linux manual page&quot;).</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -22043,7 +22046,7 @@ on capabilities  (&quot;capabilities(7) - Linux manual page&quot;).</p>
 <td>
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.Group."><em>Group.</em></a> table. The Groups of which this User is a member.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -22069,7 +22072,7 @@ on capabilities  (&quot;capabilities(7) - Linux manual page&quot;).</p>
 <td>
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.Role."><em>Role.</em></a> table. The Roles which are assigned to this User.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -22118,7 +22121,7 @@ user group.</p>
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.Role."><em>Role.</em></a> table. These Roles are assigned to any User which is member of this Group,
 for so long as they remain a member of the Group.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -22145,7 +22148,7 @@ for so long as they remain a member of the Group.</p>
 <p>This object contains parameters relating to the role characteristics.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Users.Role.RoleName"><em>RoleName</em></a>, or with a given value for <a href="#D.Device:2.Device.Users.Role.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Users.Role.RoleID"><em>RoleID</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Users.Role.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Users.Role.RoleID"><em>RoleID</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Users.Role.RequiredCapabilities"><em>RequiredCapabilities</em></a> parameter</li>
 </ul>
@@ -22214,7 +22217,7 @@ packet that has passed through the NAT.</p>
 <p>See [<a href="#R.TR-181i2">Appendix VIII/TR-181i2</a>] for an example
 <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> configuration.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.SetNumberOfEntries"><em>SetNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Firewall.Set."><em>Set.{i}.</em></a> object</li>
@@ -22308,7 +22311,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.Firewall.Chain.Rule.
 <a href="#D.Device:2.Device.Firewall.Chain.Rule.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.Chain.Rule.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Firewall.Chain.Rule.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.Chain.Rule.DestMatchSet"><em>DestMatchSet</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Firewall.Chain.Rule.DestMatchSetExclude"><em>DestMatchSetExclude</em></a> parameter</li>
@@ -22437,7 +22440,7 @@ valid reference, then the table entry is inoperable and the device MUST
 set <a href="#D.Device:2.Device.Firewall.Pinhole.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.Firewall.Pinhole.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.Pinhole.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Firewall.Pinhole.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.Pinhole.SourcePortRangeMax"><em>SourcePortRangeMax</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Firewall.Pinhole.DestPortRangeMax"><em>DestPortRangeMax</em></a> parameter</li>
@@ -22473,7 +22476,7 @@ set <a href="#D.Device:2.Device.Firewall.Pinhole.Status"><em>Status</em></a> to 
 <li><span id="D.Device:2.Device.Firewall.Pinhole.Status.Error"><em>Error</em></span> (MAY be used to define an error condition, OPTIONAL)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>Inactive</em> enumeration</li>
 </ul>
@@ -22508,7 +22511,7 @@ set <a href="#D.Device:2.Device.Firewall.Pinhole.Status"><em>Status</em></a> to 
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -22590,7 +22593,7 @@ specified, <em>DestPortRangeMax</em> MUST be greater than or equal to
 </li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>-1</em> ⇒ <em>[-1]</em></li>
 </ul>
@@ -22668,7 +22671,7 @@ When <em>ScheduleRef</em> is an empty string the <a href="#D.Device:2.Device.Fir
 </ul>
 <p>Once it's been set, this parameter is immutable.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -22729,7 +22732,7 @@ MUST set <a href="#D.Device:2.Device.Firewall.Service.Status"><em>Status</em></a
 <p>Comma-separated list of integers (-1 to 65535). Destination port number. A value of <em>-1</em> indicates this criterion
 is not used for matching.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>-1</em> ⇒ <em>[-1]</em></li>
 </ul>
@@ -22763,7 +22766,7 @@ is not used for matching.</p>
 </li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>-1</em> ⇒ <em>[-1]</em></li>
 </ul>
@@ -22791,7 +22794,7 @@ is not used for matching.</p>
 IP addresses or prefixes that are specified in <em>SourcePrefixes</em> for the
 applied service.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -22828,7 +22831,7 @@ MUST set <a href="#D.Device:2.Device.Firewall.InterfaceSetting.Status"><em>Statu
 disable the offending <em>InterfaceSetting</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.InterfaceSetting.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Firewall.InterfaceSetting.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Firewall.InterfaceSetting.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Firewall.InterfaceSetting.IPv6PassThroughICMPEchoRequest"><em>IPv6PassThroughICMPEchoRequest</em></a> parameter</li>
 </ul>
@@ -23295,7 +23298,7 @@ sample interval etc.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -23338,7 +23341,7 @@ the data model.</p>
 </blockquote>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -23371,7 +23374,7 @@ statistics for the current sample to be calculated (a &quot;sneak preview&quot;
 of the current sample), or (c) at the end of the sample interval.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.Reference"><em>Reference</em></a>, or with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.ValuesIfHistogram"><em>ValuesIfHistogram</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.HistogramBinBoundaries"><em>HistogramBinBoundaries</em></a> parameter</li>
@@ -23411,7 +23414,7 @@ value of the <em>CalculationMode</em> MUST be ignored for such parameters.</p>
 inputs to the calculation will have already accounted for
 <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.SampleMode"><em>SampleMode</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added string <em>Histogram</em> enumeration</li>
 </ul>
@@ -23449,7 +23452,7 @@ sample interval.</p>
 </blockquote>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -23480,7 +23483,7 @@ value occurred during the sample interval.</p>
 sample interval then it would be appropriate to set <em>SuspectData</em> to 1.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -23510,7 +23513,7 @@ sample interval then it would be appropriate to set <em>SuspectData</em> to 1.</
 <p><span class="inserted">if <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.CalculationMode"><em>CalculationMode</em></a> has value &quot;Histogram&quot; then the values of the referenced parameter are in <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.ValuesIfHistogram"><em>ValuesIfHistogram</em></a>.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -23634,8 +23637,8 @@ available to the collection server.</p>
 capable of supporting.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.BulkData.Protocols.Streaming"><em>Streaming</em></span> (IPDR Streaming Protocol [<a href="#R.IPDR-SP">IPDR-SP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
-<li><span id="D.Device:2.Device.BulkData.Protocols.File"><em>File</em></span> (IPDR File Transfer Protocol [<a href="#R.IPDR-FTP">IPDR-FTP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.Protocols.Streaming"><em>Streaming</em></span> (IPDR Streaming Protocol [<a href="#R.IPDR-SP">IPDR-SP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.Protocols.File"><em>File</em></span> (IPDR File Transfer Protocol [<a href="#R.IPDR-FTP">IPDR-FTP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
 <li><span id="D.Device:2.Device.BulkData.Protocols.HTTP"><em>HTTP</em></span> (Hypertext Transfer Protocol [<a href="#R.RFC2616">RFC2616</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.Protocols.MQTT"><em>MQTT</em></span> (Message Queuing Telemetry Transport [<a href="#R.MQTT31">MQTT31</a>], [<a href="#R.MQTT311">MQTT311</a>], and [<a href="#R.MQTT50">MQTT50</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.Protocols.USPEventNotif"><em>USPEventNotif</em></span> (User Services Platform (USP - [<a href="#R.TR-369">Annex A/TR-369</a>]) Event Notification)</li>
@@ -23663,8 +23666,8 @@ capable of supporting.</p>
 capable of supporting.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XML"><em>XML</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XML">IPDR-XML</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
-<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XDR"><em>XDR</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XDR">IPDR-XDR</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XML"><em>XML</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XML">IPDR-XML</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XDR"><em>XDR</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XDR">IPDR-XDR</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
 <li><span id="D.Device:2.Device.BulkData.EncodingTypes.CSV"><em>CSV</em></span> (Comma Separated Values. Used with the HTTP and USPEventNotif Protocols. [<a href="#R.RFC4180">RFC4180</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.EncodingTypes.JSON"><em>JSON</em></span> (JavaScript Object Notation. Used with the HTTP and USPEventNotif Protocols. [<a href="#R.RFC7159">RFC7159</a>])</li>
 </ul>
@@ -23730,7 +23733,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -23773,7 +23776,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -23822,7 +23825,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -23865,7 +23868,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -23911,7 +23914,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -23960,7 +23963,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -24029,7 +24032,7 @@ generated at different times for different sets of data.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -24077,7 +24080,7 @@ generated at different times for different sets of data.</p>
 <p><strong>[ASYNC]</strong> Install one or more Deployment Units (DUs) to the associated
 <a href="#D.Device:2.Device.SoftwareModules."><em>SoftwareModules</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.Privileged"><em>Privileged</em></a> parameter</li>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.NumRequiredUIDs"><em>NumRequiredUIDs</em></a> parameter</li>
@@ -24537,7 +24540,7 @@ updating, or removing a <a href="#D.Device:2.Device.SoftwareModules.DeploymentUn
 <td>
 <p>Create a new Execution Environment of this class.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.ExecEnvClass.AddExecEnv.Input.AvailableUserRoles"><em>AvailableUserRoles</em></a> parameter</li>
 </ul>
@@ -24630,7 +24633,7 @@ such row then the entry will be ignored.</p>
 <td>
 <p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv.</em></a> table. A reference to the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> which was created.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed <em>##.ExecEnv.</em> pathRef refType = <em>weak</em> ⇒ <em>strong</em></li>
 </ul>
@@ -24658,7 +24661,7 @@ such row then the entry will be ignored.</p>
 their properties and configurable settings.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableUserRoles"><em>AvailableUserRoles</em></a> parameter</li>
 </ul>
@@ -24694,7 +24697,7 @@ their properties and configurable settings.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -24771,7 +24774,7 @@ into this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em>
 <p>The command will fail if the new list of roles doesn't contain a required role of DeploymentUnit
 installed previously into the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ModifyAvailableRoles.Input.AvailableUserRoles"><em>AvailableUserRoles</em></a> parameter</li>
 </ul>
@@ -24900,7 +24903,7 @@ Software Module.</p>
 <td>
 <p><strong>[ASYNC]</strong> Update the associated <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.Privileged"><em>Privileged</em></a> parameter</li>
 <li>Added <em>Input.</em> input <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.NumRequiredUIDs"><em>NumRequiredUIDs</em></a> parameter</li>
@@ -25160,7 +25163,7 @@ displaying status and maintaining configuration that reside under the
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Extensions."><em>Extensions</em></a> object.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EUID"><em>EUID</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AllocatedEUUID"><em>AllocatedEUUID</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AllocatedEUGID"><em>AllocatedEUGID</em></a> parameter</li>
@@ -25547,7 +25550,7 @@ Abstraction Layer/IEEE1905.1a</a>].</p>
 5 Abstraction Layer Management/IEEE1905.1a</a>]).</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IEEE1905.AL.Interface.InterfaceId"><em>InterfaceId</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -25621,7 +25624,7 @@ object, which MUST be a row of an <a href="#D.Device:2.Device.IEEE1905.AL.Interf
 the referenced item is deleted, the corresponding item MUST be
 removed from the list.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -25739,7 +25742,7 @@ address of an interface in the receiving 1905 AL as defined in
 [<a href="#R.IEEE1905.1a">Table 6-17: 1905 transmitter link metric TLV/IEEE1905.1a</a>].</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IEEE1905.AL.NetworkTopology.IEEE1905Device.IEEE1905Neighbor.Metric.NeighborMACAddress"><em>NeighborMACAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -25786,7 +25789,7 @@ address of an interface in the receiving 1905 AL as defined in
 <p>MQTT client table. Contains a list of configured MQTT clients.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -25828,7 +25831,7 @@ address of an interface in the receiving 1905 AL as defined in
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -25886,7 +25889,7 @@ Disabled subscription instances with <a href="#D.Device:2.Device.MQTT.Client.Sub
 will be ignored during connection establishment.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Subscription.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Subscription.Topic"><em>Topic</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Subscription.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Subscription.Topic"><em>Topic</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -25915,7 +25918,7 @@ will be ignored during connection establishment.</p>
 <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.UserProperty.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.UserProperty.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.UserProperty.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.UserProperty.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -25945,7 +25948,7 @@ will be ignored during connection establishment.</p>
 (e.g. <a href="#D.Device:2.Device.MQTT.Client.BrokerAddress"><em>BrokerAddress</em></a> has changed). The CPE MAY retain the
 values across a reboot if it reconnects with the same MQTT broker.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -25972,7 +25975,7 @@ values across a reboot if it reconnects with the same MQTT broker.</p>
 <p>MQTT broker table. Contains a list of configured MQTT brokers.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Broker.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Broker.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -26000,7 +26003,7 @@ values across a reboot if it reconnects with the same MQTT broker.</p>
 brokers.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -26028,7 +26031,7 @@ brokers.</p>
 broker start, either after reboot or if the MQTT broker gets
 (re-)enabled.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_fixedObject = <em>true</em></li>
 </ul>
@@ -26100,7 +26103,7 @@ Performance[<a href="#R.RFC7594">RFC7594</a>] as defined in by [<a href="#R.LMAP
 single executed action that produced the result.</p>
 <p>At most one entry in this table can exist with the same values for all of <a href="#D.Device:2.Device.LMAP.Report.Result.ScheduleName"><em>ScheduleName</em></a>, <a href="#D.Device:2.Device.LMAP.Report.Result.ActionName"><em>ActionName</em></a> and <a href="#D.Device:2.Device.LMAP.Report.Result.StartTime"><em>StartTime</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Removed dmr_noUniqueKeys = <em>true</em></li>
 </ul>
@@ -26736,7 +26739,7 @@ clients and or servers implementations that are active in the CPE.</p>
 <p>Current <span class="removed">PID</span><span class="inserted">Process Identifier</span> of the SSH server instance.</p>
 <p><span class="inserted">Note: This parameter was demoted to readOnly in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>readOnly</em></li>
 </ul>
@@ -26763,7 +26766,7 @@ clients and or servers implementations that are active in the CPE.</p>
 <p>Active SSH session list.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SSH.Server.Session.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>readOnly</em></li>
 </ul>
@@ -26790,7 +26793,7 @@ clients and or servers implementations that are active in the CPE.</p>
 <p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.User."><em>Users.User.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. The user to whom the session belongs to.</p>
 <p><span class="inserted">Note: This parameter was demoted to readOnly in the Device:2.18 version.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>readOnly</em></li>
 <li>Removed <em>string(:256)</em> syntax  default</li>
@@ -26838,7 +26841,7 @@ clients and or servers implementations that are active in the CPE.</p>
 <p>This object contains parameters relating to a USPService configuration.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.USPServices.USPService.EndpointID"><em>EndpointID</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.USPServices.USPService.ExecutionUnitRef"><em>ExecutionUnitRef</em></a> parameter</li>
 </ul>
@@ -26981,7 +26984,7 @@ log messages by comparing syslog message with the provided rules.</p>
 <li><span id="D.Device:2.Device.Syslog.Filter.FacilityLevel.All"><em>All</em></span> (All facilities are selected)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = <em>All</em> ⇒ <em>[All]</em></li>
 </ul>
@@ -27101,7 +27104,7 @@ interface.</p>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Syslog.Source."><em>Source.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Mandatory parameter.
 Specifies one or multiple sources from where the log messages originate.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -27132,7 +27135,7 @@ them in the order listed within the parameter.</p>
 First filter rule 3 must be executed and then filter rule 1.</p>
 <p>When no Filter is specified the log message will not be filtered.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -27186,7 +27189,7 @@ to remote relays or collectors.</p>
 <li><span id="D.Device:2.Device.Syslog.Action.LogRemote.Protocol.TLS"><em>TLS</em></span> ([<a href="#R.RFC5425">Transport Layer Security (TLS) Transport Mapping for Syslog/RFC5425</a>])</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -27530,7 +27533,7 @@ reference the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> o
 <p>NOTE: The Vendor Log File table (<a href="#D.Device:2.Device.DeviceInfo.VendorLogFile."><em>DeviceInfo.VendorLogFile</em></a>)
 details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.WatchdogNumberOfEntries"><em>WatchdogNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Watchdog."><em>Watchdog.{i}.</em></a> object</li>
@@ -27559,7 +27562,7 @@ details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceIn
 Agent MUST support at least one Protocol.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.CoAP"><em>CoAP</em></span> (See [<a href="#R.RFC7252">RFC7252</a>]. This enumeration was DEPRECATED in 2.15 because the CoAP MTP was deprecated in USP 1.2. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.CoAP"><em>CoAP</em></span> (See [<a href="#R.RFC7252">RFC7252</a>]. This enumeration was DEPRECATED in 2.15 because the CoAP MTP was deprecated in USP 1.2. This enumeration was OBSOLETED in 2.17. This enumeration was DELETED in 2.18. ::::: diffs <strong>Changes since 2.17:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.WebSocket"><em>WebSocket</em></span> (See [<a href="#R.RFC6455">RFC6455</a>])</li>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.STOMP"><em>STOMP</em></span> (See [<a href="#R.STOMP1.2">STOMP1.2</a>])</li>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.MQTT"><em>MQTT</em></span> (See [<a href="#R.MQTT311">MQTT311</a>] and [<a href="#R.MQTT50">MQTT50</a>])</li>
@@ -27672,7 +27675,7 @@ Agent MUST support at least one Protocol.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -28104,7 +28107,7 @@ last notification sent to this Controller.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -28170,7 +28173,7 @@ related to how this Controller communicates with the MQTT broker.</p>
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -28240,7 +28243,7 @@ functionality for this <a href="#D.Device:2.Device.LocalAgent.Controller."><em>C
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
 </ul>
@@ -28283,7 +28286,7 @@ functionality for this <a href="#D.Device:2.Device.LocalAgent.Controller."><em>C
 </div>
 <div class="hide">
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
 </ul>
@@ -28396,7 +28399,7 @@ all Parameter Paths that result from the evaluation of the Search
 Path are subject to the permissions assigned by this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Role.Permission."><em>Permission</em></a>
 instance.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed default value = &quot;&quot; ⇒ <em>[]</em></li>
 </ul>
@@ -28653,7 +28656,7 @@ if the <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>Tr
 <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction.Config"><em>Config</em></a> or
 <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction.NotifyAndConfig"><em>NotifyAndConfig</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readOnly</em> ⇒ <em>readWrite</em></li>
 </ul>
@@ -28744,7 +28747,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -28807,7 +28810,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -28842,7 +28845,7 @@ will respond to continuous events.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.BinarySensor"><em>BinarySensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IoTCapability.BinarySensor.LastContactTime"><em>LastContactTime</em></a> parameter</li>
 </ul>
@@ -28891,7 +28894,7 @@ reports a <a href="#D.Device:2.Device.IoTCapability.LevelSensor.Value"><em>Value
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.LevelSensor"><em>LevelSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IoTCapability.LevelSensor.LastContactTime"><em>LastContactTime</em></a> parameter</li>
 </ul>
@@ -28940,7 +28943,7 @@ reports multiple <a href="#D.Device:2.Device.IoTCapability.MultiLevelSensor.Valu
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.MultiLevelSensor"><em>MultiLevelSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IoTCapability.MultiLevelSensor.LastContactTime"><em>LastContactTime</em></a> parameter</li>
 </ul>
@@ -28989,7 +28992,7 @@ reports explicit non-continuous values.</p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.EnumSensor"><em>EnumSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IoTCapability.EnumSensor.LastContactTime"><em>LastContactTime</em></a> parameter</li>
 </ul>
@@ -29074,7 +29077,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Once it's been set, this parameter is immutable.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.18:</strong></p>
+<p><strong>Changes since 2.17:</strong></p>
 <ul>
 <li>Changed access = <em>readWrite</em> ⇒ <em>writeOnceReadOnly</em></li>
 </ul>
@@ -29090,7 +29093,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:43:28 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:06:06 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-18-1-usp-diffs.html --show --transform diff --format html tr-181-2-17-0-usp.xml tr-181-2-18-1-usp.xml</p>
 </div>
 <div id="TOC">

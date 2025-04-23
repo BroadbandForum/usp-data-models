@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -2166,7 +2169,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Changed name = <em>Device:2.12</em> ⇒ <em>Device:2.13</em></li>
 </ul>
@@ -2197,7 +2200,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>The top-level object for a Device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.PacketCaptureDiagnostics"><em>PacketCaptureDiagnostics()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.IoTCapabilityNumberOfEntries"><em>IoTCapabilityNumberOfEntries</em></a> parameter</li>
@@ -2248,10 +2251,10 @@ the <strong>Version</strong> column.</p>
 <p>The cause of the boot.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.Boot.Cause.LocalReboot"><em>LocalReboot</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command) :::: diffs <strong>Changes since 2.13:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command)</em> description ::::)</li>
-<li><span id="D.Device:2.Device.Boot.Cause.RemoteReboot"><em>RemoteReboot</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered via the <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command :::: diffs <strong>Changes since 2.13:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered via the <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command</em> description ::::)</li>
-<li><span id="D.Device:2.Device.Boot.Cause.LocalFactoryReset"><em>LocalFactoryReset</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command) :::: diffs <strong>Changes since 2.13:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command)</em> description ::::)</li>
-<li><span id="D.Device:2.Device.Boot.Cause.RemoteFactoryReset"><em>RemoteFactoryReset</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered via the <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command :::: diffs <strong>Changes since 2.13:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered via the <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command</em> description ::::)</li>
+<li><span id="D.Device:2.Device.Boot.Cause.LocalReboot"><em>LocalReboot</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command) :::: diffs <strong>Changes since 2.12:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command)</em> description ::::)</li>
+<li><span id="D.Device:2.Device.Boot.Cause.RemoteReboot"><em>RemoteReboot</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered via the <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command :::: diffs <strong>Changes since 2.12:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a reboot triggered via the <a href="#D.Device:2.Device.Reboot"><em>Reboot()</em></a> Command</em> description ::::)</li>
+<li><span id="D.Device:2.Device.Boot.Cause.LocalFactoryReset"><em>LocalFactoryReset</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command) :::: diffs <strong>Changes since 2.12:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered locally on the Device (NOT as a result of a <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command)</em> description ::::)</li>
+<li><span id="D.Device:2.Device.Boot.Cause.RemoteFactoryReset"><em>RemoteFactoryReset</em></span> (A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered via the <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command :::: diffs <strong>Changes since 2.12:</strong> * Added <em>A <a href="#D.Device:2.Device."><em>Device</em></a> Event that was the result of a factory reset triggered via the <a href="#D.Device:2.Device.FactoryReset"><em>FactoryReset()</em></a> Command</em> description ::::)</li>
 </ul>
 </td>
 <td>
@@ -2274,7 +2277,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p><strong>[ASYNC]</strong> This diagnostics test is vendor-specific and MAY include testing hardware, software, and/or firmware.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.SelfTestDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -3136,7 +3139,7 @@ For processor architectures not included in this list, the vendor MAY include ve
 Meaningful only if <a href="#D.Device:2.Device.DeviceInfo.Location.Source"><em>Source</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.Source.External"><em>External</em></a>, otherwise it MUST be an empty string.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>USP</em> enumeration</li>
 </ul>
@@ -3285,7 +3288,7 @@ When a <a href="#D.Device:2.Device.DSL.Channel."><em>DSL.Channel</em></a> or <a 
 <td>
 <p>The DSL Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER"><em>SELTUER()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLN"><em>SELTQLN()</em></a> command</li>
@@ -3313,7 +3316,7 @@ When a <a href="#D.Device:2.Device.DSL.Channel."><em>DSL.Channel</em></a> or <a 
 <td>
 <p><strong>[ASYNC]</strong> This command is to provide diagnostic information for a CPE with an ADSL2 or ADSL2+ modem WAN interface, but MAY also be used for ADSL.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4284,7 +4287,7 @@ The capacity estimate parameter is defined in [<a href="#R.G.996.2">Clause B.1.1
 <td>
 <p><strong>[ASYNC]</strong> This command provides access to an ATM-layer F5 OAM loopback test.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4358,7 +4361,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p>Ethernet object. This object models several Ethernet interface objects, each representing a different stack layer, including: <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a>, <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a>, and <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>. <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a> is media-specific and models a port, the PHY layer, and the MAC layer. <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is media-independent and models the Logical Link Control (LLC) layer. An &quot;outer&quot; <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>, when present, is expected to be stacked on top of <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> objects to receive and send frames with a configured VLANID.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.WoLSupported"><em>WoLSupported</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.WoL."><em>WoL.</em></a> object</li>
@@ -4586,7 +4589,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> HPNA PHY throughput diagnostics configuration and results.
 When diagnostics are requested, all HPNA nodes for which the <a href="#D.Device:2.Device.HPNA.Interface.AssociatedDevice.PHYDiagnosticsEnable"><em>Interface.{i}.AssociatedDevice.{i}.PHYDiagnosticsEnable</em></a> parameter is set enter PHY diagnostics  mode.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4669,7 +4672,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> HPNA performance monitoring configuration and results.
 Performance monitoring results are sampled from all nodes in the HPNA network.  All packet related counters are sampled synchronized at all nodes in the HPNA network in order to derive packet loss calculations in the HPNA network.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.HPNA.Diagnostics.PerformanceMonitoring.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4783,7 +4786,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> G.hn PHY throughput diagnostics configuration and results.
 When diagnostics are requested, all G.hn nodes for which the <a href="#D.Device:2.Device.Ghn.Interface.PHYThroughputDiagnosticsEnable"><em>Interface.{i}.PHYThroughputDiagnosticsEnable</em></a> parameter is set enter PHY diagnostics mode.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.Ghn.Diagnostics.PHYThroughput.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4856,7 +4859,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> G.hn Performance Monitoring diagnostics configuration and results.
 When diagnostics are requested, all G.hn nodes for which the <a href="#D.Device:2.Device.Ghn.Interface.PerformanceMonitoringDiagnosticsEnable"><em>Interface.{i}.PerformanceMonitoringDiagnosticsEnable</em></a> parameter is set enter PHY diagnostics mode.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.Ghn.Diagnostics.PerformanceMonitoring.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -4969,7 +4972,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> This command provides access to either a Signal-to-Noise-Ratio (SNR) Port Measurement test or a Channel Frequency Response (CFR) Port Measurement test. The <a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Input.Type"><em>Type</em></a> parameter is used to select which type of test to perform.
 CFR and SNR measurements are done between a two UPA devices (a local interface and a remote device belonging to the same network).</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -5042,7 +5045,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p>The WiFi object is based on the WiFi Alliance 802.11 specifications ([<a href="#R.802.11-2007">802.11-2007</a>]). It defines interface objects (<a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> and <a href="#D.Device:2.Device.WiFi.SSID."><em>SSID</em></a>), and application objects (<a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> and <a href="#D.Device:2.Device.WiFi.EndPoint."><em>EndPoint</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.MultiAP."><em>MultiAP.</em></a> object</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.DataElements."><em>DataElements.</em></a> object</li>
@@ -5069,7 +5072,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p><strong>[ASYNC]</strong> This command defines access to other WiFi SSIDs that this device is able to receive.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -5177,7 +5180,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>WPA3-SAE</em> enumeration</li>
 <li>Added string <em>WPA2-PSK-WPA3-SAE</em> enumeration</li>
@@ -5239,7 +5242,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 Each value indicates support for the indicated standard. If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.n"><em>n</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a></span> are allowed. If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ac"><em>ac</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a></span> are allowed.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>ax</em> enumeration</li>
 </ul>
@@ -9553,7 +9556,7 @@ If the device can establish more than one connection simultaneously (e.g. a dual
 Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configured to operate at 2.4 or 5 GHz frequency bands, but only a single frequency band is used to transmit/receive at a given time. Therefore, a single <em>Radio</em> instance is used even for a dual-band radio.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegement0"><em>CenterFrequencySegement0</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegement1"><em>CenterFrequencySegement1</em></a> parameter</li>
@@ -9589,7 +9592,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 Each value indicates support for the indicated standard. If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.n"><em>n</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a></span> are allowed. If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ac"><em>ac</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a></span> are allowed.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>ax</em> enumeration</li>
 </ul>
@@ -9664,7 +9667,7 @@ Each value indicates support for the indicated standard. If <a href="#D.Device:2
 <li><span id="D.Device:2.Device.WiFi.Radio.SupportedOperatingChannelBandwidths.Auto"><em>Auto</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>80+80MHz</em> enumeration</li>
 </ul>
@@ -9718,7 +9721,7 @@ Each value indicates support for the indicated standard. If <a href="#D.Device:2
 <li><span id="D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>80+80MHz</em> enumeration</li>
 </ul>
@@ -9771,14 +9774,14 @@ Each value indicates support for the indicated standard. If <a href="#D.Device:2
 <p>The guard interval value between OFDM <span class="removed">symbols (applicable to 802.11n and 802.11ac specifications only).</span><span class="inserted">symbols.</span></p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.400nsec"><em>400nsec</em></span> (applicable to 802.11n and 802.11ac specifications only ::::: diffs <strong>Changes since 2.13:</strong> * Added <em>applicable to 802.11n and 802.11ac specifications only</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.800nsec"><em>800nsec</em></span> (applicable to 802.11n, 802.11ac, and 802.11ax specifications only ::::: diffs <strong>Changes since 2.13:</strong> * Added <em>applicable to 802.11n, 802.11ac, and 802.11ax specifications only</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.400nsec"><em>400nsec</em></span> (applicable to 802.11n and 802.11ac specifications only ::::: diffs <strong>Changes since 2.12:</strong> * Added <em>applicable to 802.11n and 802.11ac specifications only</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.800nsec"><em>800nsec</em></span> (applicable to 802.11n, 802.11ac, and 802.11ax specifications only ::::: diffs <strong>Changes since 2.12:</strong> * Added <em>applicable to 802.11n, 802.11ac, and 802.11ax specifications only</em> description :::::)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.1600nsec"><em>1600nsec</em></span> (applicable to 802.11ax specifications only)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.3200nsec"><em>3200nsec</em></span> (applicable to 802.11ax specifications only)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.GuardInterval.Auto"><em>Auto</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>1600nsec</em> enumeration</li>
 <li>Added string <em>3200nsec</em> enumeration</li>
@@ -9930,7 +9933,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <td>
 <p>The maximum number of devices that can simultaneously be connected to the access point. A value of 0 means that there is no specific limit.<span class="inserted"> This parameter has been DEPRECATED in favor of <a href="#D.Device:2.Device.WiFi.AccessPoint.MaxAllowedAssociations"><em>MaxAllowedAssociations</em></a>.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -9956,7 +9959,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <td>
 <p>This object contains security related parameters that apply to a CPE acting as an Access Point [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.SAEPassphrase"><em>SAEPassphrase</em></a> parameter</li>
 </ul>
@@ -9997,7 +10000,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>WPA3-Personal</em> enumeration</li>
 <li>Added string <em>WPA3-Personal-Transition</em> enumeration</li>
@@ -10245,7 +10248,7 @@ NOTE: this parameter is for WPA3.  WPA2 <a href="#D.Device:2.Device.WiFi.AccessP
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.OperatingStandard.ax"><em>ax</em></span> ([<a href="#R.802.11ax">802.11ax</a>])</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>ax</em> enumeration</li>
 </ul>
@@ -10377,7 +10380,7 @@ Note: The <em>EndPoint</em> table includes a unique key parameter that is a stro
 <li><span id="D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></span></li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>WPA3-Personal</em> enumeration</li>
 <li>Added string <em>WPA3-Personal-Transition</em> enumeration</li>
@@ -10426,7 +10429,7 @@ Note: The <em>EndPoint</em> table includes a unique key parameter that is a stro
 <td>
 <p>This object contains security related parameters that apply to a WiFi End Point profile [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.SAEPassphrase"><em>SAEPassphrase</em></a> parameter</li>
 </ul>
@@ -10802,7 +10805,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 <li>Added <em>Alias</em></li>
@@ -11045,7 +11048,7 @@ This mechanism works as follows: * When this parameter is set to <a href="#D.Dev
 <td>
 <p><strong>[ASYNC]</strong> This command provides access to an IP-layer ping test.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -11121,7 +11124,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p><strong>[ASYNC]</strong> This command defines access to an IP-layer trace-route test for the specified IP interface.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -11199,7 +11202,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> This command defines the diagnostics configuration for a HTTP and FTP DownloadDiagnostics Test.
 Files received in the DownloadDiagnostics do not require file storage on the CPE device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -11343,7 +11346,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <p><strong>[ASYNC]</strong> This command defines the diagnostics configuration for a HTTP or FTP UploadDiagnostics test.
 Files sent by the UploadDiagnostics do not require file storage on the CPE device, and MAY be an arbitrary stream of bytes.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -11467,7 +11470,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p><strong>[ASYNC]</strong> This command defines the diagnostics configuration for a UDP Echo test [<a href="#R.TR-143">Appendix A.1/TR-143</a>] defined in [<a href="#R.RFC862">RFC862</a>] or a UDP Echo Plus test defined in [<a href="#R.TR-143">Appendix A.1/TR-143</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -11661,7 +11664,7 @@ If the value of this parameter is anything other than <a href="#D.Device:2.Devic
 <td>
 <p><strong>[ASYNC]</strong> This command provides access to a diagnostics test that performs either an ICMP Ping or UDP Echo ping against multiple hosts determining which one has the smallest average response time. There MUST be a ping response to the transmitted ping, or timeout, before the next ping is sent out.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -12046,7 +12049,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.NeighborDiscovery.Inte
 Note: The <em>InterfaceSetting</em> table includes a unique key parameter that is a strong reference. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>InterfaceSetting</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>InterfaceSetting</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.DADTransmits"><em>DADTransmits</em></a> parameter</li>
 </ul>
@@ -12095,7 +12098,7 @@ If the value is greater than 1, <a href="#D.Device:2.Device.NeighborDiscovery.In
 <td>
 <p>Retransmission interval in <em>milliseconds</em>, as defined in [<a href="#R.RFC4861">RFC4861</a>]. For auto-configuration purposes, <em>RetransTimer</em> specifies the delay between consecutive Neighbor Solicitation transmissions performed during Duplicate Address Detection (DAD) [<a href="#R.RFC4862">Section 5.4/RFC4862</a>], as well as the time a node waits after sending the last Neighbor Solicitation before ending the DAD process.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added unsignedInt <em>1:</em> range</li>
 </ul>
@@ -12121,7 +12124,7 @@ If the value is greater than 1, <a href="#D.Device:2.Device.NeighborDiscovery.In
 <td>
 <p>Retransmission interval in <em>milliseconds</em>, as defined in <strong>{{bibref: non-existent RFC4861</strong>{{inserted: unexpected argument 6.3.7 after: []}}<strong>}}</strong>. For auto-configuration purposes, <em>RtrSolicitationInterval</em> specifies the delay between consecutive Router Solicitation transmissions.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added unsignedInt <em>4000:</em> range</li>
 <li>Changed default value = <em>4</em> ⇒ <em>4000</em></li>
@@ -12526,7 +12529,7 @@ This object definition is derived from [<a href="#R.RFC5969">RFC5969</a>] with s
 <p>Host table.</p>
 <p>At most one entry in this table can exist with a given value for <strong>{{param: reference to deprecated parameter Device.Hosts.Host.{i}.Alias}}</strong>, or with a given value for <a href="#D.Device:2.Device.Hosts.Host.PhysAddress"><em>PhysAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Hosts.Host.InterfaceType"><em>InterfaceType</em></a> parameter</li>
 </ul>
@@ -12768,7 +12771,7 @@ When initiated, the NS Lookup test will contact <a href="#D.Device:2.Device.DNS.
 There will be a <a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result."><em>Result</em></a> instance for each time the device performs a DNS lookup, which is determined by the value of <a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.NumberOfRepetitions"><em>NumberOfRepetitions</em></a>.
 Any previous <a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result."><em>Result</em></a> instances are removed when a new test is initiated.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <em>Output.</em> output <a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Status"><em>Status</em></a> parameter</li>
 </ul>
@@ -12905,7 +12908,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.NAT.InterfaceSetting.I
 Note: The <em>InterfaceSetting</em> table includes a unique key parameter that is a strong reference. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>InterfaceSetting</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.NAT.InterfaceSetting.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.NAT.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>InterfaceSetting</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.NAT.InterfaceSetting.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.NAT.InterfaceSetting.TCPTranslationTimeout"><em>TCPTranslationTimeout</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.NAT.InterfaceSetting.UDPTranslationTimeout"><em>UDPTranslationTimeout</em></a> parameter</li>
@@ -13244,7 +13247,7 @@ Overlapping pool ranges MUST be supported.
 For enabled table entries, if <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Interface"><em>Interface</em></a> is not a valid reference, or <a href="#D.Device:2.Device.DHCPv4.Server.Pool.MinAddress"><em>MinAddress</em></a>, <a href="#D.Device:2.Device.DHCPv4.Server.Pool.MaxAddress"><em>MaxAddress</em></a>, or <a href="#D.Device:2.Device.DHCPv4.Server.Pool.SubnetMask"><em>SubnetMask</em></a> is not a valid value, then the table entry is inoperable and the CPE MUST set <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DHCPv4.Server.Pool.AllowedDevices"><em>AllowedDevices</em></a> parameter</li>
 </ul>
@@ -13295,7 +13298,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Int
 <td>
 <p>The number of entries in the associated table.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax <em>0</em>  default</li>
 </ul>
@@ -13321,7 +13324,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Int
 <td>
 <p>The number of entries in the associated table.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax <em>0</em>  default</li>
 </ul>
@@ -13411,7 +13414,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Int
 <td>
 <p>The number of entries in the associated table.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax <em>0</em>  default</li>
 </ul>
@@ -13437,7 +13440,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Int
 <td>
 <p>The number of entries in the associated table.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax <em>0</em>  default</li>
 </ul>
@@ -13730,7 +13733,7 @@ The <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Status.Trigger"><em
 <td>
 <p>The number of entries in the <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter."><em>Parameter</em></a> table.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax <em>0</em>  default</li>
 </ul>
@@ -14201,7 +14204,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <li><span id="D.Device:2.Device.BulkData.Protocols.USPEventNotif"><em>USPEventNotif</em></span> (User Services Platform (USP - [<a href="#R.TR-369">Annex A/TR-369</a>]) Event Notiification)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>USPEventNotif</em> enumeration</li>
 </ul>
@@ -14275,7 +14278,7 @@ Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release
 <p>A set of Bulk Data Collection profiles. Each profile represents a bulk data report, including its own timing configuration, communications configuration, and set of parameters. This allows the <span class="removed">ACS</span><span class="inserted">Controller</span> to configure multiple reports to be generated at different times for different sets of data.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.BulkData.Profile.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.BulkData.Profile.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.BulkData.Profile.Push"><em>Push!</em></a> event</li>
 </ul>
@@ -14847,7 +14850,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>This object represents an instance of discovered 1905 Devices in the network (received Topology discovery message as defined in [<a href="#R.IEEE1905.1a">Clause 6.3.1/IEEE1905.1a</a>]).</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IEEE1905.AL.NetworkTopology.IEEE1905Device.IEEE1905Id"><em>IEEE1905Id</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.IEEE1905.AL.NetworkTopology.IEEE1905Device.AssocWiFiNetworkDeviceRef"><em>AssocWiFiNetworkDeviceRef</em></a> parameter</li>
 </ul>
@@ -14938,7 +14941,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <li><span id="D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></span> (Protocol according to [<a href="#R.MQTT50">MQTT50</a>])</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>5.0</em> enumeration</li>
 </ul>
@@ -14965,7 +14968,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>MQTT client table. Contains a list of configured MQTT clients.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.MQTT.Client.CleanStart"><em>CleanStart</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.MQTT.Client.SessionExpiryInterval"><em>SessionExpiryInterval</em></a> parameter</li>
@@ -15315,7 +15318,7 @@ This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolV
 <td>
 <p>The MQTT client identifier used in the <span class="inserted">MQTT </span>CONNECT <span class="removed">message</span><span class="inserted">packet</span> (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>]<span class="removed"> and</span><span class="inserted">,</span> [[Section 3.1.3.1) or [<a href="#R.MQTT50">Section /MQTT50</a>]3.1.3.1/MQTT31](#R.MQTT31)]). <span class="removed">This</span><span class="inserted">If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this</span> parameter MUST NOT be <span class="removed">{{empty}},</span><span class="inserted">an</span> <span class="removed">the</span><span class="inserted">empty</span> <span class="removed">CPE</span><span class="inserted">string.</span> <span class="removed">has</span><span class="inserted">If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set</span> to <span class="removed">provide</span><span class="inserted"><a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>,</span> <span class="removed">a</span><span class="inserted">an</span> <span class="removed">default</span><span class="inserted">empty</span> <span class="removed">value for the parameter, which can be changed by the ACS. A change of this parameter</span><span class="inserted">string</span> is <span class="removed">only</span><span class="inserted">allowed.</span> <span class="removed">communicated to the MQTT broker with the next MQTT CONNECT message. If the change needs to be applied immediately, the parameter {{param|ForceReconnect}} has to be set as well.</span><span class="inserted">A change of this parameter is only communicated to the MQTT server with the next MQTT CONNECT packet. If the change needs to be applied immediately, the command <strong>{{param: non-existent ForceReconnect}}</strong> has to be executed.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Changed <em>0:65535</em> size minLength = <em>1</em> ⇒ <em>0</em></li>
 <li>Changed <em>0:65535</em> size maxLength = <em>23</em> ⇒ <em>65535</em></li>
@@ -15438,7 +15441,7 @@ This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolV
 <p>If will handling is enabled (Parameter <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>) and the change needs to be applied immediately, the command <strong>{{param: non-existent ForceReconnect}}</strong> has to be executed.</p>
 </div>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>:65535</em> size</li>
 </ul>
@@ -15469,7 +15472,7 @@ This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolV
 <p>If will handling is enabled (Parameter <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>) and the change needs to be applied immediately, the command <strong>{{param: non-existent ForceReconnect}}</strong> has to be executed.</p>
 </div>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>:65535</em> size</li>
 </ul>
@@ -15577,7 +15580,7 @@ This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolV
 <td>
 <p>Connect retry time in <em>seconds</em> defines the wait time before a failed MQTT broker connection is retried. A failure can either be on the connection level (the TCP/IP or TLS can not be established) or on the Protocol level, the MQTT client does not receive a MQTT CONNACK <span class="removed">message</span><span class="inserted">packet</span> on a MQTT CONNECT <span class="removed">message</span><span class="inserted">packet</span> sent.<span class="inserted"> If the parameter <a href="#D.Device:2.Device.MQTT.Client.ConnectRetryIntervalMultiplier"><em>ConnectRetryIntervalMultiplier</em></a> is defined, the MQTT client MUST use a random value between <em>ConnectRetryTime</em>*(<a href="#D.Device:2.Device.MQTT.Client.ConnectRetryIntervalMultiplier"><em>ConnectRetryIntervalMultiplier</em></a>/1000)^(n-1) and <em>ConnectRetryTime</em>*(<a href="#D.Device:2.Device.MQTT.Client.ConnectRetryIntervalMultiplier"><em>ConnectRetryIntervalMultiplier</em></a>/1000)^n for the connect retry time, with n equals the current retry number. The max number of n is 10, starting with the 11th retry always the value n = 10 is used. If the parameters <a href="#D.Device:2.Device.MQTT.Client.ConnectRetryIntervalMultiplier"><em>ConnectRetryIntervalMultiplier</em></a> and <a href="#D.Device:2.Device.MQTT.Client.ConnectRetryMaxInterval"><em>ConnectRetryMaxInterval</em></a> are defined, the MQTT client MUST use the value of <a href="#D.Device:2.Device.MQTT.Client.ConnectRetryMaxInterval"><em>ConnectRetryMaxInterval</em></a> if the calculated random value exceeds the value of <a href="#D.Device:2.Device.MQTT.Client.ConnectRetryMaxInterval"><em>ConnectRetryMaxInterval</em></a>.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Changed default value = <em>30</em> ⇒ <em>5</em></li>
 </ul>
@@ -15991,7 +15994,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Configures MQTT bridges, which are used to communicate with other MQTT brokers.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.MQTT.Broker.Bridge.CleanStart"><em>CleanStart</em></a> parameter</li>
 </ul>
@@ -16079,7 +16082,7 @@ This parameter only applies if <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Pr
 <td>
 <p>The MQTT client identifier used in the CONNECT <span class="removed">message</span><span class="inserted">packet</span> (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>]<span class="removed"> and</span><span class="inserted">,</span> [[Section 3.1.3.1) or [<a href="#R.MQTT50">Section /MQTT50</a>]3.1.3.1/MQTT31](#R.MQTT31)]). <span class="removed">This</span><span class="inserted">If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this</span> parameter MUST NOT be <span class="removed">{{empty}},</span><span class="inserted">an</span> <span class="removed">the</span><span class="inserted">empty</span> <span class="removed">CPE</span><span class="inserted">string.</span> <span class="removed">has</span><span class="inserted">If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set</span> to <span class="removed">provide</span><span class="inserted"><a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>,</span> <span class="removed">a</span><span class="inserted">an</span> <span class="removed">default</span><span class="inserted">empty</span> <span class="removed">value for the parameter, which may be changed by the ACS. A change of this parameter</span><span class="inserted">string</span> is <span class="removed">only</span><span class="inserted">allowed.</span> <span class="removed">communicated to the remote MQTT broker with the next MQTT CONNECT message. If the change needs to be applied immediately, the parameter {{param|ForceReconnect}} has to be set as well.</span><span class="inserted">A change of this parameter is only communicated to the MQTT server with the next MQTT CONNECT packet. If the change needs to be applied immediately, the command <strong>{{param: non-existent ForceReconnect}}</strong> has to be executed.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Changed <em>0:65535</em> size minLength = <em>1</em> ⇒ <em>0</em></li>
 <li>Changed <em>0:65535</em> size maxLength = <em>23</em> ⇒ <em>65535</em></li>
@@ -16335,7 +16338,7 @@ The <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Status.Enabled">
 </blockquote>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>:256</em> size</li>
 </ul>
@@ -16448,7 +16451,7 @@ The <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Status.Enabled">
 </blockquote>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>:256</em> size</li>
 </ul>
@@ -16475,7 +16478,7 @@ The <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Status.Enabled">
 <p>This object contains general information about the USP Agent itself.  For information related to the Device that hosts the Agent, please reference the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> object.
 NOTE: The Vendor Log File table (<a href="#D.Device:2.Device.DeviceInfo.VendorLogFile."><em>DeviceInfo.VendorLogFile</em></a>) details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceInfo</em></a> object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.SupportedThresholdOperator"><em>SupportedThresholdOperator</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.ThresholdNumberOfEntries"><em>ThresholdNumberOfEntries</em></a> parameter</li>
@@ -16570,7 +16573,7 @@ NOTE: The Vendor Log File table (<a href="#D.Device:2.Device.DeviceInfo.VendorLo
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.MQTT"><em>MQTT</em></span> (See [<a href="#R.MQTT311">MQTT311</a>] and [<a href="#R.MQTT50">MQTT50</a>])</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added string <em>MQTT</em> enumeration</li>
 </ul>
@@ -16645,7 +16648,7 @@ NOTE: The Vendor Log File table (<a href="#D.Device:2.Device.DeviceInfo.VendorLo
 <p>Each instance of this table represents a MTP used by the local Agent.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.MTP.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.LocalAgent.MTP.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.MTP.MQTT."><em>MQTT.</em></a> object</li>
 </ul>
@@ -17146,7 +17149,7 @@ When any of the <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"
 <p>Each instance of this table represents a MTP used by this Controller.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.MQTT."><em>MQTT.</em></a> object</li>
 </ul>
@@ -17658,7 +17661,7 @@ For fault codes not included in this list, the vendor MAY include vendor-specifi
 <p>This object is a mount point, under which mountable objects can be mounted.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.ProxiedDevice.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.13:</strong></p>
+<p><strong>Changes since 2.12:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.ProxiedDevice.Type"><em>Type</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.ProxiedDevice.Description"><em>Description</em></a> parameter</li>
@@ -19517,7 +19520,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:46:22 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:09:28 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-13-0-usp-diffs.html --show --transform diff --format html tr-181-2-12-0-usp.xml tr-181-2-13-0-usp.xml</p>
 </div>
 <div id="TOC">

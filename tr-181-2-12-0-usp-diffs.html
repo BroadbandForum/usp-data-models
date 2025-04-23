@@ -418,12 +418,15 @@
     }
 
     td > div,
+    td > div:not(.diffs) > p,
     td > p {
         margin-block-start: 0;
         margin-block-end: 1em;
     }
 
     td > div:last-of-type,
+    td > div:last-of-type > p:last-of-type,
+    td > div:last-of-type > div:last-of-type > p:last-of-type,
     td > p:last-of-type {
         margin-block-end: 0;
     }
@@ -2169,7 +2172,7 @@ supports only a single parameter that was introduced in version
 number associated with each object and parameter is shown in
 the <strong>Version</strong> column.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed name = <em>Device:2.11</em> ⇒ <em>Device:2.12</em></li>
 </ul>
@@ -2200,7 +2203,7 @@ the <strong>Version</strong> column.</p>
 <td>
 <p>The top-level object for a Device.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>ManagementServer.</em>  object</li>
 <li>Removed <em>GatewayInfo.</em>  object</li>
@@ -2470,7 +2473,7 @@ Formatted as a [<a href="#T.JSONObject">JSONObject</a>] A JSON Object as defined
 <td>
 <p>This object contains general device information.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>SupportedDataModelNumberOfEntries</em>  parameter</li>
 <li>Removed <em>SupportedDataModel.{i}.</em>  object</li>
@@ -2681,7 +2684,7 @@ This table of Vendor Configuration Files is for information only and does not al
 Whenever the CPE successfully downloads a configuration file as a result of the Download RPC with the FileType argument of <em>3 Vendor Configuration File</em>, the CPE MUST update this table.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Backup"><em>Backup()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore"><em>Restore()</em></a> command</li>
@@ -2729,7 +2732,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -3082,7 +3085,7 @@ If this argument is an empty string, the Agent MUST NOT perform a checksum valid
 <p>This object represents information that the device has obtained via sampling an internal temperature sensor.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.TemperatureStatus.TemperatureSensor.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.DeviceInfo.TemperatureStatus.TemperatureSensor.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.TemperatureStatus.TemperatureSensor.Reset"><em>Reset()</em></a> command</li>
@@ -3131,7 +3134,7 @@ If this argument is an empty string, the Agent MUST NOT perform a checksum valid
 This table of log files is informational only and does not allow the ACS to operate on these files in any way.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.VendorLogFile.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DeviceInfo.VendorLogFile.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DeviceInfo.VendorLogFile.Upload"><em>Upload()</em></a> command</li>
 </ul>
@@ -3178,7 +3181,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -3864,7 +3867,7 @@ Only applicable when the <a href="#D.Device:2.Device.DeviceInfo.FirmwareImage.Ac
 <td>
 <p>This object contains parameters relating to the user interface of the CPE.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>PasswordReset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.UserInterface.PasswordReset"><em>PasswordReset()</em></a> command</li>
@@ -4015,7 +4018,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -4048,14 +4051,14 @@ prefix.</p>
 <li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.12a"><em>12a</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.12b"><em>12b</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.17a"><em>17a</em></span></li>
-<li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.17b"><em>17b</em></span> (::::: diffs <strong>Changes since 2.12:</strong> * Added status = <em>deleted</em> :::::, DELETED)</li>
+<li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.17b"><em>17b</em></span> (::::: diffs <strong>Changes since 2.0:</strong> * Added status = <em>deleted</em> :::::, DELETED)</li>
 <li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.30a"><em>30a</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Line.AllowedProfiles.35b"><em>35b</em></span>
 Note:  In G.997.1, this parameter is called PROFILES.  See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].
 Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendment 1.  If the parameter is implemented but no value is  available, its value MUST be an empty string.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added string <em>35b</em> enumeration</li>
 </ul>
@@ -4207,7 +4210,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>Comma-separated list (maximum number of characters 35) of strings. Indicates the downstream line attenuation <span class="removed">per</span><span class="inserted">averaged</span> <span class="removed">usable</span><span class="inserted">across all sub-carriers in the frequency</span> band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for <span class="inserted">ITU-T </span>G.993.2. Interpretation of <em>LATNds</em> is as defined in ITU-T Rec. G.997.1. Note: See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed <em>:35</em> size maxLength = <em>24</em> ⇒ <em>35</em></li>
 </ul>
@@ -4234,7 +4237,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>Comma-separated list (maximum number of characters 35) of strings. Indicates the upstream line attenuation <span class="removed">per</span><span class="inserted">averaged</span> <span class="removed">usable</span><span class="inserted">across all sub-carriers in the frequency</span> band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for <span class="inserted">ITU-T </span>G.993.2. Interpretation of <em>LATNus</em> is as defined in ITU-T Rec. G.997.1. Note: See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed <em>:35</em> size maxLength = <em>24</em> ⇒ <em>35</em></li>
 </ul>
@@ -4261,7 +4264,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>Comma-separated list (maximum number of characters 35) of strings. Indicates the downstream signal attenuation <span class="removed">per</span><span class="inserted">averaged</span> <span class="removed">usable</span><span class="inserted">across all active sub-carriers in the frequency</span> band, as computed during the L0 (i.e., Showtime) state. Number of elements is dependent on the number of downstream bands but will exceed one only for <span class="inserted">ITU-T </span>G.993.2. Interpretation of <em>SATNds</em> is as defined in ITU-T Rec. G.997.1. Note: See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed <em>:35</em> size maxLength = <em>24</em> ⇒ <em>35</em></li>
 </ul>
@@ -4288,7 +4291,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>Comma-separated list (maximum number of characters 35) of strings. Indicates the upstream signal attenuation <span class="removed">per</span><span class="inserted">averaged</span> <span class="removed">usable</span><span class="inserted">across all active sub-carriers in the frequency</span> band, as computed during the L0 (i.e., Showtime) state. Number of elements is dependent on the number of downstream bands but will exceed one only for <span class="inserted">ITU-T </span>G.993.2. Interpretation of <em>SATNus</em> is as defined in ITU-T Rec. G.997.1. Note: See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed <em>:35</em> size maxLength = <em>24</em> ⇒ <em>35</em></li>
 </ul>
@@ -4357,7 +4360,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -4427,7 +4430,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -4496,7 +4499,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -4522,7 +4525,7 @@ prefix.</p>
 <td>
 <p>The DSL Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>ADSLLineTest.</em>  object</li>
 <li>Added <a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest"><em>ADSLLineTest()</em></a> command</li>
@@ -5413,7 +5416,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -5439,7 +5442,7 @@ prefix.</p>
 <td>
 <p>The ATM Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>F5Loopback.</em>  object</li>
 <li>Added <a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback"><em>F5Loopback()</em></a> command</li>
@@ -5750,7 +5753,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -5776,7 +5779,7 @@ prefix.</p>
 <td>
 <p>Ethernet object. This object models several Ethernet interface objects, each representing a different stack layer, including: <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a>, <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a>, and <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>. <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a> is media-specific and models a port, the PHY layer, and the MAC layer. <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is media-independent and models the Logical Link Control (LLC) layer. An &quot;outer&quot; <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>, when present, is expected to be stacked on top of <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> objects to receive and send frames with a configured VLANID.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ethernet.LAGNumberOfEntries"><em>LAGNumberOfEntries</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.Ethernet.LAG."><em>LAG.{i}.</em></a> object</li>
@@ -5865,7 +5868,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -5934,7 +5937,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6003,7 +6006,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6628,7 +6631,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6696,7 +6699,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6744,7 +6747,7 @@ See [<a href="#R.TR-157">Appendix I/TR-157</a>] for Theory of Operation.</p>
 <p>Table of CPE USB Host controllers.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.USB.USBHosts.Host.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.USB.USBHosts.Host.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.USB.USBHosts.Host.Reset"><em>Reset()</em></a> command</li>
@@ -6853,7 +6856,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6944,7 +6947,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -6970,7 +6973,7 @@ prefix.</p>
 <td>
 <p>The HPNA Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>PHYThroughput.</em>  object</li>
 <li>Removed <em>PerformanceMonitoring.</em>  object</li>
@@ -8508,7 +8511,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -8555,7 +8558,7 @@ prefix.</p>
 <p>G.hn interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]). Each table entry models the PHY [<a href="#R.G.9960">G.9960</a>] and MAC [<a href="#R.G.9961">G.9961</a>] layers of a G.hn interface.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ghn.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ghn.Interface.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Ghn.Interface.PSM"><em>PSM</em></a> parameter</li>
 </ul>
@@ -8632,7 +8635,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of bytes transmitted out of the interface, including framing characters.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of MPDU bytes transmitted or retransmitted by the node through a physical medium (i.e., PMI defined in [<a href="#R.G.9960">Clause 5.2.1/G.9960</a>]), which correspond to data LPDUs (i.e., data packets) and framing overhead (e.g., LFH, LPH, LPCS defined in [<a href="#R.G.9961">Clause 8.1/G.9961</a>]). It does not include transmitted bytes contributed by management LPDUs (i.e., management packets). Note: LPDUs in mixed LLC frame blocks are considered data LPDUs.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8659,7 +8662,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of bytes received on the interface, including framing characters.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of MPDU bytes received by the node through a physical medium, which correspond to data LPDUs and framing overhead. It does not include received bytes contributed by management LPDUs. It can include blocks with errors. Note: LPDUs in mixed LLC frame blocks are considered data LPDUs.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8686,7 +8689,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets transmitted out of the interface.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point defined in [<a href="#R.G.9960">Clause 5.2.1/G.9960</a>]) that were transmitted by the node through the physical medium. It does not include transmitted LCDUs.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8713,7 +8716,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets received on the interface.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs delivered to a higher layer (i.e., inbound APDUs at the x1 reference point) that were received by the node through the physical medium. It does not include received LCDUs.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8740,7 +8743,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound packets that could not be transmitted because of errors.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs that were requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point defined in [<a href="#R.G.9960">Clause 5.2.1/G.9960</a>]) but could not be transmitted because of errors (e.g., APDUs containing CRC errors).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax</li>
 </ul>
@@ -8767,7 +8770,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound packets that contained errors preventing them from being delivered to a higher-layer protocol.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of received APDUs that contained errors preventing them from being delivered to a higher layer (i.e., inbound APDUs at the x1 reference point defined in [<a href="#R.G.9960">Clause 5.2.1/G.9960</a>]). The possible causes of error are: incorrect CRC, incorrect MIC, incorrect MIC size, and incorrect size of packet.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax</li>
 </ul>
@@ -8794,7 +8797,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets requested for transmission which were not addressed to a multicast or broadcast address at this layer, including those that were discarded or not sent.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs that were requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point) and which were addressed to a unicast address at this layer. It includes APDUs that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8821,7 +8824,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received packets, delivered by this layer to a higher layer, which were not addressed to a multicast or broadcast address at this layer.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of received APDUs that were delivered to a higher layer (i.e., inbound APDUs at the x1 reference point) and which were addressed to a unicast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8848,7 +8851,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound packets which were chosen to be discarded even though no errors had been detected to prevent their being transmitted. One possible reason for discarding such a packet could be to free up buffer space.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs that were requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point) but chosen to be discarded even though no errors had been detected to prevent their being transmitted (e.g., buffer overflow).</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax</li>
 </ul>
@@ -8875,7 +8878,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound packets which were chosen to be discarded even though no errors had been detected to prevent their being delivered. One possible reason for discarding such a packet could be to free up buffer space.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of received APDUs that were chosen to be discarded even though no errors had been detected to prevent their being delivered.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax</li>
 </ul>
@@ -8902,7 +8905,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets that higher-level protocols requested for transmission and which were addressed to a multicast address at this layer, including those that were discarded or not sent.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs that were requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point) and which were addressed to a multicast address at this layer. It includes APDUs that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8929,7 +8932,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received packets, delivered by this layer to a higher layer, which were addressed to a multicast address at this layer.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of received APDUs that were delivered to a higher layer (i.e., inbound APDUs at the x1 reference point) and which were addressed to a multicast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8956,7 +8959,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of packets that higher-level protocols requested for transmission and which were addressed to a broadcast address at this layer, including those that were discarded or not sent.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs that were requested for transmission by a higher layer (i.e., outbound APDUs at the x1 reference point) and which were addressed to a broadcast address at this layer. It includes APDUs that were discarded or not sent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -8983,7 +8986,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received packets, delivered by this layer to a higher layer, which were addressed to a broadcast address at this layer.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of received APDUs that were delivered to a higher layer (i.e., inbound APDUs at the x1 reference point) and which were addressed to a broadcast address at this layer.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedLong</em> syntax</li>
 </ul>
@@ -9010,7 +9013,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of packets received via the interface which were discarded because of an unknown or unsupported protocol.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>More specifically, this is the total number of APDUs received by the management that were discarded because of an unknown or unsupported protocol.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>unsignedInt</em> syntax</li>
 </ul>
@@ -9036,7 +9039,7 @@ The CPE MUST reset the interface's Stats parameters (unless otherwise stated in 
 <td>
 <p>The G.hn Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>PHYThroughput.</em>  object</li>
 <li>Removed <em>PerformanceMonitoring.</em>  object</li>
@@ -10202,7 +10205,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -10249,7 +10252,7 @@ prefix.</p>
 <td>
 <p>Comma-separated list (up to 1155 items) (length ) of unsigned integers. List items indicate Signal to Noise Ratio (SNR) per tone from this remote device (expressed in <em>0.1dB</em>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:1155</a></em> list size</li>
 </ul>
@@ -10276,7 +10279,7 @@ prefix.</p>
 <p>[<a href="#T.MACAddress">MACAddress</a>] Comma-separated list (up to 16 items) (length ) of MAC Addresses. List items represent MAC addresses of end stations bridged by the remote HomePlug device.
 For example: &quot;11:22:33:AA:BB:CC, 22:33:44:DD:EE:66&quot;</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:16</a></em> list size</li>
 </ul>
@@ -10364,7 +10367,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -10435,7 +10438,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -10504,7 +10507,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -10530,7 +10533,7 @@ prefix.</p>
 <td>
 <p>The UPA Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>InterfaceMeasurement.</em>  object</li>
 <li>Added <a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement"><em>InterfaceMeasurement()</em></a> command</li>
@@ -10724,7 +10727,7 @@ List items indicate measurements per carrier for a PLC port (expressed in <em>0.
 <td>
 <p>The WiFi object is based on the WiFi Alliance 802.11 specifications ([<a href="#R.802.11-2007">802.11-2007</a>]). It defines interface objects (<a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> and <a href="#D.Device:2.Device.WiFi.SSID."><em>SSID</em></a>), and application objects (<a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> and <a href="#D.Device:2.Device.WiFi.EndPoint."><em>EndPoint</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>NeighboringWiFiDiagnostic.</em>  object</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.ResetCounter"><em>ResetCounter</em></a> parameter</li>
@@ -11246,7 +11249,7 @@ If the device can establish more than one connection simultaneously (e.g. a dual
 Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configured to operate at 2.4 or 5 GHz frequency bands, but only a single frequency band is used to transmit/receive at a given time. Therefore, a single <em>Radio</em> instance is used even for a dual-band radio.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.Radio.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.ChannelLastChange"><em>ChannelLastChange</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.ChannelLastSelectionReason"><em>ChannelLastSelectionReason</em></a> parameter</li>
@@ -11298,7 +11301,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -11324,7 +11327,7 @@ prefix.</p>
 <td>
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example: * For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces. * For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface. * For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.<span class="inserted"> This parameter is DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -11489,7 +11492,7 @@ prefix.</p>
 <td>
 <p>The value MUST be a member of the list reported by the <a href="#D.Device:2.Device.WiFi.Radio.SupportedOperatingChannelBandwidths"><em>SupportedOperatingChannelBandwidths</em></a> parameter. The preferred channel bandwidth to be used (applicable to 802.11n and 802.11ac specifications only).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed string <em>20MHz</em>  enumeration</li>
 <li>Removed string <em>40MHz</em>  enumeration</li>
@@ -11520,7 +11523,7 @@ prefix.</p>
 <td>
 <p>The Modulation Coding Scheme index (applicable to 802.11n and 802.11ac specifications only). Values from 0 to 15 MUST be supported ([<a href="#R.802.11n-2009">802.11n-2009</a>]). Values from 0 to 9 MUST be supported for [<a href="#R.802.11ac-2013">802.11ac-2013</a>].  A value of -1 indicates automatic selection of the MCS index.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>16:31</em> range optional = <em>true</em></li>
 </ul>
@@ -11546,7 +11549,7 @@ prefix.</p>
 <td>
 <p>Throughput statistics for this interface. Packet counters here count 802.11 WiFi frames. See [<a href="#R.TR-181i2a5">Appendix III/TR-181i2a5</a>] for further details. The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2a5">Section 4.2.2/TR-181i2a5</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.Stats.TotalChannelChangeCount"><em>TotalChannelChangeCount</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.Radio.Stats.ManualChannelChangeCount"><em>ManualChannelChangeCount</em></a> parameter</li>
@@ -11720,7 +11723,7 @@ prefix.</p>
 WiFi SSID is also a multiplexing layer, i.e. more than one <em>SSID</em> can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.SSID.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.SSID.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.SSID.BSSID"><em>BSSID</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.WiFi.SSID.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.WiFi.SSID.Name"><em>Name</em></a> and <a href="#D.Device:2.Device.WiFi.SSID.BSSID"><em>BSSID</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>Upstream</em></a> parameter</li>
 </ul>
@@ -11768,7 +11771,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -11824,7 +11827,7 @@ For enabled table entries, if <a href="#D.Device:2.Device.WiFi.AccessPoint.SSIDR
 Note: The <em>AccessPoint</em> table includes a unique key parameter that is a strong reference. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>AccessPoint</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.WiFi.AccessPoint.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.WiFi.AccessPoint.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>AccessPoint</em> row.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.SSIDReference"><em>SSIDReference</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.WiFi.AccessPoint.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.MaxAllowedAssociations"><em>MaxAllowedAssociations</em></a> parameter</li>
 </ul>
@@ -11872,7 +11875,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -11920,7 +11923,7 @@ If the parameter <a href="#D.Device:2.Device.WiFi.Radio.MaxSupportedAssociations
 <td>
 <p>This object contains security related parameters that apply to a CPE acting as an Access Point [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.Reset"><em>Reset()</em></a> command</li>
@@ -11950,7 +11953,7 @@ If the parameter <a href="#D.Device:2.Device.WiFi.Radio.MaxSupportedAssociations
 A 5 byte <em>WEPKey</em> corresponds to security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>5</em> size <em>40-bit encryption</em>  description</li>
 <li>Removed <em>13</em> size <em>104-bit encryption</em>  description</li>
@@ -11999,7 +12002,7 @@ If the command cannot be executed, the agent MUST reject the command. Possible f
 <p>A table of the devices currently associated with the access point.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.MACAddress"><em>MACAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.AssociationTime"><em>AssociationTime</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.Noise"><em>Noise</em></a> parameter</li>
@@ -12027,7 +12030,7 @@ If the command cannot be executed, the agent MUST reject the command. Possible f
 <p>The data transmit rate in <em>kbps</em> that was most recently used for transmission from the access point to the associated device.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>1000:600000</em> range maxInclusive = <em>600000</em></li>
 </ul>
@@ -12054,7 +12057,7 @@ If the command cannot be executed, the agent MUST reject the command. Possible f
 <p>The data transmit rate in <em>kbps</em> that was most recently used for transmission from the associated device to the access point.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>1000:600000</em> range maxInclusive = <em>600000</em></li>
 </ul>
@@ -12165,7 +12168,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12234,7 +12237,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12283,7 +12286,7 @@ prefix.</p>
 A 5 byte <em>WEPKey</em> corresponds to security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>5</em> size <em>40-bit encryption</em>  description</li>
 <li>Removed <em>13</em> size <em>104-bit encryption</em>  description</li>
@@ -12376,7 +12379,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12446,7 +12449,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12472,7 +12475,7 @@ prefix.</p>
 <td>
 <p>Comma-separated list (8 items) (length ) of unsigned integers (0 to 7). List items represent user priority regeneration values for each ingress user priority on this Bridge  Port.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">8:8</a></em> list size</li>
 </ul>
@@ -12518,7 +12521,7 @@ prefix.</p>
 <td>
 <p>Comma-separated list (8 items) (length ) of unsigned integers (0 to 7). List items represent service access priority translation values for each ingress priority on this <a href="#D.Device:2.Device.Bridging.Bridge.Port."><em>Port</em></a> as described in [<a href="#R.802.1Q-2011">Section 6.13/802.1Q-2011</a>]. The parameter is applicable to deployments of <a href="#D.Device:2.Device.Bridging.Bridge."><em>Bridge</em></a> instances that are referenced by <a href="#D.Device:2.Device.Bridging.ProviderBridge.SVLANcomponent"><em>Bridging.ProviderBridge.{i}.SVLANcomponent</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">8:8</a></em> list size</li>
 </ul>
@@ -12573,7 +12576,7 @@ The value of this parameter MUST use square brackets to protect comma separators
 <p>[7,7,6,6,5,5,4,4,3,3,2,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,3,2,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,2,3,2,1,1,0,0],[7,7,6,6,5,4,5,4,3,2,3,2,1,0,1,0]</p>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed list = <em>[4:4]</em> -&gt; <em><a href="">4:4</a></em></li>
 </ul>
@@ -12608,7 +12611,7 @@ The value of this parameter MUST use square brackets to protect comma separators
 <p>[7,0,6,0,5,0,4,0,3,0,2,0,1,0,0,0],[7,0,6,0,4,0,4,1,3,0,2,0,1,0,0,0],[7,0,6,0,4,0,4,1,2,0,2,1,1,0,0,0],[7,0,6,0,4,0,4,1,2,0,2,1,0,0,0,1]</p>
 </blockquote>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Changed list = <em>[4:4]</em> -&gt; <em><a href="">4:4</a></em></li>
 </ul>
@@ -12678,7 +12681,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12749,7 +12752,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12821,7 +12824,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -12851,7 +12854,7 @@ When <a href="#D.Device:2.Device.Bridging.ProviderBridge.Type"><em>Type</em></a>
 When <a href="#D.Device:2.Device.Bridging.ProviderBridge.Type"><em>Type</em></a> is configured with value of <a href="#D.Device:2.Device.Bridging.ProviderBridge.Type.S-VLAN"><em>S-VLAN</em></a> only VLAN tags from the S-VLAN component are utilized.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Bridging.ProviderBridge.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Bridging.ProviderBridge.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>SVLANComponent</em>  parameter</li>
 <li>Changed parameter = <em>CVLANComponents</em> -&gt; <a href="#D.Device:2.Device.Bridging.ProviderBridge.SVLANcomponent"><em>SVLANcomponent</em></a></li>
@@ -12967,7 +12970,7 @@ The <a href="#D.Device:2.Device.Bridging.ProviderBridge.Status.Error_Misconfigur
 <p>PPP interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PPP.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.PPP.Interface.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.PPP.Interface.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.PPP.Interface.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.PPP.Interface.Reset"><em>Reset()</em></a> command</li>
@@ -13016,7 +13019,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -13105,7 +13108,7 @@ Reset on a disabled interface is a no-op (not an error).</p>
 <td>
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 2 items) (length ) of IPv4Addresses. Items represent DNS Server IPv4 address(es) received via IPCP [<a href="#R.RFC1877">RFC1877</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:2</a></em> list size</li>
 </ul>
@@ -13173,7 +13176,7 @@ Reset on a disabled interface is a no-op (not an error).</p>
 <p>IP interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]). This table models the layer 3 IP interface.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>Each IP interface can be attached to the IPv4 and/or IPv6 stack. The interface's IP addresses and prefixes are listed in the <a href="#D.Device:2.Device.IP.Interface.IPv4Address."><em>IPv4Address</em></a>, <a href="#D.Device:2.Device.IP.Interface.IPv6Address."><em>IPv6Address</em></a> and <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix."><em>IPv6Prefix</em></a> tables. Note that support for manipulating <a href="#D.Device:2.Device.IP.Interface.Loopback"><em>Loopback</em></a> interfaces is OPTIONAL, so the implementation MAY choose not to create (or allow the ACS to create) <em>Interface</em> instances of type <a href="#D.Device:2.Device.IP.Interface.Type.Loopback"><em>Loopback</em></a>. When the ACS administratively disables the interface, i.e. sets <a href="#D.Device:2.Device.IP.Interface.Enable"><em>Enable</em></a> to <em>false</em>, the interface's automatically-assigned IP addresses and prefixes MAY be retained. When the ACS administratively enables the interface, i.e. sets <a href="#D.Device:2.Device.IP.Interface.Enable"><em>Enable</em></a> to <em>true</em>, these IP addresses and prefixes MUST be refreshed. It's up to the implementation to decide exactly what this means: it SHOULD take all reasonable steps to refresh everything but if it is unable, for example, to refresh a prefix that still has a significant lifetime, it might well choose to retain rather than discard it.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>Any <a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a> IP interface instances instantiated by the CPE MUST NOT have any statistics, writable parameters, IP addresses or IPv6 prefixes. Any read-only parameters, e.g. <a href="#D.Device:2.Device.IP.Interface.Status"><em>Status</em></a>, MUST return the same information as for the corresponding <a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a> interface. The reason for these rules is that <a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a> IP interfaces exist only in order to be the targets of references (within the data model) and do not model any concepts over and above those already modeled by the <a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a> IP interfaces.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>Note that <a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a> and <a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a> IP interfaces are part of a legacy mechanism that is only used for <a href="#D.Device:2.Device.IPv6rd."><em>IPv6rd</em></a>, <a href="#D.Device:2.Device.DSLite."><em>DSLite</em></a> and <a href="#D.Device:2.Device.IPsec."><em>IPsec</em></a> tunnels and MUST NOT be used in any other context. For all other tunneling mechanisms <a href="#D.Device:2.Device.IP.Interface.Type.Normal"><em>Normal</em></a> IP interfaces are stacked above technology-specific Tunnel Interfaces, e.g. above <a href="#D.Device:2.Device.GRE.Tunnel.Interface."><em>GRE.Tunnel.{i}.Interface</em></a> or <a href="#D.Device:2.Device.MAP.Domain.Interface."><em>MAP.Domain.{i}.Interface</em></a> objects.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IP.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.IP.Interface.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.IP.Interface.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.IP.Interface.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.IP.Interface.Reset"><em>Reset()</em></a> command</li>
@@ -13224,7 +13227,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -13336,7 +13339,7 @@ This parameter can only be modified if <a href="#D.Device:2.Device.IP.Interface.
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -13618,7 +13621,7 @@ This parameter can only be modified if <a href="#D.Device:2.Device.IP.Interface.
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -13699,7 +13702,7 @@ This parameter can only be modified if <a href="#D.Device:2.Device.IP.Interface.
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -13725,7 +13728,7 @@ This parameter can only be modified if <a href="#D.Device:2.Device.IP.Interface.
 <td>
 <p>The IP Diagnostics object.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>IPPing.</em>  object</li>
 <li>Removed <em>TraceRoute.</em>  object</li>
@@ -17447,7 +17450,7 @@ The CPE MAY, but need not, retain some or all of the information in this object 
 The parameter is relevant when there is a LLDP device which has a MAC copy function and has two or more MAC addresses.
 Note: It is assumed that it might be used for HTIP (Home-network Topology Identifying Protocol) [<a href="#R.JJ-300.00">JJ-300.00</a>] and [<a href="#R.G.9973">G.9973</a>]. In this case, the [<a href="#R.OUI">OUI</a>] in the third octet is E0271A (<em>TTC-OUI</em>) and the organizationally defined subtype in the sixth octet is 3 (<em>MAC Address List</em>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:255</a></em> list size</li>
 </ul>
@@ -17494,7 +17497,7 @@ Note: It is assumed that this object might be used for HTIP (Home-network Topolo
 <td>
 <p>[<a href="#T.MACAddress">MACAddress</a>] Comma-separated list (up to 255 items) (length ) of MAC Addresses. The port's MAC forwarding table, or the value is an empty string if no forwarding table was supplied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:255</a></em> list size</li>
 </ul>
@@ -17563,7 +17566,7 @@ See the IPsec Theory of Operation [<a href="#R.TR-181i2a5">Appendix IX/TR-181i2a
 <td>
 <p>Comma-separated list (up to 4 items) (length ) of strings (maximum number of characters per item 64). The host name or IP address of the remote IPsec tunnel endpoint.  If more than one name/address is supplied, they will be tried in turn, i.e. they are in decreasing order of precedence.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:4</a></em> list size</li>
 </ul>
@@ -17630,7 +17633,7 @@ See the IPsec Theory of Operation [<a href="#R.TR-181i2a5">Appendix IX/TR-181i2a
 <td>
 <p>Comma-separated list (up to 4 items) (length ) of strings (maximum number of characters per item 256). The Fully Qualified Domain Name (FQDN) or IP address of the remote GRE tunnel endpoint. If more than one name/address is supplied, they will be tried in turn, i.e. they are in decreasing order of precedence.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:4</a></em> list size</li>
 </ul>
@@ -17701,7 +17704,7 @@ prefix.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 <li>Added <em>Alias</em></li>
@@ -20274,7 +20277,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -20300,7 +20303,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -20326,7 +20329,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <td>
 <p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added status = <em>deprecated</em></li>
 </ul>
@@ -20353,7 +20356,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>The MAP domain's Mapping Rules [<a href="#R.RFC7597">RFC7597</a>]. The rule with the longest match between its <a href="#D.Device:2.Device.MAP.Domain.Rule.IPv6Prefix"><em>IPv6Prefix</em></a> and the end-user <a href="#D.Device:2.Device.MAP.Domain.IPv6Prefix"><em>IPv6Prefix</em></a> is the Basic Mapping Rule (BMR). Any of the rules (including the BMR) can be a Forwarding Mapping Rule.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MAP.Domain.Rule.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MAP.Domain.Rule.IPv6Prefix"><em>IPv6Prefix</em></a>, or with a given value for <a href="#D.Device:2.Device.MAP.Domain.Rule.IPv4Prefix"><em>IPv4Prefix</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.MAP.Domain.Rule.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.MAP.Domain.Rule.PSIDOffset"><em>PSIDOffset</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.MAP.Domain.Rule.PSIDLength"><em>PSIDLength</em></a> parameter</li>
@@ -20508,7 +20511,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20585,7 +20588,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20662,7 +20665,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20709,7 +20712,7 @@ prefix.</p>
 <p>IP Interface RIP configuration table. For enabled table entries, if <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Interface"><em>Interface</em></a> is not a valid reference then the table entry is inoperable and the CPE MUST set <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>. Note: The <em>InterfaceSetting</em> table includes a unique key parameter that is a strong reference. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>InterfaceSetting</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>InterfaceSetting</em> row.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>Note: This object only applies to RIP2; i.e. version 2 of the RIP protocol is used to accept or send over the specified <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Interface"><em>Interface</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Routing.RIP.InterfaceSetting.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Version</em>  parameter</li>
 </ul>
@@ -20757,7 +20760,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20848,7 +20851,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20940,7 +20943,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -20968,7 +20971,7 @@ prefix.</p>
 Manually-configured prefixes that will be sent in Router Advertisement messages.  Each referenced prefix MUST have a  <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType"><em>IP.Interface.{i}.IPv6Prefix.{i}.StaticType</em></a> of <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType.Static"><em>Static</em></a> or <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType.Child"><em>Child</em></a>.  Router Advertisement messages MUST include Prefix Information Options [<a href="#R.RFC4861">RFC4861</a>] for all <em>Valid</em> (<a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.ValidLifetime"><em>IP.Interface.{i}.IPv6Prefix.{i}.ValidLifetime</em></a> is infinite or in the future) prefixes in this list.
 Prefixes MUST be associated with the interface instance referenced by <a href="#D.Device:2.Device.RouterAdvertisement.InterfaceSetting.Interface"><em>Interface</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -20999,7 +21002,7 @@ All prefixes that will be included in Router Advertisement (RA) messages sent ou
 <li>Prefixes with <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin"><em>IP.Interface.{i}.IPv6Prefix.{i}.Origin</em></a> = <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.Child"><em>Child</em></a> or <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.AutoConfigured"><em>AutoConfigured</em></a> associated with the interface instance referenced by <a href="#D.Device:2.Device.RouterAdvertisement.InterfaceSetting.Interface"><em>Interface</em></a>.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -21069,7 +21072,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21164,7 +21167,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21190,7 +21193,7 @@ prefix.</p>
 <td>
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 4 items) (length ) of IPv4Addresses. List items are the IPv4 addresses (possibly anycast) of the 6rd Relay(s).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:4</a></em> list size</li>
 </ul>
@@ -21279,7 +21282,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21368,7 +21371,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21437,7 +21440,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21506,7 +21509,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21575,7 +21578,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21645,7 +21648,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21715,7 +21718,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21786,7 +21789,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -21833,7 +21836,7 @@ prefix.</p>
 <p>Host table.</p>
 <p>At most one entry in this table can exist with a given value for <strong>{{param: reference to deprecated parameter Device.Hosts.Host.{i}.Alias}}</strong>, or with a given value for <a href="#D.Device:2.Device.Hosts.Host.PhysAddress"><em>PhysAddress</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats.</em></a> object</li>
 </ul>
@@ -21883,7 +21886,7 @@ prefix.</p>
 <p><span class="removed">non-volatile handle used to reference this instance. {{param}} provides a mechanism for an ACS to label this instance for future reference. An initial unique value MUST be assigned when the CPE creates an instance of this object.}}{{div|{{classes}}|</span>This parameter is DEPRECATED because <a href="#D.Device:2.Device.Hosts.Host."><em>Host</em></a> is a transient object.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 <li>Added <em>Alias</em></li>
@@ -21910,7 +21913,7 @@ prefix.</p>
 <td>
 <p>Comma-separated list (up to 2 items) (length ) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Client."><em>DHCPv4.Server.Pool.{i}.Client.</em></a> or <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Client."><em>DHCPv6.Server.Pool.{i}.Client.</em></a> tables. If the referenced object is deleted, the corresponding item MUST be removed from the list. Each list item is the DHCPv4 or DHCPv6 server's client entry that corresponds to the host.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:2</a></em> list size</li>
 </ul>
@@ -22220,7 +22223,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -22310,7 +22313,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -22336,7 +22339,7 @@ prefix.</p>
 <td>
 <p>The DNS Diagnostics object containing the <strong>{{object: referenced NSLookupDiagnostics() is command, not object}}</strong> test.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>NSLookupDiagnostics.</em>  object</li>
 <li>Added <a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics"><em>NSLookupDiagnostics()</em></a> command</li>
@@ -22705,7 +22708,7 @@ Each repetition will use a Result instance to hold the NSLookup result data.</p>
 <p>This object contains the DNS Service Discovery [<a href="#R.DNS-SD">DNS-SD</a>] object and parameters necessary to discover services and their associated devices.
 Upon reboot the the contents of the service table are repopulated. When the DNS.SD service is disabled, the contents of the service table is implementation specific.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.DNS.SD.AdvertisedInterfaces"><em>AdvertisedInterfaces</em></a> parameter</li>
 </ul>
@@ -22801,7 +22804,7 @@ Note: The <em>InterfaceSetting</em> table includes a unique key parameter that i
 <li><span id="D.Device:2.Device.NAT.InterfaceSetting.Status.Enabled_NATForcedDisabled"><em>Enabled_NATForcedDisabled</em></span> (NAT enabled but forced by a third party to be operationally disabled, e.g. because a <a href="#D.Device:2.Device.MAP.Domain."><em>MAP.Domain</em></a> is enabled but there is no Basic Mapping Rule [<a href="#R.RFC7597">RFC7597</a>])</li>
 <li><span id="D.Device:2.Device.NAT.InterfaceSetting.Status.Enabled_PortMappingDisabled"><em>Enabled_PortMappingDisabled</em></span> (NAT enabled but port mapping has been operationally disabled by a third party, e.g. because this is REQUIRED by the current <a href="#D.Device:2.Device.Firewall."><em>Firewall</em></a> level)</li>
 <li><span id="D.Device:2.Device.NAT.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></span></li>
-<li><span id="D.Device:2.Device.NAT.InterfaceSetting.Status.Error"><em>Error</em></span> (::::: diffs <strong>Changes since 2.12:</strong> * Removed optional = <em>true</em> :::::)
+<li><span id="D.Device:2.Device.NAT.InterfaceSetting.Status.Error"><em>Error</em></span> (::::: diffs <strong>Changes since 2.0:</strong> * Removed optional = <em>true</em> :::::)
 The <a href="#D.Device:2.Device.NAT.InterfaceSetting.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> value indicates that a necessary configuration value is undefined or invalid.
 The <a href="#D.Device:2.Device.NAT.InterfaceSetting.Status.Error"><em>Error</em></a> value MAY be used by the CPE to indicate a locally defined error condition.</li>
 </ul>
@@ -22848,7 +22851,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -22922,7 +22925,7 @@ Note: There is no guarantee that the <em>Alias</em> value on automatically-creat
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -22972,7 +22975,7 @@ Note: The <em>Client</em> table includes a unique key parameter that is a strong
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv4.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv4.Client.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.DHCPv4.Client.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Renew</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.DHCPv4.Client.Renew"><em>Renew()</em></a> command</li>
@@ -23021,7 +23024,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23110,7 +23113,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23179,7 +23182,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23271,7 +23274,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23297,7 +23300,7 @@ prefix.</p>
 <td>
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 32 items) (length ) of IPv4Addresses. List items represent addresses marked reserved from the address allocation pool.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:32</a></em> list size</li>
 </ul>
@@ -23324,7 +23327,7 @@ prefix.</p>
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 4 items) (length ) of IPv4Addresses. List items represent DNS servers offered to DHCP clients.  Support for more than three DNS Servers is OPTIONAL.
 The parameter value can be overwritten by dynamic values retrieved via a DHCP client with <a href="#D.Device:2.Device.DHCPv4.Client.PassthroughEnable"><em>Client.{i}.PassthroughEnable</em></a> or a PPP interface with <a href="#D.Device:2.Device.PPP.Interface.IPCP.PassthroughEnable"><em>PPP.Interface.{i}.IPCP.PassthroughEnable</em></a> equal to  <em>true</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:4</a></em> list size</li>
 </ul>
@@ -23351,7 +23354,7 @@ The parameter value can be overwritten by dynamic values retrieved via a DHCP cl
 <p>[<a href="#T.IPv4Address">IPv4Address</a>] Comma-separated list (up to 4 items) (length ) of IPv4Addresses. List items represent addresses of routers on this subnet.  Also known as default gateway.  Support for more than one Router address is OPTIONAL.
 The parameter value can be overwritten by dynamic values retrieved via a DHCP client with <a href="#D.Device:2.Device.DHCPv4.Client.PassthroughEnable"><em>Client.{i}.PassthroughEnable</em></a> or a PPP interface with <a href="#D.Device:2.Device.PPP.Interface.IPCP.PassthroughEnable"><em>PPP.Interface.{i}.IPCP.PassthroughEnable</em></a> equal to  <em>true</em>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:4</a></em> list size</li>
 </ul>
@@ -23423,7 +23426,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23492,7 +23495,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23562,7 +23565,7 @@ Note: There is no guarantee that the <em>Alias</em> value on automatically-creat
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23652,7 +23655,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23702,7 +23705,7 @@ Note: The <em>Client</em> table includes a unique key parameter that is a strong
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv6.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv6.Client.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.DHCPv6.Client.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Renew</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.DHCPv6.Client.Renew"><em>Renew()</em></a> command</li>
@@ -23751,7 +23754,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23841,7 +23844,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23933,7 +23936,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -23961,7 +23964,7 @@ prefix.</p>
 Manually-configured prefixes from which IA_NA addresses will be assigned.  Each referenced prefix MUST have a  <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType"><em>IP.Interface.{i}.IPv6Prefix.{i}.StaticType</em></a> of <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType.Static"><em>Static</em></a> or <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.StaticType.Child"><em>Child</em></a>.  All clients that request IA_NA and match filter criteria on this <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a> MUST be offered IA_NA addresses from all of the <em>Valid</em> (<a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.ValidLifetime"><em>IP.Interface.{i}.IPv6Prefix.{i}.ValidLifetime</em></a> is infinite or in the future) /64 prefixes in this list.
 Prefixes MUST be associated with the interface instance referenced by <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -23992,7 +23995,7 @@ All prefixes from which IA_NA addresses will be assigned. This list can include:
 <li>Prefixes with <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin"><em>IP.Interface.{i}.IPv6Prefix.{i}.Origin</em></a> = <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.Child"><em>Child</em></a> or <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.AutoConfigured"><em>AutoConfigured</em></a> associated with the interface instance referenced by <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a>.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -24024,7 +24027,7 @@ Manually-configured prefixes from which IA_PD prefixes will be derived.  This li
 All clients that request IA_PD and match filter criteria on this <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a> MUST be offered IA_PD prefixes derived from all of the <em>Valid</em> (<a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.ValidLifetime"><em>IP.Interface.{i}.IPv6Prefix.{i}.ValidLifetime</em></a> is infinite or in the future) prefixes in this list.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -24056,7 +24059,7 @@ All prefixes for which IA_PD prefixes will be assigned. This list can include:</
 <li>Prefixes with <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin"><em>IP.Interface.{i}.IPv6Prefix.{i}.Origin</em></a> = <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.Child"><em>Child</em></a> or <a href="#D.Device:2.Device.IP.Interface.IPv6Prefix.Origin.AutoConfigured"><em>AutoConfigured</em></a> associated with the interface instance referenced by <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Interface"><em>Interface</em></a>.</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <em><a href="">:8</a></em> list size</li>
 </ul>
@@ -24126,7 +24129,7 @@ Note: There is no guarantee that the <em>Alias</em> value on automatically-creat
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24195,7 +24198,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24245,7 +24248,7 @@ Note: The <em>Supplicant</em> table includes a unique key parameter that is a st
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IEEE8021x.Supplicant.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.IEEE8021x.Supplicant.Interface"><em>Interface</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.IEEE8021x.Supplicant.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Removed <em>Disconnect</em>  parameter</li>
@@ -24296,7 +24299,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24385,7 +24388,7 @@ The device MAY delay re-authentication of the  resource in order to avoid interr
 <p>This object describes the characteristics of the smart card reader.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SmartCardReaders.SmartCardReader.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.SmartCardReaders.SmartCardReader.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.SmartCardReaders.SmartCardReader.Reset"><em>Reset()</em></a> command</li>
@@ -24498,7 +24501,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24568,7 +24571,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24640,7 +24643,7 @@ prefix.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -24689,7 +24692,7 @@ This object provides a single set of global settings that affect the entire devi
 <p>Periodic statistics sample set table.  Each sample set has its own sample interval etc.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>ForceSample</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ForceSample"><em>ForceSample()</em></a> command</li>
@@ -24760,7 +24763,7 @@ At the end of each sample interval, if this command was executed during the samp
 <td>
 <p>This object contains the parameters relating to the GPS scan.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>GPSReset</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.FAP.GPS.GPSReset"><em>GPSReset()</em></a> command</li>
@@ -24833,7 +24836,7 @@ The Bulk Data Collection Profiles are measured over a reporting interval (which 
 Each profile represents a bulk data report, including its own timing configuration, communications configuration, and set of parameters.  This allows the ACS to configure multiple reports to be generated at different times for different sets of data.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.BulkData.Profile.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.BulkData.Profile.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.BulkData.Profile.Controller"><em>Controller</em></a> parameter</li>
 </ul>
@@ -24881,7 +24884,7 @@ The value of this parameter is automatically updated by the USP Agent upon <a hr
 <td>
 <p>This is the port number of the IPDR Collector to be used by the CPE to stream bulk data records if this collection profile is configured for the IPDR Streaming Protocol [<a href="#R.IPDR-SP">IPDR-SP</a>] (the <a href="#D.Device:2.Device.BulkData.Profile.Protocol"><em>Protocol</em></a> parameter has a value of <a href="#D.Device:2.Device.BulkData.Protocols.Streaming"><em>Streaming</em></a>).</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>4737</em> default <em>This is the IANA default port for [<a href="#R.IPDR-SP">IPDR-SP</a>]</em>  description</li>
 </ul>
@@ -24909,7 +24912,7 @@ The value of this parameter is automatically updated by the USP Agent upon <a hr
 An ACS MUST NOT configure multiple IPDR Streaming Protocol collection profiles with the same <em>StreamingSessionID</em>.  Doing so MUST cause the CPE to fail the SetParameterValues.
 Within the IPDR Streaming Protocol specification the Session ID has a type of a single 'char', but we are restricting the range even further (ASCII values of '0' - '9' and 'A' - 'Z'.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>48:57</em> range <em>ASCII values of '0' - '9'</em>  description</li>
 <li>Removed <em>65:90</em> range <em>ASCII values of 'A' - 'Z'</em>  description</li>
@@ -24936,7 +24939,7 @@ Within the IPDR Streaming Protocol specification the Session ID has a type of a 
 <td>
 <p>This object defines the properties to be used when transporting bulk data using the HTTP/HTTPS protocol. This object is used when the <a href="#D.Device:2.Device.BulkData.Profile.Protocol"><em>Protocol</em></a> parameter has a value of <a href="#D.Device:2.Device.BulkData.Protocols.HTTP"><em>HTTP</em></a>. For authentication purposes the CPE MUST support HTTP Basic and Digest Access Authentication as defined in [<a href="#R.RFC2616">RFC2616</a>].</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.BulkData.Profile.HTTP.PersistAcrossReboot"><em>PersistAcrossReboot</em></a> parameter</li>
 </ul>
@@ -25050,7 +25053,7 @@ If <em>PersistAcrossReboot</em> is <em>false</em>, then failed data transfers ar
 <li><span id="D.Device:2.Device.XMPP.SupportedServerConnectAlgorithms.WebSocket"><em>WebSocket</em></span> (Use the discovery and connection algorithm as specified in [<a href="#R.RFC7395">Section 4/RFC7395</a>] where the value of the <a href="#D.Device:2.Device.XMPP.Connection.Domain"><em>Connection.{i}.Domain</em></a> parameter is used to create a secure HTTP request to discover the URL to use for the XMPP over WebSocket connection)</li>
 </ul>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added string <em>WebSocket</em> enumeration</li>
 <li>Added <em>string[]</em> syntax <em>[]</em> list</li>
@@ -25098,7 +25101,7 @@ If <em>PersistAcrossReboot</em> is <em>false</em>, then failed data transfers ar
 <td>
 <p>The value MUST be a member of the list reported by the <a href="#D.Device:2.Device.XMPP.SupportedServerConnectAlgorithms"><em>SupportedServerConnectAlgorithms</em></a> parameter. The algorithm the <a href="#D.Device:2.Device.XMPP.Connection."><em>Connection</em></a> uses when connecting with the associated lists of servers.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed string <em>DNS-SRV</em>  enumeration</li>
 <li>Removed string <em>ServerTable</em>  enumeration</li>
@@ -25146,7 +25149,7 @@ If <em>PersistAcrossReboot</em> is <em>false</em>, then failed data transfers ar
 <p>MQTT client table. Contains a list of configured MQTT clients.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Client.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Client.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>ForceReconnect</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.MQTT.Client.ForceReconnect"><em>ForceReconnect()</em></a> command</li>
@@ -25217,7 +25220,7 @@ This command may be used to immediately apply changes in the MQTT connection set
 <p>Configures MQTT bridges, which are used to communicate with other MQTT brokers.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>ForceReconnect</em>  parameter</li>
 <li>Added <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ForceReconnect"><em>ForceReconnect()</em></a> command</li>
@@ -34649,7 +34652,7 @@ If the <em>n</em>th reconnection wait interval calculated from <a href="#D.Devic
 <td>
 <p>Top level object for dynamically managed software applications.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.InstallDU"><em>InstallDU()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.DUStateChange"><em>DUStateChange!</em></a> event</li>
@@ -35112,7 +35115,7 @@ In the case of an Uninstall, this will be the list of the EUs removed from the d
 <p>The Execution Environments that are available on the device, along with their properties and configurable settings.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Name"><em>Name</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>Reset</em>  parameter</li>
 <li>Removed <em>RequestedRunLevel</em>  parameter</li>
@@ -35181,7 +35184,7 @@ prefix.</p>
 </ul>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -35361,7 +35364,7 @@ The following requirements dictate what MUST happen for the reset to be complete
 A new instance of this table gets created during the installation of a Software Module.</p>
 <p>At most one entry in this table can exist with the same values for all of <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.UUID"><em>UUID</em></a>, <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Version"><em>Version</em></a> and <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.ExecutionEnvRef"><em>ExecutionEnvRef</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update"><em>Update()</em></a> command</li>
 <li>Added <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Uninstall"><em>Uninstall()</em></a> command</li>
@@ -35428,7 +35431,7 @@ prefix.</p>
 </ul>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -35645,7 +35648,7 @@ When the Deployment Unit (that caused this <em>ExecutionUnit</em> to come into e
 Each <em>ExecutionUnit</em> MAY also contain a set of vendor specific parameters displaying status and maintaining configuration that reside under the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Extensions."><em>Extensions</em></a> object.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EUID"><em>EUID</em></a>, or with a given value for <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>RequestedState</em>  parameter</li>
 <li>Removed <em>SupportedDataModelList</em>  parameter</li>
@@ -35693,7 +35696,7 @@ prefix.</p>
 </ul>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
-<p><strong>Changes since 2.12:</strong></p>
+<p><strong>Changes since 2.0:</strong></p>
 <ul>
 <li>Removed <em>string(:64)</em> syntax</li>
 </ul>
@@ -35956,7 +35959,7 @@ prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.0 (2025-03-17 version) on 2025-04-10 at 06:46:40 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:09:47 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-12-0-usp-diffs.html --show --transform diff --format html tr-181-2-11-0.xml tr-181-2-12-0-usp.xml</p>
 </div>
 <div id="TOC">
