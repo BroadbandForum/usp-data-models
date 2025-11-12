@@ -1393,8 +1393,11 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The overall capabilities of a Storage Service device.  This is a constant read-only object, meaning that only a firmware upgrade will cause these values to be altered.
-Note that when TR-140 was originally published there was a typo in this object name, which has been corrected.</p>
+<p>The overall capabilities of a Storage Service device. This is a
+constant read-only object, meaning that only a firmware upgrade will
+cause these values to be altered.</p>
+<p>Note that when TR-140 was originally published there was a typo in this
+object name, which has been corrected.</p>
 </td>
 <td>
 <p>-</p>
@@ -1414,7 +1417,8 @@ Note that when TR-140 was originally published there was a typo in this object n
 <p>R</p>
 </td>
 <td>
-<p>Does this device contain an FTP server allowing clients to access the data via an FTP client?</p>
+<p>Does this device contain an FTP server allowing clients to access the
+data via an FTP client?</p>
 </td>
 <td>
 <p>-</p>
@@ -1434,7 +1438,8 @@ Note that when TR-140 was originally published there was a typo in this object n
 <p>R</p>
 </td>
 <td>
-<p>Does this device contain an SSH FTP server allowing clients to access the data via an SFTP client?</p>
+<p>Does this device contain an SSH FTP server allowing clients to access
+the data via an SFTP client?</p>
 </td>
 <td>
 <p>-</p>
@@ -1454,7 +1459,8 @@ Note that when TR-140 was originally published there was a typo in this object n
 <p>R</p>
 </td>
 <td>
-<p>Does this device contain an HTTP server allowing clients to access the data via an HTTP client?</p>
+<p>Does this device contain an HTTP server allowing clients to access
+the data via an HTTP client?</p>
 </td>
 <td>
 <p>-</p>
@@ -1474,7 +1480,8 @@ Note that when TR-140 was originally published there was a typo in this object n
 <p>R</p>
 </td>
 <td>
-<p>Does this device contain an HTTPS server allowing clients to access the data via an HTTPS client?</p>
+<p>Does this device contain an HTTPS server allowing clients to access
+the data via an HTTPS client?</p>
 </td>
 <td>
 <p>-</p>
@@ -1494,7 +1501,10 @@ Note that when TR-140 was originally published there was a typo in this object n
 <p>R</p>
 </td>
 <td>
-<p>Does this device contain an HTTP server that supports creating files via an HTTP PUT/POST mechanism that would allow an HTTP client to upload files via HTTP?  This is also sometimes referred to as &quot;WebDAV&quot; support.</p>
+<p>Does this device contain an HTTP server that supports creating files
+via an HTTP PUT/POST mechanism that would allow an HTTP client to
+upload files via HTTP? This is also sometimes referred to as &quot;WebDAV&quot;
+support.</p>
 </td>
 <td>
 <p>-</p>
@@ -1518,9 +1528,11 @@ Note that when TR-140 was originally published there was a typo in this object n
 <ul>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedNetworkProtocols.SMB"><em>SMB</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedNetworkProtocols.NFS"><em>NFS</em></span></li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedNetworkProtocols.AFP"><em>AFP</em></span>
-The list MAY include vendor-specific protocols, which MUST be in the format defined in [<a href="#R.TR-106">TR-106</a>].  For example: &quot;X_EXAMPLE-COM_MyProt.</li>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedNetworkProtocols.AFP"><em>AFP</em></span></li>
 </ul>
+<p>The list MAY include vendor-specific protocols, which MUST be in the
+format defined in [<a href="#R.TR-106">TR-106</a>]. For example:
+&quot;X_EXAMPLE-COM_MyProt.</p>
 </td>
 <td>
 <p>-</p>
@@ -1540,7 +1552,7 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Supported FileSystems Types.   Each list item is an enumeration of:</p>
+<p>Comma-separated list of strings. Supported FileSystems Types.  Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.FAT16"><em>FAT16</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.FAT32"><em>FAT32</em></span></li>
@@ -1558,9 +1570,11 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.btrfs"><em>btrfs</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ZFS"><em>ZFS</em></span> (Zetta File System)</li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.EncFs"><em>EncFs</em></span> (Encrypted File System)</li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.exFAT"><em>exFAT</em></span> (Extended File Allocation Table for Flash memory)
-The list MAY include vendor-specific protocols, which MUST be in the format defined in [<a href="#R.TR-106">TR-106</a>].  For example: &quot;X_EXAMPLE-COM_MyType.</li>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.exFAT"><em>exFAT</em></span> (Extended File Allocation Table for Flash memory)</li>
 </ul>
+<p>The list MAY include vendor-specific protocols, which MUST be in the
+format defined in [<a href="#R.TR-106">TR-106</a>]. For example:
+&quot;X_EXAMPLE-COM_MyType.</p>
 </td>
 <td>
 <p>-</p>
@@ -1593,9 +1607,11 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes.RAID01"><em>RAID0+1</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes.RAID30"><em>RAID30</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes.RAID50"><em>RAID50</em></span></li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes.RAID60"><em>RAID60</em></span>
-The list MAY include vendor-specific protocols, which MUST be in the format defined in [<a href="#R.TR-106">TR-106</a>].  For example:&quot;X_EXAMPLE-COM_MyRaid.</li>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes.RAID60"><em>RAID60</em></span></li>
 </ul>
+<p>The list MAY include vendor-specific protocols, which MUST be in the
+format defined in [<a href="#R.TR-106">TR-106</a>]. For
+example:&quot;X_EXAMPLE-COM_MyRaid.</p>
 </td>
 <td>
 <p>-</p>
@@ -1615,7 +1631,8 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <p>R</p>
 </td>
 <td>
-<p>Does this device have the ability to encrypt and decrypt Logical Volumes as they are stored and retrieved?</p>
+<p>Does this device have the ability to encrypt and decrypt Logical
+Volumes as they are stored and retrieved?</p>
 </td>
 <td>
 <p>-</p>
@@ -1655,7 +1672,10 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <p>W</p>
 </td>
 <td>
-<p>Logical name which identifies the device on the local network.  This is the first segment of a fully qualified domain name (FQDN).  Combining <em>HostName</em>, a &quot;.&quot; and the <a href="#D.StorageService:1.StorageService.NetInfo.DomainName"><em>DomainName</em></a> will result in a fully qualified domain name.</p>
+<p>Logical name which identifies the device on the local network. This
+is the first segment of a fully qualified domain name (FQDN).
+Combining <em>HostName</em>, a &quot;.&quot; and the <a href="#D.StorageService:1.StorageService.NetInfo.DomainName"><em>DomainName</em></a> will result
+in a fully qualified domain name.</p>
 </td>
 <td>
 <p>-</p>
@@ -1675,7 +1695,11 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <p>W</p>
 </td>
 <td>
-<p>Domain name for the device on the local network.  Combining <a href="#D.StorageService:1.StorageService.NetInfo.HostName"><em>HostName</em></a>, a &quot;.&quot; and <em>DomainName</em> will result in a fully qualified domain name (FQDN).  For example, if the HostName contains &quot;myLaptop&quot; and the DomainName contains &quot;dsl.sp1.com&quot;, then the FQDN would be &quot;myLaptop.dsl.sp1.com&quot;.</p>
+<p>Domain name for the device on the local network. Combining
+<a href="#D.StorageService:1.StorageService.NetInfo.HostName"><em>HostName</em></a>, a &quot;.&quot; and <em>DomainName</em> will result in a fully
+qualified domain name (FQDN). For example, if the HostName contains
+&quot;myLaptop&quot; and the DomainName contains &quot;dsl.sp1.com&quot;, then the FQDN
+would be &quot;myLaptop.dsl.sp1.com&quot;.</p>
 </td>
 <td>
 <p>-</p>
@@ -1695,7 +1719,9 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each user group configured on this device, which allows the grouping of user accounts for easier maintenance of permissions.</p>
+<p>This object provides information about each user group configured on
+this device, which allows the grouping of user accounts for easier
+maintenance of permissions.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.UserGroup.GroupName"><em>GroupName</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.UserGroup.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.UserGroup.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -1793,7 +1819,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each user configured on this device, which provides a means for controlling access to the device.</p>
+<p>This object provides information about each user configured on this
+device, which provides a means for controlling access to the device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.UserAccount.Username"><em>Username</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.UserAccount.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.UserAccount.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -1871,7 +1898,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The unique name of the user.  Also used for authentication.</p>
+<p>The unique name of the user. Also used for authentication.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -1891,8 +1918,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Password used to authenticate the user when connecting to the Storage Service Device.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>Password used to authenticate the user when connecting to the Storage
+Service Device.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -1912,7 +1940,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Represents a User Group that this User Account is a member of.  Each <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.{i}.</em></a> referenced by this parameter MUST exist within the same StorageService instance.</p>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Represents a User Group that this User Account is a member of. Each
+<a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.{i}.</em></a> referenced by this parameter MUST exist
+within the same StorageService instance.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -1932,7 +1962,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables access via FTP (including SSH FTP access) for this user.</p>
+<p>Enables or disables access via FTP (including SSH FTP access) for
+this user.</p>
 </td>
 <td>
 <p>false</p>
@@ -1952,7 +1983,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables access via HTTP (including HTTPS access) for this user.</p>
+<p>Enables or disables access via HTTP (including HTTPS access) for this
+user.</p>
 </td>
 <td>
 <p>false</p>
@@ -1972,7 +2004,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object allows the control of network layer protocols authorization enforcement.</p>
+<p>This object allows the control of network layer protocols authorization
+enforcement.</p>
 </td>
 <td>
 <p>-</p>
@@ -2052,7 +2085,13 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>If this parameter is set to <em>false</em> then the device MUST NOT attempt to request login credentials or authenticate access from network layer protocols such as AFP, NFS, and SMB.  If this parameter is set to <em>true</em> then the device MUST attempt to request login credentials or authenticate access from network layer protocols such as AFP, NFS, and SMB by using an instance of <a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.{i}.</em></a> found on this device.</p>
+<p>If this parameter is set to <em>false</em> then the device MUST NOT
+attempt to request login credentials or authenticate access from
+network layer protocols such as AFP, NFS, and SMB. If this parameter
+is set to <em>true</em> then the device MUST attempt to request login
+credentials or authenticate access from network layer protocols such
+as AFP, NFS, and SMB by using an instance of
+<a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.{i}.</em></a> found on this device.</p>
 </td>
 <td>
 <p>-</p>
@@ -2138,7 +2177,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum number of users allowed to log in to the device at once via FTP.</p>
+<p>Maximum number of users allowed to log in to the device at once via
+FTP.</p>
 </td>
 <td>
 <p>-</p>
@@ -2158,7 +2198,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum amount of time in <em>seconds</em> that the FTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.</p>
+<p>Maximum amount of time in <em>seconds</em> that the FTP socket will remain
+open without any activity. If set to 0 an infinite timeout will
+apply.</p>
 </td>
 <td>
 <p>-</p>
@@ -2239,7 +2281,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.</em></a> table. Represents the home directory for anonymous FTP access.  The <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a> referenced by this parameter MUST exist within the same StorageService instance.</p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.</em></a> table. Represents the home directory for anonymous FTP access. The
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a> referenced by this
+parameter MUST exist within the same StorageService instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -2259,7 +2303,11 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>If this is set to <em>true</em>, then the anonymous user is limited to only retrieval of files from the Storage Service (no deletions, copies, creations or uploads).  If this is set to <em>false</em>, then the anonymous user has full permissions within the folder specified in <a href="#D.StorageService:1.StorageService.FTPServer.AnonymousUser.StartingFolder"><em>StartingFolder</em></a>.  This SHOULD default to True.</p>
+<p>If this is set to <em>true</em>, then the anonymous user is limited to
+only retrieval of files from the Storage Service (no deletions,
+copies, creations or uploads). If this is set to <em>false</em>, then the
+anonymous user has full permissions within the folder specified in
+<a href="#D.StorageService:1.StorageService.FTPServer.AnonymousUser.StartingFolder"><em>StartingFolder</em></a>. This SHOULD default to True.</p>
 </td>
 <td>
 <p>-</p>
@@ -2345,7 +2393,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum number of users allowed to log in to the device at once via SFTP.</p>
+<p>Maximum number of users allowed to log in to the device at once via
+SFTP.</p>
 </td>
 <td>
 <p>-</p>
@@ -2365,7 +2414,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum amount of time in <em>seconds</em> that the SFTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.</p>
+<p>Maximum amount of time in <em>seconds</em> that the SFTP socket will remain
+open without any activity. If set to 0 an infinite timeout will
+apply.</p>
 </td>
 <td>
 <p>-</p>
@@ -2472,7 +2523,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum number of users allowed to log in to the device at once via HTTP.</p>
+<p>Maximum number of users allowed to log in to the device at once via
+HTTP.</p>
 </td>
 <td>
 <p>-</p>
@@ -2492,7 +2544,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum amount of time in <em>seconds</em> that the HTTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.</p>
+<p>Maximum amount of time in <em>seconds</em> that the HTTP socket will remain
+open without any activity. If set to 0 an infinite timeout will
+apply.</p>
 </td>
 <td>
 <p>-</p>
@@ -2553,7 +2607,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>If <em>true</em>, HTTP will require login prior to access (basic or digest authentication).</p>
+<p>If <em>true</em>, HTTP will require login prior to access (basic or digest
+authentication).</p>
 </td>
 <td>
 <p>-</p>
@@ -2639,7 +2694,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum number of users allowed to log in to the device at once via HTTPS.</p>
+<p>Maximum number of users allowed to log in to the device at once via
+HTTPS.</p>
 </td>
 <td>
 <p>-</p>
@@ -2659,7 +2715,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Maximum amount of time in <em>seconds</em> that the HTTPS socket will remain open without any activity.  If set to 0 an infinite timeout will apply.</p>
+<p>Maximum amount of time in <em>seconds</em> that the HTTPS socket will remain
+open without any activity. If set to 0 an infinite timeout will
+apply.</p>
 </td>
 <td>
 <p>-</p>
@@ -2720,7 +2778,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>If <em>true</em>, HTTPS will require login prior to access (basic or digest authentication).</p>
+<p>If <em>true</em>, HTTPS will require login prior to access (basic or
+digest authentication).</p>
 </td>
 <td>
 <p>-</p>
@@ -2740,7 +2799,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object provides information about each physical medium connected to this device.</p>
+<p>This object provides information about each physical medium connected
+to this device.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.PhysicalMedium.Name"><em>Name</em></a>, or with the same values for all of <a href="#D.StorageService:1.StorageService.PhysicalMedium.Vendor"><em>Vendor</em></a>, <a href="#D.StorageService:1.StorageService.PhysicalMedium.Model"><em>Model</em></a> and <a href="#D.StorageService:1.StorageService.PhysicalMedium.SerialNumber"><em>SerialNumber</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.PhysicalMedium.Alias"><em>Alias</em></a>.</p>
 </td>
 <td>
@@ -2877,7 +2937,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The firmware version for firmware contained within the physical medium's controller.</p>
+<p>The firmware version for firmware contained within the physical
+medium's controller.</p>
 </td>
 <td>
 <p>-</p>
@@ -2897,7 +2958,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The method of connection to this storage device.   Enumeration of:</p>
+<p>The method of connection to this storage device.  Enumeration of:</p>
 <ul>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.USB1.1"><em>USB 1.1</em></span></li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.USB2.0"><em>USB 2.0</em></span></li>
@@ -2931,10 +2992,11 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SAS-4"><em>SAS-4</em></span> (serial attached SCSI 22.5 Gbit/s)</li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SSA"><em>SSA</em></span></li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SSA-40"><em>SSA-40</em></span></li>
-<li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.FibreChannel"><em>Fibre Channel</em></span>
-The parameter MAY instead be a vendor-specific connection type, which MUST be in the format defined in [<a href="#R.TR-106">TR-106</a>].  For example:
-&quot;X_EXAMPLE-COM_MyConnType&quot;</li>
+<li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.FibreChannel"><em>Fibre Channel</em></span></li>
 </ul>
+<p>The parameter MAY instead be a vendor-specific connection type, which
+MUST be in the format defined in [<a href="#R.TR-106">TR-106</a>]. For example:</p>
+<p>&quot;X_EXAMPLE-COM_MyConnType&quot;</p>
 </td>
 <td>
 <p>-</p>
@@ -2980,7 +3042,9 @@ The parameter MAY instead be a vendor-specific connection type, which MUST be in
 <p>R</p>
 </td>
 <td>
-<p>Is this physical storage medium removable?  Removable storage implies that the removal action is part of normal operations and is expected to leave the data on the removable storage intact.</p>
+<p>Is this physical storage medium removable? Removable storage implies
+that the removal action is part of normal operations and is expected
+to leave the data on the removable storage intact.</p>
 </td>
 <td>
 <p>-</p>
@@ -3046,7 +3110,8 @@ The parameter MAY instead be a vendor-specific connection type, which MUST be in
 <p>R</p>
 </td>
 <td>
-<p>Time since boot in <em>hours</em>. This MAY reflect S.M.A.R.T. PowerOnHours.</p>
+<p>Time since boot in <em>hours</em>. This MAY reflect S.M.A.R.T.
+PowerOnHours.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -3087,13 +3152,13 @@ The parameter MAY instead be a vendor-specific connection type, which MUST be in
 <p>R</p>
 </td>
 <td>
-<p>The general health of this physical storage medium.   Enumeration of:</p>
+<p>The general health of this physical storage medium.  Enumeration of:</p>
 <ul>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.Health.OK"><em>OK</em></span></li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.Health.Failing"><em>Failing</em></span></li>
-<li><span id="D.StorageService:1.StorageService.PhysicalMedium.Health.Error"><em>Error</em></span>
-Note: Health MAY be obtained from S.M.A.R.T. data where available.</li>
+<li><span id="D.StorageService:1.StorageService.PhysicalMedium.Health.Error"><em>Error</em></span></li>
 </ul>
+<p>Note: Health MAY be obtained from S.M.A.R.T. data where available.</p>
 </td>
 <td>
 <p>-</p>
@@ -3113,7 +3178,11 @@ Note: Health MAY be obtained from S.M.A.R.T. data where available.</li>
 <p>R</p>
 </td>
 <td>
-<p>Is this physical medium capable of being removed while the device is powered up?  Hot-Swappable storage does not imply Removable storage; hot-swappable is an operation taken only when the disk has failed and needs to be replaced.  The data on the hot-swapped storage will not remain intact.</p>
+<p>Is this physical medium capable of being removed while the device is
+powered up? Hot-Swappable storage does not imply Removable storage;
+hot-swappable is an operation taken only when the disk has failed and
+needs to be replaced. The data on the hot-swapped storage will not
+remain intact.</p>
 </td>
 <td>
 <p>-</p>
@@ -3133,13 +3202,15 @@ Note: Health MAY be obtained from S.M.A.R.T. data where available.</li>
 <p>R</p>
 </td>
 <td>
-<p>This object provides SMART data information about the physical medium.  SMART attributes are not standardized, but many vendors provide the data below.</p>
+<p>This object provides SMART data information about the physical medium.
+SMART attributes are not standardized, but many vendors provide the
+data below.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3153,15 +3224,21 @@ Note: Health MAY be obtained from S.M.A.R.T. data where available.</li>
 <p>R</p>
 </td>
 <td>
-<p>Count of reallocated sectors. When the hard drive finds a read/write/verification error, it marks this sector as &quot;reallocated&quot; and transfers data to a special reserved area (spare area).
-This process is also known as remapping, and &quot;reallocated&quot; sectors are called remaps. However, as the number of reallocated sectors increases, the read/write speed tends to decrease.
-The raw value represents a count of the number of bad sectors that have been found and remapped. Thus, the higher the attribute value, the more sectors the drive has had to reallocate.</p>
+<p>Count of reallocated sectors. When the hard drive finds a
+read/write/verification error, it marks this sector as &quot;reallocated&quot;
+and transfers data to a special reserved area (spare area).</p>
+<p>This process is also known as remapping, and &quot;reallocated&quot; sectors
+are called remaps. However, as the number of reallocated sectors
+increases, the read/write speed tends to decrease.</p>
+<p>The raw value represents a count of the number of bad sectors that
+have been found and remapped. Thus, the higher the attribute value,
+the more sectors the drive has had to reallocate.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3175,13 +3252,14 @@ The raw value represents a count of the number of bad sectors that have been fou
 <p>R</p>
 </td>
 <td>
-<p>Count of hours in power-on state. It shows total count of <em>hours</em> in power-on state.</p>
+<p>Count of hours in power-on state. It shows total count of <em>hours</em>
+in power-on state.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3195,13 +3273,17 @@ The raw value represents a count of the number of bad sectors that have been fou
 <p>R</p>
 </td>
 <td>
-<p>Count of retry of spin start attempts. This attribute stores a total count of the spin start attempts to reach the fully operational speed (under the condition that the first attempt was unsuccessful). An increase of this attribute value is a sign of problems in the hard disk mechanical subsystem.</p>
+<p>Count of retry of spin start attempts. This attribute stores a total
+count of the spin start attempts to reach the fully operational speed
+(under the condition that the first attempt was unsuccessful). An
+increase of this attribute value is a sign of problems in the hard
+disk mechanical subsystem.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3221,7 +3303,7 @@ The raw value represents a count of the number of bad sectors that have been fou
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3241,7 +3323,7 @@ The raw value represents a count of the number of bad sectors that have been fou
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3255,14 +3337,16 @@ The raw value represents a count of the number of bad sectors that have been fou
 <p>R</p>
 </td>
 <td>
-<p>Count of remap operations. The raw value of this attribute shows the total count of attempts to transfer data from reallocated sectors to a spare area.
-Both successful and unsuccessful attempts are counted.</p>
+<p>Count of remap operations. The raw value of this attribute shows the
+total count of attempts to transfer data from reallocated sectors to
+a spare area.</p>
+<p>Both successful and unsuccessful attempts are counted.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3276,13 +3360,16 @@ Both successful and unsuccessful attempts are counted.</p>
 <p>R</p>
 </td>
 <td>
-<p>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased.</p>
+<p>Count of &quot;unstable&quot; sectors (waiting to be remapped, because of
+unrecoverable read errors). If an unstable sector is subsequently
+read successfully, the sector is remapped and this value is
+decreased.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3296,14 +3383,16 @@ Both successful and unsuccessful attempts are counted.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of uncorrectable errors when reading/writing a sector.
-A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.</p>
+<p>The total number of uncorrectable errors when reading/writing a
+sector.</p>
+<p>A rise in the value of this attribute indicates defects of the disk
+surface and/or problems in the mechanical subsystem.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3323,7 +3412,7 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3343,7 +3432,7 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3363,7 +3452,7 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3377,13 +3466,14 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>R</p>
 </td>
 <td>
-<p>Percentage of the spare sectors that can be used for reallocations remaining.</p>
+<p>Percentage of the spare sectors that can be used for reallocations
+remaining.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="parameter">
@@ -3397,13 +3487,15 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>R</p>
 </td>
 <td>
-<p>Estimated number of <em>days</em> until the failure model in the device predicts the drive will fail.  -1 means the failure model is unable to make a prediction.</p>
+<p>Estimated number of <em>days</em> until the failure model in the device
+predicts the drive will fail. -1 means the failure model is unable to
+make a prediction.</p>
 </td>
 <td>
 <p>-</p>
 </td>
 <td>
-<p>1.3</p>
+<p>1.0</p>
 </td>
 </tr>
 <tr class="object">
@@ -3417,8 +3509,16 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each storage array (RAID) configured on this device.
-Creating an instance of this object generates a disabled <em>StorageArray</em> instance.  Before this new <em>StorageArray</em> instance can be enabled (via a SetParameterValues command), it MUST have the following parameters configured: <a href="#D.StorageService:1.StorageService.StorageArray.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>, and <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a>. Once an instance is enabled the following parameters become immutable for the life of the instance: <a href="#D.StorageService:1.StorageService.StorageArray.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>, and <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a>.</p>
+<p>This object provides information about each storage array (RAID)
+configured on this device.</p>
+<p>Creating an instance of this object generates a disabled <em>StorageArray</em>
+instance. Before this new <em>StorageArray</em> instance can be enabled (via a
+SetParameterValues command), it MUST have the following parameters
+configured: <a href="#D.StorageService:1.StorageService.StorageArray.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>, and
+<a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a>. Once an instance is enabled the
+following parameters become immutable for the life of the instance:
+<a href="#D.StorageService:1.StorageService.StorageArray.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>, and
+<a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.StorageArray.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a> and <a href="#D.StorageService:1.StorageService.StorageArray.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -3476,8 +3576,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>A user-friendly name for this Storage Array.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance.</p>
+<p>A user-friendly name for this Storage Array.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -3501,10 +3602,10 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.StorageService:1.StorageService.StorageArray.Status.Rebuilding"><em>Rebuilding</em></span> (Indicates a drive participating in an array is replaced, while the data striping and/or redundancy of the array are reestablished on the new disk. In this state, data operations to the array will function properly, but its performance could be significantly diminished)</li>
-<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Initializing"><em>Initializing</em></span> (The state when the RAID array is being first constructed, and the data striping and/or redundancy of the array are first being established.  In this state, data operations to the array will function properly, but its performance could be significantly diminished and the redundancy might not be fully established)</li>
-<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Offline"><em>Offline</em></span> (Indicates the RAID array is not available.  This might occur because the administrator explicitly has disabled the array, or because underlying elements of the array, such as the physical disks, are not ready)</li>
+<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Initializing"><em>Initializing</em></span> (The state when the RAID array is being first constructed, and the data striping and/or redundancy of the array are first being established. In this state, data operations to the array will function properly, but its performance could be significantly diminished and the redundancy might not be fully established)</li>
+<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Offline"><em>Offline</em></span> (Indicates the RAID array is not available. This might occur because the administrator explicitly has disabled the array, or because underlying elements of the array, such as the physical disks, are not ready)</li>
 <li><span id="D.StorageService:1.StorageService.StorageArray.Status.Online"><em>Online</em></span> (Indicates the RAID array is fully operational)</li>
-<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Error"><em>Error</em></span> (Indicates an error condition exists within the RAID array.  In this state, data operations to the array are not possible, and data loss might have occurred)</li>
+<li><span id="D.StorageService:1.StorageService.StorageArray.Status.Error"><em>Error</em></span> (Indicates an error condition exists within the RAID array. In this state, data operations to the array are not possible, and data loss might have occurred)</li>
 <li><span id="D.StorageService:1.StorageService.StorageArray.Status.Degraded"><em>Degraded</em></span> (Indicates the loss of a drive only in a Raid Type of more than 2 drives, that can support multiple failures. Data redundancy continues to be available but with degraded capability)</li>
 <li><span id="D.StorageService:1.StorageService.StorageArray.Status.Critical"><em>Critical</em></span> (Indicates the loss of data redundancy, and a possible degraded state. The array continues to perform read/write operations)</li>
 </ul>
@@ -3547,11 +3648,15 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be a member of the list reported by the <a href="#D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes"><em>Capabilities.SupportedRaidTypes</em></a> parameter. Note that after creation of the Storage Array, any subsequent writes to this parameter MUST be ignored as array type migration is not supported.  To identify which RAID Types are supported, see <a href="#D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes"><em>Capabilities.SupportedRaidTypes</em></a>.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance.</p>
+<p>The value MUST be a member of the list reported by the <a href="#D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes"><em>Capabilities.SupportedRaidTypes</em></a> parameter. Note that after creation of the Storage Array, any subsequent writes
+to this parameter MUST be ignored as array type migration is not
+supported. To identify which RAID Types are supported, see
+<a href="#D.StorageService:1.StorageService.Capabilities.SupportedRaidTypes"><em>Capabilities.SupportedRaidTypes</em></a>.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance.</p>
 </td>
 <td>
-<p>Linear</p>
+<p>RAID0</p>
 </td>
 <td>
 <p>1.0</p>
@@ -3568,7 +3673,10 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>The total Usable Capacity of the Storage Array in <em>MB</em>. This is computed by the system based on <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a> and <a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>.  Disk size is a consideration, as many RAID Types use the smallest drive in the group for calculations.</p>
+<p>The total Usable Capacity of the Storage Array in <em>MB</em>. This is
+computed by the system based on <a href="#D.StorageService:1.StorageService.StorageArray.PhysicalMediumReference"><em>PhysicalMediumReference</em></a> and
+<a href="#D.StorageService:1.StorageService.StorageArray.RaidType"><em>RaidType</em></a>. Disk size is a consideration, as many RAID Types
+use the smallest drive in the group for calculations.</p>
 </td>
 <td>
 <p>-</p>
@@ -3588,8 +3696,12 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.</em></a> table. Represents the physical medium used by this RAID.  Each Physical Medium referenced by this parameter MUST exist within the same StorageService instance. A <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> MUST only be referenced by one <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a> instance.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance.</p>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.</em></a> table. Represents the physical medium used by this RAID. Each Physical
+Medium referenced by this parameter MUST exist within the same
+StorageService instance. A <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> MUST only
+be referenced by one <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a> instance.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance.</p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 </td>
 <td>
@@ -3610,8 +3722,19 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each logical volume configured on this device.  A logical volume can reside either on an instance of a single <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> or on an instance of a single <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a> instance, but it can not span multiple instances of either. <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a> is used to define where this <em>LogicalVolume</em> instance resides.
-Creating an instance of this object generates a disabled <em>LogicalVolume</em> instance.  Before this new <em>LogicalVolume</em> instance can be enabled (via a SetParameterValues command), it MUST have the following parameters configured: <a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a>, and <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a>.  Once an instance is enabled the following parameters become immutable for the life of the instance: <a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a>, and <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a>.</p>
+<p>This object provides information about each logical volume configured
+on this device. A logical volume can reside either on an instance of a
+single <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> or on an instance of a single
+<a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a> instance, but it can not span multiple
+instances of either. <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a> is used to define
+where this <em>LogicalVolume</em> instance resides.</p>
+<p>Creating an instance of this object generates a disabled <em>LogicalVolume</em>
+instance. Before this new <em>LogicalVolume</em> instance can be enabled (via a
+SetParameterValues command), it MUST have the following parameters
+configured: <a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a>, and
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a>. Once an instance is enabled the following
+parameters become immutable for the life of the instance:
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <a href="#D.StorageService:1.StorageService.LogicalVolume.PhysicalReference"><em>PhysicalReference</em></a>, and <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -3669,8 +3792,11 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The name of the partition for this logical volume.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance. This parameter acts as the unique identifier for the instance, thus the device MUST NOT allow multiple <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a> instances to use the same <em>Name</em>.</p>
+<p>The name of the partition for this logical volume.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance. This parameter acts as the unique
+identifier for the instance, thus the device MUST NOT allow multiple
+<a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a> instances to use the same <em>Name</em>.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -3694,9 +3820,10 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <ul>
 <li><span id="D.StorageService:1.StorageService.LogicalVolume.Status.Offline"><em>Offline</em></span></li>
 <li><span id="D.StorageService:1.StorageService.LogicalVolume.Status.Online"><em>Online</em></span></li>
-<li><span id="D.StorageService:1.StorageService.LogicalVolume.Status.Error"><em>Error</em></span>
-The default <a href="#D.StorageService:1.StorageService.LogicalVolume.Status.Offline"><em>Offline</em></a> status will exist until this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a> is enabled.</li>
+<li><span id="D.StorageService:1.StorageService.LogicalVolume.Status.Error"><em>Error</em></span></li>
 </ul>
+<p>The default <a href="#D.StorageService:1.StorageService.LogicalVolume.Status.Offline"><em>Offline</em></a> status will exist until this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a>
+is enabled.</p>
 </td>
 <td>
 <p>Offline</p>
@@ -3736,8 +3863,14 @@ The default <a href="#D.StorageService:1.StorageService.LogicalVolume.Status.Off
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.</em></a> or <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.</em></a> tables. Represents the physical medium or RAID where this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a> resides.  The <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> or <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a> referenced by this parameter MUST exist within the same StorageService instance.
-An AddObject followed by an enabling SetParameterValues on <a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <em>PhysicalReference</em>, and <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> will cause the formatting of this logical partition and these parameters to become immutable for the life of this instance.</p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.</em></a> or <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.</em></a> tables. Represents the physical medium or RAID where this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a> resides.
+The <a href="#D.StorageService:1.StorageService.PhysicalMedium."><em>PhysicalMedium.{i}.</em></a> or <a href="#D.StorageService:1.StorageService.StorageArray."><em>StorageArray.{i}.</em></a>
+referenced by this parameter MUST exist within the same
+StorageService instance.</p>
+<p>An AddObject followed by an enabling SetParameterValues on
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Name"><em>Name</em></a>, <em>PhysicalReference</em>, and <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> will cause the
+formatting of this logical partition and these parameters to become
+immutable for the life of this instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -3777,8 +3910,9 @@ An AddObject followed by an enabling SetParameterValues on <a href="#D.StorageSe
 <p>W</p>
 </td>
 <td>
-<p>The Capacity of the Logical Volume in <em>MB</em>.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance.</p>
+<p>The Capacity of the Logical Volume in <em>MB</em>.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -3819,7 +3953,13 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>This value is specified in <em>MB</em> and controls when <a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdReached"><em>ThresholdReached</em></a> will have its value altered.  If the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.UsedSpace"><em>UsedSpace</em></a> plus the value of <em>ThresholdLimit</em>r is greater than or equal to the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> then the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdReached"><em>ThresholdReached</em></a> will be <em>true</em>, otherwise it will be <em>false</em>.  Setting the value of this parameter to 0 will disable the Thresholding mechanism.</p>
+<p>This value is specified in <em>MB</em> and controls when
+<a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdReached"><em>ThresholdReached</em></a> will have its value altered. If the value
+of <a href="#D.StorageService:1.StorageService.LogicalVolume.UsedSpace"><em>UsedSpace</em></a> plus the value of <em>ThresholdLimit</em>r is greater than
+or equal to the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> then the value of
+<a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdReached"><em>ThresholdReached</em></a> will be <em>true</em>, otherwise it will be
+<em>false</em>. Setting the value of this parameter to 0 will disable the
+Thresholding mechanism.</p>
 </td>
 <td>
 <p>0</p>
@@ -3839,7 +3979,9 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>When <a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdLimit"><em>ThresholdLimit</em></a> &gt; 0 and <a href="#D.StorageService:1.StorageService.LogicalVolume.UsedSpace"><em>UsedSpace</em></a> + <a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdLimit"><em>ThresholdLimit</em></a> &gt;= <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> this will be <em>true</em>, else <em>false</em>.</p>
+<p>When <a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdLimit"><em>ThresholdLimit</em></a> &gt; 0 and <a href="#D.StorageService:1.StorageService.LogicalVolume.UsedSpace"><em>UsedSpace</em></a> +
+<a href="#D.StorageService:1.StorageService.LogicalVolume.ThresholdLimit"><em>ThresholdLimit</em></a> &gt;= <a href="#D.StorageService:1.StorageService.LogicalVolume.Capacity"><em>Capacity</em></a> this will be
+<em>true</em>, else <em>false</em>.</p>
 </td>
 <td>
 <p>false</p>
@@ -3859,7 +4001,8 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>Is the Volume Encrypted?  The type of encryption will be handled by the device internally and is not a matter for remote management.</p>
+<p>Is the Volume Encrypted? The type of encryption will be handled by
+the device internally and is not a matter for remote management.</p>
 </td>
 <td>
 <p>-</p>
@@ -3879,7 +4022,8 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>The number of instances of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a> on this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a>.</p>
+<p>The number of instances of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a>
+on this <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -3899,8 +4043,16 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each top-level folder configured on this logical volume.  Each top-level folder allows the configuration of quotas and access permissions.
-Creating an instance of this object generates a disabled <em>Folder</em> instance.  Before this new <em>Folder</em> instance can be enabled (via a SetParameterValues command), it MUST have the <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a> configured.  Folder instances are unique per <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume.{i}.</em></a> and the unique key for this object is <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a> which also means that once an instance is enabled <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a> becomes immutable for the life of the instance.</p>
+<p>This object provides information about each top-level folder configured
+on this logical volume. Each top-level folder allows the configuration
+of quotas and access permissions.</p>
+<p>Creating an instance of this object generates a disabled <em>Folder</em>
+instance. Before this new <em>Folder</em> instance can be enabled (via a
+SetParameterValues command), it MUST have the <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a>
+configured. Folder instances are unique per
+<a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume.{i}.</em></a> and the unique key for this object is
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a> which also means that once an instance is enabled
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a> becomes immutable for the life of the instance.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Name"><em>Name</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -3958,11 +4110,19 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Setting of this variable will add a new folder.  The full hierarchical pathname of the folder MUST be specified.
-All folders created on the Logical Volume will appear here, created locally or via AddObject.
-The local directory name will be formatted as a UNIX-style directory name, for example: /home/ftp
-The presence of a trailing `/' character is inconsequential, meaning that /home/ftp/ is the same as /home/ftp.
-Once this instance becomes enabled, this parameter will be immutable for the life of the instance.  This parameter acts as the unique identifier for the instance, thus the device MUST NOT allow multiple <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>Folder</em></a> instances within a <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume.{i}.</em></a> to use the same <em>Name</em>.</p>
+<p>Setting of this variable will add a new folder. The full hierarchical
+pathname of the folder MUST be specified.</p>
+<p>All folders created on the Logical Volume will appear here, created
+locally or via AddObject.</p>
+<p>The local directory name will be formatted as a UNIX-style directory
+name, for example: /home/ftp</p>
+<p>The presence of a trailing `/' character is inconsequential, meaning
+that /home/ftp/ is the same as /home/ftp.</p>
+<p>Once this instance becomes enabled, this parameter will be immutable
+for the life of the instance. This parameter acts as the unique
+identifier for the instance, thus the device MUST NOT allow multiple
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>Folder</em></a> instances within a <a href="#D.StorageService:1.StorageService.LogicalVolume."><em>LogicalVolume.{i}.</em></a> to use
+the same <em>Name</em>.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -4002,15 +4162,19 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>What are the User authentication requirements of this folder?  The following bitmap is used.</p>
+<p>What are the User authentication requirements of this folder? The
+following bitmap is used.</p>
 <blockquote>
-<p>11 = Authenticated Access required for Network protocols (NFS/AFP/SMB) and for non Network protocols (FTP/SFTP/HTTP/HTTPS)</p>
+<p>11 = Authenticated Access required for Network protocols
+(NFS/AFP/SMB) and for non Network protocols (FTP/SFTP/HTTP/HTTPS)</p>
 </blockquote>
 <blockquote>
-<p>10 = Authenticated Access required for Network protocols (NFS/AFP/SMB)</p>
+<p>10 = Authenticated Access required for Network protocols
+(NFS/AFP/SMB)</p>
 </blockquote>
 <blockquote>
-<p>01 = Authenticated Access Required for non Network protocols (FTP/SFTP/HTTP/HTTPS)</p>
+<p>01 = Authenticated Access Required for non Network protocols
+(FTP/SFTP/HTTP/HTTPS)</p>
 </blockquote>
 <blockquote>
 <p>00 = No Authentication required</p>
@@ -4034,7 +4198,9 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>The number of instances of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.UserAccess."><em>LogicalVolume.{i}.Folder.{i}.UserAccess.{i}.</em></a> on this <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a>.</p>
+<p>The number of instances of
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.UserAccess."><em>LogicalVolume.{i}.Folder.{i}.UserAccess.{i}.</em></a> on this
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -4054,7 +4220,9 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>R</p>
 </td>
 <td>
-<p>The number of instances of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.GroupAccess."><em>LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}.</em></a> on this <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a></p>
+<p>The number of instances of
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.GroupAccess."><em>LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}.</em></a> on this
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a></p>
 </td>
 <td>
 <p>-</p>
@@ -4074,7 +4242,8 @@ Once this instance becomes enabled, this parameter will be immutable for the lif
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each user account configured for access permissions on this folder.</p>
+<p>This object provides information about each user account configured for
+access permissions on this folder.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.UserAccess.UserReference"><em>UserReference</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.UserAccess.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.UserAccess.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -4152,7 +4321,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.</em></a> table. Represents a user that has access to this folder.  The instance of <a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.{i}.</em></a> referenced by this parameter MUST exist within the same StorageService instance.</p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.</em></a> table. Represents a user that has access to this folder. The instance of
+<a href="#D.StorageService:1.StorageService.UserAccount."><em>UserAccount.{i}.</em></a> referenced by this parameter MUST exist
+within the same StorageService instance.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -4172,7 +4343,10 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>What permissions the user account has over this <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a>.  This is an integer value like the xNIX systems use for access permissions, meaning that it is a 3-bit field with the following structure:</p>
+<p>What permissions the user account has over this
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a>. This is an integer value
+like the xNIX systems use for access permissions, meaning that it is
+a 3-bit field with the following structure:</p>
 <blockquote>
 <p>100 = read field</p>
 </blockquote>
@@ -4201,7 +4375,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>This object provides information about each user group configured for access permissions on this folder.</p>
+<p>This object provides information about each user group configured for
+access permissions on this folder.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.GroupAccess.GroupReference"><em>GroupReference</em></a>, or with a given value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.GroupAccess.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.GroupAccess.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -4280,7 +4455,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.</em></a> table. Represents a user group that is a collection of User Accounts that have access to this folder.  The <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.{i}.</em></a> referenced by this parameter MUST exist within the same StorageService instance.</p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.</em></a> table. Represents a user group that is a collection of User Accounts that
+have access to this folder. The <a href="#D.StorageService:1.StorageService.UserGroup."><em>UserGroup.{i}.</em></a> referenced
+by this parameter MUST exist within the same StorageService instance.</p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -4300,7 +4477,10 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>What permissions the group members have over this <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a> instance.  This is an integer value like the xNIX systems use for access permissions, meaning that it is a 3-bit field with the following structure:</p>
+<p>What permissions the group members have over this
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder."><em>LogicalVolume.{i}.Folder.{i}.</em></a> instance. This is an
+integer value like the xNIX systems use for access permissions,
+meaning that it is a 3-bit field with the following structure:</p>
 <blockquote>
 <p>100 = read field</p>
 </blockquote>
@@ -4329,7 +4509,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object allows the configuration of per-folder storage quota management.</p>
+<p>This object allows the configuration of per-folder storage quota
+management.</p>
 </td>
 <td>
 <p>-</p>
@@ -4410,7 +4591,13 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>This value is specified in <em>MB</em> and controls when <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdReached"><em>ThresholdReached</em></a> will have its value altered.  If the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.UsedSpace"><em>UsedSpace</em></a> plus the value of this parameter is greater than or equal to the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.Capacity"><em>Capacity</em></a> then the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdReached"><em>ThresholdReached</em></a> will be <em>true</em>, otherwise it will be <em>false</em>.  Setting the value of this parameter to 0 will disable the Thresholding mechanism.</p>
+<p>This value is specified in <em>MB</em> and controls when
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdReached"><em>ThresholdReached</em></a> will have its value altered. If the value
+of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.UsedSpace"><em>UsedSpace</em></a> plus the value of this parameter is greater
+than or equal to the value of <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.Capacity"><em>Capacity</em></a> then the value of
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdReached"><em>ThresholdReached</em></a> will be <em>true</em>, otherwise it will be
+<em>false</em>. Setting the value of this parameter to 0 will disable the
+Thresholding mechanism.</p>
 </td>
 <td>
 <p>0</p>
@@ -4430,7 +4617,9 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>When <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdLimit"><em>ThresholdLimit</em></a> &gt; 0 and <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.UsedSpace"><em>UsedSpace</em></a> + <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdLimit"><em>ThresholdLimit</em></a> &gt;= <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.Capacity"><em>Capacity</em></a> this will be <em>true</em>, else <em>false</em>.</p>
+<p>When <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdLimit"><em>ThresholdLimit</em></a> &gt; 0 and <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.UsedSpace"><em>UsedSpace</em></a> +
+<a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.ThresholdLimit"><em>ThresholdLimit</em></a> &gt;= <a href="#D.StorageService:1.StorageService.LogicalVolume.Folder.Quota.Capacity"><em>Capacity</em></a> this will be
+<em>true</em>, else <em>false</em>.</p>
 </td>
 <td>
 <p>false</p>
@@ -6081,7 +6270,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:04:02 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:55:07 UTC.<br />
 report.py --output tr-140-1-3-1-usp.html --format html tr-140-1-3-1-usp.xml</p>
 </div>
 <div id="TOC">

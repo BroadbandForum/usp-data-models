@@ -4617,7 +4617,7 @@ required.</p>
 <p>Password to be used by the Agent to authenticate with the file
 location. This string is set to an empty string if no authentication is
 required.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -25864,7 +25864,7 @@ network. [<a href="#R.ITU-E.164">ITU-E.164</a>]</p>
 <td>
 <p>Allows the Controller to change the USIM PIN used for SIM card
 activation.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -26374,7 +26374,7 @@ Access Point.</p>
 <td>
 <p>Password used to authenticate the CPE when making a connection to the
 Access Point.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -41517,7 +41517,7 @@ Possible patterns:</p>
 </ul>
 <p>This parameter is based on <em>mocaIfPassword</em> from
 [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -46665,7 +46665,7 @@ string that is hashed per the HomePlug specification to generate the
 Network Membership Key (NMK). Note that care needs to be taken when
 setting this parameter as it might prohibit communication with other
 adapters or equipment connected via the powerline network.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -47817,7 +47817,7 @@ encryption key to encrypt communications in powerline. It takes non
 extended ASCII characters (i.e. printable 7-bit ASCII character codes
 32-126, which includes SPACE but excludes TAB, LF and CR). For
 example: bvjPekZiYUf9kjNKJASkgJ09adfoP01Fjvgd</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73495,7 +73495,7 @@ and should not be in the list.</p>
 <p>A 5 byte <em>WEPKey</em> corresponds to security mode
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to
 security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73524,7 +73524,7 @@ security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupport
 generated. The Controller SHOULD NOT set both the
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphrase"><em>KeyPassphrase</em></a> and the <em>PreSharedKey</em> directly (the result of
 doing this is undefined).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73554,7 +73554,7 @@ immediately generated. The Controller SHOULD NOT set both the
 doing this is undefined). The key is generated as specified by WPA,
 which uses PBKDF2 from PKCS #5: Password-based Cryptography
 Specification Version 2.0 ([<a href="#R.RFC2898">RFC2898</a>]).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73603,7 +73603,7 @@ to a value other than <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.Mode
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> security modes.</p>
 <p>NOTE: this parameter is for WPA3. WPA2 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.PreSharedKey"><em>PreSharedKey</em></a> is
 generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73731,7 +73731,7 @@ will use the same port number as the primary RADIUS server.</p>
 <td>
 <p>The secret used for handshaking with the RADIUS server
 [<a href="#R.RFC2865">RFC2865</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -73755,7 +73755,7 @@ will use the same port number as the primary RADIUS server.</p>
 [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>If this parameter is not implemented, the secondary RADIUS server
 will use the same secret as the primary RADIUS server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -74053,7 +74053,7 @@ number.</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.WPS.PIN.d4d8"><code>\d{4}|\d{8}</code></span></li>
 </ul>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -75405,7 +75405,7 @@ will use the same port number as the primary RADIUS server.</p>
 <td>
 <p>The secret used for handshaking with the RADIUS accounting server
 [<a href="#R.RFC2865">RFC2865</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -75429,7 +75429,7 @@ will use the same port number as the primary RADIUS server.</p>
 server [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>If this parameter is not implemented, the secondary RADIUS server
 will use the same secret as the primary RADIUS server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -76065,7 +76065,7 @@ End Point profile [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <p>A 5 byte <em>WEPKey</em> corresponds to security mode
 <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to
 security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -76094,7 +76094,7 @@ security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.
 generated. The Controller SHOULD NOT set both the
 <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPassphrase"><em>KeyPassphrase</em></a> and the <em>PreSharedKey</em> directly (the result of
 doing this is undefined).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -76124,7 +76124,7 @@ generated. The Controller SHOULD NOT set both the <em>KeyPassphrase</em> and the
 undefined). The key is generated as specified by WPA, which uses
 PBKDF2 from PKCS #5: Password-based Cryptography Specification
 Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -76148,7 +76148,7 @@ Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
 <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> security modes.</p>
 <p>NOTE: this parameter is for WPA3. WPA2 <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.PreSharedKey"><em>PreSharedKey</em></a> is
 generated from <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -76363,7 +76363,7 @@ as an integer that had to have the value 4 or 8).</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.EndPoint.WPS.PIN.d4d8"><code>\d{4}|\d{8}</code></span> (Added in 2.16)</li>
 </ul>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -83859,7 +83859,7 @@ transitioning to disconnecting state to drop the connection.</p>
 </td>
 <td>
 <p>Password to be used for authentication.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -107640,7 +107640,7 @@ using a key derivation technique as recommended in
 &quot;BLAKE2s-128&quot;, the length MUST be between 0 and 32 bytes inclusive,
 as specified in [<a href="#R.RFC7693">RFC7693</a>].</p>
 <p>Once it's been set, this parameter is immutable.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -108021,7 +108021,7 @@ if the certificate belongs to this device. If <em>CertPrivateKey</em> is non-emp
 this certificate can be supplied during DTLS handshaking. This value
 is immutable, once written.</p>
 <p>Once it's been set, this parameter is immutable.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -115052,7 +115052,7 @@ this parameter is also to be used as the user password for
 password-protected operations. However, this parameter MUST NOT be
 used to set the user password if the parameter
 <a href="#D.Device:2.Device.UserInterface.PasswordUserSelectable"><em>UserInterface.PasswordUserSelectable</em></a> is <em>true</em>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -126336,7 +126336,7 @@ EAP-MD5.</p>
 <td>
 <p>The shared secret to be exchanged between the supplicant and
 authenticator.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -126807,7 +126807,7 @@ mechanism defined in <a href="#D.Device:2.Device.UserInterface.HTTPAccess."><em>
 </td>
 <td>
 <p>The user's password.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -136480,7 +136480,7 @@ server. This string is set to an empty string if no authentication is used.</p>
 <td>
 <p>Password to be used by the device to authenticate with the A-GPS
 server. This string is set to an empty string if no authentication is used.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -136752,7 +136752,7 @@ server. This string is set to an empty string if no authentication is used.</p>
 <td>
 <p>Password to be used by the device to authenticate with the file
 server. This string is set to an empty string if no authentication is used.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -139572,7 +139572,7 @@ in USP</span>.<span class="click"></span></p>
 </div>
 <div class="hide">
 <div class="hide">
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </div>
 </div>
 </td>
@@ -140108,7 +140108,7 @@ collection server.</p>
 <td>
 <p>Password used to authenticate the CPE when making a connection to the
 collection server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -146253,7 +146253,7 @@ might be reset to its factory value. If a Controller modifies the
 value of this parameter, it SHOULD be prepared to accommodate the
 situation that the original value is restored as the result of a
 factory reset.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -150189,7 +150189,7 @@ Methods/IEEE1905.1a</a>].</p>
 </td>
 <td>
 <p>1905 network passphrase for generating security keys.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -151407,7 +151407,7 @@ packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>], [<a href="#R.MQTT311
 3.1.3.5/MQTT311</a>] or [<a href="#R.MQTT50">Section 3.1.3.6/MQTT50</a>]).</p>
 <p>This password is only sent in the MQTT CONNECT packet if
 <a href="#D.Device:2.Device.MQTT.Client.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -152399,7 +152399,7 @@ MQTT broker.</p>
 <p>Password used used to authenticate the MQTT clients, which connect to
 the MQTT broker.</p>
 <p>This password is only used if <a href="#D.Device:2.Device.MQTT.Broker.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -152804,7 +152804,7 @@ CONNECT packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>],
 3.1.3.6/MQTT50</a>]).</p>
 <p>This password is only sent in the MQTT CONNECT packet if
 <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -154091,7 +154091,7 @@ Server.</p>
 <td>
 <p>Password used by this Dynamic DNS Client to authenticate with the
 Server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -173275,7 +173275,7 @@ response provided by the third-party through the Controller.</p>
 </td>
 <td>
 <p>The value of the challenge that is specific to the type of challenge.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -175179,7 +175179,7 @@ Server.</p>
 <p>The password part of the credentials to be used when authenticating
 this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> during connection establishment with the STOMP
 Server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </td>
 <td>
 <p>-</p>
@@ -218930,7 +218930,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:00:53 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:55:28 UTC.<br />
 report.py --output tr-181-2-16-0-usp.html --format html tr-181-2-16-0-usp.xml</p>
 </div>
 <div id="TOC">

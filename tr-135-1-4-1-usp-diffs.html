@@ -1238,7 +1238,9 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>The overall capabilities of the STB CPE.  This is a constant read-only object, meaning that only a firmware update will cause these values to be altered.</p>
+<p>The overall capabilities of the STB CPE. This is a constant read-only
+object, meaning that only a firmware update will cause these values to
+be altered.</p>
 </td>
 <td>
 <p>-</p>
@@ -1278,7 +1280,9 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>Object describing the set of supported profiles and levels for this STB. It also describes the set of audio standards supported when MPEG4 Part 10 is used as the video standard.</p>
+<p>Object describing the set of supported profiles and levels for this
+STB. It also describes the set of audio standards supported when MPEG4
+Part 10 is used as the video standard.</p>
 </td>
 <td>
 <p>-</p>
@@ -1298,7 +1302,8 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>Table to describe the set of profiles and levels combinations supported by the STB when MPEG4 Part 10 is used as video standard. <span class="removed">{{enum}}</span><span class="inserted">At most one entry in this table can exist with the same values for both <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Profile"><em>Profile</em></a> and <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Level"><em>Level</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Alias"><em>Alias</em></a>.</span> The table MUST include a distinct entry for each supported combination of these parameters.</p>
+<p>Table to describe the set of profiles and levels combinations supported by the STB when MPEG4 Part 10 is used as video standard.<span class="removed"> {{enum}}</span></p>
+<p><span class="inserted">At most one entry in this table can exist with the same values for both <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Profile"><em>Profile</em></a> and <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Level"><em>Level</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Capabilities.VideoDecoder.MPEG4Part10.ProfileLevel.Alias"><em>Alias</em></a>. The table MUST include a distinct entry for each supported combination of these parameters.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -1318,7 +1323,8 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object describes the capabilities of the <a href="#D.STBService:1.STBService.ServiceMonitoring."><em>ServiceMonitoring</em></a> object.</p>
+<p>This object describes the capabilities of the
+<a href="#D.STBService:1.STBService.ServiceMonitoring."><em>ServiceMonitoring</em></a> object.</p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
@@ -1333,6 +1339,32 @@ the <strong>Version</strong> column.</p>
 <p>1.0</p>
 </td>
 </tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxEventsPerSampleInterval">MaxEventsPerSampleInterval</span></p>
+</td>
+<td>
+<p>int(-1:)</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Maximum number of events of each applicable statistic that the STB is able to store for each sample interval.<span class="removed"> </span><span class="inserted">A value of -1 indicates no specific maximum number of events.</span></p>
+<div class="diffs">
+<p><strong>Changes since 1.3:</strong></p>
+<ul>
+<li>Removed int <em>bytes</em>  units</li>
+</ul>
+</div>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
 <tr class="parameter inserted">
 <td>
 <p><span id="D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries">MaxMainStreamEventLogEntries</span></p>
@@ -1344,7 +1376,8 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>Maximum number of event log entries that the STB is able to record for a MainStream object instance.</p>
+<p>Maximum number of event log entries that the STB is able to record
+for a MainStream object instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -1364,7 +1397,10 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>Details of STB logical or physical internal components. Unlike the <a href="#D.STBService:1.STBService.Capabilities."><em>Capabilities</em></a> object, which is read-only and which doesn't describe individual instances, this object contains some writeable parameters.</p>
+<p>Details of STB logical or physical internal components. Unlike the
+<a href="#D.STBService:1.STBService.Capabilities."><em>Capabilities</em></a> object, which is read-only and which doesn't
+describe individual instances, this object contains some writeable
+parameters.</p>
 </td>
 <td>
 <p>-</p>
@@ -1384,7 +1420,9 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>FrontEnd instance table. Each front-end instance, including vendor-specific front-end types, will normally have a sub-object that corresponds to the front-end type (e.g. DVB-T or IP).</p>
+<p>FrontEnd instance table. Each front-end instance, including
+vendor-specific front-end types, will normally have a sub-object that
+corresponds to the front-end type (e.g. DVB-T or IP).</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.Components.FrontEnd.Name"><em>Name</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Components.FrontEnd.Alias"><em>Alias</em></a>.</p>
 </td>
 <td>
@@ -1405,12 +1443,12 @@ the <strong>Version</strong> column.</p>
 <p>R</p>
 </td>
 <td>
-<p>DVB-T front-end details. This object will normally be present if and only if this front-end is a DVB-T front-end.
-Parameters are taken from the DGTVi D-Book [<a href="#R.D-Book">D-Book</a>].</p>
+<p>DVB-T front-end details. This object will normally be present if and only if this front-end is a DVB-T front-end.<span class="removed"> </span><span class="inserted">Parameters are taken from the DGTVi D-Book [<a href="#R.D-Book">D-Book</a>].</span></p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Changed minEntries = <em>0</em> ⇒ <em>1</em></li>
+<li>Added dmr_noDiscriminatorParameter = <em>true</em></li>
 <li>Removed <em>Install.</em>  object</li>
 <li>Removed <em>LogicalChannelConnect.</em>  object</li>
 <li>Removed <em>ServiceConnect.</em>  object</li>
@@ -1439,7 +1477,8 @@ Parameters are taken from the DGTVi D-Book [<a href="#R.D-Book">D-Book</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Progression in <em>%</em> of the current scan.  The value is undefined when a scan is not in progress.</p>
+<p>Progression in <em>%</em> of the current scan. The value is undefined
+when a scan is not in progress.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -1460,8 +1499,11 @@ Parameters are taken from the DGTVi D-Book [<a href="#R.D-Book">D-Book</a>].</p>
 <p>-</p>
 </td>
 <td>
-<p><strong>[ASYNC]</strong> DVB-T service list database installation.  Supports maintenance of the service list database by scanning frequencies in order to detect services.
-The service list database is in <a href="#D.STBService:1.STBService.Components.FrontEnd.DVBT.ServiceListDatabase."><em>Components.FrontEnd.{i}.DVBT.ServiceListDatabase</em></a>.</p>
+<p><strong>[ASYNC]</strong> DVB-T service list database installation. Supports maintenance of the
+service list database by scanning frequencies in order to detect
+services.</p>
+<p>The service list database is in
+<a href="#D.STBService:1.STBService.Components.FrontEnd.DVBT.ServiceListDatabase."><em>Components.FrontEnd.{i}.DVBT.ServiceListDatabase</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -1581,8 +1623,12 @@ The service list database is in <a href="#D.STBService:1.STBService.Components.F
 <p>W</p>
 </td>
 <td>
-<p>Logical channel number to connect to (the logical channel's preferred service will be connected to).
-If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>DTT</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.</p>
+<p>Logical channel number to connect to (the logical channel's
+preferred service will be connected to).</p>
+<p>If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with
+<em>ServiceType</em> = <em>DTT</em> is currently enabled, the STB MUST
+ensure that performance data for this service is collected in
+that instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -1642,8 +1688,11 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>W</p>
 </td>
 <td>
-<p>DvbId of the service to connect to.
-If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>DTT</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.</p>
+<p>DvbId of the service to connect to.</p>
+<p>If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with
+<em>ServiceType</em> = <em>DTT</em> is currently enabled, the STB MUST
+ensure that performance data for this service is collected in
+that instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -1703,7 +1752,8 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>W</p>
 </td>
 <td>
-<p>Hierarchical parameter alpha. The higher the value of alpha, the more noise-immune the High Priority Modulation is.</p>
+<p>Hierarchical parameter alpha. The higher the value of alpha, the more
+noise-immune the High Priority Modulation is.</p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.0"><em>0</em></span> (no hierarchy)</li>
@@ -1777,11 +1827,13 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>R</p>
 </td>
 <td>
-<p>IP front-end details. This object will normally be present if and only if the front-end is an IP front-end.</p>
+<p>IP front-end details. This object will normally be present if and only
+if the front-end is an IP front-end.</p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
 <li>Changed minEntries = <em>0</em> ⇒ <em>1</em></li>
+<li>Added dmr_noDiscriminatorParameter = <em>true</em></li>
 <li>Removed <em>ServiceConnect.</em>  object</li>
 <li>Added <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect"><em>ServiceConnect()</em></a> command</li>
 </ul>
@@ -1845,27 +1897,76 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>W</p>
 </td>
 <td>
-<p>RFC 3986 URI that  describes the service to connect to in the form:</p>
+<p>RFC 3986 URI that describes the service to connect to in the
+form:</p>
 <ul>
-<li><trsp>://<addr>:<port>?StrCtrl=<strctrl>?StrTrspCtrl=<trspctrl>?MuxType=<muxtype>
-where:</li>
-<li><strong><addr></strong> is the IP address of the service source (for Unicast) or IGMP  group (for Multicast).</li>
-<li><strong><port></strong> is the associated TCP/UDP port.  If not specified, the STB is assumed to know and use an appropriate default port.</li>
-<li><strong><trsp></strong> is the streaming transport protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportProtocols</em></a>, which SHOULD be converted to lower-case.</li>
-<li><strong><strctrl></strong> is the streaming control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingControlProtocols</em></a>.  If not specified, no streaming control protocol is to be used.</li>
-<li><strong><trspctrl></strong> is the streaming transport control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportControlProtocols</em></a>.  If not specified, no streaming transport control protocol is to be used.</li>
-<li><strong><muxtype></strong> is the multiplex type and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.MultiplexTypes"><em>Capabilities.FrontEnd.IP.MultiplexTypes</em></a>.  This tells the STB which multiplex type to expect.  If not specified, the STB is assumed to know, or to be able to determine, the multiplex type.
-Note that download protocols are not supported by the above syntax.  However, the specified syntax is just a baseline, and STBs MAY support an extended syntax.
-Example of Multicast MPEG2-TS over RTP with no transport control:</li>
-<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS</a>
-Example of Multicast MPEG2-TS over RTP with AL-FEC transport control:</li>
-<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS</a>
-Example of Unicast MPEG2-TS over UDP with RTSP transport control:</li>
-<li><a href="udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS">udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS</a>
-Example of Unicast raw AV over RTP with RTCP control and RTSP transport control:</li>
-<li><a href="rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None">rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None</a>
-If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>IP</em> or <em>IPTV</em> (or <em>VoD</em> if the URI accesses a VoD service) is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.</li>
+<li><trsp>://<addr>:<port>?StrCtrl=<strctrl>?StrTrspCtrl=<trspctrl>?MuxType=<muxtype></li>
 </ul>
+<p>where:</p>
+<ul>
+<li>
+<p><strong><addr></strong> is the IP address of the service source (for
+Unicast) or IGMP group (for Multicast).</p>
+</li>
+<li>
+<p><strong><port></strong> is the associated TCP/UDP port. If not
+specified, the STB is assumed to know and use an appropriate
+default port.</p>
+</li>
+<li>
+<p><strong><trsp></strong> is the streaming transport protocol and MUST
+be one of the values in
+<a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportProtocols</em></a>,
+which SHOULD be converted to lower-case.</p>
+</li>
+<li>
+<p><strong><strctrl></strong> is the streaming control protocol and
+MUST be one of the values in
+<a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingControlProtocols</em></a>.
+If not specified, no streaming control protocol is to be used.</p>
+</li>
+<li>
+<p><strong><trspctrl></strong> is the streaming transport control
+protocol and MUST be one of the values in
+<a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportControlProtocols</em></a>.
+If not specified, no streaming transport control protocol is to
+be used.</p>
+</li>
+<li>
+<p><strong><muxtype></strong> is the multiplex type and MUST be one of
+the values in
+<a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.MultiplexTypes"><em>Capabilities.FrontEnd.IP.MultiplexTypes</em></a>. This tells
+the STB which multiplex type to expect. If not specified, the
+STB is assumed to know, or to be able to determine, the
+multiplex type.</p>
+</li>
+</ul>
+<p>Note that download protocols are not supported by the above
+syntax. However, the specified syntax is just a baseline, and
+STBs MAY support an extended syntax.</p>
+<p>Example of Multicast MPEG2-TS over RTP with no transport control:</p>
+<ul>
+<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS</a></li>
+</ul>
+<p>Example of Multicast MPEG2-TS over RTP with AL-FEC transport
+control:</p>
+<ul>
+<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS</a></li>
+</ul>
+<p>Example of Unicast MPEG2-TS over UDP with RTSP transport control:</p>
+<ul>
+<li><a href="udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS">udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS</a></li>
+</ul>
+<p>Example of Unicast raw AV over RTP with RTCP control and RTSP
+transport control:</p>
+<ul>
+<li><a href="rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None">rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None</a></li>
+</ul>
+<p>If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with
+<em>ServiceType</em> = <em>IP</em> or <em>IPTV</em> (or <em>VoD</em> if the URI
+accesses a VoD service) is currently enabled, the STB MUST ensure
+that performance data for this service is collected in that
+instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -1885,10 +1986,7 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>R</p>
 </td>
 <td>
-<p>Parameters used to describe the force monitoring operation.
-When running in the force monitoring mode, the STB MUST automatically connect to a test URI  defined by the <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ForceMonitor.URI"><em>URI</em></a> parameter whenever it detects that the IP tuner is not not receiving any data from the WAN.
-When running in normal mode, the STB does not perform any action when it does not receive any data from the IP tuner coming from the WAN.
-The force monitor mode allows to maintain an active stream coming from the network so as to keep collecting statistics.</p>
+<p>Parameters used to describe the force monitoring operation.<span class="removed"> </span><span class="inserted">When running in the force monitoring mode, the STB MUST automatically connect to a test URI defined by the <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ForceMonitor.URI"><em>URI</em></a> parameter whenever it detects that the IP tuner is not not receiving any data from the WAN.</span><span class="removed"> </span><span class="inserted">When running in normal mode, the STB does not perform any action when it does not receive any data from the IP tuner coming from the WAN.</span><span class="removed"> </span><span class="inserted">The force monitor mode allows to maintain an active stream coming from the network so as to keep collecting statistics.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -1908,7 +2006,7 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">describes</span><span class="inserted">Describes</span> the service to connect to for force monitoring purposes with the same <span class="removed">syntaxt</span><span class="inserted">syntax</span> as <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>ServiceConnect().URI</em></a><span class="removed"> </span><span class="inserted">.</span>If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>TEST</em> or <em>IP-All</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance. The value when read is not specified and need not be the value that was most recently written.</p>
+<p><span class="removed">describes</span><span class="inserted">Describes</span> the service to connect to for force monitoring purposes with the same <span class="removed">syntaxt</span><span class="inserted">syntax</span> as **{{param: non-existent #.ServiceConnect().URI.}}**If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>TEST</em> or <em>IP-All</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.<span class="removed"> </span><span class="inserted">The value when read is not specified and need not be the value that was most recently written.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -1967,6 +2065,56 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 </tr>
 <tr class="object">
 <td>
+<p><span id="D.STBService:1.STBService.Components.HDMI.">STBService.{i}.Components.HDMI.{i}.</span></p>
+</td>
+<td>
+<p><span title="object(0:∞)">object(0:)</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>HDMI instance table. This object allows configuration of the STB’s HDMI
+output.</p>
+<p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.Components.HDMI.Name"><em>Name</em></a>, or with a given value for <a href="#D.STBService:1.STBService.Components.HDMI.Alias"><em>Alias</em></a>.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.Components.HDMI.DisplayDevice.">STBService.{i}.Components.HDMI.{i}.DisplayDevice.</span></p>
+</td>
+<td>
+<p><span title="object(0:1)">object(0:1)</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>HDMI connected display device configuration. This object provides
+parameters from the HDMI connected device if any.</p>
+<p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
+<div class="diffs">
+<p><strong>Changes since 1.3:</strong></p>
+<ul>
+<li>Added dmr_noDiscriminatorParameter = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
+<tr class="object">
+<td>
 <p><span id="D.STBService:1.STBService.AVPlayers.">STBService.{i}.AVPlayers.</span></p>
 </td>
 <td>
@@ -1976,9 +2124,7 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 <p>R</p>
 </td>
 <td>
-<p>AV Players object.  If more than one AV player can be active at a time, it may contain several <a href="#D.STBService:1.STBService.AVPlayers.AVPlayer."><em>AVPlayer</em></a> instances.
-AV players are created statically. Each AV player corresponds to a combination of several AV streams (one main screen video, several PIP, one audio) being connected to an AV presentation device (such as a TV set).
-There is no guarantee that the STB has the resources to enable all of its AV players at the same time.</p>
+<p>AV Players object. If more than one AV player can be active at a time, it may contain several <a href="#D.STBService:1.STBService.AVPlayers.AVPlayer."><em>AVPlayer</em></a> instances.<span class="removed"> </span><span class="inserted">AV players are created statically. Each AV player corresponds to a combination of several AV streams (one main screen video, several PIP, one audio) being connected to an AV presentation device (such as a TV set).</span><span class="removed"> </span><span class="inserted">There is no guarantee that the STB has the resources to enable all of its AV players at the same time.</span></p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
@@ -2005,7 +2151,10 @@ There is no guarantee that the STB has the resources to enable all of its AV pla
 <p>-</p>
 </td>
 <td>
-<p>Resets the STB's master PIN code to 0000. It is not recommended that this be set to true without the user's permission. No data on the device such as PVR recordings are to be cleared as a result of resetting the PIN code.</p>
+<p>Resets the STB's master PIN code to 0000. It is not recommended that
+this be set to true without the user's permission. No data on the
+device such as PVR recordings are to be cleared as a result of
+resetting the PIN code.</p>
 </td>
 <td>
 <p>-</p>
@@ -2025,11 +2174,13 @@ There is no guarantee that the STB has the resources to enable all of its AV pla
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Contains statistics relating to the</span><span class="inserted">Records events and collects</span> QoS / QoE <span class="removed">of</span><span class="inserted">related statistics for</span> Main AV streams. These statistics are broken down into categories, e.g. de-jittering and RTP, and for each category there are two types of statistics: * <strong>Total</strong> statistics, which count the number of occurrences of something. * <strong>Sample</strong> statistics, which are measured over a sample interval, and are made available to the ACS as a list of the most recent n samples. Total statistics are always collected (collection cannot be disabled, but the values can be reset). For Sample statistics, an STB uses a single sample interval and number of samples (n) for all <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>MainStream</em></a> instances. The sample interval can be aligned with absolute time. When Sample statistics collection is enabled, statistics collection MUST proceed regardless of whether there are any active Main AV streams. For example, even when the STB is not receiving any data, sample intervals will continue to be timed as normal. Refer to [<a href="#R.TR-135">I.3/TR-135</a>] for non-normative explanation of the operation of the <em>ServiceMonitoring</em> object.</p>
+<p><span class="removed">Contains</span><span class="inserted">Records</span> <span class="removed">statistics</span><span class="inserted">events</span> <span class="removed">relating</span><span class="inserted">and</span> <span class="removed">to the</span><span class="inserted">collects</span> QoS / QoE <span class="removed">of</span><span class="inserted">related statistics for</span> Main AV streams.<span class="removed"> </span><span class="inserted">These statistics are broken down into categories, e.g. de-jittering and RTP, and for each category there are two types of statistics:</span><span class="removed"> </span><span class="inserted">* <strong>Total</strong> statistics, which count the number of occurrences of something.</span><span class="removed"> </span><span class="inserted">* <strong>Sample</strong> statistics, which are measured over a sample interval, and are made available to the ACS as a list of the most recent n samples.</span><span class="removed"> </span><span class="inserted">Total statistics are always collected (collection cannot be disabled, but the values can be reset).</span><span class="removed"> </span><span class="inserted">For Sample statistics, an STB uses a single sample interval and number of samples (n) for all <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>MainStream</em></a> instances. The sample interval can be aligned with absolute time.</span><span class="removed"> </span><span class="inserted">When Sample statistics collection is enabled, statistics collection MUST proceed regardless of whether there are any active Main AV streams. For example, even when the STB is not receiving any data, sample intervals will continue to be timed as normal.</span><span class="removed"> </span><span class="inserted">Refer to [<a href="#R.TR-135">I.3/TR-135</a>] for non-normative explanation of the operation of the <em>ServiceMonitoring</em> object.</span></p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
+<li>Removed <em>FetchSamples</em>  parameter</li>
 <li>Removed <em>ForceSample</em>  parameter</li>
+<li>Removed <em>ReportEndTime</em>  parameter</li>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.ForceSample"><em>ForceSample()</em></a> command</li>
 <li>Added <a href="#D.STBService:1.STBService.ServiceMonitoring.EventCollectionEnable"><em>EventCollectionEnable</em></a> parameter</li>
 </ul>
@@ -2053,11 +2204,27 @@ There is no guarantee that the STB has the resources to enable all of its AV pla
 <p>-</p>
 </td>
 <td>
-<p>Forces statistics for the current sample to be calculated and updated in the data model.
-If this is the first time that <em>ForceSample()</em> has been invoked during the current sample interval, this MUST cause a new value to be added to each of the Sample statistics comma-separated list parameters, and the <a href="#D.STBService:1.STBService.ServiceMonitoring.ReportEndTime"><em>ReportEndTime</em></a> and all <em>SampleSeconds</em> parameters MUST be updated accordingly.
-If this is not the first time that <em>ForceSample()</em> has been invoked during the current sample interval, then the new values that were added as described in the previous paragraph, and the <a href="#D.STBService:1.STBService.ServiceMonitoring.ReportEndTime"><em>ReportEndTime</em></a> and all <em>SampleSeconds</em> parameters, MUST be updated accordingly.
-Note that <em>ForceSample()</em> just provides a <em>sneak preview</em> of the current sample.  It does not create a new sample and it does not interfere with the sample interval schedule.
-At the end of each sample interval, if <em>ForceSample()</em> was invoked during the sample interval then the new values that were added as described above, and the <a href="#D.STBService:1.STBService.ServiceMonitoring.ReportEndTime"><em>ReportEndTime</em></a> and all <em>SampleSeconds</em> parameters, will be updated accordingly.  In other words, the partial sample data that was created when <em>ForceSample()</em> was invoked will be updated one last time at the end of the sample interval.</p>
+<p>Forces statistics for the current sample to be calculated and updated
+in the data model.</p>
+<p>If this is the first time that <em>ForceSample()</em> has been invoked during
+the current sample interval, this MUST cause a new value to be added
+to each of the Sample statistics comma-separated list parameters, and
+the <strong>{{param: non-existent ReportEndTime}}</strong> and all <em>SampleSeconds</em> parameters MUST
+be updated accordingly.</p>
+<p>If this is not the first time that <em>ForceSample()</em> has been invoked
+during the current sample interval, then the new values that were
+added as described in the previous paragraph, and the
+<strong>{{param: non-existent ReportEndTime}}</strong> and all <em>SampleSeconds</em> parameters, MUST be
+updated accordingly.</p>
+<p>Note that <em>ForceSample()</em> just provides a <em>sneak preview</em> of the
+current sample. It does not create a new sample and it does not
+interfere with the sample interval schedule.</p>
+<p>At the end of each sample interval, if <em>ForceSample()</em> was invoked during
+the sample interval then the new values that were added as described
+above, and the <strong>{{param: non-existent ReportEndTime}}</strong> and all <em>SampleSeconds</em>
+parameters, will be updated accordingly. In other words, the partial
+sample data that was created when <em>ForceSample()</em> was invoked will be
+updated one last time at the end of the sample interval.</p>
 </td>
 <td>
 <p>-</p>
@@ -2077,8 +2244,11 @@ At the end of each sample interval, if <em>ForceSample()</em> was invoked during
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables the collection of the events for all main streams.
-When the collection of events is enabled, any previously collected events are discarded and the collection of new events begins immediately.</p>
+<p>Enables or disables the collection of the events for all main
+streams.</p>
+<p>When the collection of events is enabled, any previously collected
+events are discarded and the collection of new events begins
+immediately.</p>
 </td>
 <td>
 <p>-</p>
@@ -2098,7 +2268,7 @@ When the collection of events is enabled, any previously collected events are di
 <p>R</p>
 </td>
 <td>
-<p>List of Main AV stream objects. Each instance is associated with a specified service type and will collect statistics only for the main stream that matches that service type. Note that this means that streams that do not match an instance's service type MUST NOT contribute to the instance's Total and Sample statistics. It is up to the STB to determine which AV stream should be regarded as the Main AV stream for a given service type at any given time. For example, if two active streams are associated with the same service type, the STB might prefer streams that are associated with an AV player, or if more than one stream is associated with an AV player, the STB might prefer a player that is outputting a DVI stream to a player that is outputting an RF stream.<span class="removed"> </span><span class="inserted">Note that some parameters, e.g. <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>Components.FrontEnd.{i}.IP.ServiceConnect().URI</em></a>, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.</span></p>
+<p>List of Main AV stream objects. Each instance is associated with a specified service type and will collect statistics only for the main stream that matches that service type.<span class="removed"> </span><span class="inserted">Note that this means that streams that do not match an instance's service type MUST NOT contribute to the instance's Total and Sample statistics.</span><span class="removed"> </span><span class="inserted">It is up to the STB to determine which AV stream should be regarded as the Main AV stream for a given service type at any given time. For example, if two active streams are associated with the same service type, the STB might prefer streams that are associated with an AV player, or if more than one stream is associated with an AV player, the STB might prefer a player that is outputting a DVI stream to a player that is outputting an RF stream.</span><span class="removed"> </span><span class="inserted">Note that some parameters, e.g. <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>Components.FrontEnd.{i}.IP.ServiceConnect().URI</em></a>, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.ServiceType"><em>ServiceType</em></a>, or with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
@@ -2126,7 +2296,8 @@ When the collection of events is enabled, any previously collected events are di
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables collection of Total and Sample statistics <span class="inserted">and events </span>for this object instance.<span class="inserted"> The collection of events requires the value of this parameter to be <em>true</em> and the value of the <a href="#D.STBService:1.STBService.ServiceMonitoring.EventCollectionEnable"><em>ServiceMonitoring.EventCollectionEnable</em></a> to be <em>true</em>.</span></p>
+<p>Enables or disables collection of Total and Sample statistics <span class="inserted">and events </span>for this object instance.</p>
+<p><span class="inserted">The collection of events requires the value of this parameter to be <em>true</em> and the value of the <a href="#D.STBService:1.STBService.ServiceMonitoring.EventCollectionEnable"><em>ServiceMonitoring.EventCollectionEnable</em></a> to be <em>true</em>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2151,7 +2322,7 @@ When the collection of events is enabled, any previously collected events are di
 <li><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Disabled"><em>Disabled</em></span></li>
 <li><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Enabled"><em>Enabled</em></span></li>
 <li><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Error"><em>Error</em></span> (OPTIONAL)
-The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Error"><em>Error</em></a> value MAY be used by the CPE to indicate a locally defined error condition.</li>
+<span class="removed"> </span><span class="inserted">The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Error"><em>Error</em></a> value MAY be used by the CPE to indicate a locally defined error condition.</span></li>
 </ul>
 </td>
 <td>
@@ -2172,7 +2343,9 @@ The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Erro
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.UUID">UUID</a>] Time based UUID [<a href="#R.RFC4122">Section 4.2/RFC4122</a>] that is the identifier for the associated <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.AVStream"><em>AVStream</em></a> parameter when available to the device.</p>
+<p>[<a href="#T.UUID">UUID</a>] Time based UUID [<a href="#R.RFC4122">Section 4.2/RFC4122</a>] that is the identifier
+for the associated <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.AVStream"><em>AVStream</em></a> parameter when available to the
+device.</p>
 </td>
 <td>
 <p>-</p>
@@ -2192,7 +2365,8 @@ The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Erro
 <p>R</p>
 </td>
 <td>
-<p>Total statistics since this <em>ServiceMonitoring</em> main stream instance was last enabled or Total statistics were last reset.</p>
+<p>Total statistics since this <em>ServiceMonitoring</em> main stream instance
+was last enabled or Total statistics were last reset.</p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
@@ -2219,7 +2393,378 @@ The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Erro
 <p>-</p>
 </td>
 <td>
-<p>Resets Total statistics for this <em>ServiceMonitoring</em> main stream instance.</p>
+<p>Resets Total statistics for this <em>ServiceMonitoring</em> main stream
+instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Sample statistics collected since collection was last enabled or reset.<span class="removed"> </span><span class="inserted">Most of the parameters in this object are comma-separated lists of individual statistics values, each of which corresponds to a sample interval.</span><span class="removed"> </span><span class="inserted">The statistics values in these comma-separated lists MUST be in time order, with the oldest one first and the most recent one last.</span><span class="removed"> </span><span class="inserted">Each comma-separated list can contain up to <a href="#D.STBService:1.STBService.ServiceMonitoring.ReportSamples"><em>ReportSamples</em></a> statistics values. When the list is full, each new value causes the oldest one to be discarded.</span><span class="removed"> </span><span class="inserted">Some comma-separated lists contain terms that are comma-separated lists themselves and are used to store measurements on an event basis. These sub-lists can contain up to <a href="#D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxEventsPerSampleInterval"><em>Capabilities.ServiceMonitoring.MaxEventsPerSampleInterval</em></a> values.</span><span class="removed"> </span><span class="inserted">If no data was collected for a statistic during a sample interval then the value for that sample interval MUST be zero unless otherwise specified in the description of the individual statistics parameter.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which data was collected for this AV stream during the sample interval. Each statistics category (Dejittering, RTP etc) has its own <em>SampleSeconds</em> parameter, which indicates the number of seconds during which data was collected for that statistics category during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the <em>SampleInterval</em>, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* The STB was not receiving any data for the corresponding ServiceType for all or part of the sample interval.</span><span class="removed"> </span><span class="inserted">* <em>TimeReference</em> has been set to a time other than the Unknown Time and the current sample interval started part of the way through a scheduled sample interval.</span><span class="removed"> </span><span class="inserted">* <em>ForceSample</em> has been used to force statistics for the current sample to be calculated and updated in the data model.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.DejitteringStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.DejitteringStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>De-jittering Sample statistics for this <em>ServiceMonitoring</em> main
+stream instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.DejitteringStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which de-jittering data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* De-jittering data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.TCPStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.TCPStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>TCP sample statistics for this <em>ServiceMonitoring</em> main stream
+instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.TCPStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which de-jittering data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* TCP data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.RTPStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.RTPStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>RTP Sample statistics for this <em>ServiceMonitoring</em> main stream instance.<span class="removed"> </span><span class="inserted">If no EC is applied the <em>BeforeEC</em> statistics provide the same values as the corresponding statistics, e.g. when there is no EC, <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.RTPStats.PacketsReceivedBeforeEC"><em>PacketsReceivedBeforeEC</em></a> = <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.RTPStats.PacketsReceived"><em>PacketsReceived</em></a>.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.RTPStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which RTP data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* RTP data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.MPEG2TSStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.MPEG2TSStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>MPEG2-TS Sample statistics for this <em>ServiceMonitoring</em> main stream
+instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.MPEG2TSStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which MPEG2-TS data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* MPEG2-TS data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoDecoderStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.VideoDecoderStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Video decoder Sample statistics for this <em>ServiceMonitoring</em> main
+stream instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoDecoderStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which video decoder data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* Video Decoder data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.AudioDecoderStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.AudioDecoderStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Audio decoder Sample statistics for this <em>ServiceMonitoring</em> main
+stream instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.AudioDecoderStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which audio decoder data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* Audio decoder data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoResponseStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.VideoResponseStats.</span></p>
+</td>
+<td>
+<p><span title="object">object</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Video response Sample statistics for this <em>ServiceMonitoring</em> main
+stream instance.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoResponseStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which video response data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* Video response data collection is not appropriate or possible for this AV stream.</span></p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="object">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStats.">STBService.{i}.ServiceMonitoring.MainStream.{i}.Sample.HighLevelMetricStats.{i}.</span></p>
+</td>
+<td>
+<p><span title="object(0:∞)">object(0:)</span></p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>High-level metric Sample statistics for this <em>ServiceMonitoring</em> main
+stream instance. One or more different high-level metrics can be
+supported; this is specified by
+<a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStatsNumberOfEntries"><em>ServiceMonitoring.MainStream.{i}.Sample.HighLevelMetricStatsNumberOfEntries</em></a>.</p>
+<p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStats.MetricName"><em>MetricName</em></a>, or with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStats.Alias"><em>Alias</em></a>.</p>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.0</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStats.SampleSeconds">SampleSeconds</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Each entry is the number of <span class="removed">seconds</span><span class="inserted"><em>seconds</em></span> during which this high-level metric's data was collected for this AV stream during the sample interval.<span class="removed"> </span><span class="inserted">Individual <em>SampleSeconds</em> values can be less than the sample interval, for several reasons, including:</span><span class="removed"> </span><span class="inserted">* Any of the reasons for which the <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.SampleSeconds"><em>ServiceMonitoring.MainStream.{i}.Sample.SampleSeconds</em></a> values might be less than the sample interval.</span><span class="removed"> </span><span class="inserted">* This high-level metric's data collection is not appropriate or possible for this AV stream.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2239,9 +2784,13 @@ The <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Status.Erro
 <p>R</p>
 </td>
 <td>
-<p>This object represents the log entries of events recorded by the MainStream object instance.
-When the number of log entries in the EventLog exceeds the value of the <a href="#D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries"><em>Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries</em></a> parameter, the Entry object with the lowest SequenceNumber value is replaced by the new EventLog Entry object.
-Log entries are persisted across reboots of the CPE.</p>
+<p>This object represents the log entries of events recorded by the
+MainStream object instance.</p>
+<p>When the number of log entries in the EventLog exceeds the value of the
+<a href="#D.STBService:1.STBService.Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries"><em>Capabilities.ServiceMonitoring.MaxMainStreamEventLogEntries</em></a>
+parameter, the Entry object with the lowest SequenceNumber value is
+replaced by the new EventLog Entry object.</p>
+<p>Log entries are persisted across reboots of the CPE.</p>
 </td>
 <td>
 <p>-</p>
@@ -2261,7 +2810,9 @@ Log entries are persisted across reboots of the CPE.</p>
 <p>-</p>
 </td>
 <td>
-<p>Clears the events from the event log and the value of <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.EventLog.Entry.SequenceNumber"><em>Entry.{i}.SequenceNumber</em></a> parameter is reset to the parameter's minimum value.</p>
+<p>Clears the events from the event log and the value of
+<a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.EventLog.Entry.SequenceNumber"><em>Entry.{i}.SequenceNumber</em></a> parameter is reset to the
+parameter's minimum value.</p>
 </td>
 <td>
 <p>-</p>
@@ -2301,7 +2852,8 @@ Log entries are persisted across reboots of the CPE.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object represents an entry (e.g., start session, channel change) in the event log.</p>
+<p>This object represents an entry (e.g., start session, channel change)
+in the event log.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.EventLog.Entry.SequenceNumber"><em>SequenceNumber</em></a>.</p>
 </td>
 <td>
@@ -2322,9 +2874,12 @@ Log entries are persisted across reboots of the CPE.</p>
 <p>R</p>
 </td>
 <td>
-<p>The sequence number of the event within the EventLog.
-This parameter is incremented by one (1) for each entry within the EventLog.
-When the value of the parameter exceeds the maximium range, the lowest value of this parameter that is not contained in current EventLog entries is used.</p>
+<p>The sequence number of the event within the EventLog.</p>
+<p>This parameter is incremented by one (1) for each entry within the
+EventLog.</p>
+<p>When the value of the parameter exceeds the maximium range, the
+lowest value of this parameter that is not contained in current
+EventLog entries is used.</p>
 </td>
 <td>
 <p>-</p>
@@ -2404,7 +2959,8 @@ When the value of the parameter exceeds the maximium range, the lowest value of 
 <p>R</p>
 </td>
 <td>
-<p>This object represents an instance of a parameter that is associated with the Entry object Instance.</p>
+<p>This object represents an instance of a parameter that is associated
+with the Entry object Instance.</p>
 </td>
 <td>
 <p>-</p>
@@ -2511,8 +3067,9 @@ When the value of the parameter exceeds the maximium range, the lowest value of 
 <p>-</p>
 </td>
 <td>
-<p>Resets the viewing statistics table.
-Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applications.AudienceStats.Channel.Duration"><em>Channel.{i}.Duration</em></a> parameters.</p>
+<p>Resets the viewing statistics table.</p>
+<p>Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applications.AudienceStats.Channel.Duration"><em>Channel.{i}.Duration</em></a>
+parameters.</p>
 </td>
 <td>
 <p>-</p>
@@ -2569,6 +3126,34 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 <p>1.1</p>
 </td>
 </tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.Applications.CDSPush.ContentItem.VersionNumber">VersionNumber</span></p>
+</td>
+<td>
+<p>unsignedInt(0:255)</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Version number of the stored content item (a content item could be
+updated with a new version e.g. in case of errors in the video
+preventing the play out).</p>
+<div class="diffs">
+<p><strong>Changes since 1.3:</strong></p>
+<ul>
+<li>Removed unsignedInt <em>%</em>  units</li>
+</ul>
+</div>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
 <tr class="command">
 <td>
 <p><span id="D.STBService:1.STBService.Applications.CDSPush.ContentItem.DeleteItem">DeleteItem()</span></p>
@@ -2600,7 +3185,9 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 <p>R</p>
 </td>
 <td>
-<p>Details of STB CDS Pull logical internal component. This object is present only if the user allowed (via his local STB UI) the remote management of the CDS Pull service.</p>
+<p>Details of STB CDS Pull logical internal component. This object is
+present only if the user allowed (via his local STB UI) the remote
+management of the CDS Pull service.</p>
 </td>
 <td>
 <p>-</p>
@@ -2637,6 +3224,34 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 <p>1.1</p>
 </td>
 </tr>
+<tr class="parameter">
+<td>
+<p><span id="D.STBService:1.STBService.Applications.CDSPull.ContentItem.VersionNumber">VersionNumber</span></p>
+</td>
+<td>
+<p>unsignedInt(0:255)</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Version number of the stored content item (a content item could be
+updated with a new version e.g. in case of errors in the video
+preventing the play out).</p>
+<div class="diffs">
+<p><strong>Changes since 1.3:</strong></p>
+<ul>
+<li>Removed unsignedInt <em>%</em>  units</li>
+</ul>
+</div>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>1.1</p>
+</td>
+</tr>
 <tr class="command">
 <td>
 <p><span id="D.STBService:1.STBService.Applications.CDSPull.ContentItem.DeleteItem">DeleteItem()</span></p>
@@ -2660,7 +3275,7 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:09:55 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:54:09 UTC.<br />
 report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --show --transform diff --format html tr-135-1-3-0.xml tr-135-1-4-1-usp.xml</p>
 </div>
 <div id="TOC">
@@ -2717,6 +3332,11 @@ report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --sh
                   <li><a href="#D.STBService:1.STBService.Components.AudioOutput.CancelMute">CancelMute()</a></li>
                 </ul>
               </li>
+              <li><span class="expandable"><a href="#D.STBService:1.STBService.Components.HDMI.">HDMI.{i}.</a></span>
+                <ul class="collapsed">
+                  <li><a href="#D.STBService:1.STBService.Components.HDMI.DisplayDevice.">DisplayDevice.</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li><span class="expandable"><a href="#D.STBService:1.STBService.AVPlayers.">AVPlayers.</a></span>
@@ -2732,6 +3352,18 @@ report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --sh
                   <li><span class="expandable"><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Total.">Total.</a></span>
                     <ul class="collapsed">
                       <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Total.Reset">Reset()</a></li>
+                    </ul>
+                  </li>
+                  <li><span class="expandable"><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.">Sample.</a></span>
+                    <ul class="collapsed">
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.DejitteringStats.">DejitteringStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.TCPStats.">TCPStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.RTPStats.">RTPStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.MPEG2TSStats.">MPEG2TSStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoDecoderStats.">VideoDecoderStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.AudioDecoderStats.">AudioDecoderStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.VideoResponseStats.">VideoResponseStats.</a></li>
+                      <li><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Sample.HighLevelMetricStats.">HighLevelMetricStats.{i}.</a></li>
                     </ul>
                   </li>
                   <li><span class="expandable"><a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.EventLog.">EventLog.</a></span>

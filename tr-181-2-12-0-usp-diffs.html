@@ -2509,7 +2509,7 @@ Formatted as a [<a href="#T.JSONObject">JSONObject</a>] A JSON Object as defined
 <p>Organizationally unique identifier of the device manufacturer. Represented as a six hexadecimal-digit value using all upper-case letters and including any leading zeros.  Possible patterns:</p>
 <ul>
 <li><span id="D.Device:2.Device.DeviceInfo.ManufacturerOUI.0-9A-F6"><code>[0-9A-F]{6}</code></span>
-The value MUST be a valid OUI as defined in [<a href="#R.OUI">OUI</a>]. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> </span><span class="inserted">Any change would indicate that it's a new <span class="removed">device</span><span class="inserted">Agent</span> and would therefore require a <span class="removed">BOOTSTRAP</span><span class="inserted"><a href="#D.Device:2.Device.Boot"><em>Boot!</em></a></span> <span class="removed">Inform.</span><span class="inserted">Event with a <a href="#D.Device:2.Device.Boot.Cause.LocalFactoryReset"><em>LocalFactoryReset</em></a> enumerated value in the <a href="#D.Device:2.Device.Boot.Cause"><em>Boot!.Cause</em></a> argument.</span></span></li>
+The value MUST be a valid OUI as defined in [<a href="#R.OUI">OUI</a>]. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> </span><span class="inserted">Any change would indicate that it's a new <span class="removed">device</span><span class="inserted">Agent</span> and would therefore require a <span class="removed">BOOTSTRAP</span><span class="inserted"><a href="#D.Device:2.Device.Boot"><em>Boot!</em></a></span> <span class="removed">Inform.}}</span><span class="inserted">Event with a <a href="#D.Device:2.Device.Boot.Cause.LocalFactoryReset"><em>LocalFactoryReset</em></a> enumerated value in the <a href="#D.Device:2.Device.Boot.Cause"><em>Boot!.Cause</em></a> argument.</span></span></li>
 </ul>
 </td>
 <td>
@@ -2554,7 +2554,7 @@ This value MUST remain fixed over the lifetime of the Agent, including across fi
 <p>R</p>
 </td>
 <td>
-<p>A string identifying the software version currently installed in the CPE (i.e. version of the overall CPE firmware). To allow version comparisons, this element SHOULD be in the form of dot-delimited integers, where each successive integer represents a more minor category of variation. For example, <em>3.0.21</em> where the components mean: <em>Major.Minor.Build</em>.<span class="inserted"> For CPEs that support multiple firmware images, the value for this parameter MUST be the software version of the active firmware image.</span></p>
+<p>A string identifying the software version currently installed in the CPE (i.e. version of the overall CPE firmware). To allow version comparisons, this element SHOULD be in the form of dot-delimited integers, where each successive integer represents a more minor category of variation. For example, <em>3.0.21</em> where the components mean: <em>Major.Minor.Build</em>.<span class="removed">}}</span><span class="inserted"> For CPEs that support multiple firmware images, the value for this parameter MUST be the software version of the active firmware image.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -3913,7 +3913,7 @@ Reset <a href="#D.Device:2.Device.LANConfigSecurity.ConfigPassword"><em>LANConfi
 <p>W</p>
 </td>
 <td>
-<p>The server the CPE can check to see if an update is available for direct download to it.<span class="removed"> This MUST NOT be used by the CPE if the {{param|.ManagementServer.UpgradesManaged}} parameter is {{true}}.</span></p>
+<p>The server the CPE can check to see if an update is available for direct download to it.<span class="removed"> This MUST NOT be used by the CPE if the {{param|.ManagementServer.UpgradesManaged}} parameter is {{true}}.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -3933,7 +3933,7 @@ Reset <a href="#D.Device:2.Device.LANConfigSecurity.ConfigPassword"><em>LANConfi
 <p>W</p>
 </td>
 <td>
-<p>The server where a user can check via a web browser if an update is available for download to a PC.<span class="removed"> This MUST NOT be used by the CPE if the {{param|.ManagementServer.UpgradesManaged}} parameter is {{true}}.</span></p>
+<p>The server where a user can check via a web browser if an update is available for download to a PC.<span class="removed"> This MUST NOT be used by the CPE if the {{param|.ManagementServer.UpgradesManaged}} parameter is {{true}}.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -4082,7 +4082,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>R</p>
 </td>
 <td>
-<p>The current upstream signal loss (expressed in <em>0.1dB</em>).<span class="inserted"> Doesn't apply to VDSL2 [<a href="#R.G.993.2">G.993.2</a>]. Otherwise has the same value as the single element of <a href="#D.Device:2.Device.DSL.Line.TestParams.SATNus"><em>TestParams.SATNus</em></a>.</span></p>
+<p>The current upstream signal loss (expressed in <em>0.1dB</em>).<span class="removed">}}</span><span class="inserted"> Doesn't apply to VDSL2 [<a href="#R.G.993.2">G.993.2</a>]. Otherwise has the same value as the single element of <a href="#D.Device:2.Device.DSL.Line.TestParams.SATNus"><em>TestParams.SATNus</em></a>.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -4103,7 +4103,7 @@ Note: This parameter is OPTIONAL at the G and S/T interfaces in G.997.1 Amendmen
 <p>R</p>
 </td>
 <td>
-<p>The current downstream signal loss (expressed in <em>0.1dB</em>).<span class="inserted"> Doesn't apply to VDSL2 [<a href="#R.G.993.2">G.993.2</a>]. Otherwise has the same value as the single element of <a href="#D.Device:2.Device.DSL.Line.TestParams.SATNds"><em>TestParams.SATNds</em></a>.</span></p>
+<p>The current downstream signal loss (expressed in <em>0.1dB</em>).<span class="removed">}}</span><span class="inserted"> Doesn't apply to VDSL2 [<a href="#R.G.993.2">G.993.2</a>]. Otherwise has the same value as the single element of <a href="#D.Device:2.Device.DSL.Line.TestParams.SATNds"><em>TestParams.SATNds</em></a>.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -11325,7 +11325,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example: * For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces. * For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface. * For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.<span class="inserted"> This parameter is DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.</span></p>
+<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example: * For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces. * For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface. * For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.0:</strong></p>
 <ul>
@@ -13065,7 +13065,7 @@ Reset on a disabled interface is a no-op (not an error).</p>
 <p>R</p>
 </td>
 <td>
-<p>PPPoE object that functionally groups PPPoE related parameters.<span class="inserted"> PPPoE is only applicable when the lower layer provides Ethernet frames, e.g. ATM with EoA, PTM, or anything else that supports an Ethernet MAC.</span></p>
+<p>PPPoE object that functionally groups PPPoE related parameters.<span class="removed">}}</span><span class="inserted"> PPPoE is only applicable when the lower layer provides Ethernet frames, e.g. ATM with EoA, PTM, or anything else that supports an Ethernet MAC.</span></p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 </td>
 <td>
@@ -13132,7 +13132,7 @@ Reset on a disabled interface is a no-op (not an error).</p>
 <p>R</p>
 </td>
 <td>
-<p>PPPoA object that functionally groups PPPoA related parameters.<span class="inserted"> This object is OBSOLETED because it contains no standard parameters and its existence causes confusion.</span></p>
+<p>PPPoA object that functionally groups PPPoA related parameters.<span class="removed">}}</span><span class="inserted"> This object is OBSOLETED because it contains no standard parameters and its existence causes confusion.</span></p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 </td>
 <td>
@@ -17678,7 +17678,7 @@ See the IPsec Theory of Operation [<a href="#R.TR-181i2a5">Appendix IX/TR-181i2a
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">A non-volatile handle used to reference this instance. {{param}} provides a mechanism for an ACS to label this instance for future reference. An initial unique value MUST be assigned when the CPE creates an instance of this object.</span></p>
+<p><span class="removed">A non-volatile handle used to reference this instance. {{param}} provides a mechanism for an ACS to label this instance for future reference. An initial unique value MUST be assigned when the CPE creates an instance of this object.}}</span></p>
 <div class="inserted">
 <p>[<a href="#T.Alias">Alias</a>] A non-volatile handle used to reference this instance. Alias provides a
 mechanism for an ACS to label this instance for future reference.</p>
@@ -19772,7 +19772,7 @@ prefix.</p>
 <p><span id="D.Device:2.Device.VXLAN.Tunnel.Interface.VNI">VNI</span></p>
 </td>
 <td>
-<p>int(-1:16777215,0:16777215)</p>
+<p>int(-1,0:16777215)</p>
 </td>
 <td>
 <p>W</p>
@@ -20275,7 +20275,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
+<p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.0:</strong></p>
 <ul>
@@ -20301,7 +20301,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
+<p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.0:</strong></p>
 <ul>
@@ -20327,7 +20327,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field.<span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
+<p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.0:</strong></p>
 <ul>
@@ -21937,7 +21937,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE. The ability to list inactive hosts is OPTIONAL. If the CPE includes inactive hosts in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive host. The length of time an inactive host remains listed in this table is a local matter to the CPE.<span class="inserted"> Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven days.</span></p>
+<p>Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE. The ability to list inactive hosts is OPTIONAL. If the CPE includes inactive hosts in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive host. The length of time an inactive host remains listed in this table is a local matter to the CPE.<span class="removed">}}</span><span class="inserted"> Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven days.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -21957,7 +21957,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The datetime when <a href="#D.Device:2.Device.Hosts.Host.Active"><em>Active</em></a> last changed from <em>true</em> to <em>false</em> or from <em>false</em> to <em>true</em>. The initial detection of a host SHOULD be treated as a transition from <em>false</em> to <em>true</em>, showing the datetime when the host was first detected. The ability to list inactive hosts is OPTIONAL. The length of time an inactive host remains listed in this table is a local matter to the CPE.<span class="inserted"> Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven days.</span></p>
+<p>The datetime when <a href="#D.Device:2.Device.Hosts.Host.Active"><em>Active</em></a> last changed from <em>true</em> to <em>false</em> or from <em>false</em> to <em>true</em>. The initial detection of a host SHOULD be treated as a transition from <em>false</em> to <em>true</em>, showing the datetime when the host was first detected. The ability to list inactive hosts is OPTIONAL. The length of time an inactive host remains listed in this table is a local matter to the CPE.<span class="removed">}}</span><span class="inserted"> Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven days.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -35142,7 +35142,7 @@ In the case of an Uninstall, this will be the list of the EUs removed from the d
 <p>W</p>
 </td>
 <td>
-<p>Indicates whether or not this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> is enabled. Disabling an enabled Execution Environment stops it, while enabling a disabled Execution Environment starts it. When an Execution Environment is disabled, Deployment Units installed to that Execution Environment will be unaffected, but any Execution Units currently running on that Execution Environment will automatically transition to <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Status.Idle"><em>Idle</em></a>. If <span class="removed">a ChangeDUState</span><span class="inserted">an Update or Uninstall operation</span> is attempted on a <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a> that is to be applied against a disabled <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>, that <span class="removed">ChangeDUState </span>operation fails and the associated <span class="removed">DUStateChangeComplete RPC</span><span class="inserted">event</span> will contain a FaultStruct for that operation. <span class="removed">If a SetParameterValues is attempted against the {{param|#.ExecutionUnit.{i}.RequestedState}} for an {{object|#.ExecutionUnit}} that is associated with a</span><span class="inserted">Disabling an Execution Environment could place the device in a non-manageable state. For example, if the operating system itself was modeled as an <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> and a Controller</span> disabled <span class="removed">{{object}} a CWMP Fault will be issued in response. Disabling an Execution Environment could place the device in a non-manageable state. For example, if the operating system itself was modeled as an {{object}} and the ACS disabled </span>it, the <span class="removed">CWMP management agent</span><span class="inserted">Agent</span> might be terminated leaving the device unmanageable.</p>
+<p>Indicates whether or not this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> is enabled. Disabling an enabled Execution Environment stops it, while enabling a disabled Execution Environment starts it. When an Execution Environment is disabled, Deployment Units installed to that Execution Environment will be unaffected, but any Execution Units currently running on that Execution Environment will automatically transition to <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Status.Idle"><em>Idle</em></a>. If <span class="removed">a</span><span class="inserted">an</span> <span class="removed">ChangeDUState</span><span class="inserted">Update or Uninstall operation</span> is attempted on a <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit."><em>DeploymentUnit</em></a> that is to be applied against a disabled <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>, that <span class="removed">ChangeDUState </span>operation fails and the associated <span class="removed">DUStateChangeComplete RPC</span><span class="inserted">event</span> will contain a FaultStruct for that operation.<span class="removed"> If a SetParameterValues is attempted against the {{param|#.ExecutionUnit.{i}.RequestedState}} for an {{object|#.ExecutionUnit}} that is associated with a disabled {{object}} a CWMP Fault will be issued in response.</span> Disabling an Execution Environment could place the device in a non-manageable state. For example, if the operating system itself was modeled as an <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> and <span class="removed">the</span><span class="inserted">a</span> <span class="removed">ACS</span><span class="inserted">Controller</span> disabled it, the <span class="removed">CWMP management agent</span><span class="inserted">Agent</span> might be terminated leaving the device unmanageable.</p>
 </td>
 <td>
 <p>-</p>
@@ -35249,7 +35249,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The run level that this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> is currently operating in. This value is altered by <span class="removed">changing the {{param|RequestedRunLevel}} parameter.</span><span class="inserted">executing the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.SetRunLevel"><em>SetRunLevel()</em></a> command.</span> Upon startup (whether that is caused by a <span class="removed">CPE</span><span class="inserted">device</span> Boot or the Execution Environment starting) <em>CurrentRunLevel</em> will be equal to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.InitialRunLevel"><em>InitialRunLevel</em></a>, unless Run Levels are not supported by this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> in which case <em>CurrentRunLevel</em> will be -1. Run levels dictate which Execution Units will be started. Execution Units will be started if <em>CurrentRunLevel</em> is greater than or equal to <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.RunLevel"><em>ExecutionUnit.{i}.RunLevel</em></a> and <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoStart"><em>ExecutionUnit.{i}.AutoStart</em></a> is <em>true</em>. If <em>CurrentRunLevel</em> is -1 then Run Levels are not supported by this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> and setting <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.InitialRunLevel"><em>InitialRunLevel</em></a> or <span class="removed">{{param|RequestedRunLevel}}</span><span class="inserted">executing the command <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.SetRunLevel"><em>SetRunLevel()</em></a></span> will not impact the Run Level of this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>.</p>
+<p>The run level that this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> is currently operating in. This value is altered by <span class="removed">changing</span><span class="inserted">executing</span> the <span class="removed">{{param|RequestedRunLevel}}</span><span class="inserted"><a href="#D.Device:2.Device.SoftwareModules.ExecEnv.SetRunLevel"><em>SetRunLevel()</em></a></span> <span class="removed">parameter.</span><span class="inserted">command.</span> Upon startup (whether that is caused by a <span class="removed">CPE</span><span class="inserted">device</span> Boot or the Execution Environment starting) <em>CurrentRunLevel</em> will be equal to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.InitialRunLevel"><em>InitialRunLevel</em></a>, unless Run Levels are not supported by this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> in which case <em>CurrentRunLevel</em> will be -1. Run levels dictate which Execution Units will be started. Execution Units will be started if <em>CurrentRunLevel</em> is greater than or equal to <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.RunLevel"><em>ExecutionUnit.{i}.RunLevel</em></a> and <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoStart"><em>ExecutionUnit.{i}.AutoStart</em></a> is <em>true</em>. If <em>CurrentRunLevel</em> is -1 then Run Levels are not supported by this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> and setting <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.InitialRunLevel"><em>InitialRunLevel</em></a> or <span class="removed">{{param|RequestedRunLevel}}</span><span class="inserted">executing the command <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.SetRunLevel"><em>SetRunLevel()</em></a></span> will not impact the Run Level of this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -35720,7 +35720,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>If while running or transitioning between states this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> identifies a fault this parameter provides a more detailed explanation of the problem. If <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.ExecutionFaultCode"><em>ExecutionFaultCode</em></a> has the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.ExecutionFaultCode.NoFault"><em>NoFault</em></a> then the value of this parameter MUST an empty string and ignored by the <span class="removed">ACS.</span><span class="inserted">Controller.</span></p>
+<p>If while running or transitioning between states this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> identifies a fault this parameter provides a more detailed explanation of the problem. If <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.ExecutionFaultCode"><em>ExecutionFaultCode</em></a> has the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.ExecutionFaultCode.NoFault"><em>NoFault</em></a> then the value of this parameter MUST an empty string and ignored by the <span class="removed">ACS.}}</span><span class="inserted">Controller.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -35760,7 +35760,7 @@ prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Each list item MUST be the Path Name of a table row, or an empty string. Represents the instances of multi-instanced objects that are directly controlled by, and have come into existence because of, this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a>.<span class="removed"> See {{bibref|TR-157a3|Appendix II.3.2}} for more description and some examples.</span> NOTE: All other objects and parameters (i.e. not multi-instanced objects) that this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> has caused to come into existence can be discovered via the <span class="removed">{{object|.DeviceInfo.SupportedDataModel.{i}.}}</span><span class="inserted">GetSupportedDM</span> <span class="removed">table.</span><span class="inserted">and GetInstances USP messages.</span></p>
+<p>Comma-separated list of strings. Each list item MUST be the Path Name of a table row, or an empty string. Represents the instances of multi-instanced objects that are directly controlled by, and have come into existence because of, this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a>.<span class="removed"> See {{bibref|TR-157a3|Appendix II.3.2}} for more description and some examples.</span> NOTE: All other objects and parameters (i.e. not multi-instanced objects) that this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> has caused to come into existence can be discovered via the <span class="removed">{{object|.DeviceInfo.SupportedDataModel.{i}.}}</span><span class="inserted">GetSupportedDM</span> <span class="removed">table.}}</span><span class="inserted">and GetInstances USP messages.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -35885,7 +35885,7 @@ If this instance of the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUni
 <p>R</p>
 </td>
 <td>
-<p>This object proposes a general location for vendor extensions specific to this Execution Unit, which allows multiple Execution Units to expose parameters without the concern of conflicting parameter names. These vendor extensions are related to displaying status and maintaining configuration for this Execution Unit. It is also possible for the Execution Unit to expose status and configuration parameters within Service objects or as embedded objects and parameters directly within the root data model, in which case the combination of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.References"><em>References</em></a> and <span class="removed">{{param|#.SupportedDataModelList}}</span><span class="inserted">use of GetSupportDM and GetInstances USP messages</span> will be used to determine their locations.<span class="removed"> See {{bibref|TR-157a3|Appendix II.3.2}} for more description and some examples.</span></p>
+<p>This object proposes a general location for vendor extensions specific to this Execution Unit, which allows multiple Execution Units to expose parameters without the concern of conflicting parameter names. These vendor extensions are related to displaying status and maintaining configuration for this Execution Unit. It is also possible for the Execution Unit to expose status and configuration parameters within Service objects or as embedded objects and parameters directly within the root data model, in which case the combination of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.References"><em>References</em></a> and <span class="removed">{{param|#.SupportedDataModelList}}</span><span class="inserted">use of GetSupportDM and GetInstances USP messages</span> will be used to determine their locations.<span class="removed"> See {{bibref|TR-157a3|Appendix II.3.2}} for more description and some examples.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -35959,7 +35959,7 @@ prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:09:47 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:54:15 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-12-0-usp-diffs.html --show --transform diff --format html tr-181-2-11-0.xml tr-181-2-12-0-usp.xml</p>
 </div>
 <div id="TOC">

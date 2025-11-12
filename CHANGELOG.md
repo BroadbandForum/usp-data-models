@@ -5,6 +5,53 @@
 The latest [User Services Platform (USP)](https://usp.technology)
 data models can be found at <https://usp-data-models.broadband-forum.org>.
 
+## 2025-11-11: TR-106 Amendment 16 and [TR-181 Issue 2 Amendment 20]
+
+*Tags: [v2025.3] (data models), 
+       [v1.4.0][TR-369-v1.4.0] (USP specification didn't change), 
+       [v1.16.0][TR-106-v1.16.0] (TR-106), 
+       [v2.20.0][TR-181-v2.20.0] (TR-181)*
+
+### TR-106
+* No changes
+
+### TR-181
+* Added support for periodic file uploads via Device.PeriodicFileTransfer.
+* Added support for hardware specific information under Device.Hardware.
+* Added support for configuring device internal connection monitoring mechanisms and automatic remedies under Device.ConnectionMonitoring.
+* Various features allow to specify a Certificate and a CABundle for mutual TLS authentication
+* Added support for low and high temperature events in Device.DeviceInfo.TemperatureStatus.TemperatureSensor.{i}.
+* Added support for the Wi-Fi Data Elements feature "Wi-Fi Configuration Templates" under Device.WiFi.Templates.
+* Added Device.DeviceInfo.Reboots.CurrentBootCycle
+* Added peripheral power management for
+  - Ethernet to Device.Ethernet.Interface.{i}.
+  - USB to Device.USB.Port.{i}.
+  - Wi-Fi to Device.WiFi.Radio.{i}.
+  - Thread to Device.Thread.Radio.{i}.
+  - XPON to Device.XPON.ONU.{i}.PowerManagement.
+* Added USB device state reporting and the ability to configure which USB devices are allowed to connect via the Device.USB.USBHosts.AllowedDevice.{i}. table
+* Added Type and Interface parameters to Device.HomePlug.Interface.{i}.
+* Marked Wi-Fi commands FullScan(), ChannelScan(), Disassociate(), and BTMRequest() obsoleted
+* Added antenna configuration to Device.WiFi.Radio.{i}.
+* Added a full WireGuard VPN datamodel under Device.WireGuard.
+* Added Device.WiFi.Radio.{i}.Capabilities. tree
+* Added MTU parameter to Device.WiFi.SSID.{i}.
+* Added IPLayerCapacityIncrementalResult! event to Device.IP.Diagnostics.
+* Improved Device.Routing.Router.{i}. support and added Device.Routing.Policy.{i}.
+* Added host table cleanup support to Device.Hosts.
+* Added Device.DNS.RebindProtection.
+* Added Release() command to Device.DHCPv4.Client.{i}. and Device.DHCPv6.Client.{i}.
+* Added the configuration of the UPnP IGD service via Device.UPnP.Device.IGD.
+* Added FloodLimit and BurstLimit parameters to Device.Firewall.Chain.{i}.Rule.{i}.
+* Added support for GetCertificateURI() under Device.Security.Certificate.{i}.
+* Added Role configuration to Device.SoftwareModules.ExecutionUnit.{i}.
+* Added authentication to UDS MTP via Device.UnixDomainSockets.Authentication.{i}.
+* Added interface stack and IP address support to Device.SessionManagement.Session.{i}.
+* Added support for Device.IoTCapability.{i}.PulseControl. and Device.IoTCapability.{i}.Binding.{i}.
+* Improved descriptions of some parameters with ranged types
+* Added support for setting the transport mode in the MQTT Broker configuration
+* Miscellaneous spelling corrections and markup improvements
+
 ## 2025-04-23: [TR-181 Issue 2 Amendment 19 Corrigendum 1]
 
 *Tags: [v2025.2] (data models), 
@@ -457,6 +504,7 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [TR-106-v1.13.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.13.0
 [TR-106-v1.14.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.14.0
 [TR-106-v1.15.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.15.0
+[TR-106-v1.16.0]: https://github.com/BroadbandForum/data-model-template/releases/tag/v1.16.0
 [TR-181 Issue 2 Amendment 12]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-12.pdf
 [TR-181 Issue 2 Amendment 13]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-13.pdf
 [TR-181 Issue 2 Amendment 14]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-14.pdf
@@ -466,6 +514,7 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [TR-181 Issue 2 Amendment 18]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-18.pdf
 [TR-181 Issue 2 Amendment 19]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-19.pdf
 [TR-181 Issue 2 Amendment 19 Corrigendum 1]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-19_Corrigendum-1.pdf
+[TR-181 Issue 2 Amendment 20]: https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-20.pdf
 [TR-181-v2.12.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.12.0
 [TR-181-v2.13.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.13.0
 [TR-181-v2.14.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.14.0
@@ -478,6 +527,7 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [TR-181-v2.18.1]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.18.1
 [TR-181-v2.19.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.19.0
 [TR-181-v2.19.1]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.19.1
+[TR-181-v2.20.0]: https://github.com/BroadbandForum/device-data-model/releases/tag/v2.20.0
 [TR-369 Amendment 1]: https://www.broadband-forum.org/download/TR-369_Amendment-1.pdf
 [TR-369 Amendment 2]: https://www.broadband-forum.org/download/TR-369_Amendment-2.pdf
 [TR-369 Amendment 3]: https://www.broadband-forum.org/download/TR-369_Amendment-3.pdf
@@ -511,3 +561,4 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [v1.4.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v1.4.1
 [v2025.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2025.1
 [v2025.2]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2025.2
+[v2025.3]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2025.3

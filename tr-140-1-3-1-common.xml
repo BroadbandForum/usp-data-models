@@ -46,47 +46,21 @@
   Any moral rights which are necessary to exercise under the above
   license grant are also deemed granted under this license.
 
-  Summary:
-    TR-140 StorageService: 1.3 Service Object update.
-
-  Editor:
-    * John Blackford, CommScope
-
-  Broadband User Services Work Area Directors:
-    * Jason Walls, QA Cafe
-    * John Blackford, CommScope
-
-  Issue History (Filename: Approval Date: Publication Date: Changes):
-    * tr-140-1-0-2.xml: April 2010: April 2010:
-       - corresponds to TR-140 Issue 1, Corrigendum 2
-    * tr-140-1-1-0.xml: April 2010: April 2010:
-       - corresponds to TR-140 Issue 1, Amendment 1
-    * tr-140-1-2-0.xml: July 2011: July 2011:
-       - corresponds to TR-140 Issue 1, Amendment 2
-    * tr-140-1-3-0.xml: 8 May 2017: 9 June 2017:
-       - corresponds to TR-140 Amendment 3.
-    * Version 1.3.1: 13 September 2019: 13 September 2019:
-       - Flattened datamodel to tr-140-1-common.xml
+  Comments or questions about this Broadband Forum data model should be
+  directed to <info@broadband-forum.org>.
 -->
 
-<dm:document xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-7"
-             xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	     xsi:schemaLocation="urn:broadband-forum-org:cwmp:datamodel-1-7
-                 https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-7.xsd
-                                 urn:broadband-forum-org:cwmp:datamodel-report-0-1
-                 https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
-             spec="urn:broadband-forum-org:tr-140-1-3-1" file="tr-140-1-3-1-common.xml">
-  <description>
-    {{docname|StorageService:1.3 Service Object Definition}}
-    {{appdate|September 2019}}
-    {{trname|TR-140a3}}
-    May 2017: {{xmlref|tr-140-1-3-0|Original}}
-    * Update file system and connection enumerations
-    * Added SMART data model
-    September 2019: {{xmlref|tr-139-1-3-1-common|Corrigendum 1}}
-    * Added USP support (split XML into common, CWMP and USP files)
-  </description>
+<dm:document
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-10"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      urn:broadband-forum-org:cwmp:datamodel-1-10
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-10.xsd
+      urn:broadband-forum-org:cwmp:datamodel-report-1-0
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+    spec="urn:broadband-forum-org:tr-140-1-3-1"
+    file="tr-140-1-3-1-common.xml">
 
   <import file="tr-069-biblio.xml" spec="urn:broadband-forum-org:tr-069"/>
 
@@ -95,7 +69,8 @@
   </import>
 
   <model name="StorageService:1.3" isService="true">
-    <parameter name="StorageServiceNumberOfEntries" access="readOnly" dmr:version="1.1">
+    <parameter name="StorageServiceNumberOfEntries" access="readOnly"
+        version="1.1">
       <description>
         Number of entries in {{object|StorageService}}.
       </description>
@@ -103,14 +78,16 @@
         <unsignedInt/>
       </syntax>
     </parameter>
-    <object name="StorageService.{i}." access="readOnly" numEntriesParameter="StorageServiceNumberOfEntries" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}." access="readOnly"
+        numEntriesParameter="StorageServiceNumberOfEntries" minEntries="0"
+        maxEntries="unbounded" version="1.0">
       <description>
         The Service Object for a Storage Service device.
       </description>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or Disables the entire Storage mechanism.
         </description>
@@ -118,7 +95,8 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -126,7 +104,7 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="PhysicalMediumNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="PhysicalMediumNumberOfEntries" access="readOnly">
         <description>
           The number of instances of {{object|.PhysicalMedium.{i}.}}.
         </description>
@@ -134,7 +112,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="StorageArrayNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="StorageArrayNumberOfEntries" access="readOnly">
         <description>
           The number of instances of {{object|.StorageArray.{i}.}}.
         </description>
@@ -142,7 +120,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="LogicalVolumeNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="LogicalVolumeNumberOfEntries" access="readOnly">
         <description>
           The number of instances of {{object|.LogicalVolume.{i}.}}.
         </description>
@@ -150,7 +128,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="UserAccountNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="UserAccountNumberOfEntries" access="readOnly">
         <description>
           The number of instances of {{object|.UserAccount.{i}.}}.
         </description>
@@ -158,7 +136,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="UserGroupNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="UserGroupNumberOfEntries" access="readOnly">
         <description>
           The number of instances of {{object|.UserGroup.{i}.}}.
         </description>
@@ -167,55 +145,70 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.Capabilities." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.Capabilities." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
-        The overall capabilities of a Storage Service device.  This is a constant read-only object, meaning that only a firmware upgrade will cause these values to be altered.
-        Note that when TR-140 was originally published there was a typo in this object name, which has been corrected.
+        The overall capabilities of a Storage Service device. This is a
+        constant read-only object, meaning that only a firmware upgrade will
+        cause these values to be altered.
+
+        Note that when TR-140 was originally published there was a typo in this
+        object name, which has been corrected.
       </description>
-      <parameter name="FTPCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="FTPCapable" access="readOnly">
         <description>
-          Does this device contain an FTP server allowing clients to access the data via an FTP client?
+          Does this device contain an FTP server allowing clients to access the
+          data via an FTP client?
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="SFTPCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="SFTPCapable" access="readOnly">
         <description>
-          Does this device contain an SSH FTP server allowing clients to access the data via an SFTP client?
+          Does this device contain an SSH FTP server allowing clients to access
+          the data via an SFTP client?
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="HTTPCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="HTTPCapable" access="readOnly">
         <description>
-          Does this device contain an HTTP server allowing clients to access the data via an HTTP client?
+          Does this device contain an HTTP server allowing clients to access
+          the data via an HTTP client?
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="HTTPSCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="HTTPSCapable" access="readOnly">
         <description>
-          Does this device contain an HTTPS server allowing clients to access the data via an HTTPS client?
+          Does this device contain an HTTPS server allowing clients to access
+          the data via an HTTPS client?
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="HTTPWritable" access="readOnly" dmr:version="1.0">
+      <parameter name="HTTPWritable" access="readOnly">
         <description>
-          Does this device contain an HTTP server that supports creating files via an HTTP PUT/POST mechanism that would allow an HTTP client to upload files via HTTP?  This is also sometimes referred to as "WebDAV" support.
+          Does this device contain an HTTP server that supports creating files
+          via an HTTP PUT/POST mechanism that would allow an HTTP client to
+          upload files via HTTP? This is also sometimes referred to as "WebDAV"
+          support.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="SupportedNetworkProtocols" access="readOnly" dmr:version="1.0">
+      <parameter name="SupportedNetworkProtocols" access="readOnly">
         <description>
           {{list}} Supported application-level network protocols. {{enum}}
-          The list MAY include vendor-specific protocols, which MUST be in the format defined in {{bibref|TR-106}}.  For example: "X_EXAMPLE-COM_MyProt.
+
+          The list MAY include vendor-specific protocols, which MUST be in the
+          format defined in {{bibref|TR-106}}. For example:
+          "X_EXAMPLE-COM_MyProt.
         </description>
         <syntax>
           <list/>
@@ -226,10 +219,13 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="SupportedFileSystemTypes" access="readOnly" dmr:version="1.0">
+      <parameter name="SupportedFileSystemTypes" access="readOnly">
         <description>
-          {{list}} Supported FileSystems Types.  {{enum}}
-          The list MAY include vendor-specific protocols, which MUST be in the format defined in {{bibref|TR-106}}.  For example: "X_EXAMPLE-COM_MyType.
+          {{list}} Supported FileSystems Types. {{enum}}
+
+          The list MAY include vendor-specific protocols, which MUST be in the
+          format defined in {{bibref|TR-106}}. For example:
+          "X_EXAMPLE-COM_MyType.
         </description>
         <syntax>
           <list/>
@@ -238,45 +234,31 @@
             <enumeration value="FAT32"/>
             <enumeration value="NTFS"/>
             <enumeration value="ReFs">
-              <description>
-                Resilient File System - Microsoft
-              </description>
+              <description>Resilient File System - Microsoft</description>
             </enumeration>
             <enumeration value="HFS">
-              <description>
-                Mac OS Standard format
-              </description>
+              <description>Mac OS Standard format</description>
             </enumeration>
             <enumeration value="HFS+">
-              <description>
-                Mac OS Extended format
-              </description>
+              <description>Mac OS Extended format</description>
             </enumeration>
             <enumeration value="HSFJ">
-              <description>
-                Journaled Mac OS Extended format
-              </description>
+              <description>Journaled Mac OS Extended format</description>
             </enumeration>
             <enumeration value="ext2"/>
             <enumeration value="ext3"/>
             <enumeration value="ext4"/>
             <enumeration value="XFS"/>
             <enumeration value="REISER">
-              <description>
-                ReiserFS
-              </description>
+              <description>ReiserFS</description>
             </enumeration>
             <enumeration value="Reiser4"/>
             <enumeration value="btrfs"/>
             <enumeration value="ZFS">
-              <description>
-                Zetta File System
-              </description>
+              <description>Zetta File System</description>
             </enumeration>
             <enumeration value="EncFs">
-              <description>
-                Encrypted File System
-              </description>
+              <description>Encrypted File System</description>
             </enumeration>
             <enumeration value="exFAT">
               <description>
@@ -286,10 +268,13 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="SupportedRaidTypes" access="readOnly" dmr:version="1.0">
+      <parameter name="SupportedRaidTypes" access="readOnly">
         <description>
           {{list}} Supported RAID types. {{enum}}
-          The list MAY include vendor-specific protocols, which MUST be in the format defined in {{bibref|TR-106}}.  For example:"X_EXAMPLE-COM_MyRaid.
+
+          The list MAY include vendor-specific protocols, which MUST be in the
+          format defined in {{bibref|TR-106}}. For
+          example:"X_EXAMPLE-COM_MyRaid.
         </description>
         <syntax>
           <list/>
@@ -309,22 +294,27 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="VolumeEncryptionCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="VolumeEncryptionCapable" access="readOnly">
         <description>
-          Does this device have the ability to encrypt and decrypt Logical Volumes as they are stored and retrieved?
+          Does this device have the ability to encrypt and decrypt Logical
+          Volumes as they are stored and retrieved?
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.NetInfo." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.NetInfo." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object provides general LAN network information about this device.
       </description>
-      <parameter name="HostName" access="readWrite" dmr:version="1.0">
+      <parameter name="HostName" access="readWrite">
         <description>
-          Logical name which identifies the device on the local network.  This is the first segment of a fully qualified domain name (FQDN).  Combining {{param}}, a "." and the {{param|DomainName}} will result in a fully qualified domain name.
+          Logical name which identifies the device on the local network. This
+          is the first segment of a fully qualified domain name (FQDN).
+          Combining {{param}}, a "." and the {{param|DomainName}} will result
+          in a fully qualified domain name.
         </description>
         <syntax>
           <string>
@@ -332,9 +322,13 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="DomainName" access="readWrite" dmr:version="1.0">
+      <parameter name="DomainName" access="readWrite">
         <description>
-          Domain name for the device on the local network.  Combining {{param|HostName}}, a "." and {{param}} will result in a fully qualified domain name (FQDN).  For example, if the HostName contains "myLaptop" and the DomainName contains "dsl.sp1.com", then the FQDN would be "myLaptop.dsl.sp1.com".
+          Domain name for the device on the local network. Combining
+          {{param|HostName}}, a "." and {{param}} will result in a fully
+          qualified domain name (FQDN). For example, if the HostName contains
+          "myLaptop" and the DomainName contains "dsl.sp1.com", then the FQDN
+          would be "myLaptop.dsl.sp1.com".
         </description>
         <syntax>
           <string>
@@ -343,17 +337,21 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.UserGroup.{i}." access="readWrite" numEntriesParameter="UserGroupNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.UserGroup.{i}." access="readWrite"
+        numEntriesParameter="UserGroupNumberOfEntries" enableParameter="Enable"
+        minEntries="0" maxEntries="unbounded" version="1.0">
       <description>
-        This object provides information about each user group configured on this device, which allows the grouping of user accounts for easier maintenance of permissions.
+        This object provides information about each user group configured on
+        this device, which allows the grouping of user accounts for easier
+        maintenance of permissions.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="GroupName"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables this group.
         </description>
@@ -362,7 +360,8 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -370,7 +369,7 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="GroupName" access="readWrite" dmr:version="1.0">
+      <parameter name="GroupName" access="readWrite">
         <description>
           The unique name of the group.
         </description>
@@ -382,17 +381,21 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.UserAccount.{i}." access="readWrite" numEntriesParameter="UserAccountNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.UserAccount.{i}." access="readWrite"
+        numEntriesParameter="UserAccountNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each user configured on this device, which provides a means for controlling access to the device.
+        This object provides information about each user configured on this
+        device, which provides a means for controlling access to the device.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="Username"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables this user.
         </description>
@@ -401,7 +404,8 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -409,9 +413,9 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Username" access="readWrite" dmr:version="1.0">
+      <parameter name="Username" access="readWrite">
         <description>
-          The unique name of the user.  Also used for authentication.
+          The unique name of the user. Also used for authentication.
         </description>
         <syntax>
           <string>
@@ -420,42 +424,48 @@
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Password" access="readWrite" dmr:version="1.0">
+      <parameter name="Password" access="readWrite">
         <description>
-          Password used to authenticate the user when connecting to the Storage Service Device.
+          Password used to authenticate the user when connecting to the Storage
+          Service Device.
         </description>
-        <syntax hidden="true">
+        <syntax secured="true">
           <string>
             <size maxLength="64"/>
           </string>
         </syntax>
       </parameter>
-      <parameter name="UserGroupParticipation" access="readWrite" dmr:version="1.0">
+      <parameter name="UserGroupParticipation" access="readWrite">
         <description>
-          Represents a User Group that this User Account is a member of.  Each {{object|.UserGroup.{i}.}} referenced by this parameter MUST exist within the same StorageService instance.
+          Represents a User Group that this User Account is a member of. Each
+          {{object|.UserGroup.{i}.}} referenced by this parameter MUST exist
+          within the same StorageService instance.
         </description>
         <syntax>
           <list>
             <size maxLength="1024"/>
           </list>
           <string>
-            <pathRef refType="strong" targetParent=".UserGroup." targetType="row"/>
+            <pathRef refType="strong" targetParent=".UserGroup."
+                targetType="row"/>
           </string>
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="AllowFTPAccess" access="readWrite" dmr:version="1.0">
+      <parameter name="AllowFTPAccess" access="readWrite">
         <description>
-          Enables or disables access via FTP (including SSH FTP access) for this user.
+          Enables or disables access via FTP (including SSH FTP access) for
+          this user.
         </description>
         <syntax>
           <boolean/>
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="AllowHTTPAccess" access="readWrite" dmr:version="1.0">
+      <parameter name="AllowHTTPAccess" access="readWrite">
         <description>
-          Enables or disables access via HTTP (including HTTPS access) for this user.
+          Enables or disables access via HTTP (including HTTPS access) for this
+          user.
         </description>
         <syntax>
           <boolean/>
@@ -463,11 +473,13 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.NetworkServer." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.NetworkServer." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
-        This object allows the control of network layer protocols authorization enforcement.
+        This object allows the control of network layer protocols authorization
+        enforcement.
       </description>
-      <parameter name="AFPEnable" access="readWrite" dmr:version="1.0">
+      <parameter name="AFPEnable" access="readWrite">
         <description>
           Enables or disables the AFP network protocol.
         </description>
@@ -475,7 +487,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="NFSEnable" access="readWrite" dmr:version="1.0">
+      <parameter name="NFSEnable" access="readWrite">
         <description>
           Enables or disables the NFS network protocol.
         </description>
@@ -483,7 +495,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="SMBEnable" access="readWrite" dmr:version="1.0">
+      <parameter name="SMBEnable" access="readWrite">
         <description>
           Enables or disables the SMB network protocol.
         </description>
@@ -491,20 +503,27 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="NetworkProtocolAuthReq" access="readWrite" dmr:version="1.0">
+      <parameter name="NetworkProtocolAuthReq" access="readWrite">
         <description>
-          If this parameter is set to {{false}} then the device MUST NOT attempt to request login credentials or authenticate access from network layer protocols such as AFP, NFS, and SMB.  If this parameter is set to {{true}} then the device MUST attempt to request login credentials or authenticate access from network layer protocols such as AFP, NFS, and SMB by using an instance of {{object|.UserAccount.{i}.}} found on this device.
+          If this parameter is set to {{false}} then the device MUST NOT
+          attempt to request login credentials or authenticate access from
+          network layer protocols such as AFP, NFS, and SMB. If this parameter
+          is set to {{true}} then the device MUST attempt to request login
+          credentials or authenticate access from network layer protocols such
+          as AFP, NFS, and SMB by using an instance of
+          {{object|.UserAccount.{i}.}} found on this device.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.FTPServer." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.FTPServer." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object allows the configuration of the FTP server.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables the FTP server.
         </description>
@@ -512,7 +531,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this FTP server.
         </description>
@@ -524,9 +543,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="MaxNumUsers" access="readWrite" dmr:version="1.0">
+      <parameter name="MaxNumUsers" access="readWrite">
         <description>
-          Maximum number of users allowed to log in to the device at once via FTP.
+          Maximum number of users allowed to log in to the device at once via
+          FTP.
         </description>
         <syntax>
           <unsignedInt>
@@ -534,9 +554,11 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="IdleTime" access="readWrite" dmr:version="1.0">
+      <parameter name="IdleTime" access="readWrite">
         <description>
-          Maximum amount of time in {{units}} that the FTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.
+          Maximum amount of time in {{units}} that the FTP socket will remain
+          open without any activity. If set to 0 an infinite timeout will
+          apply.
         </description>
         <syntax>
           <unsignedInt>
@@ -545,7 +567,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="PortNumber" access="readWrite" dmr:version="1.0">
+      <parameter name="PortNumber" access="readWrite">
         <description>
           The port number that the FTP server is listening on.
         </description>
@@ -557,11 +579,12 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.FTPServer.AnonymousUser." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.FTPServer.AnonymousUser."
+        access="readOnly" minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object allows the configuration of anonymous FTP access.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables support for anonymous access into the FTP server
         </description>
@@ -569,31 +592,39 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="StartingFolder" access="readWrite" dmr:version="1.0">
+      <parameter name="StartingFolder" access="readWrite">
         <description>
-          Represents the home directory for anonymous FTP access.  The {{object|.LogicalVolume.{i}.Folder.{i}.}} referenced by this parameter MUST exist within the same StorageService instance.
+          Represents the home directory for anonymous FTP access. The
+          {{object|.LogicalVolume.{i}.Folder.{i}.}} referenced by this
+          parameter MUST exist within the same StorageService instance.
         </description>
         <syntax>
           <string>
             <size maxLength="256"/>
-            <pathRef refType="weak" targetParent=".LogicalVolume.{i}.Folder." targetType="row"/>
+            <pathRef refType="weak" targetParent=".LogicalVolume.{i}.Folder."
+                targetType="row"/>
           </string>
         </syntax>
       </parameter>
-      <parameter name="ReadOnlyAccess" access="readWrite" dmr:version="1.0">
+      <parameter name="ReadOnlyAccess" access="readWrite">
         <description>
-          If this is set to {{true}}, then the anonymous user is limited to only retrieval of files from the Storage Service (no deletions, copies, creations or uploads).  If this is set to {{false}}, then the anonymous user has full permissions within the folder specified in {{param|StartingFolder}}.  This SHOULD default to True.
+          If this is set to {{true}}, then the anonymous user is limited to
+          only retrieval of files from the Storage Service (no deletions,
+          copies, creations or uploads). If this is set to {{false}}, then the
+          anonymous user has full permissions within the folder specified in
+          {{param|StartingFolder}}. This SHOULD default to True.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.SFTPServer." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.SFTPServer." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object allows the configuration of the SSH FTP server.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables the SSH FTP server.
         </description>
@@ -601,7 +632,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this SSH FTP server.
         </description>
@@ -613,9 +644,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="MaxNumUsers" access="readWrite" dmr:version="1.0">
+      <parameter name="MaxNumUsers" access="readWrite">
         <description>
-          Maximum number of users allowed to log in to the device at once via SFTP.
+          Maximum number of users allowed to log in to the device at once via
+          SFTP.
         </description>
         <syntax>
           <unsignedInt>
@@ -623,9 +655,11 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="IdleTime" access="readWrite" dmr:version="1.0">
+      <parameter name="IdleTime" access="readWrite">
         <description>
-          Maximum amount of time in {{units}} that the SFTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.
+          Maximum amount of time in {{units}} that the SFTP socket will remain
+          open without any activity. If set to 0 an infinite timeout will
+          apply.
         </description>
         <syntax>
           <unsignedInt>
@@ -634,7 +668,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="PortNumber" access="readWrite" dmr:version="1.0">
+      <parameter name="PortNumber" access="readWrite">
         <description>
           The port number that the SSH FTP server is listening on.
         </description>
@@ -646,11 +680,12 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.HTTPServer." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.HTTPServer." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object allows the configuration of the HTTP server.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables the HTTP server.
         </description>
@@ -658,7 +693,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this HTTP server.
         </description>
@@ -670,9 +705,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="MaxNumUsers" access="readWrite" dmr:version="1.0">
+      <parameter name="MaxNumUsers" access="readWrite">
         <description>
-          Maximum number of users allowed to log in to the device at once via HTTP.
+          Maximum number of users allowed to log in to the device at once via
+          HTTP.
         </description>
         <syntax>
           <unsignedInt>
@@ -680,9 +716,11 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="IdleTime" access="readWrite" dmr:version="1.0">
+      <parameter name="IdleTime" access="readWrite">
         <description>
-          Maximum amount of time in {{units}} that the HTTP socket will remain open without any activity.  If set to 0 an infinite timeout will apply.
+          Maximum amount of time in {{units}} that the HTTP socket will remain
+          open without any activity. If set to 0 an infinite timeout will
+          apply.
         </description>
         <syntax>
           <unsignedInt>
@@ -691,7 +729,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="HTTPWritingEnabled" access="readOnly" dmr:version="1.0">
+      <parameter name="HTTPWritingEnabled" access="readOnly">
         <description>
           Is support for the HTTP PUT/POST mechanism (WebDAV) enabled?
         </description>
@@ -699,7 +737,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="PortNumber" access="readWrite" dmr:version="1.0">
+      <parameter name="PortNumber" access="readWrite">
         <description>
           The port number that the HTTP server is listening on.
         </description>
@@ -710,20 +748,22 @@
           <default type="factory" value="80"/>
         </syntax>
       </parameter>
-      <parameter name="AuthenticationReq" access="readWrite" dmr:version="1.0">
+      <parameter name="AuthenticationReq" access="readWrite">
         <description>
-          If {{true}}, HTTP will require login prior to access (basic or digest authentication).
+          If {{true}}, HTTP will require login prior to access (basic or digest
+          authentication).
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.HTTPSServer." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.HTTPSServer." access="readOnly"
+        minEntries="1" maxEntries="1" version="1.0">
       <description>
         This object allows the configuration of the HTTPS server.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables the HTTPS server.
         </description>
@@ -731,7 +771,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this HTTPS server.
         </description>
@@ -743,9 +783,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="MaxNumUsers" access="readWrite" dmr:version="1.0">
+      <parameter name="MaxNumUsers" access="readWrite">
         <description>
-          Maximum number of users allowed to log in to the device at once via HTTPS.
+          Maximum number of users allowed to log in to the device at once via
+          HTTPS.
         </description>
         <syntax>
           <unsignedInt>
@@ -753,9 +794,11 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="IdleTime" access="readWrite" dmr:version="1.0">
+      <parameter name="IdleTime" access="readWrite">
         <description>
-          Maximum amount of time in {{units}} that the HTTPS socket will remain open without any activity.  If set to 0 an infinite timeout will apply.
+          Maximum amount of time in {{units}} that the HTTPS socket will remain
+          open without any activity. If set to 0 an infinite timeout will
+          apply.
         </description>
         <syntax>
           <unsignedInt>
@@ -764,7 +807,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="HTTPWritingEnabled" access="readOnly" dmr:version="1.0">
+      <parameter name="HTTPWritingEnabled" access="readOnly">
         <description>
           Is support for the HTTP PUT/POST mechanism (WebDAV) enabled?
         </description>
@@ -772,7 +815,7 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="PortNumber" access="readWrite" dmr:version="1.0">
+      <parameter name="PortNumber" access="readWrite">
         <description>
           The port number that the HTTPS server is listening on.
         </description>
@@ -783,23 +826,27 @@
           <default type="factory" value="443"/>
         </syntax>
       </parameter>
-      <parameter name="AuthenticationReq" access="readWrite" dmr:version="1.0">
+      <parameter name="AuthenticationReq" access="readWrite">
         <description>
-          If {{true}}, HTTPS will require login prior to access (basic or digest authentication).
+          If {{true}}, HTTPS will require login prior to access (basic or
+          digest authentication).
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.PhysicalMedium.{i}." access="readOnly" numEntriesParameter="PhysicalMediumNumberOfEntries" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.PhysicalMedium.{i}." access="readOnly"
+        numEntriesParameter="PhysicalMediumNumberOfEntries" minEntries="0"
+        maxEntries="unbounded" version="1.0">
       <description>
-        This object provides information about each physical medium connected to this device.
+        This object provides information about each physical medium connected
+        to this device.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="Name"/>
       </uniqueKey>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="Vendor"/>
         <parameter ref="Model"/>
         <parameter ref="SerialNumber"/>
@@ -807,7 +854,8 @@
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -815,7 +863,7 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Name" access="readWrite" dmr:version="1.0">
+      <parameter name="Name" access="readWrite">
         <description>
           A user-friendly name for this physical storage medium.
         </description>
@@ -825,7 +873,7 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="Vendor" access="readOnly" dmr:version="1.0">
+      <parameter name="Vendor" access="readOnly">
         <description>
           The vendor of this physical storage medium.
         </description>
@@ -835,7 +883,7 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="Model" access="readOnly" dmr:version="1.0">
+      <parameter name="Model" access="readOnly">
         <description>
           The model name/number of this physical storage medium.
         </description>
@@ -845,7 +893,7 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="SerialNumber" access="readOnly" dmr:version="1.0">
+      <parameter name="SerialNumber" access="readOnly">
         <description>
           The serial number of this physical storage medium.
         </description>
@@ -855,9 +903,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="FirmwareVersion" access="readOnly" dmr:version="1.0">
+      <parameter name="FirmwareVersion" access="readOnly">
         <description>
-          The firmware version for firmware contained within the physical medium's controller.
+          The firmware version for firmware contained within the physical
+          medium's controller.
         </description>
         <syntax>
           <string>
@@ -865,10 +914,13 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="ConnectionType" access="readOnly" dmr:version="1.0">
+      <parameter name="ConnectionType" access="readOnly">
         <description>
-          The method of connection to this storage device.  {{enum}}
-          The parameter MAY instead be a vendor-specific connection type, which MUST be in the format defined in {{bibref|TR-106}}.  For example:
+          The method of connection to this storage device. {{enum}}
+
+          The parameter MAY instead be a vendor-specific connection type, which
+          MUST be in the format defined in {{bibref|TR-106}}. For example:
+
           "X_EXAMPLE-COM_MyConnType"
         </description>
         <syntax>
@@ -887,19 +939,13 @@
             <enumeration value="ATA/133"/>
             <enumeration value="SATA/150"/>
             <enumeration value="SATA/300">
-              <description>
-                SATA 3.0 Gbit/s
-              </description>
+              <description>SATA 3.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SATA/600">
-              <description>
-                SATA 6.0 Gbit/s
-              </description>
+              <description>SATA 6.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SATA/1969">
-              <description>
-                SATA 16.0 Gbit/s
-              </description>
+              <description>SATA 16.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SCSI-1"/>
             <enumeration value="Fast SCSI"/>
@@ -912,24 +958,16 @@
             <enumeration value="Ultra-320 SCSI"/>
             <enumeration value="Ultra-640 SCSI"/>
             <enumeration value="SAS-1">
-              <description>
-                serial attached SCSI 3.0 Gbit/s
-              </description>
+              <description>serial attached SCSI 3.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SAS-2">
-              <description>
-                serial attached SCSI 6.0 Gbit/s
-              </description>
+              <description>serial attached SCSI 6.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SAS-3">
-              <description>
-                serial attached SCSI 12.0 Gbit/s
-              </description>
+              <description>serial attached SCSI 12.0 Gbit/s</description>
             </enumeration>
             <enumeration value="SAS-4">
-              <description>
-                serial attached SCSI 22.5 Gbit/s
-              </description>
+              <description>serial attached SCSI 22.5 Gbit/s</description>
             </enumeration>
             <enumeration value="SSA"/>
             <enumeration value="SSA-40"/>
@@ -937,7 +975,7 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="Type" access="readOnly" dmr:version="1.3">
+      <parameter name="Type" access="readOnly" version="1.3">
         <description>
           Specifies the type of the physical medium
         </description>
@@ -946,22 +984,22 @@
             <enumeration value="HDD"/>
             <enumeration value="SSD"/>
             <enumeration value="SSHD">
-              <description>
-                Hybrid Drive
-              </description>
+              <description>Hybrid Drive</description>
             </enumeration>
           </string>
         </syntax>
       </parameter>
-      <parameter name="Removable" access="readOnly" dmr:version="1.0">
+      <parameter name="Removable" access="readOnly">
         <description>
-          Is this physical storage medium removable?  Removable storage implies that the removal action is part of normal operations and is expected to leave the data on the removable storage intact.
+          Is this physical storage medium removable? Removable storage implies
+          that the removal action is part of normal operations and is expected
+          to leave the data on the removable storage intact.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Capacity" access="readOnly" dmr:version="1.0">
+      <parameter name="Capacity" access="readOnly">
         <description>
           The formatted capacity of the physical storage medium in {{units}}.
         </description>
@@ -971,7 +1009,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The general activity status of this physical storage medium.
         </description>
@@ -983,9 +1021,10 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="Uptime" access="readOnly" activeNotify="canDeny" dmr:version="1.0">
+      <parameter name="Uptime" access="readOnly" activeNotify="canDeny">
         <description>
-          Time since boot in {{units}}. This MAY reflect S.M.A.R.T. PowerOnHours.
+          Time since boot in {{units}}. This MAY reflect S.M.A.R.T.
+          PowerOnHours.
         </description>
         <syntax>
           <unsignedInt>
@@ -993,7 +1032,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="SMARTCapable" access="readOnly" dmr:version="1.0">
+      <parameter name="SMARTCapable" access="readOnly">
         <description>
           Is this physical medium capable of reporting S.M.A.R.T. statistics?
         </description>
@@ -1001,9 +1040,10 @@
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="Health" access="readOnly" dmr:version="1.0">
+      <parameter name="Health" access="readOnly">
         <description>
-          The general health of this physical storage medium.  {{enum}}
+          The general health of this physical storage medium. {{enum}}
+
           Note: Health MAY be obtained from S.M.A.R.T. data where available.
         </description>
         <syntax>
@@ -1014,32 +1054,48 @@
           </string>
         </syntax>
       </parameter>
-      <parameter name="HotSwappable" access="readOnly" dmr:version="1.0">
+      <parameter name="HotSwappable" access="readOnly">
         <description>
-          Is this physical medium capable of being removed while the device is powered up?  Hot-Swappable storage does not imply Removable storage; hot-swappable is an operation taken only when the disk has failed and needs to be replaced.  The data on the hot-swapped storage will not remain intact.
+          Is this physical medium capable of being removed while the device is
+          powered up? Hot-Swappable storage does not imply Removable storage;
+          hot-swappable is an operation taken only when the disk has failed and
+          needs to be replaced. The data on the hot-swapped storage will not
+          remain intact.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.PhysicalMedium.{i}.SMART." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.3">
+    <object name="StorageService.{i}.PhysicalMedium.{i}.SMART."
+        access="readOnly" minEntries="1" maxEntries="1" version="1.0">
       <description>
-        This object provides SMART data information about the physical medium.  SMART attributes are not standardized, but many vendors provide the data below.
+        This object provides SMART data information about the physical medium.
+        SMART attributes are not standardized, but many vendors provide the
+        data below.
       </description>
-      <parameter name="ReallocatedSectorsCount" access="readOnly" dmr:version="1.3">
+      <parameter name="ReallocatedSectorsCount" access="readOnly">
         <description>
-          Count of reallocated sectors. When the hard drive finds a read/write/verification error, it marks this sector as "reallocated" and transfers data to a special reserved area (spare area).
-          This process is also known as remapping, and "reallocated" sectors are called remaps. However, as the number of reallocated sectors increases, the read/write speed tends to decrease.
-          The raw value represents a count of the number of bad sectors that have been found and remapped. Thus, the higher the attribute value, the more sectors the drive has had to reallocate.
+          Count of reallocated sectors. When the hard drive finds a
+          read/write/verification error, it marks this sector as "reallocated"
+          and transfers data to a special reserved area (spare area).
+
+          This process is also known as remapping, and "reallocated" sectors
+          are called remaps. However, as the number of reallocated sectors
+          increases, the read/write speed tends to decrease.
+
+          The raw value represents a count of the number of bad sectors that
+          have been found and remapped. Thus, the higher the attribute value,
+          the more sectors the drive has had to reallocate.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="PowerOnHours" access="readOnly" dmr:version="1.3">
+      <parameter name="PowerOnHours" access="readOnly">
         <description>
-          Count of hours in power-on state. It shows total count of {{units}} in power-on state.
+          Count of hours in power-on state. It shows total count of {{units}}
+          in power-on state.
         </description>
         <syntax>
           <unsignedInt>
@@ -1047,15 +1103,19 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="SpinRetryCount" access="readOnly" dmr:version="1.3">
+      <parameter name="SpinRetryCount" access="readOnly">
         <description>
-          Count of retry of spin start attempts. This attribute stores a total count of the spin start attempts to reach the fully operational speed (under the condition that the first attempt was unsuccessful). An increase of this attribute value is a sign of problems in the hard disk mechanical subsystem.
+          Count of retry of spin start attempts. This attribute stores a total
+          count of the spin start attempts to reach the fully operational speed
+          (under the condition that the first attempt was unsuccessful). An
+          increase of this attribute value is a sign of problems in the hard
+          disk mechanical subsystem.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="PowerCycleCount" access="readOnly" dmr:version="1.3">
+      <parameter name="PowerCycleCount" access="readOnly">
         <description>
           The count of full hard disk power on/off cycles.
         </description>
@@ -1063,7 +1123,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="Temperature" access="readOnly" dmr:version="1.3">
+      <parameter name="Temperature" access="readOnly">
         <description>
           Current internal temperature in {{units}}.
         </description>
@@ -1073,33 +1133,42 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="ReallocationEventCount" access="readOnly" dmr:version="1.3">
+      <parameter name="ReallocationEventCount" access="readOnly">
         <description>
-          Count of remap operations. The raw value of this attribute shows the total count of attempts to transfer data from reallocated sectors to a spare area.
+          Count of remap operations. The raw value of this attribute shows the
+          total count of attempts to transfer data from reallocated sectors to
+          a spare area.
+
           Both successful and unsuccessful attempts are counted.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="CurrentPendingSectorCount" access="readOnly" dmr:version="1.3">
+      <parameter name="CurrentPendingSectorCount" access="readOnly">
         <description>
-          Count of "unstable" sectors (waiting to be remapped, because of unrecoverable read errors). If an unstable sector is subsequently read successfully, the sector is remapped and this value is decreased.
+          Count of "unstable" sectors (waiting to be remapped, because of
+          unrecoverable read errors). If an unstable sector is subsequently
+          read successfully, the sector is remapped and this value is
+          decreased.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="UncorrectableSectorCount" access="readOnly" dmr:version="1.3">
+      <parameter name="UncorrectableSectorCount" access="readOnly">
         <description>
-          The total number of uncorrectable errors when reading/writing a sector.
-          A rise in the value of this attribute indicates defects of the disk surface and/or problems in the mechanical subsystem.
+          The total number of uncorrectable errors when reading/writing a
+          sector.
+
+          A rise in the value of this attribute indicates defects of the disk
+          surface and/or problems in the mechanical subsystem.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="ReadErrors" access="readOnly" dmr:version="1.3">
+      <parameter name="ReadErrors" access="readOnly">
         <description>
           Total number of unrecoverable read errors.
         </description>
@@ -1107,7 +1176,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="SoftReadErrors" access="readOnly" dmr:version="1.3">
+      <parameter name="SoftReadErrors" access="readOnly">
         <description>
           Total number of off-track errors.
         </description>
@@ -1115,7 +1184,7 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="WriteErrors" access="readOnly" dmr:version="1.3">
+      <parameter name="WriteErrors" access="readOnly">
         <description>
           Total number of errors when writing a sector.
         </description>
@@ -1123,9 +1192,10 @@
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="SparesRemaining" access="readOnly" dmr:version="1.3">
+      <parameter name="SparesRemaining" access="readOnly">
         <description>
-          Percentage of the spare sectors that can be used for reallocations remaining.
+          Percentage of the spare sectors that can be used for reallocations
+          remaining.
         </description>
         <syntax>
           <unsignedInt>
@@ -1133,9 +1203,11 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="PredictedFailure" access="readOnly" dmr:version="1.3">
+      <parameter name="PredictedFailure" access="readOnly">
         <description>
-          Estimated number of {{units}} until the failure model in the device predicts the drive will fail.  -1 means the failure model is unable to make a prediction.
+          Estimated number of {{units}} until the failure model in the device
+          predicts the drive will fail. -1 means the failure model is unable to
+          make a prediction.
         </description>
         <syntax>
           <int>
@@ -1144,18 +1216,31 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.StorageArray.{i}." access="readWrite" numEntriesParameter="StorageArrayNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.StorageArray.{i}." access="readWrite"
+        numEntriesParameter="StorageArrayNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each storage array (RAID) configured on this device.
-        Creating an instance of this object generates a disabled {{object}} instance.  Before this new {{object}} instance can be enabled (via a SetParameterValues command), it MUST have the following parameters configured: {{param|Name}}, {{param|RaidType}}, and {{param|PhysicalMediumReference}}. Once an instance is enabled the following parameters become immutable for the life of the instance: {{param|Name}}, {{param|RaidType}}, and {{param|PhysicalMediumReference}}.
+        This object provides information about each storage array (RAID)
+        configured on this device.
+
+        Creating an instance of this object generates a disabled {{object}}
+        instance. Before this new {{object}} instance can be enabled (via a
+        SetParameterValues command), it MUST have the following parameters
+        configured: {{param|Name}}, {{param|RaidType}}, and
+        {{param|PhysicalMediumReference}}. Once an instance is enabled the
+        following parameters become immutable for the life of the instance:
+        {{param|Name}}, {{param|RaidType}}, and
+        {{param|PhysicalMediumReference}}.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="PhysicalMediumReference"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -1163,10 +1248,12 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Name" access="readWrite" dmr:version="1.0">
+      <parameter name="Name" access="readWrite">
         <description>
           A user-friendly name for this Storage Array.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance.
         </description>
         <syntax>
           <string>
@@ -1175,7 +1262,7 @@
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this StorageArray.
         </description>
@@ -1183,17 +1270,29 @@
           <string>
             <enumeration value="Rebuilding">
               <description>
-                Indicates a drive participating in an array is replaced, while the data striping and/or redundancy of the array are reestablished on the new disk. In this state, data operations to the array will function properly, but its performance could be significantly diminished.
+                Indicates a drive participating in an array is replaced, while
+                the data striping and/or redundancy of the array are
+                reestablished on the new disk. In this state, data operations
+                to the array will function properly, but its performance could
+                be significantly diminished.
               </description>
             </enumeration>
             <enumeration value="Initializing">
               <description>
-                The state when the RAID array is being first constructed, and the data striping and/or redundancy of the array are first being established.  In this state, data operations to the array will function properly, but its performance could be significantly diminished and the redundancy might not be fully established.
+                The state when the RAID array is being first constructed, and
+                the data striping and/or redundancy of the array are first
+                being established. In this state, data operations to the array
+                will function properly, but its performance could be
+                significantly diminished and the redundancy might not be fully
+                established.
               </description>
             </enumeration>
             <enumeration value="Offline">
               <description>
-                Indicates the RAID array is not available.  This might occur because the administrator explicitly has disabled the array, or because underlying elements of the array, such as the physical disks, are not ready.
+                Indicates the RAID array is not available. This might occur
+                because the administrator explicitly has disabled the array, or
+                because underlying elements of the array, such as the physical
+                disks, are not ready.
               </description>
             </enumeration>
             <enumeration value="Online">
@@ -1203,24 +1302,29 @@
             </enumeration>
             <enumeration value="Error">
               <description>
-                Indicates an error condition exists within the RAID array.  In this state, data operations to the array are not possible, and data loss might have occurred.
+                Indicates an error condition exists within the RAID array. In
+                this state, data operations to the array are not possible, and
+                data loss might have occurred.
               </description>
             </enumeration>
             <enumeration value="Degraded">
               <description>
-                Indicates the loss of a drive only in a Raid Type of more than 2 drives, that can support multiple failures. Data redundancy continues to be available but with degraded capability.
+                Indicates the loss of a drive only in a Raid Type of more than
+                2 drives, that can support multiple failures. Data redundancy
+                continues to be available but with degraded capability.
               </description>
             </enumeration>
             <enumeration value="Critical">
               <description>
-                Indicates the loss of data redundancy, and a possible degraded state. The array continues to perform read/write operations.
+                Indicates the loss of data redundancy, and a possible degraded
+                state. The array continues to perform read/write operations.
               </description>
             </enumeration>
           </string>
           <default type="object" value="Offline"/>
         </syntax>
       </parameter>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables this StorageArray instance.
         </description>
@@ -1229,21 +1333,29 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="RaidType" access="readWrite" dmr:version="1.0">
+      <parameter name="RaidType" access="readWrite">
         <description>
-          Note that after creation of the Storage Array, any subsequent writes to this parameter MUST be ignored as array type migration is not supported.  To identify which RAID Types are supported, see {{param|.Capabilities.SupportedRaidTypes}}.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance.
+          Note that after creation of the Storage Array, any subsequent writes
+          to this parameter MUST be ignored as array type migration is not
+          supported. To identify which RAID Types are supported, see
+          {{param|.Capabilities.SupportedRaidTypes}}.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance.
         </description>
         <syntax>
           <string>
             <enumerationRef targetParam=".Capabilities.SupportedRaidTypes"/>
           </string>
-          <default type="object" value="Linear"/>
+          <default type="object" value="RAID0"/>
         </syntax>
       </parameter>
-      <parameter name="UsableCapacity" access="readOnly" dmr:version="1.0">
+      <parameter name="UsableCapacity" access="readOnly">
         <description>
-          The total Usable Capacity of the Storage Array in {{units}}. This is computed by the system based on {{param|PhysicalMediumReference}} and {{param|RaidType}}.  Disk size is a consideration, as many RAID Types use the smallest drive in the group for calculations.
+          The total Usable Capacity of the Storage Array in {{units}}. This is
+          computed by the system based on {{param|PhysicalMediumReference}} and
+          {{param|RaidType}}. Disk size is a consideration, as many RAID Types
+          use the smallest drive in the group for calculations.
         </description>
         <syntax>
           <unsignedInt>
@@ -1251,33 +1363,55 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="PhysicalMediumReference" access="readWrite" dmr:version="1.0">
+      <parameter name="PhysicalMediumReference" access="readWrite">
         <description>
-          Represents the physical medium used by this RAID.  Each Physical Medium referenced by this parameter MUST exist within the same StorageService instance. A {{object|.PhysicalMedium.{i}.}} MUST only be referenced by one {{object|.StorageArray.{i}.}} instance.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance.
+          Represents the physical medium used by this RAID. Each Physical
+          Medium referenced by this parameter MUST exist within the same
+          StorageService instance. A {{object|.PhysicalMedium.{i}.}} MUST only
+          be referenced by one {{object|.StorageArray.{i}.}} instance.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance.
         </description>
         <syntax>
           <list>
             <size maxLength="1024"/>
           </list>
           <string>
-            <pathRef refType="weak" targetParent=".PhysicalMedium." targetType="row"/>
+            <pathRef refType="weak" targetParent=".PhysicalMedium."
+                targetType="row"/>
           </string>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.LogicalVolume.{i}." access="readWrite" numEntriesParameter="LogicalVolumeNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.LogicalVolume.{i}." access="readWrite"
+        numEntriesParameter="LogicalVolumeNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each logical volume configured on this device.  A logical volume can reside either on an instance of a single {{object|.PhysicalMedium.{i}.}} or on an instance of a single {{object|.StorageArray.{i}.}} instance, but it can not span multiple instances of either. {{param|PhysicalReference}} is used to define where this {{object}} instance resides.
-        Creating an instance of this object generates a disabled {{object}} instance.  Before this new {{object}} instance can be enabled (via a SetParameterValues command), it MUST have the following parameters configured: {{param|Name}}, {{param|PhysicalReference}}, and {{param|Capacity}}.  Once an instance is enabled the following parameters become immutable for the life of the instance: {{param|Name}}, {{param|PhysicalReference}}, and {{param|Capacity}}.
+        This object provides information about each logical volume configured
+        on this device. A logical volume can reside either on an instance of a
+        single {{object|.PhysicalMedium.{i}.}} or on an instance of a single
+        {{object|.StorageArray.{i}.}} instance, but it can not span multiple
+        instances of either. {{param|PhysicalReference}} is used to define
+        where this {{object}} instance resides.
+
+        Creating an instance of this object generates a disabled {{object}}
+        instance. Before this new {{object}} instance can be enabled (via a
+        SetParameterValues command), it MUST have the following parameters
+        configured: {{param|Name}}, {{param|PhysicalReference}}, and
+        {{param|Capacity}}. Once an instance is enabled the following
+        parameters become immutable for the life of the instance:
+        {{param|Name}}, {{param|PhysicalReference}}, and {{param|Capacity}}.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="Name"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -1285,10 +1419,14 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Name" access="readWrite" dmr:version="1.0">
+      <parameter name="Name" access="readWrite">
         <description>
           The name of the partition for this logical volume.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance. This parameter acts as the unique identifier for the instance, thus the device MUST NOT allow multiple {{object}} instances to use the same {{param}}.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance. This parameter acts as the unique
+          identifier for the instance, thus the device MUST NOT allow multiple
+          {{object}} instances to use the same {{param}}.
         </description>
         <syntax>
           <string>
@@ -1297,10 +1435,12 @@
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Status" access="readOnly" dmr:version="1.0">
+      <parameter name="Status" access="readOnly">
         <description>
           The current status of this Logical Volume. {{enum}}
-          The default {{enum|Offline}} status will exist until this {{object}} is enabled.
+
+          The default {{enum|Offline}} status will exist until this {{object}}
+          is enabled.
         </description>
         <syntax>
           <string>
@@ -1311,7 +1451,7 @@
           <default type="object" value="Offline"/>
         </syntax>
       </parameter>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables this {{object}} instance.
         </description>
@@ -1320,32 +1460,47 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="PhysicalReference" access="readWrite" dmr:version="1.0">
+      <parameter name="PhysicalReference" access="readWrite">
         <description>
-          Represents the physical medium or RAID where this {{object}} resides.  The {{object|.PhysicalMedium.{i}.}} or {{object|.StorageArray.{i}.}} referenced by this parameter MUST exist within the same StorageService instance.
-          An AddObject followed by an enabling SetParameterValues on {{param|Name}}, {{param}}, and {{param|Capacity}} will cause the formatting of this logical partition and these parameters to become immutable for the life of this instance.
+          Represents the physical medium or RAID where this {{object}} resides.
+          The {{object|.PhysicalMedium.{i}.}} or {{object|.StorageArray.{i}.}}
+          referenced by this parameter MUST exist within the same
+          StorageService instance.
+
+          An AddObject followed by an enabling SetParameterValues on
+          {{param|Name}}, {{param}}, and {{param|Capacity}} will cause the
+          formatting of this logical partition and these parameters to become
+          immutable for the life of this instance.
         </description>
         <syntax>
           <string>
             <size maxLength="256"/>
-            <pathRef refType="weak" targetParent=".PhysicalMedium. .StorageArray." targetType="row"/>
+            <pathRef
+                refType="weak"
+                targetParent="
+                  .PhysicalMedium.
+                  .StorageArray."
+                targetType="row"/>
           </string>
         </syntax>
       </parameter>
-      <parameter name="FileSystem" access="readOnly" dmr:version="1.0">
+      <parameter name="FileSystem" access="readOnly">
         <description>
           The file system for this {{object}} as it is currently formatted.
         </description>
         <syntax>
           <string>
-            <enumerationRef targetParam=".Capabilities.SupportedFileSystemTypes"/>
+            <enumerationRef
+                targetParam=".Capabilities.SupportedFileSystemTypes"/>
           </string>
         </syntax>
       </parameter>
-      <parameter name="Capacity" access="readWrite" dmr:version="1.0">
+      <parameter name="Capacity" access="readWrite">
         <description>
           The Capacity of the Logical Volume in {{units}}.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance.
         </description>
         <syntax>
           <unsignedInt>
@@ -1353,7 +1508,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="UsedSpace" access="readOnly" activeNotify="canDeny" dmr:version="1.0">
+      <parameter name="UsedSpace" access="readOnly" activeNotify="canDeny">
         <description>
           The Amount of Used Space on the Logical Volume in {{units}}.
         </description>
@@ -1363,9 +1518,15 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="ThresholdLimit" access="readWrite" dmr:version="1.0">
+      <parameter name="ThresholdLimit" access="readWrite">
         <description>
-          This value is specified in {{units}} and controls when {{param|ThresholdReached}} will have its value altered.  If the value of {{param|UsedSpace}} plus the value of {{param}}r is greater than or equal to the value of {{param|Capacity}} then the value of {{param|ThresholdReached}} will be {{true}}, otherwise it will be {{false}}.  Setting the value of this parameter to 0 will disable the Thresholding mechanism.
+          This value is specified in {{units}} and controls when
+          {{param|ThresholdReached}} will have its value altered. If the value
+          of {{param|UsedSpace}} plus the value of {{param}}r is greater than
+          or equal to the value of {{param|Capacity}} then the value of
+          {{param|ThresholdReached}} will be {{true}}, otherwise it will be
+          {{false}}. Setting the value of this parameter to 0 will disable the
+          Thresholding mechanism.
         </description>
         <syntax>
           <unsignedInt>
@@ -1374,44 +1535,61 @@
           <default type="object" value="0"/>
         </syntax>
       </parameter>
-      <parameter name="ThresholdReached" access="readOnly" dmr:version="1.0">
+      <parameter name="ThresholdReached" access="readOnly">
         <description>
-          When {{param|ThresholdLimit}} &gt; 0 and {{param|UsedSpace}} + {{param|ThresholdLimit}} &gt;= {{param|Capacity}} this will be {{true}}, else {{false}}.
+          When {{param|ThresholdLimit}} &gt; 0 and {{param|UsedSpace}} +
+          {{param|ThresholdLimit}} &gt;= {{param|Capacity}} this will be
+          {{true}}, else {{false}}.
         </description>
         <syntax>
           <boolean/>
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="Encrypted" access="readOnly" dmr:version="1.0">
+      <parameter name="Encrypted" access="readOnly">
         <description>
-          Is the Volume Encrypted?  The type of encryption will be handled by the device internally and is not a matter for remote management.
+          Is the Volume Encrypted? The type of encryption will be handled by
+          the device internally and is not a matter for remote management.
         </description>
         <syntax>
           <boolean/>
         </syntax>
       </parameter>
-      <parameter name="FolderNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="FolderNumberOfEntries" access="readOnly">
         <description>
-          The number of instances of {{object|.LogicalVolume.{i}.Folder.{i}.}} on this {{object}}.
+          The number of instances of {{object|.LogicalVolume.{i}.Folder.{i}.}}
+          on this {{object}}.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}." access="readWrite" numEntriesParameter="FolderNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}."
+        access="readWrite" numEntriesParameter="FolderNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each top-level folder configured on this logical volume.  Each top-level folder allows the configuration of quotas and access permissions.
-        Creating an instance of this object generates a disabled {{object}} instance.  Before this new {{object}} instance can be enabled (via a SetParameterValues command), it MUST have the {{param|Name}} configured.  Folder instances are unique per {{object|.LogicalVolume.{i}.}} and the unique key for this object is {{param|Name}} which also means that once an instance is enabled {{param|Name}} becomes immutable for the life of the instance.
+        This object provides information about each top-level folder configured
+        on this logical volume. Each top-level folder allows the configuration
+        of quotas and access permissions.
+
+        Creating an instance of this object generates a disabled {{object}}
+        instance. Before this new {{object}} instance can be enabled (via a
+        SetParameterValues command), it MUST have the {{param|Name}}
+        configured. Folder instances are unique per
+        {{object|.LogicalVolume.{i}.}} and the unique key for this object is
+        {{param|Name}} which also means that once an instance is enabled
+        {{param|Name}} becomes immutable for the life of the instance.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="Name"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -1419,13 +1597,25 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Name" access="readWrite" dmr:version="1.0">
+      <parameter name="Name" access="readWrite">
         <description>
-          Setting of this variable will add a new folder.  The full hierarchical pathname of the folder MUST be specified.
-          All folders created on the Logical Volume will appear here, created locally or via AddObject.
-          The local directory name will be formatted as a UNIX-style directory name, for example: /home/ftp
-          The presence of a trailing `/' character is inconsequential, meaning that /home/ftp/ is the same as /home/ftp.
-          Once this instance becomes enabled, this parameter will be immutable for the life of the instance.  This parameter acts as the unique identifier for the instance, thus the device MUST NOT allow multiple {{object}} instances within a {{object|.LogicalVolume.{i}.}} to use the same {{param}}.
+          Setting of this variable will add a new folder. The full hierarchical
+          pathname of the folder MUST be specified.
+
+          All folders created on the Logical Volume will appear here, created
+          locally or via AddObject.
+
+          The local directory name will be formatted as a UNIX-style directory
+          name, for example: /home/ftp
+
+          The presence of a trailing `/' character is inconsequential, meaning
+          that /home/ftp/ is the same as /home/ftp.
+
+          Once this instance becomes enabled, this parameter will be immutable
+          for the life of the instance. This parameter acts as the unique
+          identifier for the instance, thus the device MUST NOT allow multiple
+          {{object}} instances within a {{object|.LogicalVolume.{i}.}} to use
+          the same {{param}}.
         </description>
         <syntax>
           <string>
@@ -1434,7 +1624,7 @@
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Entry is enabled or disabled
         </description>
@@ -1443,12 +1633,20 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="UserAccountAccess" access="readWrite" dmr:version="1.0">
+      <parameter name="UserAccountAccess" access="readWrite">
         <description>
-          What are the User authentication requirements of this folder?  The following bitmap is used.
-          :11 = Authenticated Access required for Network protocols (NFS/AFP/SMB) and for non Network protocols (FTP/SFTP/HTTP/HTTPS)
-          :10 = Authenticated Access required for Network protocols (NFS/AFP/SMB)
-          :01 = Authenticated Access Required for non Network protocols (FTP/SFTP/HTTP/HTTPS)
+          What are the User authentication requirements of this folder? The
+          following bitmap is used.
+
+          :11 = Authenticated Access required for Network protocols
+           (NFS/AFP/SMB) and for non Network protocols (FTP/SFTP/HTTP/HTTPS)
+
+          :10 = Authenticated Access required for Network protocols
+           (NFS/AFP/SMB)
+
+          :01 = Authenticated Access Required for non Network protocols
+           (FTP/SFTP/HTTP/HTTPS)
+
           :00 = No Authentication required
         </description>
         <syntax>
@@ -1458,34 +1656,44 @@
           <default type="object" value="2"/>
         </syntax>
       </parameter>
-      <parameter name="UserAccessNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="UserAccessNumberOfEntries" access="readOnly">
         <description>
-          The number of instances of {{object|.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}.}} on this {{object|.LogicalVolume.{i}.Folder.{i}.}}.
+          The number of instances of
+          {{object|.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}.}} on this
+          {{object|.LogicalVolume.{i}.Folder.{i}.}}.
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
-      <parameter name="GroupAccessNumberOfEntries" access="readOnly" dmr:version="1.0">
+      <parameter name="GroupAccessNumberOfEntries" access="readOnly">
         <description>
-          The number of instances of {{object|.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}.}} on this {{object|.LogicalVolume.{i}.Folder.{i}.}}
+          The number of instances of
+          {{object|.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}.}} on this
+          {{object|.LogicalVolume.{i}.Folder.{i}.}}
         </description>
         <syntax>
           <unsignedInt/>
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}." access="readWrite" numEntriesParameter="UserAccessNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object
+        name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}."
+        access="readWrite" numEntriesParameter="UserAccessNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each user account configured for access permissions on this folder.
+        This object provides information about each user account configured for
+        access permissions on this folder.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="UserReference"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -1493,7 +1701,7 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Enable" access="readWrite" dmr:version="1.1">
+      <parameter name="Enable" access="readWrite" version="1.1">
         <description>
           Enables or disables the entry.
         </description>
@@ -1502,23 +1710,32 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="UserReference" access="readWrite" dmr:version="1.0">
+      <parameter name="UserReference" access="readWrite">
         <description>
-          Represents a user that has access to this folder.  The instance of {{object|.UserAccount.{i}.}} referenced by this parameter MUST exist within the same StorageService instance.
+          Represents a user that has access to this folder. The instance of
+          {{object|.UserAccount.{i}.}} referenced by this parameter MUST exist
+          within the same StorageService instance.
         </description>
         <syntax>
           <string>
             <size maxLength="256"/>
-            <pathRef refType="weak" targetParent=".UserAccount." targetType="row"/>
+            <pathRef refType="weak" targetParent=".UserAccount."
+                targetType="row"/>
           </string>
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Permissions" access="readWrite" dmr:version="1.0">
+      <parameter name="Permissions" access="readWrite">
         <description>
-          What permissions the user account has over this {{object|.LogicalVolume.{i}.Folder.{i}.}}.  This is an integer value like the xNIX systems use for access permissions, meaning that it is a 3-bit field with the following structure:
+          What permissions the user account has over this
+          {{object|.LogicalVolume.{i}.Folder.{i}.}}. This is an integer value
+          like the xNIX systems use for access permissions, meaning that it is
+          a 3-bit field with the following structure:
+
           :100 = read field
+
           :010 = write field
+
           :001 = execute field
         </description>
         <syntax>
@@ -1529,17 +1746,23 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}." access="readWrite" numEntriesParameter="GroupAccessNumberOfEntries" enableParameter="Enable" minEntries="0" maxEntries="unbounded" dmr:version="1.0">
+    <object
+        name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}."
+        access="readWrite" numEntriesParameter="GroupAccessNumberOfEntries"
+        enableParameter="Enable" minEntries="0" maxEntries="unbounded"
+        version="1.0">
       <description>
-        This object provides information about each user group configured for access permissions on this folder.
+        This object provides information about each user group configured for
+        access permissions on this folder.
       </description>
-      <uniqueKey>
+      <uniqueKey functional="true">
         <parameter ref="GroupReference"/>
       </uniqueKey>
       <uniqueKey functional="false">
         <parameter ref="Alias"/>
       </uniqueKey>
-      <parameter name="Alias" access="readWrite" activeNotify="canDeny" dmr:version="1.2">
+      <parameter name="Alias" access="readWrite" activeNotify="canDeny"
+          version="1.2">
         <description>
           {{datatype|expand}}
         </description>
@@ -1547,7 +1770,7 @@
           <dataType ref="Alias"/>
         </syntax>
       </parameter>
-      <parameter name="Enable" access="readWrite" dmr:version="1.1">
+      <parameter name="Enable" access="readWrite" version="1.1">
         <description>
           Enables or disables the entry.
         </description>
@@ -1556,23 +1779,32 @@
           <default type="factory" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="GroupReference" access="readWrite" dmr:version="1.0">
+      <parameter name="GroupReference" access="readWrite">
         <description>
-          Represents a user group that is a collection of User Accounts that have access to this folder.  The {{object|.UserGroup.{i}.}} referenced by this parameter MUST exist within the same StorageService instance.
+          Represents a user group that is a collection of User Accounts that
+          have access to this folder. The {{object|.UserGroup.{i}.}} referenced
+          by this parameter MUST exist within the same StorageService instance.
         </description>
         <syntax>
           <string>
             <size maxLength="256"/>
-            <pathRef refType="weak" targetParent=".UserGroup." targetType="row"/>
+            <pathRef refType="weak" targetParent=".UserGroup."
+                targetType="row"/>
           </string>
           <default type="object" value=""/>
         </syntax>
       </parameter>
-      <parameter name="Permissions" access="readWrite" dmr:version="1.0">
+      <parameter name="Permissions" access="readWrite">
         <description>
-          What permissions the group members have over this {{object|.LogicalVolume.{i}.Folder.{i}.}} instance.  This is an integer value like the xNIX systems use for access permissions, meaning that it is a 3-bit field with the following structure:
+          What permissions the group members have over this
+          {{object|.LogicalVolume.{i}.Folder.{i}.}} instance. This is an
+          integer value like the xNIX systems use for access permissions,
+          meaning that it is a 3-bit field with the following structure:
+
           :100 = read field
+
           :010 = write field
+
           :001 = execute field
         </description>
         <syntax>
@@ -1583,11 +1815,13 @@
         </syntax>
       </parameter>
     </object>
-    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.Quota." access="readOnly" minEntries="1" maxEntries="1" dmr:version="1.0">
+    <object name="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.Quota."
+        access="readOnly" minEntries="1" maxEntries="1" version="1.0">
       <description>
-        This object allows the configuration of per-folder storage quota management.
+        This object allows the configuration of per-folder storage quota
+        management.
       </description>
-      <parameter name="Enable" access="readWrite" dmr:version="1.0">
+      <parameter name="Enable" access="readWrite">
         <description>
           Enables or disables quota management for this folder.
         </description>
@@ -1596,7 +1830,7 @@
           <default type="object" value="false"/>
         </syntax>
       </parameter>
-      <parameter name="Capacity" access="readWrite" dmr:version="1.0">
+      <parameter name="Capacity" access="readWrite">
         <description>
           Maximum size in {{units}} of the quota for this folder.
         </description>
@@ -1606,7 +1840,7 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="UsedSpace" access="readOnly" activeNotify="canDeny" dmr:version="1.0">
+      <parameter name="UsedSpace" access="readOnly" activeNotify="canDeny">
         <description>
           Current size in {{units}} of this folder.
         </description>
@@ -1616,9 +1850,15 @@
           </unsignedInt>
         </syntax>
       </parameter>
-      <parameter name="ThresholdLimit" access="readWrite" dmr:version="1.0">
+      <parameter name="ThresholdLimit" access="readWrite">
         <description>
-          This value is specified in {{units}} and controls when {{param|ThresholdReached}} will have its value altered.  If the value of {{param|UsedSpace}} plus the value of this parameter is greater than or equal to the value of {{param|Capacity}} then the value of {{param|ThresholdReached}} will be {{true}}, otherwise it will be {{false}}.  Setting the value of this parameter to 0 will disable the Thresholding mechanism.
+          This value is specified in {{units}} and controls when
+          {{param|ThresholdReached}} will have its value altered. If the value
+          of {{param|UsedSpace}} plus the value of this parameter is greater
+          than or equal to the value of {{param|Capacity}} then the value of
+          {{param|ThresholdReached}} will be {{true}}, otherwise it will be
+          {{false}}. Setting the value of this parameter to 0 will disable the
+          Thresholding mechanism.
         </description>
         <syntax>
           <unsignedInt>
@@ -1627,9 +1867,11 @@
           <default type="object" value="0"/>
         </syntax>
       </parameter>
-      <parameter name="ThresholdReached" access="readOnly" dmr:version="1.0">
+      <parameter name="ThresholdReached" access="readOnly">
         <description>
-          When {{param|ThresholdLimit}} &gt; 0 and {{param|UsedSpace}} + {{param|ThresholdLimit}} &gt;= {{param|Capacity}} this will be {{true}}, else {{false}}.
+          When {{param|ThresholdLimit}} &gt; 0 and {{param|UsedSpace}} +
+          {{param|ThresholdLimit}} &gt;= {{param|Capacity}} this will be
+          {{true}}, else {{false}}.
         </description>
         <syntax>
           <boolean/>
@@ -1637,7 +1879,7 @@
         </syntax>
       </parameter>
     </object>
-    <profile name="Baseline:1" dmr:version="1.0">
+    <profile name="Baseline:1" version="1.0">
       <object ref="StorageService.{i}." requirement="present">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="PhysicalMediumNumberOfEntries" requirement="readOnly"/>
@@ -1663,7 +1905,8 @@
         <parameter ref="SMBEnable" requirement="readOnly"/>
         <parameter ref="NetworkProtocolAuthReq" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.PhysicalMedium.{i}." requirement="present">
+      <object ref="StorageService.{i}.PhysicalMedium.{i}."
+          requirement="present">
         <parameter ref="Name" requirement="readOnly"/>
         <parameter ref="Vendor" requirement="readOnly"/>
         <parameter ref="Model" requirement="readOnly"/>
@@ -1676,7 +1919,8 @@
         <parameter ref="SMARTCapable" requirement="readOnly"/>
         <parameter ref="HotSwappable" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}." requirement="present">
+      <object ref="StorageService.{i}.LogicalVolume.{i}."
+          requirement="present">
         <parameter ref="Name" requirement="readOnly"/>
         <parameter ref="Status" requirement="readOnly"/>
         <parameter ref="Enable" requirement="readOnly"/>
@@ -1687,50 +1931,59 @@
         <parameter ref="Encrypted" requirement="readOnly"/>
         <parameter ref="FolderNumberOfEntries" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}." requirement="present">
+      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}."
+          requirement="present">
         <parameter ref="Name" requirement="readOnly"/>
         <parameter ref="Enable" requirement="readOnly"/>
         <parameter ref="UserAccountAccess" requirement="readOnly"/>
       </object>
     </profile>
-    <profile name="UserAccess:1" dmr:version="1.0">
+    <profile name="UserAccess:1" version="1.0">
       <object ref="StorageService.{i}." requirement="present">
         <parameter ref="UserAccountNumberOfEntries" requirement="readOnly"/>
       </object>
       <object ref="StorageService.{i}.NetworkServer." requirement="present">
         <parameter ref="NetworkProtocolAuthReq" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.UserAccount.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.UserAccount.{i}."
+          requirement="createDelete">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="Username" requirement="readWrite"/>
         <parameter ref="Password" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}." requirement="present">
+      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}."
+          requirement="present">
         <parameter ref="UserAccountAccess" requirement="readWrite"/>
         <parameter ref="UserAccessNumberOfEntries" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}." requirement="createDelete">
+      <object
+          ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}."
+          requirement="createDelete">
         <parameter ref="UserReference" requirement="readWrite"/>
         <parameter ref="Permissions" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="GroupAccess:1" extends="UserAccess:1" dmr:version="1.0">
+    <profile name="GroupAccess:1" extends="UserAccess:1" version="1.0">
       <object ref="StorageService.{i}." requirement="present">
         <parameter ref="UserGroupNumberOfEntries" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.UserGroup.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.UserGroup.{i}."
+          requirement="createDelete">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="GroupName" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.UserAccount.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.UserAccount.{i}."
+          requirement="createDelete">
         <parameter ref="UserGroupParticipation" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}." requirement="createDelete">
+      <object
+          ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}."
+          requirement="createDelete">
         <parameter ref="GroupReference" requirement="readWrite"/>
         <parameter ref="Permissions" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="FTPServer:1" dmr:version="1.0">
+    <profile name="FTPServer:1" version="1.0">
       <object ref="StorageService.{i}.FTPServer." requirement="present">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="Status" requirement="readOnly"/>
@@ -1738,13 +1991,19 @@
         <parameter ref="IdleTime" requirement="readWrite"/>
         <parameter ref="PortNumber" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.FTPServer.AnonymousUser." requirement="present">
+      <object ref="StorageService.{i}.FTPServer.AnonymousUser."
+          requirement="present">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="StartingFolder" requirement="readWrite"/>
         <parameter ref="ReadOnlyAccess" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="SFTPServer:1" extends="FTPServer:1 UserAccess:1" dmr:version="1.0">
+    <profile
+        name="SFTPServer:1"
+        extends="
+          FTPServer:1
+          UserAccess:1"
+        version="1.0">
       <object ref="StorageService.{i}.UserAccount.{i}." requirement="present">
         <parameter ref="AllowFTPAccess" requirement="readWrite"/>
       </object>
@@ -1756,7 +2015,7 @@
         <parameter ref="PortNumber" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="HTTPServer:1" dmr:version="1.0">
+    <profile name="HTTPServer:1" version="1.0">
       <object ref="StorageService.{i}.HTTPServer." requirement="present">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="Status" requirement="readOnly"/>
@@ -1767,7 +2026,12 @@
         <parameter ref="AuthenticationReq" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="HTTPSServer:1" extends="HTTPServer:1 UserAccess:1" dmr:version="1.0">
+    <profile
+        name="HTTPSServer:1"
+        extends="
+          HTTPServer:1
+          UserAccess:1"
+        version="1.0">
       <object ref="StorageService.{i}.UserAccount.{i}." requirement="present">
         <parameter ref="AllowHTTPAccess" requirement="readWrite"/>
       </object>
@@ -1781,30 +2045,34 @@
         <parameter ref="AuthenticationReq" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="VolumeConfig:1" extends="Baseline:1" dmr:version="1.0">
-      <object ref="StorageService.{i}.PhysicalMedium.{i}." requirement="present">
+    <profile name="VolumeConfig:1" extends="Baseline:1" version="1.0">
+      <object ref="StorageService.{i}.PhysicalMedium.{i}."
+          requirement="present">
         <parameter ref="Name" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.LogicalVolume.{i}."
+          requirement="createDelete">
         <parameter ref="Name" requirement="readWrite"/>
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="FileSystem" requirement="readOnly"/>
         <parameter ref="Capacity" requirement="readWrite"/>
       </object>
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}."
+          requirement="createDelete">
         <parameter ref="Name" requirement="readWrite"/>
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="UserAccountAccess" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="RAID:1" dmr:version="1.0">
+    <profile name="RAID:1" version="1.0">
       <object ref="StorageService.{i}." requirement="present">
         <parameter ref="StorageArrayNumberOfEntries" requirement="readOnly"/>
       </object>
       <object ref="StorageService.{i}.Capabilities." requirement="present">
         <parameter ref="SupportedRaidTypes" requirement="readOnly"/>
       </object>
-      <object ref="StorageService.{i}.StorageArray.{i}." requirement="createDelete">
+      <object ref="StorageService.{i}.StorageArray.{i}."
+          requirement="createDelete">
         <parameter ref="Name" requirement="readWrite"/>
         <parameter ref="Status" requirement="readOnly"/>
         <parameter ref="Enable" requirement="readWrite"/>
@@ -1813,8 +2081,9 @@
         <parameter ref="PhysicalMediumReference" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="FolderQuota:1" dmr:version="1.0">
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.Quota." requirement="present">
+    <profile name="FolderQuota:1" version="1.0">
+      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.Quota."
+          requirement="present">
         <parameter ref="Enable" requirement="readWrite"/>
         <parameter ref="Capacity" requirement="readWrite"/>
         <parameter ref="UsedSpace" requirement="readOnly"/>
@@ -1822,30 +2091,35 @@
         <parameter ref="ThresholdReached" requirement="readOnly"/>
       </object>
     </profile>
-    <profile name="VolumeThresh:1" dmr:version="1.0">
-      <object ref="StorageService.{i}.LogicalVolume.{i}." requirement="present">
+    <profile name="VolumeThresh:1" version="1.0">
+      <object ref="StorageService.{i}.LogicalVolume.{i}."
+          requirement="present">
         <parameter ref="Capacity" requirement="readOnly"/>
         <parameter ref="ThresholdLimit" requirement="readWrite"/>
         <parameter ref="ThresholdReached" requirement="readOnly"/>
       </object>
     </profile>
-    <profile name="NetServer:1" dmr:version="1.0">
+    <profile name="NetServer:1" version="1.0">
       <object ref="StorageService.{i}.NetworkServer." requirement="present">
         <parameter ref="AFPEnable" requirement="readWrite"/>
         <parameter ref="NFSEnable" requirement="readWrite"/>
         <parameter ref="SMBEnable" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="Baseline:2" base="Baseline:1" dmr:version="1.1">
+    <profile name="Baseline:2" base="Baseline:1" version="1.1">
       <parameter ref="StorageServiceNumberOfEntries" requirement="readOnly"/>
     </profile>
-    <profile name="UserAccess:2" base="UserAccess:1" dmr:version="1.1">
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}." requirement="createDelete">
+    <profile name="UserAccess:2" base="UserAccess:1" version="1.1">
+      <object
+          ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.UserAccess.{i}."
+          requirement="createDelete">
         <parameter ref="Enable" requirement="readWrite"/>
       </object>
     </profile>
-    <profile name="GroupAccess:2" base="GroupAccess:1" dmr:version="1.1">
-      <object ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}." requirement="createDelete">
+    <profile name="GroupAccess:2" base="GroupAccess:1" version="1.1">
+      <object
+          ref="StorageService.{i}.LogicalVolume.{i}.Folder.{i}.GroupAccess.{i}."
+          requirement="createDelete">
         <parameter ref="Enable" requirement="readWrite"/>
       </object>
     </profile>

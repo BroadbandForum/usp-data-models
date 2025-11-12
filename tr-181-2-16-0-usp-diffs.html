@@ -2768,7 +2768,7 @@ valid (layer 2 or above) interface in libpcap or pcapng format.</p>
 <p>Password to be used by the Agent to authenticate with the file
 location. This string is set to an empty string if no authentication is
 required.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -2934,7 +2934,7 @@ of the <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore"><em>Rest
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. <span class="inserted">The HTTPS transport MUST be supported, and the </span>HTTP <span class="removed">and HTTPS transports MUST</span><span class="inserted">transport MAY</span> be supported.</p>
+<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. <span class="removed">HTTP and</span><span class="inserted">The</span> HTTPS <span class="removed">transports</span><span class="inserted">transport</span> MUST be <span class="inserted">supported, and the HTTP transport MAY be </span>supported.</p>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -2998,7 +2998,7 @@ of the <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore"><em>Rest
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the source file location. <span class="removed">HTTP</span><span class="inserted">The HTTPS transport MUST be supported,</span> and <span class="removed">HTTPS</span><span class="inserted">the</span> <span class="removed">transports</span><span class="inserted">HTTP</span> <span class="removed">MUST</span><span class="inserted">transport MAY</span> be supported.</p>
+<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the source file location. <span class="removed">HTTP and</span><span class="inserted">The</span> HTTPS <span class="removed">transports</span><span class="inserted">transport</span> MUST be <span class="inserted">supported, and the HTTP transport MAY be </span>supported.</p>
 <p>If the Agent receives multiple download requests with the same source URL, the Agent MUST perform each download as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 </td>
@@ -3152,7 +3152,7 @@ Controller to operate on these files in any way.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. <span class="inserted">The HTTPS transport MUST be supported, and the </span>HTTP <span class="removed">and HTTPS transports MUST</span><span class="inserted">transport MAY</span> be supported.</p>
+<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. <span class="removed">HTTP and</span><span class="inserted">The</span> HTTPS <span class="removed">transports</span><span class="inserted">transport</span> MUST be <span class="inserted">supported, and the HTTP transport MAY be </span>supported.</p>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -3261,7 +3261,7 @@ is defined by the firmware that is currently running.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the source file location. <span class="removed">HTTP</span><span class="inserted">The HTTPS transport MUST be supported,</span> and <span class="removed">HTTPS</span><span class="inserted">the</span> <span class="removed">transports</span><span class="inserted">HTTP</span> <span class="removed">MUST</span><span class="inserted">transport MAY</span> be supported.</p>
+<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the source file location. <span class="removed">HTTP and</span><span class="inserted">The</span> HTTPS <span class="removed">transports</span><span class="inserted">transport</span> MUST be <span class="inserted">supported, and the HTTP transport MAY be </span>supported.</p>
 <p>If the Agent receives multiple download requests with the same source URL, the Agent MUST perform each download as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 </td>
@@ -3306,8 +3306,8 @@ is defined by the firmware that is currently running.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object contains <span class="inserted">global </span>parameters relating <span class="inserted">to the NTP time clients and or servers that are active in the device. This object can be used to model SNTP and NTP clients and servers.</span></p>
-<p>Both NTP and SNTP have identical packet formats and use the same mathematical operations to calculate client time, clock offset, and roundtrip delay. From the perspective of an NTP or SNTP <span class="removed">time client</span><span class="inserted">server, there is no difference between NTP and SNTP clients, and from the perspective of an NTP or SNTP client, there is no difference between NTP and SNTP servers. SNTP servers are stateless like NTP servers</span> in <span class="removed">the CPE.</span><span class="inserted">non-symmetric modes and can handle numerous clients, but SNTP clients usually operate with only one server at a time, unlike most NTP clients.</span></p>
+<p>This object contains <span class="inserted">global </span>parameters relating<span class="inserted"> to the NTP time clients and or servers that are active in the device. This object can be used to model SNTP and NTP clients and servers.</span></p>
+<p>Both NTP and SNTP have identical packet formats and use the same mathematical operations to calculate client time, clock offset, and roundtrip delay. From the perspective of an NTP or SNTP <span class="removed">time</span><span class="inserted">server,</span> <span class="removed">client</span><span class="inserted">there is no difference between NTP and SNTP clients, and from the perspective of an NTP or SNTP client, there is no difference between NTP and SNTP servers. SNTP servers are stateless like NTP servers</span> in <span class="removed">the</span><span class="inserted">non-symmetric</span> <span class="removed">CPE.}}</span><span class="inserted">modes and can handle numerous clients, but SNTP clients usually operate with only one server at a time, unlike most NTP clients.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -3336,7 +3336,7 @@ is defined by the firmware that is currently running.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables <span class="inserted">all </span>the<span class="removed"> NTP or SNTP</span> time <span class="removed">client.</span><span class="inserted">clients and servers.</span></p>
+<p>Enables or disables <span class="inserted">all </span>the<span class="removed"> NTP or SNTP</span> time <span class="removed">client.}}</span><span class="inserted">clients and servers.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5934,7 +5934,7 @@ the interface.</p>
 <td>
 <p>Allows the Controller to change the USIM PIN used for SIM card
 activation.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -5986,7 +5986,7 @@ mobile network and another computer network.</p>
 <td>
 <p>Password used to authenticate the CPE when making a connection to the
 Access Point.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -6474,7 +6474,7 @@ in the SNMP table docsIfCmStatusTable.</p>
 <p>W</p>
 </td>
 <td>
-<p><span class="mark"><strong>[docsIf3CmSpectrumAnalysisCtrlCmdSegmentFrequencySpan/1.3.6.1.4.1.4491.2.1.20.1.34.5]</strong></span> This attribute controls the frequency span<span class="inserted"> (in <em>Hz</em>)</span> of each segment (instance) of the <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.Result."><em>Result.{i}</em></a> table.</p>
+<p><span class="mark"><strong>[docsIf3CmSpectrumAnalysisCtrlCmdSegmentFrequencySpan/1.3.6.1.4.1.4491.2.1.20.1.34.5]</strong></span> This attribute controls the frequency span <span class="inserted">(in <em>Hz</em>) </span>of each segment (instance) of the <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.Result."><em>Result.{i}</em></a> table.</p>
 <p>If set to a value of 0, then a default span will be chosen based on the hardware capabilities of the device. Segments are contiguous from the <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.FirstSegmentCenterFrequency"><em>FirstSegmentCenterFrequency</em></a> to the <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.LastSegmentCenterFrequency"><em>LastSegmentCenterFrequency</em></a> and the center frequency for each successive segment is incremented by the <em>SegmentFrequencySpan</em>. The number of segments is (<a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.LastSegmentCenterFrequency"><em>LastSegmentCenterFrequency</em></a> - <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.FirstSegmentCenterFrequency"><em>FirstSegmentCenterFrequency</em></a>)/<em>SegmentFrequencySpan</em> + 1. A segment is equivalent to an instance in the <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.Result."><em>Result</em></a> table. The chosen <em>SegmentFrequencySpan</em> affects the number of entries in <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.Result."><em>Result</em></a> table. A more granular <em>SegmentFrequencySpan</em> may adversely affect the amount of time needed to query the table entries in addition to possibly increasing the acquisition time.</p>
 <p>Changing the value of this attribute may result in changes to <a href="#D.Device:2.Device.DOCSIS.SpectrumAnalysis.Result."><em>Result</em></a> table.</p>
 <p>Note that if this parameter is set to an invalid value, the device may return an error, or may adjust the value of the parameter to the closest valid value.</p>
@@ -7221,7 +7221,7 @@ Possible patterns:</p>
 </ul>
 <p>This parameter is based on <em>mocaIfPassword</em> from
 [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -7571,7 +7571,7 @@ string that is hashed per the HomePlug specification to generate the
 Network Membership Key (NMK). Note that care needs to be taken when
 setting this parameter as it might prohibit communication with other
 adapters or equipment connected via the powerline network.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -7669,7 +7669,7 @@ encryption key to encrypt communications in powerline. It takes non
 extended ASCII characters (i.e. printable 7-bit ASCII character codes
 32-126, which includes SPACE but excludes TAB, LF and CR). For
 example: bvjPekZiYUf9kjNKJASkgJ09adfoP01Fjvgd</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -7899,8 +7899,8 @@ operating.</p>
 <p>Each list item MUST be a member of the list reported by the <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards"><em>SupportedStandards</em></a> parameter. Comma-separated list of strings. List items indicate which IEEE 802.11 standard that is detected for this <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result."><em>Result</em></a>.</p>
 <p>Each value indicates support for the indicated standard.</p>
 <p>If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a> are allowed.</p>
-<p>If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a> are<span class="inserted"> allowed.</span></p>
-<p>If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.6GHz"><em>6GHz</em></a>, only value <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a> is allowed.</p>
+<p>If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a> are allowed.</p>
+<p><span class="inserted">If <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.6GHz"><em>6GHz</em></a>, only value <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SupportedStandards.ax"><em>ax</em></a> is allowed.</span></p>
 <p>For example, a value of &quot;g,b&quot; (or &quot;b,g&quot; - order is not important) means that the 802.11g standard [<a href="#R.802.11g-2003">802.11g-2003</a>] is used with a backwards-compatible mode for 802.11b [<a href="#R.802.11b-1999">802.11b-1999</a>]. A value of &quot;g&quot; means that only the 802.11g standard can be used.</p>
 </td>
 <td>
@@ -8794,7 +8794,7 @@ device in the Wi-Fi network.</p>
 <p>-</p>
 </td>
 <td>
-<p><strong>[ASYNC]</strong> This command requests to set the Anticipated Channel Preference. The operating classes, and list of channels for each operating class, are input.<span class="removed"> For 2.4GHz and 5GHz bands, only 20MHz operating classes are valid inputs.</span></p>
+<p><strong>[ASYNC]</strong> This command requests to set the Anticipated Channel Preference. The operating classes, and list of channels for each operating class, are input.<span class="removed"> For 2.4GHz and 5GHz bands, only 20MHz operating classes are valid inputs.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -8857,7 +8857,7 @@ device in the Wi-Fi network.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating <span class="removed">Class for which the capability is being described.</span><span class="inserted">Class.</span></p>
+<p><strong>[MANDATORY]</strong> Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating <span class="removed">Class for which the capability is being described.}}</span><span class="inserted">Class.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -8900,7 +8900,7 @@ device in the Wi-Fi network.</p>
 <td>
 <p>Onboarding protocols supported;</p>
 <blockquote>
-<p>0: 1905 <span class="removed">Device.</span><span class="inserted">Device Provisioning Protocol as defined in the EasyMesh [<a href="#R.EasyMesh">EasyMesh</a>] 1905 Layer Security Capability TLV.</span></p>
+<p>0: 1905 <span class="removed">Device.}}</span><span class="inserted">Device Provisioning Protocol as defined in the EasyMesh [<a href="#R.EasyMesh">EasyMesh</a>] 1905 Layer Security Capability TLV.</span></p>
 </blockquote>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -8948,7 +8948,7 @@ anticipated channel preference.</p>
 </td>
 <td>
 <p>The Operating Class per [<a href="#R.802.11-2020">Table E-4/802.11-2020</a>].</p>
-<p>Note that the operating class identifies the band and channel width.<span class="removed"> This changed from readOnly to readWrite in version 2.15.</span></p>
+<p>Note that the operating class identifies the band and channel width.<span class="removed"> This changed from readOnly to readWrite in version 2.15.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -8968,7 +8968,7 @@ anticipated channel preference.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating <span class="removed">Class.</span><span class="inserted">Class which have anticipated channel preference.</span></p>
+<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating <span class="removed">Class.}}</span><span class="inserted">Class which have anticipated channel preference.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9110,7 +9110,7 @@ Device.WiFi.DataElements.Network.Device.{i}.Radio.{i}.BSS.{i}.BSSID.</p>
 <p>W</p>
 </td>
 <td>
-<p>The number of the Wi-Fi channel the backhaul BSS is to be associated to. If <em>Channel</em> is not specified, then the radio is to determine which channel to use to associate to the requested <span class="removed">SSID.</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.SteerWiFiBackhaul.Input.TargetBSS"><em>TargetBSS</em></a>.</span></p>
+<p>The number of the Wi-Fi channel the backhaul BSS is to be associated to. If <em>Channel</em> is not specified, then the radio is to determine which channel to use to associate to the requested <span class="removed">SSID.}}</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.SteerWiFiBackhaul.Input.TargetBSS"><em>TargetBSS</em></a>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9151,7 +9151,7 @@ from the current Device's ID</p>
 <p>R</p>
 </td>
 <td>
-<p>An indicator of radio signal strength of the backhaul link of the Access Point (AP) to the Multi-AP Controller, measured in <em>dBm</em>. RCPI<span class="removed"> threshold</span> is encoded per [<a href="#R.802.11-2020">Table 9-176/802.11-2020</a>]. The value of this parameter is indeterminate if the value of the <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.LinkType"><em>LinkType</em></a> parameter is anything other than <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.LinkType.Wi-Fi"><em>Wi-Fi</em></a>.</p>
+<p>An indicator of radio signal strength of the backhaul link of the Access Point (AP) to the Multi-AP Controller, measured in <em>dBm</em>. RCPI <span class="removed">threshold </span>is encoded per [<a href="#R.802.11-2020">Table 9-176/802.11-2020</a>]. The value of this parameter is indeterminate if the value of the <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.LinkType"><em>LinkType</em></a> parameter is anything other than <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul.LinkType.Wi-Fi"><em>Wi-Fi</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -9313,7 +9313,7 @@ bands, only 20MHz operating classes are valid inputs.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class for which the <span class="removed">capability</span><span class="inserted">request</span> <span class="removed">is</span><span class="inserted">to</span> <span class="removed">being</span><span class="inserted">initiate</span> <span class="removed">described.</span><span class="inserted">a channel scan applies.</span></p>
+<p><strong>[MANDATORY]</strong> Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class for which the <span class="removed">capability</span><span class="inserted">request</span> <span class="removed">is</span><span class="inserted">to</span> <span class="removed">being</span><span class="inserted">initiate</span> <span class="removed">described.}}</span><span class="inserted">a channel scan applies.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9422,7 +9422,7 @@ class that the radio is capable of scanning.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="removed">for </span>which the <span class="removed">capability</span><span class="inserted">radio</span> is <span class="removed">being</span><span class="inserted">capable</span> <span class="removed">described.</span><span class="inserted">of scanning.</span></p>
+<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="removed">for </span>which the <span class="removed">capability</span><span class="inserted">radio</span> is <span class="removed">being</span><span class="inserted">capable</span> <span class="removed">described.}}</span><span class="inserted">of scanning.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9533,7 +9533,7 @@ class supported for this method of CAC.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="inserted">that are supported </span>for <span class="removed">which</span><span class="inserted">this</span> <span class="removed">the</span><span class="inserted">method</span> <span class="removed">capability</span><span class="inserted">of</span> <span class="removed">is being described.</span><span class="inserted">CAC.</span></p>
+<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="inserted">that are supported </span>for <span class="removed">which</span><span class="inserted">this</span> <span class="removed">the</span><span class="inserted">method</span> <span class="removed">capability</span><span class="inserted">of</span> <span class="removed">is being described.}}</span><span class="inserted">CAC.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9692,7 +9692,7 @@ which are not allowed to be used on this radio.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="removed">for</span><span class="inserted">that</span> <span class="removed">which</span><span class="inserted">are</span> <span class="removed">the</span><span class="inserted">not</span> <span class="removed">capability</span><span class="inserted">allowed</span> <span class="removed">is</span><span class="inserted">to</span> <span class="removed">being</span><span class="inserted">be</span> <span class="removed">described.</span><span class="inserted">used on this radio.</span></p>
+<p>Comma-separated list of unsigned integers (up to 255). The channel numbers in this Operating Class <span class="removed">for</span><span class="inserted">that</span> <span class="removed">which</span><span class="inserted">are</span> <span class="removed">the</span><span class="inserted">not</span> <span class="removed">capability</span><span class="inserted">allowed</span> <span class="removed">is</span><span class="inserted">to</span> <span class="removed">being</span><span class="inserted">be</span> <span class="removed">described.}}</span><span class="inserted">used on this radio.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11620,8 +11620,8 @@ can operate.</p>
 <p>Each list item MUST be a member of the list reported by the <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards"><em>SupportedStandards</em></a> parameter. Comma-separated list of strings. List items indicate which IEEE 802.11 standard this <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> instance is configured for.</p>
 <p>Each value indicates support for the indicated standard.</p>
 <p>If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a> are allowed.</p>
-<p>If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a> are<span class="inserted"> allowed.</span></p>
-<p>If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.6GHz"><em>6GHz</em></a>, only value <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a> is allowed.</p>
+<p>If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a> are allowed.</p>
+<p><span class="inserted">If <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.Radio.SupportedFrequencyBands.6GHz"><em>6GHz</em></a>, only value <a href="#D.Device:2.Device.WiFi.Radio.SupportedStandards.ax"><em>ax</em></a> is allowed.</span></p>
 <p>For example, a value of &quot;g,b&quot; (or &quot;b,g&quot; - order is not important) means that the 802.11g standard [<a href="#R.802.11g-2003">802.11g-2003</a>] is used with a backwards-compatible mode for 802.11b [<a href="#R.802.11b-1999">802.11b-1999</a>]. A value of &quot;g&quot; means that only the 802.11g standard can be used.</p>
 </td>
 <td>
@@ -11718,7 +11718,7 @@ can operate.</p>
 <p>R</p>
 </td>
 <td>
-<p>The channel bandwidth currently in use.<span class="inserted"> <strong>{{enum: only valid as  argument}}</strong></span></p>
+<p>The channel bandwidth currently in use.<span class="removed">}}</span><span class="inserted"> <strong>{{enum: only valid as  argument}}</strong></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11892,7 +11892,7 @@ can operate.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. <span class="removed">Data</span><span class="inserted">Maximum radio data</span> transmit rates in <em>Mbps</em> for unicast frames <span class="removed">at which the access point will permit a station to connect </span>(a <span class="removed">subset</span><span class="inserted">superset</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a>). Given the <span class="removed">values</span><span class="inserted">value</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a> <span class="removed">and {{param|OperationalDataTransmitRates}} </span>from the <span class="removed">examples</span><span class="inserted">example</span> above, <em>SupportedDataTransmitRates</em> might be <span class="removed">&quot;1,2,5.5&quot;,</span><span class="inserted">&quot;1,2,5.5,11&quot;,</span> indicating that <span class="removed">the</span><span class="inserted">unicast</span> <span class="removed">AP</span><span class="inserted">frames</span> <span class="removed">will</span><span class="inserted">can</span> <span class="removed">only</span><span class="inserted">additionally</span> <span class="removed">permit</span><span class="inserted">be</span> <span class="removed">connections</span><span class="inserted">transmitted</span> at <span class="removed">1 Mbps, 2</span><span class="inserted">5.5</span> Mbps and <span class="removed">5.5 Mbps, even though it could theoretically accept connections at </span>11 Mbps.</p>
+<p>Comma-separated list of strings. <span class="removed">Data</span><span class="inserted">Maximum radio data</span> transmit rates in <em>Mbps</em> for unicast frames <span class="removed">at which the access point will permit a station to connect </span>(a <span class="removed">subset</span><span class="inserted">superset</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a>). Given the <span class="removed">values</span><span class="inserted">value</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a><span class="removed"> and {{param|OperationalDataTransmitRates}}</span> from the <span class="removed">examples</span><span class="inserted">example</span> above, <em>SupportedDataTransmitRates</em> might be <span class="removed">&quot;1,2,5.5&quot;,</span><span class="inserted">&quot;1,2,5.5,11&quot;,</span> indicating that <span class="removed">the</span><span class="inserted">unicast</span> <span class="removed">AP</span><span class="inserted">frames</span> <span class="removed">will</span><span class="inserted">can</span> <span class="removed">only</span><span class="inserted">additionally</span> <span class="removed">permit</span><span class="inserted">be</span> <span class="removed">connections</span><span class="inserted">transmitted</span> at <span class="removed">1 Mbps, 2</span><span class="inserted">5.5</span> Mbps and <span class="removed">5.5 Mbps, even though it could theoretically accept connections at </span>11 Mbps.</p>
 <p><span class="inserted"><em>SupportedDataTransmitRates</em> indicates equipment capability. This radio is capable of supporting these data rates.</span></p>
 </td>
 <td>
@@ -11913,7 +11913,7 @@ can operate.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list of strings. <span class="removed">Maximum access point data</span><span class="inserted">Data</span> transmit rates in <em>Mbps</em> for unicast frames <span class="inserted">at which the radio will permit operation with any associated station </span>(a <span class="removed">superset</span><span class="inserted">subset</span> of <a href="#D.Device:2.Device.WiFi.Radio.SupportedDataTransmitRates"><em>SupportedDataTransmitRates</em></a>). Given the <span class="removed">value</span><span class="inserted">values</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a> <span class="inserted">and <a href="#D.Device:2.Device.WiFi.Radio.SupportedDataTransmitRates"><em>SupportedDataTransmitRates</em></a> </span>from the <span class="removed">example</span><span class="inserted">examples</span> above, <em>OperationalDataTransmitRates</em> might be <span class="removed">&quot;1,2,5.5,11&quot;,</span><span class="inserted">&quot;1,2,5.5&quot;,</span> indicating that <span class="removed">unicast</span><span class="inserted">the</span> <span class="removed">frames</span><span class="inserted">radio</span> <span class="removed">can</span><span class="inserted">will</span> <span class="removed">additionally</span><span class="inserted">only</span> <span class="removed">be</span><span class="inserted">permit</span> <span class="removed">transmitted</span><span class="inserted">operation</span> at <span class="removed">5.5</span><span class="inserted">1 Mbps, 2</span> Mbps and <span class="inserted">5.5 Mbps, even though it could theoretically operate at </span>11 Mbps.</p>
+<p>Comma-separated list of strings. <span class="removed">Maximum access point data</span><span class="inserted">Data</span> transmit rates in <em>Mbps</em> for unicast frames <span class="inserted">at which the radio will permit operation with any associated station </span>(a <span class="removed">superset</span><span class="inserted">subset</span> of <a href="#D.Device:2.Device.WiFi.Radio.SupportedDataTransmitRates"><em>SupportedDataTransmitRates</em></a>). Given the <span class="removed">value</span><span class="inserted">values</span> of <a href="#D.Device:2.Device.WiFi.Radio.BasicDataTransmitRates"><em>BasicDataTransmitRates</em></a><span class="inserted"> and <a href="#D.Device:2.Device.WiFi.Radio.SupportedDataTransmitRates"><em>SupportedDataTransmitRates</em></a></span> from the <span class="removed">example</span><span class="inserted">examples</span> above, <em>OperationalDataTransmitRates</em> might be <span class="removed">&quot;1,2,5.5,11&quot;,</span><span class="inserted">&quot;1,2,5.5&quot;,</span> indicating that <span class="removed">unicast</span><span class="inserted">the</span> <span class="removed">frames</span><span class="inserted">radio</span> <span class="removed">can</span><span class="inserted">will</span> <span class="removed">additionally</span><span class="inserted">only</span> <span class="removed">be</span><span class="inserted">permit</span> <span class="removed">transmitted</span><span class="inserted">operation</span> at <span class="removed">5.5</span><span class="inserted">1 Mbps, 2</span> Mbps and <span class="inserted">5.5 Mbps, even though it could theoretically operate at </span>11 Mbps.</p>
 <p><span class="inserted">This radio is limited to allowing operation only at these data rates. Note: Setting <em>OperationalDataTransmitRates</em> can't increase the set of possible data rates but could narrow them.</span></p>
 </td>
 <td>
@@ -12974,7 +12974,7 @@ WPA2-PSK-WPA3-SAE.</p>
 <p>A 5 byte <em>WEPKey</em> corresponds to security mode
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to
 security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13010,7 +13010,7 @@ security mode <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupport
 generated. The Controller SHOULD NOT set both the
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphrase"><em>KeyPassphrase</em></a> and the <em>PreSharedKey</em> directly (the result of
 doing this is undefined).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13047,7 +13047,7 @@ immediately generated. The Controller SHOULD NOT set both the
 doing this is undefined). The key is generated as specified by WPA,
 which uses PBKDF2 from PKCS #5: Password-based Cryptography
 Specification Version 2.0 ([<a href="#R.RFC2898">RFC2898</a>]).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13078,7 +13078,7 @@ Specification Version 2.0 ([<a href="#R.RFC2898">RFC2898</a>]).</p>
 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> security modes.</p>
 <p>NOTE: this parameter is for WPA3. WPA2 <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.PreSharedKey"><em>PreSharedKey</em></a> is
 generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13107,7 +13107,7 @@ generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphra
 <td>
 <p>The secret used for handshaking with the RADIUS server
 [<a href="#R.RFC2865">RFC2865</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13138,7 +13138,7 @@ generated from <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.KeyPassphra
 [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>If this parameter is not implemented, the secondary RADIUS server
 will use the same secret as the primary RADIUS server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13254,7 +13254,7 @@ Possible failure reasons include a lack of default values or if
 <p>R</p>
 </td>
 <td>
-<p>This object contains parameters related to Wi-Fi Protected Setup for this access point (as specified in [<a href="#R.WPSv1.0">WPSv1.0</a>] or <span class="removed">{bibref|WPSv2.0</span><span class="inserted">[<a href="#R.WPS2.0">WPS 2.0</a>]).</span><span class="removed">).}}</span></p>
+<p>This object contains parameters related to Wi-Fi Protected Setup for this access point (as specified in [<a href="#R.WPSv1.0">WPSv1.0</a>] or <span class="removed">{bibref|WPSv2.0}}</span><span class="inserted">[<a href="#R.WPS2.0">WPS 2.0</a>]</span>).<span class="removed">}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -13307,7 +13307,7 @@ Possible failure reasons include a lack of default values or if
 <ul>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.WPS.PIN.d4d8"><code>\d{4}|\d{8}</code></span></li>
 </ul>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13722,7 +13722,7 @@ functionality for the access point.</p>
 <td>
 <p>The secret used for handshaking with the RADIUS accounting server
 [<a href="#R.RFC2865">RFC2865</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13753,7 +13753,7 @@ functionality for the access point.</p>
 server [<a href="#R.RFC2865">RFC2865</a>].</p>
 <p>If this parameter is not implemented, the secondary RADIUS server
 will use the same secret as the primary RADIUS server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13930,7 +13930,7 @@ End Point profile [<a href="#R.802.11-2007">802.11-2007</a>].</p>
 <p>A 5 byte <em>WEPKey</em> corresponds to security mode
 <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a> and a 13 byte <em>WEPKey</em> corresponds to
 security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -13966,7 +13966,7 @@ security mode <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.
 generated. The Controller SHOULD NOT set both the
 <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPassphrase"><em>KeyPassphrase</em></a> and the <em>PreSharedKey</em> directly (the result of
 doing this is undefined).</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14003,7 +14003,7 @@ generated. The Controller SHOULD NOT set both the <em>KeyPassphrase</em> and the
 undefined). The key is generated as specified by WPA, which uses
 PBKDF2 from PKCS #5: Password-based Cryptography Specification
 Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14034,7 +14034,7 @@ Version 2.0 [<a href="#R.RFC2898">RFC2898</a>].</p>
 <a href="#D.Device:2.Device.WiFi.EndPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> security modes.</p>
 <p>NOTE: this parameter is for WPA3. WPA2 <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.PreSharedKey"><em>PreSharedKey</em></a> is
 generated from <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPassphrase"><em>KeyPassphrase</em></a>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14110,12 +14110,12 @@ generated from <a href="#D.Device:2.Device.WiFi.EndPoint.Profile.Security.KeyPas
 </td>
 <td>
 <p>Represents the Device PIN used for PIN based pairing between WPS peers. This PIN is either a four digit number or an eight digit number.</p>
-<p><span class="removed">{{hidden}}</span><span class="inserted">Changed in 2.16: The data type was fixed (it was previously defined as an integer that had to have the value 4 or 8).</span></p>
+<p><span class="removed">{{hidden}}}}</span><span class="inserted">Changed in 2.16: The data type was fixed (it was previously defined as an integer that had to have the value 4 or 8).</span></p>
 <p>Possible patterns:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.EndPoint.WPS.PIN.d4d8"><code>\d{4}|\d{8}</code></span> (Added in 2.16)</li>
 </ul>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14861,7 +14861,7 @@ interruption of a user service such as an ongoing voice call.</p>
 </td>
 <td>
 <p>Password to be used for authentication.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14888,7 +14888,7 @@ interruption of a user service such as an ongoing voice call.</p>
 <p>W</p>
 </td>
 <td>
-<p><span class="inserted">A </span>PPP LCP Echo <span class="removed">period</span><span class="inserted">Request</span> <span class="removed">in</span><span class="inserted">is sent every <em>LCPEcho</em></span> <em>seconds</em>.<span class="inserted"> A value 0 means that no LCP Echo Requests are sent. [<a href="#R.RFC1661">Section 5.8 Echo-Request and Echo-Reply/RFC1661</a>] describes the relevant LCP Echo frames.</span></p>
+<p><span class="inserted">A </span>PPP LCP Echo <span class="removed">period</span><span class="inserted">Request</span> <span class="removed">in</span><span class="inserted">is sent every <em>LCPEcho</em></span> <em>seconds</em>.<span class="removed">}}</span><span class="inserted"> A value 0 means that no LCP Echo Requests are sent. [<a href="#R.RFC1661">Section 5.8 Echo-Request and Echo-Reply/RFC1661</a>] describes the relevant LCP Echo frames.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -14914,7 +14914,7 @@ interruption of a user service such as an ongoing voice call.</p>
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">Number</span><span class="inserted">Applicable only when <a href="#D.Device:2.Device.PPP.Interface.LCPEcho"><em>LCPEcho</em></a> is greater than 0. When number</span> of <span class="removed">PPP</span><span class="inserted">consecutive <em>LCPEchoRetry</em></span> LCP Echo <span class="removed">retries</span><span class="inserted">Replies</span> <span class="removed">within</span><span class="inserted">have</span> <span class="removed">an</span><span class="inserted">been</span> <span class="removed">echo</span><span class="inserted">missed.</span> <span class="removed">period.</span><span class="inserted">The remote peer will be assumed dead and the connection will be terminated.</span></p>
+<p><span class="removed">Number</span><span class="inserted">Applicable only when <a href="#D.Device:2.Device.PPP.Interface.LCPEcho"><em>LCPEcho</em></a> is greater than 0. When number</span> of <span class="removed">PPP</span><span class="inserted">consecutive <em>LCPEchoRetry</em></span> LCP Echo <span class="removed">retries</span><span class="inserted">Replies</span> <span class="removed">within</span><span class="inserted">have</span> <span class="removed">an</span><span class="inserted">been</span> <span class="removed">echo</span><span class="inserted">missed.</span> <span class="removed">period.}}</span><span class="inserted">The remote peer will be assumed dead and the connection will be terminated.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -15174,7 +15174,7 @@ interruption of a user service such as an ongoing voice call.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The layer 2 or layer 3 interface over which the test is to be performed. Example: <em>Device.IP.Interface.1</em>, <em>Device.Bridge.1.Port.2</em></p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -15241,7 +15241,7 @@ specified IP interface.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The layer 2 or layer 3 interface over which the test is to be performed. Example: <em>Device.IP.Interface.1</em>, <em>Device.Bridge.1.Port.2</em></p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -15384,7 +15384,7 @@ on the CPE device.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The IP-layer interface over which the test is to be performed. Example: Device.IP.Interface.1</p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -15880,7 +15880,7 @@ the CPE device, and MAY be an arbitrary stream of bytes.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The IP-layer interface over which the test is to be performed. Example: Device.IP.Interface.1</p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -16411,7 +16411,7 @@ UDP Echo Plus test defined in [<a href="#R.TR-143">Appendix A.1/TR-143</a>].</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface.</em></a> table. <span class="removed">{{reference|the</span><span class="inserted">The</span> IP-layer interface over which the test is to be <span class="removed">performed|ignore}}</span><span class="inserted">performed.</span> Example: Device.IP.Interface.1</p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -16510,7 +16510,7 @@ TestIterationNumber field of the request and response packet.</p>
 <p>R</p>
 </td>
 <td>
-<p>The TestRespRcvTimeStamp field in the response packet [<a href="#R.TR-143">Section A.1.4/TR-143</a>] from the UDP Echo Plus server (i.e. <a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.Host"><em>Host</em></a>) to record the reception time <span class="inserted">in <em>microseconds</em> </span>of this UDP Echo Plus packet sent from the CPE client. If <a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.PacketSuccess"><em>PacketSuccess</em></a> is <em>false</em>, <em>TestRespRcvTimeStamp</em> SHOULD be 0.</p>
+<p>The TestRespRcvTimeStamp field in the response packet [<a href="#R.TR-143">Section A.1.4/TR-143</a>] from the UDP Echo Plus server (i.e. <a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.Host"><em>Host</em></a>) to record the reception time<span class="inserted"> in <em>microseconds</em></span> of this UDP Echo Plus packet sent from the CPE client. If <a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.PacketSuccess"><em>PacketSuccess</em></a> is <em>false</em>, <em>TestRespRcvTimeStamp</em> SHOULD be 0.</p>
 </td>
 <td>
 <p>-</p>
@@ -16603,7 +16603,7 @@ storage on the device.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The IP-layer interface over which the test is to be performed. Example: Device.IP.Interface.1</p>
-<p><span class="removed">If {{empty}} is specified, the device MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the device MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -16740,7 +16740,7 @@ value SHOULD be 0.</p>
 <p>W</p>
 </td>
 <td>
-<p>This parameter is only meaningful if <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType"><em>TestType</em></a> is <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType.Search"><em>Search</em></a>. When <em>true</em> (enabled) only Loss counts toward received packet sequence number errors, and <span class="removed">reordering</span><span class="inserted">Reordering</span> and Duplication impairments are ignored. When <em>false</em> (disabled), Loss, Reordering and Duplication are all counted as sequence number errors. The default value SHOULD be <span class="removed">{{false}}</span><span class="inserted"><em>true</em></span> <span class="removed">(disabled).</span><span class="inserted">(enabled).</span></p>
+<p>This parameter is only meaningful if <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType"><em>TestType</em></a> is <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType.Search"><em>Search</em></a>. When <em>true</em> (enabled) only Loss counts toward received packet sequence number errors, and <span class="removed">reordering</span><span class="inserted">Reordering</span> and Duplication impairments are ignored. When <em>false</em> (disabled), Loss, Reordering and Duplication are all counted as sequence number errors. The default value SHOULD be <span class="removed">{{false}}</span><span class="inserted"><em>true</em></span> <span class="removed">(disabled).}}</span><span class="inserted">(enabled).</span></p>
 </td>
 <td>
 <p>-</p>
@@ -16856,7 +16856,7 @@ the next ping is sent out.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of the IP-layer interface over which the test is to be performed<span class="removed">|ignore</span>. Example: Device.IP.Interface.1</p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -16975,9 +16975,9 @@ entries that reference the entry.</p>
 <p>R</p>
 </td>
 <td>
-<p>Represents an IPsec tunnel, i.e. a virtual IP interface that models an IPsec tunnel entry point and exit point. A <em>Tunnel</em> instance always references (and has the same lifetime as) a (<a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a>,<a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a>) <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> pair. The <em>Tunnel</em> instance models the IPsec-specific concepts, the <strong>{{enum: non-existent ##.IP.Interface.{i}.Type <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a>}}</strong> instance models the generic concepts, and the <strong>{{enum: non-existent ##.IP.Interface.{i}.Type <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a>}}</strong> instance exists only so it can be referenced by forwarding or filter rules.</p>
+<p>Represents an IPsec tunnel, i.e. a virtual IP interface that models an IPsec tunnel entry point and exit point. A <em>Tunnel</em> instance always references (and has the same lifetime as) a (<a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a>,<a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a>) <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> pair. The <em>Tunnel</em> instance models the IPsec-specific concepts, the <a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a> <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> instance models the generic concepts, and the <a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a> <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> instance exists only so it can be referenced by forwarding or filter rules.</p>
 <p><em>Tunnel</em> instances are automatically created (as needed) when <a href="#D.Device:2.Device.IPsec.Filter."><em>Filter</em></a> instances are enabled and disabled.</p>
-<p>Each instance's <a href="#D.Device:2.Device.IPsec.Tunnel.Filters"><em>Filters</em></a> parameter references the <a href="#D.Device:2.Device.IPsec.Filter."><em>Filter</em></a> instances that require the <em>Tunnel</em> instance to exist. If this list ever becomes an empty string, e.g. because all the referenced <a href="#D.Device:2.Device.IPsec.Filter."><em>Filter</em></a> instances have been disabled or deleted, the CPE MAY choose not to delete the <em>Tunnel</em> instance (and its associated (<a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a>,<a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a>) <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> pair). This can be desirable, because <strong>{{object: non-existent ##.QoS.Classification, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding."><em>Routing.Router.{i}.IPv4Forwarding</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding."><em>Routing.Router.{i}.IPv6Forwarding</em></a>}}</strong> etc instances might be referencing the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> instances.</p>
+<p>Each instance's <a href="#D.Device:2.Device.IPsec.Tunnel.Filters"><em>Filters</em></a> parameter references the <a href="#D.Device:2.Device.IPsec.Filter."><em>Filter</em></a> instances that require the <em>Tunnel</em> instance to exist. If this list ever becomes an empty string, e.g. because all the referenced <a href="#D.Device:2.Device.IPsec.Filter."><em>Filter</em></a> instances have been disabled or deleted, the CPE MAY choose not to delete the <em>Tunnel</em> instance (and its associated (<a href="#D.Device:2.Device.IP.Interface.Type.Tunnel"><em>Tunnel</em></a>,<a href="#D.Device:2.Device.IP.Interface.Type.Tunneled"><em>Tunneled</em></a>) <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> pair). This can be desirable, because <a href="#D.Device:2.Device.QoS.Classification."><em>QoS.Classification</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv4Forwarding."><em>Routing.Router.{i}.IPv4Forwarding</em></a>, <a href="#D.Device:2.Device.Routing.Router.IPv6Forwarding."><em>Routing.Router.{i}.IPv6Forwarding</em></a> etc instances might be referencing the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface</em></a> instances.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.IPsec.Tunnel.Alias"><em>Alias</em></a>, or with the same values for both <a href="#D.Device:2.Device.IPsec.Tunnel.TunnelInterface"><em>TunnelInterface</em></a> and <a href="#D.Device:2.Device.IPsec.Tunnel.TunneledInterface"><em>TunneledInterface</em></a>.</p>
 </td>
 <td>
@@ -17982,7 +17982,7 @@ using a key derivation technique as recommended in
 &quot;BLAKE2s-128&quot;, the length MUST be between 0 and 32 bytes inclusive,
 as specified in [<a href="#R.RFC7693">RFC7693</a>].</p>
 <p>Once it's been set, this parameter is immutable.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -18089,7 +18089,7 @@ if the certificate belongs to this device. If <em>CertPrivateKey</em> is non-emp
 this certificate can be supplied during DTLS handshaking. This value
 is immutable, once written.</p>
 <p>Once it's been set, this parameter is immutable.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -19117,7 +19117,7 @@ MUST be set to an empty string.</p>
 <p>A password to allow LAN access to protected auto-configuration services.</p>
 <p>If the CPE supports TR-064 (LAN-side DSL CPE Configuration Protocol), this parameter is to be used as the <em>dslf-config</em> password (as defined in TR-064).</p>
 <p>If the CPE has a user interface with password protection enabled, this parameter is also to be used as the user password for password-protected operations. However, this parameter MUST NOT be used to set the user password if the parameter <a href="#D.Device:2.Device.UserInterface.PasswordUserSelectable"><em>UserInterface.PasswordUserSelectable</em></a> is <em>true</em>.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -19542,7 +19542,7 @@ is initiated.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. The<span class="removed"> layer 2 or</span> layer 3 interface over which the test is to be performed. Example: <span class="removed"><em>Device.IP.Interface.1</em>, <em>Device.Bridge.1.Port.2</em></span><span class="inserted"><em>Device.IP.Interface.1</em>.</span></p>
-<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.</span></p>
+<p><span class="removed">If {{empty}} is specified, the CPE MUST use the interface as directed by its bridging or routing policy (<em>Forwarding</em> table entries) to determine the appropriate interface.}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -19632,7 +19632,7 @@ _<TransportProtocol></p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>all Host table entries, active or inactive, that correspond to this discovered DNS.SD service.<span class="removed"> As such, when entries are added or removed from the Host tables the value of this parameter MUST be updated accordingly|ignore}}</span></p>
+<p>Comma-separated list of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>all Host table entries, active or inactive, that correspond to this discovered DNS.SD service.<span class="removed"> As such, when entries are added or removed from the Host tables the value of this parameter MUST be updated accordingly|ignore}}}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -21133,7 +21133,7 @@ supported authentication type.</p>
 <td>
 <p>The shared secret to be exchanged between the supplicant and
 authenticator.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -21234,8 +21234,6 @@ not valid, then an indication of why they are not valid is output.</p>
 <td>
 <div class="hide">
 <p>Allows this user to remotely access the UserInterface via the mechanism defined in <a href="#D.Device:2.Device.UserInterface.HTTPAccess."><em>UserInterface.HTTPAccess</em></a></p>
-</div>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was DEPRECATED in 2.16<span class="hide"> due to the introduction of <a href="#D.Device:2.Device.UserInterface.HTTPAccess."><em>UserInterface.HTTPAccess.{i}.</em></a> and <a href="#D.Device:2.Device.Users.User.RoleParticipation"><em>RoleParticipation</em></a></span>.<span class="click"></span></p>
 </div>
@@ -21270,7 +21268,7 @@ not valid, then an indication of why they are not valid is output.</p>
 </td>
 <td>
 <p>The user's password.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -21649,7 +21647,7 @@ instances MUST be set to the empty string.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list (up to 1024 items) of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>the Host table entries associated with the root device from which the device description was <span class="removed">retrieved|ignore}}</span><span class="inserted">retrieved.</span></p>
+<p>Comma-separated list (up to 1024 items) of strings (maximum number of characters per item 256). Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Hosts.Host."><em>Hosts.Host.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. <span class="removed">{{list}}</span><span class="inserted">Includes</span> <span class="removed">{{reference|</span>the Host table entries associated with the root device from which the device description was <span class="removed">retrieved|ignore}}}}</span><span class="inserted">retrieved.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -21678,8 +21676,9 @@ instances MUST be set to the empty string.</p>
 <td>
 <p>Firewall configuration object. The <a href="#D.Device:2.Device.Firewall.Config"><em>Config</em></a> parameter enables and disables the Firewall, and can select either a predefined configuration (<a href="#D.Device:2.Device.Firewall.Config.High"><em>High</em></a> or <a href="#D.Device:2.Device.Firewall.Config.Low"><em>Low</em></a>) or an explicitly-defined <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> configuration.</p>
 <p>For an <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> configuration, <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a> controls the currently active Firewall Level, and the Firewall Levels are defined in the <a href="#D.Device:2.Device.Firewall.Level."><em>Level</em></a>, <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> and <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Chain.{i}.Rule</em></a> tables.</p>
-<p><span class="inserted">For an <a href="#D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></a> configuration, <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a> controls the currently active Firewall Level, and the Firewall Levels are defined in the <a href="#D.Device:2.Device.Firewall.Policy."><em>Policy</em></a>, <a href="#D.Device:2.Device.Firewall.Level."><em>Level</em></a>, <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> and <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Chain.{i}.Rule</em></a> tables.</span>The Firewall rules modeled by <span class="removed">this</span><span class="inserted"><a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a>, <a href="#D.Device:2.Device.Firewall.DMZ."><em>DMZ</em></a> and <a href="#D.Device:2.Device.Firewall.Pinhole."><em>Pinhole</em></a> operate only on the forwarding path. This means that they affect only routed traffic, and do not affect traffic that is destined for or generated by the device itself.</span></p>
-<p>Traffic destined for or generated by the device itself can use the <a href="#D.Device:2.Device.Firewall.Service."><em>Service</em></a> object <span class="removed">operate only on the forwarding path. This means that they affect only routed traffic, and do not affect traffic that is destined for or generated by the CPE. </span><span class="inserted">to model the appropriate Firewall rules.</span>Note that any <a href="#D.Device:2.Device.NAT."><em>NAT</em></a> processing on the ingress packet occurs before Firewall rules are applied so, for example, the Firewall rules will see the translated destination IP address and port in a downstream packet that has passed through the NAT.</p>
+<p><span class="inserted">For an <a href="#D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></a> configuration, <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a> controls the currently active Firewall Level, and the Firewall Levels are defined in the <a href="#D.Device:2.Device.Firewall.Policy."><em>Policy</em></a>, <a href="#D.Device:2.Device.Firewall.Level."><em>Level</em></a>, <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> and <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Chain.{i}.Rule</em></a> tables.</span></p>
+<p>The Firewall rules modeled by <span class="removed">this</span><span class="inserted"><a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a>,</span> <span class="removed">object</span><span class="inserted"><a href="#D.Device:2.Device.Firewall.DMZ."><em>DMZ</em></a> and <a href="#D.Device:2.Device.Firewall.Pinhole."><em>Pinhole</em></a></span> operate only on the forwarding path. This means that they affect only routed traffic, and do not affect traffic that is destined for or generated by the <span class="removed">CPE.</span><span class="inserted">device</span> <span class="inserted">itself.</span></p>
+<p>Traffic destined for or generated by the device itself can use the <a href="#D.Device:2.Device.Firewall.Service."><em>Service</em></a> object to model the appropriate Firewall rules.Note that any <a href="#D.Device:2.Device.NAT."><em>NAT</em></a> processing on the ingress packet occurs before Firewall rules are applied so, for example, the Firewall rules will see the translated destination IP address and port in a downstream packet that has passed through the NAT.</p>
 <p>See [<a href="#R.TR-181i2">Appendix VIII/TR-181i2</a>] for an example <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> configuration.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -21852,7 +21851,7 @@ extensions, in which case the rules outlined in
 <p>W</p>
 </td>
 <td>
-<p>Firewall Level table. When an <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a> <span class="inserted">or <a href="#D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></a> </span>configuration is selected, <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a><span class="inserted"> or <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a></span> selects the currently active entry in this table. Each <em>Level</em> table entry references the <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> that contains the rules for this level.</p>
+<p>Firewall Level table. When an <a href="#D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></a><span class="inserted"> or <a href="#D.Device:2.Device.Firewall.Config.Policy"><em>Policy</em></a></span> configuration is selected, <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a><span class="inserted"> or <a href="#D.Device:2.Device.Firewall.PolicyLevel"><em>PolicyLevel</em></a></span> selects the currently active entry in this table. Each <em>Level</em> table entry references the <a href="#D.Device:2.Device.Firewall.Chain."><em>Chain</em></a> that contains the rules for this level.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Firewall.Level.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Firewall.Level.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.Firewall.Level.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.Firewall.Level.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -23358,7 +23357,7 @@ sample interval etc.</p>
 <td>
 <p>The value MUST be the Path Name of the <a href="#D.Device:2.Device.LocalAgent.Controller."><em>LocalAgent.Controller</em></a> instance that created <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet."><em>SampleSet</em></a>. If the referenced object is deleted, this instance MUST also be deleted (so the parameter value will never be an empty string).</p>
 <p>The value of this parameter is automatically populated by the USP Agent upon <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet."><em>SampleSet</em></a> creation using the reference to the USP Controller that created the instance.</p>
-<p>The USP Controller referenced by this parameter defines the set of permissions to use when updating the <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter."><em>Parameter</em></a> table. Furthermore, only the USP Controller referenced by this parameter will <span class="removed">have</span><span class="inserted">receive</span> <span class="removed">access</span><span class="inserted">a</span> <span class="removed">to</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">the</span><span class="inserted">Event</span> <span class="removed">{{param|Parameter.{i}.Values}},</span><span class="inserted">(assuming</span> <span class="removed">{{param|Parameter.{i}.SampleSeconds}},</span><span class="inserted">it</span> <span class="removed">{{param|Parameter.{i}.SuspectData}}</span><span class="inserted">has</span> <span class="removed">and</span><span class="inserted">an</span> <span class="removed">{{param|Parameter.{i}.Failures}}</span><span class="inserted">associated</span> <span class="removed">parameters.</span><span class="inserted">Subscription), even if another USP Controller has an associated Subscription.</span></p>
+<p>The USP Controller referenced by this parameter defines the set of permissions to use when updating the <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter."><em>Parameter</em></a> table. Furthermore, only the USP Controller referenced by this parameter will <span class="removed">have</span><span class="inserted">receive</span> <span class="removed">access</span><span class="inserted">a</span> <span class="removed">to</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">the</span><span class="inserted">Event</span> <span class="removed">{{param|Parameter.{i}.Values}},</span><span class="inserted">(assuming</span> <span class="removed">{{param|Parameter.{i}.SampleSeconds}},</span><span class="inserted">it</span> <span class="removed">{{param|Parameter.{i}.SuspectData}}</span><span class="inserted">has</span> <span class="removed">and</span><span class="inserted">an</span> <span class="removed">{{param|Parameter.{i}.Failures}}</span><span class="inserted">associated</span> <span class="removed">parameters.}}</span><span class="inserted">Subscription), even if another USP Controller has an associated Subscription.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -23427,12 +23426,12 @@ sample interval etc.</p>
 <td>
 <p>An absolute time reference in UTC to determine when sample intervals will complete. Each sample interval MUST complete at this reference time plus or minus an integer multiple of <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleInterval"><em>SampleInterval</em></a>.</p>
 <p><em>TimeReference</em> is used only to set the &quot;phase&quot; of the sample and fetch intervals. The actual value of <em>TimeReference</em> can be arbitrarily far into the past or future.</p>
-<p>This time reference also determines when the <span class="removed">{{param|Status}} {{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}} transitions</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</span> that <span class="removed">are</span><span class="inserted">is</span> controlled by <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> will occur. If collection of periodic statistics is enabled and <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> is in the range [1:<a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a>] then each such <span class="removed">{{param|Status}} transition</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</span> MUST occur at this reference time plus or minus an integer multiple of <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> * <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleInterval"><em>SampleInterval</em></a> (the fetch interval).</p>
+<p>This time reference also determines when the <span class="removed">{{param|Status}}</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">{{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}} transitions</span><span class="inserted">event</span> that <span class="removed">are</span><span class="inserted">is</span> controlled by <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> will occur. If collection of periodic statistics is enabled and <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> is in the range [1:<a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a>] then each such <span class="removed">{{param|Status}}</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">transition</span><span class="inserted">event</span> MUST occur at this reference time plus or minus an integer multiple of <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> * <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleInterval"><em>SampleInterval</em></a> (the fetch interval).</p>
 <p>If <em>TimeReference</em> is changed while collection of periodic statistics is enabled, any stored samples are discarded, and the first sample interval begins immediately.</p>
 <p>The Unknown Time value defined in [<a href="#R.TR-106">TR-106</a>] indicates that no particular time reference is specified. That is, the CPE MAY locally choose the time reference, and is required only to adhere to the specified sample and fetch intervals.</p>
 <p>If absolute time is not available to the CPE, its sample and fetch interval behavior MUST be the same as if the <em>TimeReference</em> parameter was set to the Unknown Time value.</p>
 <p>For example, if <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleInterval"><em>SampleInterval</em></a> is 3600 (an hour) and if <em>TimeReference</em> is set to UTC midnight on some day (in the past, present, or future) then sample intervals will complete on each UTC hour (00:00, 01:00, 02:00 etc).</p>
-<p>If, in addition, <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> is 24, then the fetch interval is 86400 (a day) and <span class="removed">{{param|Status}} {{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}} transitions</span><span class="inserted">the <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</span> will occur every day at UTC midnight.</p>
+<p>If, in addition, <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.FetchSamples"><em>FetchSamples</em></a> is 24, then the fetch interval is 86400 (a day) and <span class="removed">{{param|Status}}</span><span class="inserted">the</span> <span class="removed">{{enum|Enabled|Status}}</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">to {{enum|Trigger|Status}} to {{enum|Enabled|Status}} transitions</span><span class="inserted">event</span> will occur every day at UTC midnight.</p>
 <p>Note that, if <em>TimeReference</em> is set to a time other than the Unknown Time, the first sample interval (which has to begin immediately) will almost certainly be shorter than <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.SampleInterval"><em>SampleInterval</em></a>). This is why <em>TimeReference</em> is defined in terms of when sample intervals complete rather than start.</p>
 </td>
 <td>
@@ -23513,7 +23512,7 @@ over which stored data was collected.</p>
 <td>
 <p>The number of sample intervals to be collected before <span class="removed">transitioning</span><span class="inserted">triggering</span> <span class="removed">{{param|Status}}</span><span class="inserted">a</span> <span class="removed">from</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">{{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}}.</span><span class="inserted">event.</span></p>
 <p>If this SampleSet is enabled and <em>FetchSamples</em> is in the range [1:<a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a>] then <span class="removed">{{param|Status}}</span><span class="inserted">a <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a> event</span> MUST <span class="removed">transition</span><span class="inserted">be</span> <span class="removed">from {{enum|Enabled|Status}} to {{enum|Trigger|Status}} to {{enum|Enabled|Status}}</span><span class="inserted">sent</span> on completion of every <em>FetchSamples</em> sample intervals.<span class="removed"> Otherwise, the transition MUST NOT occur.</span></p>
-<p>For example, if <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a> is 25 and <em>FetchSamples</em> is 24, then the CPE will store 25 values for each monitored parameter and the <span class="removed">above</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">{{param|Status}} transition</span><span class="inserted">event</span> will occur as the CPE stores each 24th of 25 sample <span class="removed">intervals, which means that the Controller could delay for up to two sample intervals before reading the stored values and would still not miss any samples (see also {{template|PERIODICSTATISTICS-FORCESAMPLE}}).</span><span class="inserted">intervals.</span><span class="removed">{{div|{{classes}}|To disable this trigger mechanism and still collect sampled statistics, {{param}} can be set to either 0 or a value greater than {{param|ReportSamples}}.}}</span></p>
+<p>For example, if <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.ReportSamples"><em>ReportSamples</em></a> is 25 and <em>FetchSamples</em> is 24, then the CPE will store 25 values for each monitored parameter and the <span class="removed">above</span><span class="inserted"><a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Push"><em>Push!</em></a></span> <span class="removed">{{param|Status}} transition</span><span class="inserted">event</span> will occur as the CPE stores each 24th of 25 sample <span class="removed">intervals, which means that the Controller could delay for up to two sample intervals before reading the stored values and would still not miss any samples (see also {{template|PERIODICSTATISTICS-FORCESAMPLE}}).}}{{div|{{classes}}|To disable this trigger mechanism and still collect sampled statistics, {{param}} can be set to either 0 or a value greater than {{param|ReportSamples}}.}}</span><span class="inserted">intervals.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -24179,7 +24178,7 @@ Global Positioning System (A-GPS) server. See also
 <td>
 <p>Password to be used by the device to authenticate with the A-GPS
 server. This string is set to an empty string if no authentication is used.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -24255,7 +24254,7 @@ that reference it.</p>
 <td>
 <p>Password to be used by the device to authenticate with the file
 server. This string is set to an empty string if no authentication is used.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -24378,7 +24377,7 @@ in USP</span>.<span class="click"></span></p>
 </div>
 <div class="hide">
 <div class="hide">
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 </div>
 </div>
 <div class="hide">
@@ -24443,7 +24442,7 @@ without affecting it.</p>
 </td>
 <td>
 <p>Bulk data parameter table.</p>
-<p>Each entry in this table represents a parameter (or set of parameters if a partial path is provided) to be <span class="inserted">either </span>collected and <span class="removed">reported.</span><span class="inserted">reported, or omitted if <a href="#D.Device:2.Device.BulkData.Profile.Parameter.Exclude"><em>Exclude</em></a> is <em>true</em>.</span></p>
+<p>Each entry in this table represents a parameter (or set of parameters if a partial path is provided) to be <span class="inserted">either </span>collected and <span class="removed">reported.}}</span><span class="inserted">reported, or omitted if <a href="#D.Device:2.Device.BulkData.Profile.Parameter.Exclude"><em>Exclude</em></a> is <em>true</em>.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -24513,7 +24512,7 @@ without affecting it.</p>
 <td>
 <p>Password used to authenticate the CPE when making a connection to the
 collection server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -25313,7 +25312,7 @@ interest of scalability.</p>
 <td>
 <p>Comma-separated list of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit.</em></a> table. The Execution Units affected by this operation.</p>
 <p>In the case of an Install, this will be the list of EUs that were created as a result of the DU’s installation.</p>
-<p>In the case <span class="inserted">of </span>an Update, this will be the list of all EUs currently associated with the updated DU, including those that were created through the initial DU installation and any updates that had already occurred but not including any EUs that no longer exist on the device because of this or previous updates.</p>
+<p>In the case<span class="inserted"> of</span> an Update, this will be the list of all EUs currently associated with the updated DU, including those that were created through the initial DU installation and any updates that had already occurred but not including any EUs that no longer exist on the device because of this or previous updates.</p>
 <p>In the case of an Uninstall, this will be the list of the EUs removed from the device due to the DU being removed.</p>
 </td>
 <td>
@@ -27322,7 +27321,7 @@ application does not require Data Model access.</p>
 <td>
 <p>The [<a href="#T.URL">URL</a>] that specifies the location of the DU to be installed.</p>
 <p>The URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
-<p><span class="removed">HTTP</span><span class="inserted">The HTTPS transport MUST be supported,</span> and <span class="removed">HTTPS</span><span class="inserted">the</span> <span class="removed">transports</span><span class="inserted">HTTP</span> <span class="removed">MUST</span><span class="inserted">transport MAY</span> be supported. Other optional transports MAY<span class="inserted"> also</span> be supported.</p>
+<p><span class="removed">HTTP</span><span class="inserted">The HTTPS transport MUST be supported,</span> and <span class="removed">HTTPS</span><span class="inserted">the</span> <span class="removed">transports</span><span class="inserted">HTTP</span> <span class="removed">MUST</span><span class="inserted">transport MAY</span> be supported. Other optional transports MAY <span class="inserted">also </span>be supported.</p>
 <p>If the device receives an Update command with the same source URL as a previous Update or Install comamnd, the device MUST perform each Update as requested, and MUST NOT assume that the content of the file to be downloaded is the same each time.</p>
 </td>
 <td>
@@ -28647,7 +28646,7 @@ might be reset to its factory value. If a Controller modifies the
 value of this parameter, it SHOULD be prepared to accommodate the
 situation that the original value is restored as the result of a
 factory reset.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -28740,7 +28739,7 @@ Methods/IEEE1905.1a</a>].</p>
 </td>
 <td>
 <p>1905 network passphrase for generating security keys.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -28876,7 +28875,7 @@ packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>], [<a href="#R.MQTT311
 3.1.3.5/MQTT311</a>] or [<a href="#R.MQTT50">Section 3.1.3.6/MQTT50</a>]).</p>
 <p>This password is only sent in the MQTT CONNECT packet if
 <a href="#D.Device:2.Device.MQTT.Client.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -28927,7 +28926,7 @@ packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>], [<a href="#R.MQTT311
 <p>Password used used to authenticate the MQTT clients, which connect to
 the MQTT broker.</p>
 <p>This password is only used if <a href="#D.Device:2.Device.MQTT.Broker.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -29016,7 +29015,7 @@ CONNECT packet (see [<a href="#R.MQTT311">Section 3.1/MQTT311</a>],
 3.1.3.6/MQTT50</a>]).</p>
 <p>This password is only sent in the MQTT CONNECT packet if
 <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Username"><em>Username</em></a> is not an empty string.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -29091,13 +29090,12 @@ then the table entry is inoperable and the CPE MUST set the
 </td>
 <td>
 <p>The IP interface over which update queries to the server are sent.</p>
-<p><span class="removed">{{reference}}</span></p>
 <div class="inserted">
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
 interface.</p>
 </div>
-<p><span class="removed">If an empty string is specified, the CPE MUST use its routing policy (Forwarding table entries), to determine the appropriate interface.</span><span class="inserted">The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string.</span></p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string.<span class="removed">{{div|{{classes}}|If an empty string is specified, the CPE MUST use its routing policy (Forwarding table entries), to determine the appropriate interface.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -29119,7 +29117,7 @@ interface.</p>
 <td>
 <p>Password used by this Dynamic DNS Client to authenticate with the
 Server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -29524,7 +29522,7 @@ defined in [<a href="#R.3GPP-TS.24.008">Clause 10.5.6.3/3GPP-TS.24.008</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv6 DNS <span class="removed">servers.</span><span class="inserted">server.</span></p>
+<p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv6 DNS <span class="removed">servers.}}</span><span class="inserted">server.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -29550,7 +29548,7 @@ defined in [<a href="#R.3GPP-TS.24.008">Clause 10.5.6.3/3GPP-TS.24.008</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv4 DNS <span class="removed">servers.</span><span class="inserted">server.</span></p>
+<p>Comma-separated list of strings (maximum number of characters per item 256). <span class="removed">A</span><span class="inserted">Each</span> <span class="removed">comma</span><span class="inserted">entry</span> <span class="removed">separated</span><span class="inserted">is</span> <span class="removed">list of</span><span class="inserted">an</span> IPv4 DNS <span class="removed">servers.}}</span><span class="inserted">server.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -35165,7 +35163,7 @@ WebSocket client.</p>
 </td>
 <td>
 <p>Enable/Disable this <a href="#D.Device:2.Device.LocalAgent.Threshold."><em>Threshold</em></a> instance.</p>
-<p>If the <a href="#D.Device:2.Device.LocalAgent.Threshold."><em>Threshold</em></a> instance is disabled, the <a href="#D.Device:2.Device.LocalAgent.Threshold.Triggered"><em>Triggered!</em></a> Event will not be invoked, even if there is a <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> instance that references <span class="removed">it</span><span class="inserted">it.</span></p>
+<p>If the <a href="#D.Device:2.Device.LocalAgent.Threshold."><em>Threshold</em></a> instance is disabled, the <a href="#D.Device:2.Device.LocalAgent.Threshold.Triggered"><em>Triggered!</em></a> Event will not be invoked, even if there is a <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> instance that references <span class="removed">it}}</span><span class="inserted">it.</span></p>
 </td>
 <td>
 <p>false</p>
@@ -35234,7 +35232,7 @@ WebSocket client.</p>
 </td>
 <td>
 <p>Triggered event requested via a <a href="#D.Device:2.Device.LocalAgent.Threshold."><em>Threshold</em></a> object.</p>
-<p>When <span class="removed">any of </span>the <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a><span class="removed">s</span> that <span class="removed">are</span><span class="inserted">is</span> in the <a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a> <span class="removed">change</span><span class="inserted">changes</span> and the threshold test conditation changes from <em>false</em> to <em>true</em>, <span class="inserted">then </span>the Triggered Event will be invoked. The <span class="removed">Triggered Event</span><span class="inserted"><em>Triggered!</em></span> will only be eligible for retriggering if the test condition is fulfilled again.</p>
+<p>When <span class="removed">any of </span>the <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> that <span class="removed">are</span><span class="inserted">is</span> in the <a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a> <span class="removed">change</span><span class="inserted">changes</span> and the threshold test conditation changes from <em>false</em> to <em>true</em>, <span class="inserted">then </span>the Triggered Event will be invoked. The <span class="removed">Triggered Event</span><span class="inserted"><em>Triggered!</em></span> will only be eligible for retriggering if the test condition is fulfilled again.</p>
 </td>
 <td>
 <p>-</p>
@@ -35736,8 +35734,6 @@ last notification sent to this Controller.</p>
 </div>
 <div class="hide">
 <p>This command was DEPRECATED in 2.14 because it was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>ScheduleTimer()</em></a>.</p>
-</div>
-<div class="inserted">
 <div class="chevron">
 <p>This command was OBSOLETED in 2.16.<span class="click"></span></p>
 </div>
@@ -35774,8 +35770,9 @@ last notification sent to this Controller.</p>
 <td>
 <div class="hide">
 <p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message.
-::::::::<span class="removed"> </span><span class="inserted">This event was DEPRECATED in 2.14 because the associated <a href="#D.Device:2.Device.LocalAgent.Controller.ScheduleTimer"><em>ScheduleTimer()</em></a> was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>ScheduleTimer()</em></a>.</span></p>
+::::::::<span class="removed"> </span></p>
 <div class="inserted">
+<p>This event was DEPRECATED in 2.14 because the associated <a href="#D.Device:2.Device.LocalAgent.Controller.ScheduleTimer"><em>ScheduleTimer()</em></a> was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>ScheduleTimer()</em></a>.</p>
 <div class="chevron">
 <p>This event was OBSOLETED in 2.16.<span class="click"></span></p>
 </div>
@@ -36900,7 +36897,7 @@ received in order to authenticate the identity of the Controller.</p>
 </td>
 <td>
 <p>The value of the challenge that is specific to the type of challenge.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -36927,7 +36924,7 @@ received in order to authenticate the identity of the Controller.</p>
 <p>W</p>
 </td>
 <td>
-<p>A Subscription dictates how a USP Agent issues USP Notification Messages to a USP <span class="removed">Controller.</span><span class="inserted">Controller, executes an automated configuration action, or both, as controlled by <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>TriggerAction</em></a>.</span></p>
+<p>A Subscription dictates how a USP Agent issues USP Notification Messages to a USP <span class="removed">Controller.}}</span><span class="inserted">Controller, executes an automated configuration action, or both, as controlled by <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>TriggerAction</em></a>.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.Subscription.Alias"><em>Alias</em></a>, or with the same values for both <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a> and <a href="#D.Device:2.Device.LocalAgent.Subscription.ID"><em>ID</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.LocalAgent.Subscription.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a> and <a href="#D.Device:2.Device.LocalAgent.Subscription.ID"><em>ID</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -37012,7 +37009,8 @@ if the <a href="#D.Device:2.Device.LocalAgent.Subscription.TriggerAction"><em>Tr
 </td>
 <td>
 <p><em>Request</em> instances are created using USP <em>Operate</em> messages. Only <em>Operate</em> messages with <em>async</em>=<em>true</em> will create a <em>Request</em> instance in the data model.</p>
-<p><span class="inserted">New instances of <em>Request</em> are created with <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> as <a href="#D.Device:2.Device.LocalAgent.Request.Status.Requested"><em>Requested</em></a>. Once the command of the <em>Operate</em> begins to be executed, then the the <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> changes to <a href="#D.Device:2.Device.LocalAgent.Request.Status.Active"><em>Active</em></a>.</span>When the command of the <em>Operate</em> completes, then this <em>Request</em> instance is removed from this <span class="removed">table.</span><span class="inserted">table, but not before the <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> transitions to either <a href="#D.Device:2.Device.LocalAgent.Request.Status.Success"><em>Success</em></a> or <a href="#D.Device:2.Device.LocalAgent.Request.Status.Error"><em>Error</em></a> depending on whether the command of the <em>Operate</em> completed successfully or not.</span></p>
+<p><span class="inserted">New instances of <em>Request</em> are created with <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> as <a href="#D.Device:2.Device.LocalAgent.Request.Status.Requested"><em>Requested</em></a>. Once the command of the <em>Operate</em> begins to be executed, then the the <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> changes to <a href="#D.Device:2.Device.LocalAgent.Request.Status.Active"><em>Active</em></a>.</span></p>
+<p>When the command of the <em>Operate</em> completes, then this <em>Request</em> instance is removed from this <span class="removed">table.}}</span><span class="inserted">table, but not before the <a href="#D.Device:2.Device.LocalAgent.Request.Status"><em>Status</em></a> transitions to either <a href="#D.Device:2.Device.LocalAgent.Request.Status.Success"><em>Success</em></a> or <a href="#D.Device:2.Device.LocalAgent.Request.Status.Error"><em>Error</em></a> depending on whether the command of the <em>Operate</em> completed successfully or not.</span></p>
 <p>At most one entry in this table can exist with the same values for all of <a href="#D.Device:2.Device.LocalAgent.Request.Originator"><em>Originator</em></a>, <a href="#D.Device:2.Device.LocalAgent.Request.Command"><em>Command</em></a> and <a href="#D.Device:2.Device.LocalAgent.Request.CommandKey"><em>CommandKey</em></a>, or with a given value for <a href="#D.Device:2.Device.LocalAgent.Request.Alias"><em>Alias</em></a>.</p>
 </td>
 <td>
@@ -37516,7 +37514,7 @@ STOMP server.</p>
 <p>The password part of the credentials to be used when authenticating
 this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> during connection establishment with the STOMP
 Server.</p>
-<p>When read, this parameter returns an empty string, regardless of the actual value.</p>
+<p>When read, this parameter returns an empty string, regardless of the actual value, unless the Controller has a &quot;secured&quot; role.</p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -38168,7 +38166,7 @@ reports explicit non-continuous values.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:07:34 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:53:53 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-16-0-usp-diffs.html --show --transform diff --format html tr-181-2-15-1-usp.xml tr-181-2-16-0-usp.xml</p>
 </div>
 <div id="TOC">

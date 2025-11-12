@@ -2431,7 +2431,7 @@ valid (layer 2 or above) interface in libpcap or pcapng format.</p>
 <p>W</p>
 </td>
 <td>
-<p>Password to be used by the Agent to authenticate with the file location. This string is set to an empty string if no authentication is required.<span class="removed"> When read, this parameter returns an empty string, regardless of the actual value.</span></p>
+<p>Password to be used by the Agent to authenticate with the file location. This string is set to an empty string if no authentication is required.<span class="removed"> When read, this parameter returns an empty string, regardless of the actual value.}}</span></p>
 <p>When read, this parameter returns an empty string, regardless of the actual value.</p>
 </td>
 <td>
@@ -2472,7 +2472,7 @@ valid (layer 2 or above) interface in libpcap or pcapng format.</p>
 <p>R</p>
 </td>
 <td>
-<p>A string identifying the software version currently installed in the CPE (i.e. version of the overall CPE firmware).<span class="removed"> </span><span class="inserted">To allow version comparisons, this element SHOULD be in the form of dot-delimited integers, where each successive integer represents a more minor category of variation. For example, <em>3.0.21</em> where the components mean: <em>Major.Minor.Build</em>.<span class="removed"> For CPEs that support multiple firmware images, the value for this parameter MUST be the software version of the active firmware image.</span></span></p>
+<p>A string identifying the software version currently installed in the CPE (i.e. version of the overall CPE firmware).<span class="removed"> </span><span class="inserted">To allow version comparisons, this element SHOULD be in the form of dot-delimited integers, where each successive integer represents a more minor category of variation. For example, <em>3.0.21</em> where the components mean: <em>Major.Minor.Build</em>.</span><span class="removed"> For CPEs that support multiple firmware images, the value for this parameter MUST be the software version of the active firmware image.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2518,7 +2518,7 @@ valid (layer 2 or above) interface in libpcap or pcapng format.</p>
 <p>R</p>
 </td>
 <td>
-<p>Every instance of this object is a Vendor Configuration File, and contains parameters associated with the Vendor Configuration File.<span class="removed"> </span><span class="inserted">This table of Vendor Configuration Files is for information only and does not allow the Controller to operate on these files in any way.<span class="removed"> Whenever the CPE successfully downloads a configuration file as a result of the Download RPC with the FileType argument of <em>3 Vendor Configuration File</em>, the CPE MUST update this table.</span></span></p>
+<p>Every instance of this object is a Vendor Configuration File, and contains parameters associated with the Vendor Configuration File.<span class="removed"> </span><span class="inserted">This table of Vendor Configuration Files is for information only and does not allow the Controller to operate on these files in any way.</span><span class="removed"> Whenever the CPE successfully downloads a configuration file as a result of the Download RPC with the FileType argument of <em>3 Vendor Configuration File</em>, the CPE MUST update this table.}}</span></p>
 <div class="inserted">
 <p>Whenever the Agent successfully restores a configuration file as a
 result of the <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore"><em>Restore()</em></a> Command, the Agent MUST update this
@@ -2544,7 +2544,7 @@ Object.</p>
 <p>R</p>
 </td>
 <td>
-<p>Name of the vendor configuration file.<span class="removed"> </span><span class="inserted">If the CPE is able to obtain the name of the configuration file from the file itself, then the value of this parameter MUST be set to that name.</span><span class="removed"> </span><span class="inserted">Otherwise, if the CPE can extract the file name from the URL used to download the configuration file, then the value of this parameter MUST be set to that name.<span class="removed"> Otherwise, the value of this parameter MUST be set to the value of the TargetFileName argument of the Download RPC used to download this configuration file.</span></span></p>
+<p>Name of the vendor configuration file.<span class="removed"> </span><span class="inserted">If the CPE is able to obtain the name of the configuration file from the file itself, then the value of this parameter MUST be set to that name.</span><span class="removed"> </span><span class="inserted">Otherwise, if the CPE can extract the file name from the URL used to download the configuration file, then the value of this parameter MUST be set to that name.</span><span class="removed"> Otherwise, the value of this parameter MUST be set to the value of the TargetFileName argument of the Download RPC used to download this configuration file.}}</span></p>
 <div class="inserted">
 <p>Otherwise, the value of this parameter MUST be set to the value of
 the Command input argument <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile.Restore.Input.TargetFileName"><em>Restore().Input.TargetFileName</em></a>
@@ -2949,19 +2949,17 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>::::::::<span class="removed"> </span><span class="inserted">Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabilities&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>].</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.8.because its entries are out-of-date; <span class="removed">{{param|</span><span class="inserted"><em>StandardsSupported</em>XTSE</span><span class="removed">}}</span> points to a current list. Therefore its value MAY be an empty string if (and only if) <span class="removed">{{param|</span><span class="inserted"><em>StandardsSupported</em>XTSE</span><span class="removed">}}</span> is <span class="removed">supported. This parameter is OBSOLETED in 2.14.</span><span class="inserted">supported</span></p>
+<p>This parameter was DEPRECATED in 2.8.because its entries are out-of-date; <span class="removed">{{param|</span><span class="inserted"><em>StandardsSupported</em>XTSE</span><span class="removed">}}</span> points to a current list. Therefore its value MAY be an empty string if (and only if) <span class="removed">{{param|</span><span class="inserted"><em>StandardsSupported</em>XTSE</span><span class="removed">}}</span> is <span class="removed">supported. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">supported</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -2997,18 +2995,17 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <div class="inserted">
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.8.because its entries are out-of-date; <span class="removed">{{param|</span><span class="inserted"><em>StandardUsed</em>XTSE</span><span class="removed">}}</span> points to a current list. Therefore its value MAY be an empty string if (and only if) <span class="removed">{{param|</span><span class="inserted"><em>StandardUsed</em>XTSUsed</span><span class="removed">}}</span> is supported.
-::::::::<span class="removed"> This parameter is OBSOLETED in 2.14.</span></p>
-</div>
-</div>
-</div>
-<div class="inserted">
+::::::::<span class="removed"> This parameter is OBSOLETED in 2.14.}}</span></p>
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -3139,7 +3136,7 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
-<p>Per-channel [<a href="#R.G.998.2">G.998.2</a>] Ethernet-based bonding parameters.<span class="removed"> This object MUST be present if, and only if, {{param|##.BondScheme}} is {{enum|Ethernet|##.BondScheme}}.</span></p>
+<p>Per-channel [<a href="#R.G.998.2">G.998.2</a>] Ethernet-based bonding parameters.<span class="removed"> This object MUST be present if, and only if, {{param|##.BondScheme}} is {{enum|Ethernet|##.BondScheme}}.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -3159,7 +3156,7 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
-<p>Ethernet-based bonding parameters [<a href="#R.G.998.2">G.998.2</a>].<span class="removed"> This object MUST be present if, and only if, {{param|#.BondScheme}} is {{enum|Ethernet|#.BondScheme}}.</span></p>
+<p>Ethernet-based bonding parameters [<a href="#R.G.998.2">G.998.2</a>].<span class="removed"> This object MUST be present if, and only if, {{param|#.BondScheme}} is {{enum|Ethernet|#.BondScheme}}.}}</span></p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.DSL.BondingGroup.BondScheme"><em>BondScheme</em></a> is <a href="#D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.Ethernet"><em>Ethernet</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
@@ -3275,8 +3272,8 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
-<p>This object models <span class="inserted">a generic </span>optical <span class="removed">interface technologies.</span><span class="inserted">interface.</span> It defines an <a href="#D.Device:2.Device.Optical.Interface."><em>Interface</em></a> object that models a layer 1 optical interface that is capable of transporting Ethernet packets. <span class="removed">The</span><span class="inserted">For historical reasons, the</span> data model definition is based on parts of [<a href="#R.G.988">G.988</a>].<span class="inserted"> However, it is not intended to model anything specific to IEEE PON or ITU-T PON technologies.</span></p>
-<p><span class="inserted">Note that this object is not intended to model the optical transceiver either.</span></p>
+<p>This object models <span class="inserted">a generic </span>optical <span class="removed">interface technologies.</span><span class="inserted">interface.</span> It defines an <a href="#D.Device:2.Device.Optical.Interface."><em>Interface</em></a> object that models a layer 1 optical interface that is capable of transporting Ethernet packets. <span class="removed">The</span><span class="inserted">For historical reasons, the</span> data model definition is based on parts of [<a href="#R.G.988">G.988</a>].<span class="removed">}}</span><span class="inserted"> However, it is not intended to model anything specific to IEEE PON or ITU-T PON technologies.</span></p>
+<p>Note that this object is not intended to model the optical transceiver either.</p>
 </td>
 <td>
 <p>-</p>
@@ -7615,7 +7612,7 @@ converting the final sum to <em>TenthdB</em>.</p>
 <p>R</p>
 </td>
 <td>
-<p>Ethernet object. This object models several Ethernet interface objects, each representing a different stack layer, including: <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a>, <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a>, and <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>. <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a> is media-specific and models a port, the PHY layer, and<span class="inserted"> the Channel Access Method (CAM) part of</span> the MAC layer. <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is media-independent and models the Logical Link Control (LLC) layer. An &quot;outer&quot; <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>, when present, is expected to be stacked on top of <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> objects to receive and send frames with a configured VLANID.</p>
+<p>Ethernet object. This object models several Ethernet interface objects, each representing a different stack layer, including: <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a>, <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a>, and <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>. <a href="#D.Device:2.Device.Ethernet.Interface."><em>Interface</em></a> is media-specific and models a port, the PHY layer, and the <span class="inserted">Channel Access Method (CAM) part of the </span>MAC layer. <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> is media-independent and models the Logical Link Control (LLC) layer. An &quot;outer&quot; <a href="#D.Device:2.Device.Ethernet.VLANTermination."><em>VLANTermination</em></a>, when present, is expected to be stacked on top of <a href="#D.Device:2.Device.Ethernet.Link."><em>Link</em></a> objects to receive and send frames with a configured VLANID.</p>
 </td>
 <td>
 <p>-</p>
@@ -7635,7 +7632,7 @@ converting the final sum to <em>TenthdB</em>.</p>
 <p>R</p>
 </td>
 <td>
-<p>Ethernet interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]). This table models physical Ethernet ports, but in terms of the interface stack it <span class="removed">also</span><span class="inserted">only</span> models the PHY and <span class="removed">MAC</span><span class="inserted">Connection</span> <span class="removed">level</span><span class="inserted">Access Method of the</span> Ethernet <span class="removed">interface.</span><span class="inserted">interface MAC. A <strong>{{object: argument unnecessary when referring to current object}}</strong> is also required to model a full Ethernet device.</span></p>
+<p>Ethernet interface table (a stackable interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]). This table models physical Ethernet ports, but in terms of the interface stack it <span class="removed">also</span><span class="inserted">only</span> models the PHY and <span class="removed">MAC</span><span class="inserted">Connection</span> <span class="removed">level</span><span class="inserted">Access Method of the</span> Ethernet <span class="removed">interface.}}</span><span class="inserted">interface MAC. A <strong>{{object: argument unnecessary when referring to current object}}</strong> is also required to model a full Ethernet device.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.Ethernet.Interface.Name"><em>Name</em></a>.</p>
 </td>
 <td>
@@ -7656,7 +7653,7 @@ converting the final sum to <em>TenthdB</em>.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.MACAddress">MACAddress</a>] The <span class="removed">MAC</span><span class="inserted">unique</span> <span class="removed">Address</span><span class="inserted">manufacturer-assigned Ethernet hardware address</span> of the <span class="removed">interface.</span><span class="inserted">interface,</span> <span class="inserted">also referred to as burned-in MAC address.</span>Note: This is not necessarily the same as the <span class="removed">Ethernet header source or destination </span>MAC <span class="removed">address,</span><span class="inserted">address used for higher-level protocols,</span> which<span class="removed"> is associated with the IP interface and</span> is modeled via the <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>Ethernet.Link.{i}.MACAddress</em></a> parameter.<span class="inserted"> Its main purpose is the identification of a specific Ethernet interface; the information can also can be used to perform Wake on LAN.</span></p>
+<p>[<a href="#T.MACAddress">MACAddress</a>] The <span class="removed">MAC</span><span class="inserted">unique</span> <span class="removed">Address</span><span class="inserted">manufacturer-assigned Ethernet hardware address</span> of the <span class="removed">interface.</span><span class="inserted">interface,</span> <span class="inserted">also referred to as burned-in MAC address.</span>Note: This is not necessarily the same as the <span class="removed">Ethernet header source or destination </span>MAC <span class="removed">address,</span><span class="inserted">address used for higher-level protocols,</span> which<span class="removed"> is associated with the IP interface and</span> is modeled via the <a href="#D.Device:2.Device.Ethernet.Link.MACAddress"><em>Ethernet.Link.{i}.MACAddress</em></a> parameter.<span class="removed">}}</span><span class="inserted"> Its main purpose is the identification of a specific Ethernet interface; the information can also can be used to perform Wake on LAN.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -8085,7 +8082,7 @@ address for incoming traffic.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <span class="removed">packets</span><span class="inserted">Ethernet frames</span> transmitted out of the <span class="removed">interface.</span><span class="inserted">link.</span></p>
+<p>The total number of <span class="removed">packets</span><span class="inserted">Ethernet frames</span> transmitted out of the <span class="removed">interface.}}</span><span class="inserted">link.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -8106,7 +8103,7 @@ address for incoming traffic.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <span class="removed">packets</span><span class="inserted">Ethernet frames</span> received on the <span class="removed">interface.</span><span class="inserted">link.</span></p>
+<p>The total number of <span class="removed">packets</span><span class="inserted">Ethernet frames</span> received on the <span class="removed">interface.}}</span><span class="inserted">link.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -8873,9 +8870,7 @@ media such as power line, phone line and coaxial cable.</p>
 </td>
 <td>
 <div class="hide">
-<p><span class="removed">This parameter was DEPRECATED </span><span class="inserted">This parameter was DEPRECATED in 2.8.because it has been replaced by <span class="removed">{{param|</span><span class="inserted"><em>ConnectionType</em>MediumType</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.</span></span></p>
-</div>
-<div class="inserted">
+<p><span class="removed">This parameter was DEPRECATED </span><span class="inserted">This parameter was DEPRECATED in 2.8.because it has been replaced by <span class="removed">{{param|</span><span class="inserted"><em>ConnectionType</em>MediumType</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.}}</span></span></p>
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
@@ -10842,7 +10837,7 @@ represents the Access Point on the Multi-AP Controller.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object represents the Wi-Fi Alliance Data Elements as defined in [<a href="#R.DataElements">DataElements</a>]<span class="removed">.</span><span class="inserted"> with extended capabilities in additional objects whose names begin with MultiAP.</span></p>
+<p>This object represents the Wi-Fi Alliance Data Elements as defined in <strong>{{bibref: non-existent DataElements with extended capabilities in additional objects whose names begin with MultiAP.}}</strong></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -10930,7 +10925,7 @@ represents the Access Point on the Multi-AP Controller.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this group was collected.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this group was collected.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -16658,7 +16653,7 @@ per Operating Class and Channel tuple.</p>
 <p>R</p>
 </td>
 <td>
-<p>The timestamp of the last scan.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The timestamp of the last scan.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -16742,7 +16737,7 @@ Points discovered by a Radio during a channel scan.</p>
 <p>R</p>
 </td>
 <td>
-<p>The timestamp of the last scan of the channel.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The timestamp of the last scan of the channel.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -18617,7 +18612,7 @@ Radio.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this group was collected.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this group was collected.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19087,7 +19082,7 @@ non-AP HE STAs.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this group was collected.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this group was collected.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19898,7 +19893,7 @@ this Access Point.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this group was collected.<span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this group was collected.<span class="removed">}}</span><span class="inserted"> Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -20020,7 +20015,7 @@ standard.</p>
 <p>R</p>
 </td>
 <td>
-<p>An indicator of radio signal strength of the uplink from the associated STA to the access point - measured in <em>dBm</em>. RCPI threshold (encoded per <span class="inserted">[<a href="#R.802.11-2020">802.11-2020</a>]Table <span class="removed">9-154 of {{bibref|802.11-2016</span><span class="inserted">9-176</span></span><span class="removed">,</span><span class="inserted">},</span> and described in <span class="inserted">[<a href="#R.EasyMesh">Section /EasyMesh</a>]10.3.1<span class="removed"> of {{bibref|MAPv1.0</span></span>). Reserved: 221 - 255.<span class="removed"> </span><span class="inserted">NOTE: The underlying WFA specification is in the process of being reviewed for possible clarification. Please refer to that specification for more details.</span></p>
+<p>An indicator of radio signal strength of the uplink from the associated STA to the access point - measured in <em>dBm</em>. RCPI threshold (encoded per <span class="inserted">[<a href="#R.802.11-2020">802.11-2020</a>]Table <span class="removed">9-154 of {{bibref|802.11-2016}},</span><span class="inserted">9-176</span>},</span> and described in <span class="inserted">[<a href="#R.EasyMesh">Section /EasyMesh</a>]10.3.1<span class="removed"> of {{bibref|MAPv1.0</span></span>). Reserved: 221 - 255.<span class="removed"> </span><span class="inserted">NOTE: The underlying WFA specification is in the process of being reviewed for possible clarification. Please refer to that specification for more details.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -22141,7 +22136,7 @@ valid, and should not be in the list.</p>
 <td>
 <p>Comma-separated list of strings. List items indicate which IEEE 802.11 standards this
 <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS."><em>NeighborBSS</em></a> instance can support simultaneously, in the frequency band
-specified by <strong>{{param: non-existent ##.Channel}}</strong>.  Each list item is an enumeration of:</p>
+specified by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.Channel"><em>Channel</em></a>.  Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.a"><em>a</em></span> ([<a href="#R.802.11a-1999">802.11a-1999</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.b"><em>b</em></span> ([<a href="#R.802.11b-1999">802.11b-1999</a>])</li>
@@ -22993,7 +22988,7 @@ valid, and should not be in the list.</p>
 <td>
 <p>Comma-separated list of strings. List items indicate which IEEE 802.11 standards this
 <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS."><em>NeighborBSS</em></a> instance can support simultaneously, in the frequency band
-specified by <strong>{{param: non-existent ##.Channel}}</strong>.  Each list item is an enumeration of:</p>
+specified by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.Channel"><em>Channel</em></a>.  Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.a"><em>a</em></span> ([<a href="#R.802.11a-1999">802.11a-1999</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.b"><em>b</em></span> ([<a href="#R.802.11b-1999">802.11b-1999</a>])</li>
@@ -23456,7 +23451,7 @@ BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this event <span class="removed">was</span><span class="inserted">happened.</span> <span class="removed">collected.</span><span class="inserted">Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this event <span class="removed">was</span><span class="inserted">happened.</span> <span class="removed">collected.}}</span><span class="inserted">Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -24288,7 +24283,7 @@ a BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>The time this event <span class="removed">was</span><span class="inserted">happened.</span> <span class="removed">collected.</span><span class="inserted">Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
+<p>The time this event <span class="removed">was</span><span class="inserted">happened.</span> <span class="removed">collected.}}</span><span class="inserted">Formatted with the date-and-time string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -24592,7 +24587,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 </td>
 <td>
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).<span class="removed"> </span><span class="inserted">For example:</span><span class="removed"> </span><span class="inserted">* For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces.</span><span class="removed"> </span><span class="inserted">* For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</span><span class="removed"> </span><span class="inserted">* For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.</span></p>
-<p><span class="inserted">An interface might have some SSIDs pointing towards the Internet and other SSIDs pointing towards End Devices. This <span class="removed">parameter was DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the</span><span class="inserted">is indicated by the associated</span> <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> <span class="inserted">parameters. This interface's <em>Upstream</em> </span>parameter <span class="removed">instead. </span><span class="inserted">is set to <em>true</em> if any of the associated <em>SSID.{i}.Upstream</em> parameters are <em>true</em>, and is set to <em>false</em> otherwise.</span>This parameter <span class="removed">is</span><span class="inserted">was DEPRECATED in 2.12 (and then</span> OBSOLETED in <span class="removed">2.14.}}</span><span class="inserted">2.14) because it couldn't describe all multi-SSID use cases. It has now been restored, and its multi-SSID behavior has been clarified.</span></span></p>
+<p><span class="inserted">An <span class="inserted">interface might have some SSIDs pointing towards the Internet and other SSIDs pointing towards End Devices. This is indicated by the associated <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameters. This interface's <em>Upstream</em> parameter is set to <em>true</em> if any of the associated <em>SSID.{i}.Upstream</em> parameters are <em>true</em>, and is set to <em>false</em> otherwise.</span>This parameter was DEPRECATED <span class="removed">because</span><span class="inserted">in</span> <span class="removed">it</span><span class="inserted">2.12</span> <span class="removed">gives</span><span class="inserted">(and</span> <span class="removed">a wrong indication for multiple SSIDs. Use the {{param|#.SSID.{i}.Upstream}} parameter instead. This parameter is</span><span class="inserted">then</span> OBSOLETED in <span class="removed">2.14.}}</span><span class="inserted">2.14) because it couldn't describe all multi-SSID use cases. It has now been restored, and its multi-SSID behavior has been clarified.</span></span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -24625,7 +24620,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 ::::::::<span class="removed"> This parameter is DEPRECATED in </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>**{{deprecated: missing reason argument}}<strong>2.14</strong>{{replaced: unexpected argument [] after:  , []}}**due to a typo. Use <span class="removed">{{param|</span><span class="inserted"><em>CenterFrequencySegement0</em>CenterFrequencySegment0</span><span class="removed">}}</span> <span class="removed">instead.</span><span class="inserted">instead</span></p>
+<p>**{{deprecated: missing reason argument}}<strong>2.14</strong>{{replaced: unexpected argument [] after:  , []}}**due to a typo. Use <span class="removed">{{param|</span><span class="inserted"><em>CenterFrequencySegement0</em>CenterFrequencySegment0</span><span class="removed">}}</span> <span class="removed">instead.}}</span><span class="inserted">instead</span></p>
 </div>
 </div>
 </div>
@@ -24656,7 +24651,7 @@ format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 ::::::::<span class="removed"> This parameter is DEPRECATED in </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>**{{deprecated: missing reason argument}}<strong>2.14</strong>{{replaced: unexpected argument [] after:  , []}}**due to a typo. Use <span class="removed">{{param|</span><span class="inserted"><em>CenterFrequencySegement1</em>CenterFrequencySegment1</span><span class="removed">}}</span> <span class="removed">instead.</span><span class="inserted">instead</span></p>
+<p>**{{deprecated: missing reason argument}}<strong>2.14</strong>{{replaced: unexpected argument [] after:  , []}}**due to a typo. Use <span class="removed">{{param|</span><span class="inserted"><em>CenterFrequencySegement1</em>CenterFrequencySegment1</span><span class="removed">}}</span> <span class="removed">instead.}}</span><span class="inserted">instead</span></p>
 </div>
 </div>
 </div>
@@ -25721,7 +25716,7 @@ valid, and should not be in the list.</p>
 <td>
 <p>Comma-separated list of strings. List items indicate which IEEE 802.11 standards this
 <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS."><em>NeighborBSS</em></a> instance can support simultaneously, in the frequency band
-specified by <strong>{{param: non-existent ##.Channel}}</strong>.  Each list item is an enumeration of:</p>
+specified by <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.Channel"><em>Channel</em></a>.  Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.a"><em>a</em></span> ([<a href="#R.802.11a-1999">802.11a-1999</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.b"><em>b</em></span> ([<a href="#R.802.11b-1999">802.11b-1999</a>])</li>
@@ -26573,7 +26568,7 @@ valid, and should not be in the list.</p>
 <td>
 <p>Comma-separated list of strings. List items indicate which IEEE 802.11 standards this
 <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS."><em>NeighborBSS</em></a> instance can support simultaneously, in the frequency band
-specified by <strong>{{param: non-existent ##.Channel}}</strong>.  Each list item is an enumeration of:</p>
+specified by <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.Channel"><em>Channel</em></a>.  Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.a"><em>a</em></span> ([<a href="#R.802.11a-1999">802.11a-1999</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SupportedStandards.b"><em>b</em></span> ([<a href="#R.802.11b-1999">802.11b-1999</a>])</li>
@@ -26757,8 +26752,8 @@ This value is transmitted in the DTIM Period field of beacon frames.
 <p>R</p>
 </td>
 <td>
-<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).<span class="removed"> </span><span class="inserted">For example:</span><span class="removed"> </span><span class="inserted">* For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces.</span><span class="removed"> </span><span class="inserted">* For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</span><span class="removed"> </span><span class="inserted">* For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.</span><span class="removed"> This parameter supersedes the deprecated</span></p>
-<p><span class="inserted">See <a href="#D.Device:2.Device.WiFi.Radio.Upstream"><em>Radio.{i}.Upstream</em></a> <span class="removed">parameter. If both exist, the parameter {{param|#.Radio.{i}.Upstream}} is ignored.}}</span><span class="inserted">for details of how the two <em>Upstream</em> parameters interact.</span></span></p>
+<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).<span class="removed"> </span><span class="inserted">For example:</span><span class="removed"> </span><span class="inserted">* For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces.</span><span class="removed"> </span><span class="inserted">* For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</span><span class="removed"> </span><span class="inserted">* For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces.</span></p>
+<p><span class="inserted">See <span class="removed">This</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.Radio.Upstream"><em>Radio.{i}.Upstream</em></a></span> <span class="removed">parameter</span><span class="inserted">for</span> <span class="removed">supersedes</span><span class="inserted">details of how</span> the <span class="removed">deprecated</span><span class="inserted">two</span> <span class="removed">{{param|#.Radio.{i}.Upstream}}</span><span class="inserted"><em>Upstream</em></span> <span class="removed">parameter.</span><span class="inserted">parameters</span> <span class="removed">If both exist, the parameter {{param|#.Radio.{i}.Upstream}} is ignored.}}</span><span class="inserted">interact.</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -26806,19 +26801,17 @@ This value is transmitted in the DTIM Period field of beacon frames.
 ::::::::<span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because it is really a <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a>#.Radio</span><span class="removed">}}</span> attribute. Use <span class="removed">{{param|</span><span class="inserted"><em>RetryLimit</em>#.Radio.{i}.RetryLimit</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.</span></p>
+<p>This parameter was DEPRECATED in 2.11.because it is really a <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a>#.Radio</span><span class="removed">}}</span> attribute. Use <span class="removed">{{param|</span><span class="inserted"><em>RetryLimit</em>#.Radio.{i}.RetryLimit</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.}}</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -26848,7 +26841,7 @@ This value is transmitted in the DTIM Period field of beacon frames.
 <p>R</p>
 </td>
 <td>
-<p>Indicates whether this access point supports WiFi Multimedia (WMM) Access Categories <span class="removed">(AC).</span><span class="inserted">(AC) [<a href="#R.WMM">WMM</a>].</span></p>
+<p>Indicates whether this access point supports WiFi Multimedia (WMM) Access Categories <span class="removed">(AC).}}</span><span class="inserted">(AC) [<a href="#R.WMM">WMM</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -26875,16 +26868,14 @@ This value is transmitted in the DTIM Period field of beacon frames.
 ::::::::<span class="removed"> </span><span class="inserted">A value of 0 means that there is no specific limit.</span><span class="removed"> This parameter has been DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.13.in favor of <span class="removed">{{param|</span><span class="inserted"><em>MaxAssociatedDevices</em>MaxAllowedAssociations</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.</span></p>
+<p>This parameter was DEPRECATED in 2.13.in favor of <span class="removed">{{param|</span><span class="inserted"><em>MaxAssociatedDevices</em>MaxAllowedAssociations</span><span class="removed">}}. This parameter is OBSOLETED in 2.14.}}</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.14-2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 </td>
 <td>
 <p>0</p>
@@ -27507,19 +27498,17 @@ Setup (WPS) Push Button Configuration (PBC).  Enumeration of:</p>
 ::::::::<span class="removed"> This object is OBSOLETED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This object was DEPRECATED in 2.12.because it contains no standard parameters and its existence causes <span class="removed">confusion.</span><span class="inserted">confusion</span></p>
+<p>This object was DEPRECATED in 2.12.because it contains no standard parameters and its existence causes <span class="removed">confusion.}}</span><span class="inserted">confusion</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This object was OBSOLETED in 2.12.</p>
 </div>
 <div class="chevron">
 <p>This object was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 </div>
@@ -27876,7 +27865,7 @@ specified IP interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult."><em>DownloadDiagnostics().IncrementalResult</em></a> that the <span class="removed">CPE</span><span class="inserted">implementation</span> will <span class="removed">store.</span><span class="inserted">return.</span></p>
+<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult."><em>DownloadDiagnostics().IncrementalResult</em></a> that the <span class="removed">CPE</span><span class="inserted">implementation</span> will <span class="removed">store.}}</span><span class="inserted">return.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -27982,7 +27971,7 @@ specified IP interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28002,7 +27991,7 @@ specified IP interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28154,7 +28143,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28174,7 +28163,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28194,7 +28183,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult."><em>UploadDiagnostics().IncrementalResult</em></a> that the <span class="removed">CPE</span><span class="inserted">implementation</span> will <span class="removed">store.</span><span class="inserted">return.</span></p>
+<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult."><em>UploadDiagnostics().IncrementalResult</em></a> that the <span class="removed">CPE</span><span class="inserted">implementation</span> will <span class="removed">store.}}</span><span class="inserted">return.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28300,7 +28289,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28320,7 +28309,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28340,7 +28329,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received between the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections in the test. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received between the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections in the test. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28360,7 +28349,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent between the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections in the test. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent between the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> across all connections in the test. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at the latest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>PerConnectionResult.{i}.BOMTime</em></a> and at the earliest <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>PerConnectionResult.{i}.EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28405,7 +28394,7 @@ and sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28425,7 +28414,7 @@ and sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.BOMTime"><em>BOMTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.PerConnectionResult.EOMTime"><em>EOMTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28472,7 +28461,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) received on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesReceived</span><span class="inserted">Stats.BytesReceived</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28492,7 +28481,7 @@ sequentially increment as new instances are created.</p>
 <p>R</p>
 </td>
 <td>
-<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
+<p>The total number of <em>bytes</em> (at the IP layer) sent on the Interface between <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a>. This MAY be calculated by sampling <span class="removed">Stats.bytesSent</span><span class="inserted">Stats.BytesSent</span> on the <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> object at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.StartTime"><em>StartTime</em></a> and at <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.IncrementalResult.EndTime"><em>EndTime</em></a> and subtracting.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface"><em>Interface</em></a> is an empty string, this parameter cannot be determined and SHOULD be 0.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28633,7 +28622,7 @@ for the return of a packet that was sent to the <a href="#D.Device:2.Device.IP.D
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult."><em>IPLayerCapacity().IncrementalResult</em></a> that the <span class="removed">device</span><span class="inserted">implementation</span> will <span class="removed">store.</span><span class="inserted">return.</span></p>
+<p>The maximum number of <span class="removed">rows</span><span class="inserted">instances</span> in <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult."><em>IPLayerCapacity().IncrementalResult</em></a> that the <span class="removed">device</span><span class="inserted">implementation</span> will <span class="removed">store.}}</span><span class="inserted">return.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -28925,7 +28914,7 @@ value SHOULD be <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input
 <p>W</p>
 </td>
 <td>
-<p>Starting value for range of Dynamic Ports supported for test traffic and status feedback messages.<span class="inserted"> <em>PortMin</em> MUST be less than or equal to <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMax"><em>PortMax</em></a>, if specified. If <em>PortMin</em> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMax"><em>PortMax</em></a> are not specified, the full range of Ports in the Dynamic Ports range (49152-65535) that have been specifically set aside by IANA MAY be used.</span></p>
+<p>Starting value for range of Dynamic Ports supported for test traffic and status feedback messages.<span class="removed">}}</span><span class="inserted"> <em>PortMin</em> MUST be less than or equal to <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMax"><em>PortMax</em></a>, if specified. If <em>PortMin</em> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMax"><em>PortMax</em></a> are not specified, the full range of Ports in the Dynamic Ports range (49152-65535) that have been specifically set aside by IANA MAY be used.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -28951,7 +28940,7 @@ value SHOULD be <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input
 <p>W</p>
 </td>
 <td>
-<p>Indicates the upper bound of the supported Dynamic Port range, where <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a> indicates the starting port number. <em>PortMax</em> MUST be greater than or equal to <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a><span class="removed">.</span><span class="inserted">, if specified. If <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a> and <em>PortMax</em> are not specified, the full range of Ports in the Dynamic Ports range (49152-65535) that have been specifically set aside by IANA MAY be used.</span></p>
+<p>Indicates the upper bound of the supported Dynamic Port range, where <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a> indicates the starting port number. <em>PortMax</em> MUST be greater than or equal to <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a><span class="removed">.}}</span><span class="inserted">, if specified. If <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin"><em>PortMin</em></a> and <em>PortMax</em> are not specified, the full range of Ports in the Dynamic Ports range (49152-65535) that have been specifically set aside by IANA MAY be used.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -29113,7 +29102,7 @@ SHOULD be 0.</p>
 </td>
 <td>
 <div class="hide">
-<p>Timeout value. Value specified in <em>seconds</em>. The default value SHOULD be 5 <em>seconds</em>.<span class="inserted"> This parameter was DEPRECATED in 2.15<span class="hide"> because it is superseded by <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TimeoutNoTestTraffic"><em>TimeoutNoTestTraffic</em></a> due to new precision requirement. Refer to [<a href="#R.TR-471">TR-471</a>] for details</span>.<span class="click"></span></span></p>
+<p>Timeout value. Value specified in <em>seconds</em>. The default value SHOULD be 5 <em>seconds</em>.<span class="removed">}}</span><span class="inserted"> This parameter was DEPRECATED in 2.15<span class="hide"> because it is superseded by <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TimeoutNoTestTraffic"><em>TimeoutNoTestTraffic</em></a> due to new precision requirement. Refer to [<a href="#R.TR-471">TR-471</a>] for details</span>.<span class="click"></span></span></p>
 </div>
 <div class="hide">
 <div class="diffs">
@@ -29356,7 +29345,7 @@ The default value SHOULD be <em>false</em> (disabled).</p>
 <p>W</p>
 </td>
 <td>
-<p>This parameter is only meaningful if <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType"><em>TestType</em></a> is <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType.Search"><em>Search</em></a>. Threshold on the measured number of consecutive status reports indicating loss and/or delay variation above <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UpperThresh"><em>UpperThresh</em></a> (SlowAdjCount). The default <span class="inserted">value </span>SHOULD be <span class="removed">2.</span><span class="inserted">3.</span></p>
+<p>This parameter is only meaningful if <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType"><em>TestType</em></a> is <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType.Search"><em>Search</em></a>. Threshold on the measured number of consecutive status reports indicating loss and/or delay variation above <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UpperThresh"><em>UpperThresh</em></a> (SlowAdjCount). The default <span class="inserted">value </span>SHOULD be <span class="removed">2.}}</span><span class="inserted">3.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -29416,7 +29405,7 @@ The default value SHOULD be <em>false</em> (disabled).</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum IP-Layer Capacity metric from among all <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.IPLayerCapacity"><em>IncrementalResult.{i}.IPLayerCapacity</em></a> values measured between <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.EOMTime"><em>EOMTime</em></a> across all connections for this test. This is calculated according to [<a href="#R.TR-471">TR-471</a>] Equation 1. Result is expressed in <em>Mbps</em> with <span class="removed">3</span><span class="inserted">2</span> digits beyond the decimal. 10^6 bits/second = 1 <span class="removed">Mbps.</span><span class="inserted"><em>Mbps</em>.</span></p>
+<p>The maximum IP-Layer Capacity metric from among all <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.IPLayerCapacity"><em>IncrementalResult.{i}.IPLayerCapacity</em></a> values measured between <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.BOMTime"><em>BOMTime</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.EOMTime"><em>EOMTime</em></a> across all connections for this test. This is calculated according to [<a href="#R.TR-471">TR-471</a>] Equation 1. Result is expressed in <em>Mbps</em> with <span class="removed">3</span><span class="inserted">2</span> digits beyond the decimal. 10^6 bits/second = 1 <span class="removed">Mbps.}}</span><span class="inserted"><em>Mbps</em>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -30126,7 +30115,7 @@ are otherwise cleared.</p>
 <p>R</p>
 </td>
 <td>
-<p>Results of measurements using the maximum IP-Layer Capacity metric calculation for a single interval from [<a href="#R.TR-471">TR-471</a>] Equation 1, for time interval of duration <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestSubInterval"><em>TestSubInterval</em></a> ending at <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.TimeOfSubInterval"><em>TimeOfSubInterval</em></a> across all connections for this test. Result is expressed in <em>Mbps</em> with <span class="removed">3</span><span class="inserted">2</span> digits beyond the decimal. 10^6 bits/second = 1 <span class="removed">Mbps.</span><span class="inserted"><em>Mbps</em>.</span></p>
+<p>Results of measurements using the maximum IP-Layer Capacity metric calculation for a single interval from [<a href="#R.TR-471">TR-471</a>] Equation 1, for time interval of duration <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestSubInterval"><em>TestSubInterval</em></a> ending at <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.TimeOfSubInterval"><em>TimeOfSubInterval</em></a> across all connections for this test. Result is expressed in <em>Mbps</em> with <span class="removed">3</span><span class="inserted">2</span> digits beyond the decimal. 10^6 bits/second = 1 <span class="removed">Mbps.}}</span><span class="inserted"><em>Mbps</em>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -30433,16 +30422,14 @@ total number of iterations is the value of
 ::::::::<span class="removed"> </span><span class="inserted">Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field.</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.</span><span class="inserted">object</span></p>
+<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">object</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.14-2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 </td>
 <td>
 <p>6</p>
@@ -30469,16 +30456,14 @@ total number of iterations is the value of
 ::::::::<span class="removed"> </span><span class="inserted">Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field.</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.</span><span class="inserted">object</span></p>
+<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">object</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.14-2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 </td>
 <td>
 <p>0</p>
@@ -30505,16 +30490,14 @@ total number of iterations is the value of
 ::::::::<span class="removed"> </span><span class="inserted">Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero.</span><span class="removed"> </span><span class="inserted">Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field.</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.</span><span class="inserted">object</span></p>
+<p>This parameter was DEPRECATED in 2.12.because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <span class="removed">{{object|</span><span class="inserted"><a href="#D.Device:2.Device.MAP.Domain."><em>Domain</em></a>Rule.{i}.</span><span class="removed">}}</span> <span class="removed">object. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">object</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.14-2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 </td>
 <td>
 <p>0</p>
@@ -30537,7 +30520,7 @@ total number of iterations is the value of
 </td>
 <td>
 <div class="hide">
-<p>Whether to include low-numbered (system) ports in the Port-sets. Normally ports in the range [0:2^(16-<strong>{{param: non-existent PSIDOffset</strong>{{inserted: unexpected argument obsoleted after: []}}<strong>}}</strong>)-1] are excluded, e.g. for the default <strong>{{param: non-existent PSIDOffset</strong>{{inserted: unexpected argument obsoleted after: []}}<strong>}}</strong> value of <span class="removed">4, ports [0:4095]</span><span class="inserted">6, ports [0:1023]</span> are not included in the Port-sets.
+<p>Whether to include low-numbered (system) ports in the Port-sets. Normally ports in the range [0:2^(16-<strong>{{param: non-existent PSIDOffset</strong>{{inserted: unexpected argument obsoleted after: []}}<strong>}}</strong>)-1] are excluded, e.g. for the default <strong>{{param: non-existent PSIDOffset</strong>{{inserted: unexpected argument obsoleted after: []}}<strong>}}</strong> value of <span class="removed">4,</span><span class="inserted">6,</span> ports <span class="removed">[0:4095]</span><span class="inserted">[0:1023]</span> are not included in the Port-sets.
 ::::::::<span class="removed"> </span><span class="inserted">This parameter is related to [<a href="#R.RFC7597">RFC7597</a>]'s <em>N</em>, which is defined as <em>the number of ports (e.g., 1024) excluded from the lower end of the range</em>. The parameter is relevant only when <strong>{{param: non-existent PSIDOffset</strong>{{inserted: unexpected argument obsoleted after: []}}<strong>}}</strong> is 0; <em>false</em> corresponds to <em>N=1024</em> and <em>true</em> corresponds to <em>N=0</em>.</span></p>
 <div class="inserted">
 <div class="chevron">
@@ -30653,7 +30636,7 @@ end of the range</em>. The parameter is relevant only when
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (up to 10000 items) (length ) of strings. List items represent <span class="inserted">Fully Qualified Domain Names (FQDNs) or </span>IP addresses to which HTTP (port 80) traffic MUST always be permitted, regardless of whether the captive portal is enabled.<span class="removed"> </span><span class="inserted">Each entry in the list MUST be either an<span class="inserted"> FQDN,</span> IP address, or an IP prefix specified using Classless Inter-Domain Routing (CIDR) notation [<a href="#R.RFC4632">RFC4632</a>].</span><span class="removed"> </span><span class="inserted">An IP prefix is specified as an IP address followed (with no intervening white space) by &quot;/n&quot;, where <em>n</em> (the prefix size) is an integer in the range 0-32 (for IPv4) or 0-128 (for IPv6) that indicates the number of (leftmost) '1' bits of the prefix.</span><span class="removed"> </span><span class="inserted">IPv4 example:</span><span class="removed"> </span><span class="inserted">* 1.2.3.4 specifies a single IPv4 address, and 1.2.3.4/24 specifies a class C subnet with subnet mask 255.255.255.0.</span><span class="removed"> </span><span class="inserted">* 1.2.0.0/22 represents the 1024 IPv4 addresses from 1.2.0.0 to 1.2.3.255.</span><span class="removed"> </span><span class="inserted">IPv6 example:</span><span class="removed"> </span><span class="inserted">* fec0::220:edff:fe6a:f76 specifies a single IPv6 address.</span><span class="removed"> </span><span class="inserted">* 2001:edff:fe6a:f76::/64 represents the IPv6 addresses from 2001:edff:fe6a:f76:0:0:0:0 to 2001:edff:fe6a:f76:ffff:ffff:ffff:ffff.</span></p>
+<p>Comma-separated list (up to 10000 items) (length ) of strings. List items represent<span class="inserted"> Fully Qualified Domain Names (FQDNs) or</span> IP addresses to which HTTP (port 80) traffic MUST always be permitted, regardless of whether the captive portal is enabled.<span class="removed"> </span><span class="inserted">Each entry in the list MUST be either an<span class="inserted"> FQDN,</span> IP address, or an IP prefix specified using Classless Inter-Domain Routing (CIDR) notation [<a href="#R.RFC4632">RFC4632</a>].</span><span class="removed"> </span><span class="inserted">An IP prefix is specified as an IP address followed (with no intervening white space) by &quot;/n&quot;, where <em>n</em> (the prefix size) is an integer in the range 0-32 (for IPv4) or 0-128 (for IPv6) that indicates the number of (leftmost) '1' bits of the prefix.</span><span class="removed"> </span><span class="inserted">IPv4 example:</span><span class="removed"> </span><span class="inserted">* 1.2.3.4 specifies a single IPv4 address, and 1.2.3.4/24 specifies a class C subnet with subnet mask 255.255.255.0.</span><span class="removed"> </span><span class="inserted">* 1.2.0.0/22 represents the 1024 IPv4 addresses from 1.2.0.0 to 1.2.3.255.</span><span class="removed"> </span><span class="inserted">IPv6 example:</span><span class="removed"> </span><span class="inserted">* fec0::220:edff:fe6a:f76 specifies a single IPv6 address.</span><span class="removed"> </span><span class="inserted">* 2001:edff:fe6a:f76::/64 represents the IPv6 addresses from 2001:edff:fe6a:f76:0:0:0:0 to 2001:edff:fe6a:f76:ffff:ffff:ffff:ffff.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -32926,19 +32909,17 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 <p>::::::::<span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because <a href="#D.Device:2.Device.Hosts.Host."><em>Host</em></a> is a transient <span class="removed">object. This parameter is OBSOLETED in 2.14.</span><span class="inserted">object</span></p>
+<p>This parameter was DEPRECATED in 2.11.because <a href="#D.Device:2.Device.Hosts.Host."><em>Host</em></a> is a transient <span class="removed">object. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">object</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -32979,19 +32960,17 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 <p>::::::::<span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because only <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**None</span><span class="removed">}}</span> and <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**DHCP</span><span class="removed">}}</span> made sense (the CPE doesn't know whether the address is <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**Static</span><span class="removed">}}</span> or <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**AutoIP</span><span class="removed">}}</span>). The <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**DHCP</span><span class="removed">}}</span> case is now handled via the <span class="removed">{{param|</span><span class="inserted"><em>AddressSource</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.</span><span class="inserted">reference</span></p>
+<p>This parameter was DEPRECATED in 2.11.because only <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**None</span><span class="removed">}}</span> and <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**DHCP</span><span class="removed">}}</span> made sense (the CPE doesn't know whether the address is <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**Static</span><span class="removed">}}</span> or <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**AutoIP</span><span class="removed">}}</span>). The <span class="removed">{{enum|</span><span class="inserted">**{{enum: only valid as  argument}}**DHCP</span><span class="removed">}}</span> case is now handled via the <span class="removed">{{param|</span><span class="inserted"><em>AddressSource</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">reference</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -33026,19 +33005,17 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 ::::::::<span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because DHCP lease/lifetime information can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>LeaseTimeRemaining</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.</span><span class="inserted">reference</span></p>
+<p>This parameter was DEPRECATED in 2.11.because DHCP lease/lifetime information can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>LeaseTimeRemaining</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">reference</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -33073,7 +33050,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 ::::::::<span class="removed"> </span><span class="inserted">This is a normal string, e.g. &quot;abc&quot; is represented as &quot;abc&quot; and not say &quot;616263&quot; hex. However, if the value includes non-printing characters then such characters have to be represented using XML escapes, e.g. #x0a for line-feed.</span><span class="removed"> </span><span class="inserted">It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used.</span><span class="removed"> </span><span class="inserted">Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535.</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>VendorClassID</em>DHCPClient</span><span class="removed">}} reference. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted"> reference</span></p>
+<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>VendorClassID</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">reference</span></p>
 </div>
 </div>
 </div>
@@ -33118,19 +33095,17 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 ::::::::<span class="removed"> </span><span class="inserted">It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used.</span><span class="removed"> </span><span class="inserted">Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535.</span><span class="removed"> This parameter was DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>ClientID</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.</span><span class="inserted">reference</span></p>
+<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>ClientID</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference. This parameter is OBSOLETED in 2.14.}}</span><span class="inserted">reference</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.14.</p>
 </div>
 <div class="chevron">
 <p>This parameter was DELETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 <div class="hide">
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
@@ -33165,16 +33140,14 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</li>
 ::::::::<span class="removed"> </span><span class="inserted">It MAY be defined when <strong>{{param: non-existent AddressSource</strong>{{inserted: unexpected argument deleted after: []}}<strong>}}</strong> is <strong>{{enum: reference to deleted enumeration Device.Hosts.Host.{i}.AddressSource.DHCP}}</strong>. An empty string indicates this option is not used.</span><span class="removed"> </span><span class="inserted">Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535.</span><span class="removed"> This parameter is DEPRECATED </span></p>
 <div class="inserted">
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>UserClassID</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference.</span><span class="inserted">reference</span></p>
+<p>This parameter was DEPRECATED in 2.11.because host-supplied DHCP options can be accessed via the <span class="removed">{{param|</span><span class="inserted"><em>UserClassID</em>DHCPClient</span><span class="removed">}}</span> <span class="removed">reference.}}</span><span class="inserted">reference</span></p>
 </div>
 </div>
 </div>
-<p>:::::::::</p>
-<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.15.<span class="click"></span></p>
 </div>
-</div>
+<p>:::::::::</p>
 </td>
 <td>
 <p>-</p>
@@ -33668,7 +33641,7 @@ objects.</p>
 <p>R</p>
 </td>
 <td>
-<p>Users object that contains the <a href="#D.Device:2.Device.Users.User."><em>User</em></a><span class="inserted">,</span> <span class="removed">table.</span><span class="inserted"><a href="#D.Device:2.Device.Users.Group."><em>Group</em></a>, and <a href="#D.Device:2.Device.Users.Role."><em>Role</em></a> tables.</span></p>
+<p>Users object that contains the <a href="#D.Device:2.Device.Users.User."><em>User</em></a><span class="inserted">,</span> <span class="removed">table.}}</span><span class="inserted"><a href="#D.Device:2.Device.Users.Group."><em>Group</em></a>, and <a href="#D.Device:2.Device.Users.Role."><em>Role</em></a> tables.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -34953,7 +34926,7 @@ Femtozone Application Platform and the Femtozone APIs.</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Specifies the supported methods that 3rd Party Applications can use to authenticate with the Femto Application Platform at initialization.<span class="removed"> Comma separated list of strings.</span></p>
+<p>Comma-separated list of strings. Specifies the supported methods that 3rd Party Applications can use to authenticate with the Femto Application Platform at initialization.<span class="removed"> Comma separated list of strings.}}</span></p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.FAP.ApplicationPlatform.Capabilities.AuthenticationMethodsSupported.Basic"><em>Basic</em></span></li>
@@ -35095,9 +35068,7 @@ capable of supporting.</p>
 <p>R</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of the <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Device.LocalAgent.Controller.</em></a> instance that created <strong>{{replaced: unexpected argument delete after: or last updated, [object()]}}</strong>. If the referenced object is deleted, the parameter value MUST be set to an empty string.</p>
-<p>The value of this <span class="inserted">parameter is automatically populated by the USP Agent upon </span><a href="#D.Device:2.Device.BulkData.Profile."><em>Profile</em></a><span class="removed">}} The value of this parameter is automatically populated by the USP Agent upon {{object}}</span> creation using the reference to the USP Controller that created<span class="removed"> the instance. The value of this parameter is automatically updated by the USP Agent upon {{object}} alteration using the reference to the USP Controller that changed</span> the instance.</p>
-<p><span class="inserted">The USP Controller referenced by this parameter also defines the set of permissions to use when generating the Bulk Data report. Furthermore, only the USP Controller referenced by this parameter will receive a <a href="#D.Device:2.Device.BulkData.Profile.Push"><em>Push!</em></a> Event (assuming it has an associated Subscription) when the Profile has <a href="#D.Device:2.Device.BulkData.Profile.Protocol"><em>Protocol</em></a> configured to <a href="#D.Device:2.Device.BulkData.Protocols.USPEventNotif"><em>USPEventNotif</em></a>, even if another USP Controller has an associated Subscription.</span></p>
+<p>The value MUST be the Path Name of the <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Device.LocalAgent.Controller.</em></a> instance that created <span class="removed">or last updated this </span><a href="#D.Device:2.Device.BulkData.Profile."><em>Profile</em></a><strong>{{replaced: unexpected argument delete after: }} , []}}</strong>. If the referenced object is deleted, the parameter value MUST be set to an empty string.The value of this parameter is automatically populated by the USP Agent upon <a href="#D.Device:2.Device.BulkData.Profile."><em>Profile</em></a> creation using the reference to the USP Controller that created the instance.<span class="removed"> </span><span class="inserted">The <span class="removed">value</span><span class="inserted">USP</span> <span class="removed">of</span><span class="inserted">Controller referenced by</span> this parameter <span class="removed">is</span><span class="inserted">also</span> <span class="removed">automatically updated by</span><span class="inserted">defines</span> the <span class="removed">USP</span><span class="inserted">set</span> <span class="removed">Agent</span><span class="inserted">of</span> <span class="removed">upon</span><span class="inserted">permissions</span> <span class="removed">{{object}}</span><span class="inserted">to</span> <span class="removed">alteration</span><span class="inserted">use</span> <span class="removed">using</span><span class="inserted">when generating</span> the <span class="removed">reference</span><span class="inserted">Bulk</span> <span class="removed">to</span><span class="inserted">Data report. Furthermore, only</span> the USP Controller <span class="removed">that</span><span class="inserted">referenced</span> <span class="removed">changed</span><span class="inserted">by this parameter will receive a <a href="#D.Device:2.Device.BulkData.Profile.Push"><em>Push!</em></a> Event (assuming it has an associated Subscription) when</span> the <span class="removed">instance.}}</span><span class="inserted">Profile has <a href="#D.Device:2.Device.BulkData.Profile.Protocol"><em>Protocol</em></a> configured to <a href="#D.Device:2.Device.BulkData.Protocols.USPEventNotif"><em>USPEventNotif</em></a>, even if another USP Controller has an associated Subscription.</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -35456,7 +35427,7 @@ without affecting it.</p>
 <p>W</p>
 </td>
 <td>
-<p>Represents the parameter(s) that are part of this Bulk Data collection profile. The value MUST be a path name of a parameter or an object.<span class="removed"> </span><span class="inserted">When the <a href="#D.Device:2.Device.BulkData.ParameterWildCardSupported"><em>ParameterWildCardSupported</em></a> parameter has a value of <em>true</em>, patterns for instance identifiers are permitted with wildcards (an &quot;*&quot; character) in place of instance identifiers; any attempt to set the value otherwise MUST be rejected by the CPE.</span><span class="removed"> </span><span class="inserted">In the case where <span class="removed">a partial parameter path</span><span class="inserted">an Object Path</span> is specified, the sub-objects of the resolved pattern and contained parameters will be part of the bulk data collected and reported. If the path name refers to an object then it MUST end with a '.'.</span></p>
+<p>Represents the parameter(s) that are part of this Bulk Data collection profile. The value MUST be a path name of a parameter or an object.<span class="removed"> </span><span class="inserted">When the <a href="#D.Device:2.Device.BulkData.ParameterWildCardSupported"><em>ParameterWildCardSupported</em></a> parameter has a value of <em>true</em>, patterns for instance identifiers are permitted with wildcards (an &quot;*&quot; character) in place of instance identifiers; any attempt to set the value otherwise MUST be rejected by the CPE.</span><span class="removed"> </span><span class="inserted">In the case where <span class="removed">a</span><span class="inserted">an</span> <span class="removed">partial</span><span class="inserted">Object</span> <span class="removed">parameter path</span><span class="inserted">Path</span> is specified, the sub-objects of the resolved pattern and contained parameters will be part of the bulk data collected and reported. If the path name refers to an object then it MUST end with a '.'.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.14:</strong></p>
 <ul>
@@ -36224,7 +36195,7 @@ next MQTT CONNECT packet.</p>
 <li><span id="D.Device:2.Device.MQTT.Client.Subscription.Status.Subscribing"><em>Subscribing</em></span> (OPTIONAL)</li>
 <li><span id="D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribing"><em>Unsubscribing</em></span> (OPTIONAL)</li>
 <li><span id="D.Device:2.Device.MQTT.Client.Subscription.Status.Error"><em>Error</em></span>
-<span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Subscribed"><em>Subscribed</em></a> value indicates that the topic was successfully subscribed with the MQTT broker, the MQTT client received the SUBACK message for this topic from the server.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Subscribing"><em>Subscribing</em></a> value MAY be used by the CPE to indicate that the a SUBSCRIBE message for this topic was sent, and the CPE is waiting for a SUBACK message.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribed"><em>Unsubscribed</em></a> value indicates that the topic is not registered with the MQTT broker.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribing"><em>Unsubscribing</em></a> value MAY be used by the CPE to indicate that <span class="removed">the </span>an UNSUBSCRIBE message for this topic was sent, and the CPE is waiting for an UNSUBACK message.</span><span class="removed"> </span><span class="inserted">If the <a href="#D.Device:2.Device.MQTT.Client.Subscription.Enable"><em>Enable</em></a> is set to <em>false</em> the status MUST be either <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribed"><em>Unsubscribed</em></a> or if the unsubscription failed <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Error"><em>Error</em></a>.</span></li>
+<span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Subscribed"><em>Subscribed</em></a> value indicates that the topic was successfully subscribed with the MQTT broker, the MQTT client received the SUBACK message for this topic from the server.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Subscribing"><em>Subscribing</em></a> value MAY be used by the CPE to indicate that the a SUBSCRIBE message for this topic was sent, and the CPE is waiting for a SUBACK message.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribed"><em>Unsubscribed</em></a> value indicates that the topic is not registered with the MQTT broker.</span><span class="removed"> </span><span class="inserted">The <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribing"><em>Unsubscribing</em></a> value MAY be used by the CPE to indicate that<span class="removed"> the</span> an UNSUBSCRIBE message for this topic was sent, and the CPE is waiting for an UNSUBACK message.</span><span class="removed"> </span><span class="inserted">If the <a href="#D.Device:2.Device.MQTT.Client.Subscription.Enable"><em>Enable</em></a> is set to <em>false</em> the status MUST be either <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Unsubscribed"><em>Unsubscribed</em></a> or if the unsubscription failed <a href="#D.Device:2.Device.MQTT.Client.Subscription.Status.Error"><em>Error</em></a>.</span></li>
 </ul>
 </td>
 <td>
@@ -36539,81 +36510,6 @@ command <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ForceReconnect"><em>Force
 </td>
 <td>
 <p>The MQTT QoS level assigned with the subscription (see [<a href="#R.MQTT311">Section 4.1/MQTT311</a>], [<a href="#R.MQTT311">Section 4.3/MQTT311</a>]) or [<a href="#R.MQTT50">Section 4.3/MQTT50</a>].</p>
-</td>
-<td>
-<p>-</p>
-</td>
-<td>
-<p>2.12</p>
-</td>
-</tr>
-<tr class="parameter">
-<td>
-<p><span id="D.Device:2.Device.MQTT.Broker.Bridge.Subscription.LocalPrefix">LocalPrefix</span></p>
-</td>
-<td>
-<p>string(:256)</p>
-</td>
-<td>
-<p>W</p>
-</td>
-<td>
-<p>The local prefix is used for remapping received topics to the local topics of the MQTT broker and to select the topics to be sent over bridge to the remote MQTT broker.<span class="removed"> </span><span class="inserted">* In incoming direction (<a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction"><em>Direction</em></a> is either <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.in"><em>in</em></a> or <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.both"><em>both</em></a>):</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt; For remote topics received over the bridge the MQTT broker adds the LocalPrefix in front of the received topic, before processing it.</span></p>
-<div class="removed">
-<p>{{li|&gt;&gt;}}* *</p>
-</div>
-<p><span class="inserted">&gt;&gt; * *&gt; <em>Example:</em></span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; Topic is &quot;/bus/+&quot;, LocalPrefix is &quot;/local&quot;, Direction is &quot;in&quot;</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; MQTT broker receives message with topic &quot;/bus/tr181&quot; over bridge =&gt; MQTT broker uses topic &quot;/local/bus/tr181&quot; for internal processing</span><span class="removed"> </span><span class="inserted">* In outgoing direction (<a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction"><em>Direction</em></a> is either <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.out"><em>out</em></a> or <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.both"><em>both</em></a>):</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt; For selection of the topics to be sent over the bridge the MQTT broker uses the combination of <em>LocalPrefix</em> and <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Topic"><em>Topic</em></a> to match the topics to be sent over bridge, and removes the <em>LocalPrefix</em> from the selected topic before sending it over the bridge.</span></p>
-<div class="removed">
-<p>{{li|&gt;&gt;}}* *</p>
-</div>
-<p><span class="inserted">&gt;&gt; * *&gt; <em>Example:</em></span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; Topic is &quot;/bus/+&quot;, LocalPrefix is &quot;/local&quot;, Direction is &quot;out&quot;</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; MQTT broker receives message with topic &quot;/local/bus/tr181&quot; from a MQTT client =&gt; MQTT broker sends topic &quot;/bus/tr181&quot; to remote MQTT broker</span></p>
-</td>
-<td>
-<p>-</p>
-</td>
-<td>
-<p>2.12</p>
-</td>
-</tr>
-<tr class="parameter">
-<td>
-<p><span id="D.Device:2.Device.MQTT.Broker.Bridge.Subscription.RemotePrefix">RemotePrefix</span></p>
-</td>
-<td>
-<p>string(:256)</p>
-</td>
-<td>
-<p>W</p>
-</td>
-<td>
-<p>The remote prefix is used for remapping topics to the remote MQTT broker topic lists.<span class="removed"> </span><span class="inserted">* In incoming direction (<a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction"><em>Direction</em></a> is either <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.in"><em>in</em></a> or <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.both"><em>both</em></a>):</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt; For remote topics received over the bridge the MQTT broker removes the remote prefix topic from the received topic (before handling the <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.LocalPrefix"><em>LocalPrefix</em></a>), before processing it.</span></p>
-<div class="removed">
-<p>{{li|&gt;&gt;}}* *</p>
-</div>
-<p><span class="inserted">&gt;&gt; * *&gt; <em>Example:</em></span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; Topic is &quot;/bus/+&quot;, LocalPrefix is &quot;/local&quot;, RemotePrefix is &quot;/remote&quot;, Direction is &quot;in&quot;</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; MQTT broker receives message with topic &quot;/remote/bus/tr181&quot; over bridge =&gt; MQTT broker uses topic &quot;/local/bus/tr181&quot; for internal processing</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt; During activation of the bridge, the MQTT broker prepends the <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Topic"><em>Topic</em></a> with <em>RemotePrefix</em> topic and subscribes to the remote MQTT broker with it, in order to receive all applicable remote topics.</span></p>
-<div class="removed">
-<p>{{li|&gt;&gt;}}* *</p>
-</div>
-<p><span class="inserted">&gt;&gt; * *&gt; <em>Example:</em></span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; Topic is &quot;/bus/+&quot;, RemotePrefix is &quot;/remote&quot;, Direction is &quot;in&quot;</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; MQTT broker sends a subscription to the remote MQTT broker with the topic &quot;/remote/bus/+&quot;.</span><span class="removed"> </span><span class="inserted">* In outgoing direction (<a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction"><em>Direction</em></a> is either <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.out"><em>out</em></a> or <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.both"><em>both</em></a>):</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt; For all topics to be sent over the bridge (<a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction"><em>Direction</em></a> is either <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.out"><em>out</em></a> or <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.Direction.both"><em>both</em></a>), the RemotePrefix will be prepended to the topic after the <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription.LocalPrefix"><em>LocalPrefix</em></a> has been processed and before sending the message over the bridge.</span></p>
-<div class="removed">
-<p>{{li|&gt;&gt;}}* *</p>
-</div>
-<p><span class="inserted">&gt;&gt; * *&gt; <em>Example:</em></span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; Topic is &quot;/bus/+&quot;, LocalPrefix is &quot;/local&quot;, RemotePrefix is &quot;/remote&quot; Direction is &quot;out&quot;</span><span class="removed"> </span></p>
-<p><span class="inserted">&gt;&gt; MQTT broker receives message with topic &quot;/local/bus/tr181&quot; from a MQTT client =&gt; MQTT broker sends topic &quot;/remote/bus/tr181&quot; to remote MQTT broker</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37034,7 +36930,7 @@ a USP Endpoint.</p>
 ::::::::<span class="removed"> This parameter is DEPRECATED, </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether all connections to this CoAP server instance are or are not <span class="removed">encrypted.</span><span class="inserted">encrypted</span></p>
+<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether all connections to this CoAP server instance are or are not <span class="removed">encrypted.}}</span><span class="inserted">encrypted</span></p>
 </div>
 </div>
 </div>
@@ -37123,7 +37019,7 @@ configuration parameters.</p>
 <p>W</p>
 </td>
 <td>
-<p>The<span class="inserted"> service</span> path that is <span class="removed">used</span><span class="inserted">provided</span> by the WebSocket Server in order to <span class="removed">receive</span><span class="inserted">exchange</span> USP messages.<span class="inserted"> The value MUST be used as defined in [<a href="#R.RFC3986">Section 3.3/RFC3986</a>].</span></p>
+<p>The<span class="inserted"> service</span> path that is <span class="removed">used</span><span class="inserted">provided</span> by the WebSocket Server in order to <span class="removed">receive</span><span class="inserted">exchange</span> USP messages.<span class="removed">}}</span><span class="inserted"> The value MUST be used as defined in [<a href="#R.RFC3986">Section 3.3/RFC3986</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37365,7 +37261,7 @@ Subscription.</p>
 ::::::::<span class="removed"> This command is DEPRECATED </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>This command was DEPRECATED in 2.14.<span class="click"></span>because it was replaced by a more flexible asynchronous <span class="removed">{{command|</span><span class="inserted">*ScheduleTimer()*Device.ScheduleTimer()</span><span class="removed">}} in 2.14.</span></p>
+<p>This command was DEPRECATED in 2.14.<span class="click"></span>because it was replaced by a more flexible asynchronous <span class="removed">{{command|</span><span class="inserted">*ScheduleTimer()*Device.ScheduleTimer()</span><span class="removed">}} in 2.14.}}</span></p>
 </div>
 </div>
 </div>
@@ -37440,7 +37336,7 @@ the associated subscriptions).</p>
 </td>
 <td>
 <div class="hide">
-<p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message. <span class="removed">This event is DEPRECATED </span><span class="inserted">This event was DEPRECATED in 2.14.<span class="click"></span>because the associated <span class="removed">{{command|</span><span class="inserted">**{{command: empty ref only valid in command descriptions}}**ScheduleTimer()</span><span class="removed">}}</span> was replaced by a more flexible asynchronous <span class="removed">{{command|</span><span class="inserted">**{{command: empty ref only valid in command descriptions}}**Device.ScheduleTimer()</span><span class="removed">}} in 2.14.</span></span></p>
+<p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message. <span class="removed">This event is DEPRECATED </span><span class="inserted">This event was DEPRECATED in 2.14.<span class="click"></span>because the associated <span class="removed">{{command|</span><span class="inserted">**{{command: empty ref only valid in command descriptions}}**ScheduleTimer()</span><span class="removed">}}</span> was replaced by a more flexible asynchronous <span class="removed">{{command|</span><span class="inserted">**{{command: empty ref only valid in command descriptions}}**Device.ScheduleTimer()</span><span class="removed">}} in 2.14.}}</span></span></p>
 </div>
 </td>
 <td>
@@ -37656,7 +37552,7 @@ configuration parameters.</p>
 <p>W</p>
 </td>
 <td>
-<p>The<span class="inserted"> service</span> path that is <span class="removed">used</span><span class="inserted">provided</span> by the Controller's WebSocket server in order to <span class="removed">receive</span><span class="inserted">exchange</span> USP messages.<span class="inserted"> The value MUST be used as defined in [<a href="#R.RFC3986">Section 3.3/RFC3986</a>].</span></p>
+<p>The<span class="inserted"> service</span> path that is <span class="removed">used</span><span class="inserted">provided</span> by the Controller's WebSocket server in order to <span class="removed">receive</span><span class="inserted">exchange</span> USP messages.<span class="removed">}}</span><span class="inserted"> The value MUST be used as defined in [<a href="#R.RFC3986">Section 3.3/RFC3986</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37683,7 +37579,7 @@ configuration parameters.</p>
 ::::::::<span class="removed"> This parameter is DEPRECATED, </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> is or is not <span class="removed">encrypted.</span><span class="inserted">encrypted</span></p>
+<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> is or is not <span class="removed">encrypted.}}</span><span class="inserted">encrypted</span></p>
 </div>
 </div>
 </div>
@@ -37709,7 +37605,7 @@ configuration parameters.</p>
 <p>W</p>
 </td>
 <td>
-<p>The<span class="removed"> the</span> duration in <em>seconds</em> between when WebSocket ping control frames are transmitted by the <span class="removed">Agent</span><span class="inserted">Agent's WebSocket client</span> to the <span class="inserted">Controller's </span>WebSocket <span class="removed">server for the USP Controller.</span><span class="inserted">server.</span></p>
+<p>The<span class="removed"> the</span> duration in <em>seconds</em> between when WebSocket ping control frames are transmitted by the <span class="removed">Agent</span><span class="inserted">Agent's WebSocket client</span> to the <span class="inserted">Controller's </span>WebSocket <span class="removed">server for the USP Controller.}}</span><span class="inserted">server.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -38045,7 +37941,7 @@ establishing a trust relationship with a Controller.</p>
 <p>W</p>
 </td>
 <td>
-<p>The number of <span class="removed">times</span><span class="inserted">consecutive failed <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> attempts against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance (as determined by the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef associated with <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID parameters) that are allowed before</span> a <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.LockoutPeriod"><em>LockoutPeriod</em></a></span> is <span class="removed">retried</span><span class="inserted">started</span> <span class="removed">before</span><span class="inserted">for this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance. Counts of failed attempts for a <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance are reset after a successful <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> for</span> the <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a></span> <span class="removed">procedure</span><span class="inserted">instance</span> <span class="removed">is</span><span class="inserted">or</span> <span class="removed">terminated.</span><span class="inserted">after a started <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.LockoutPeriod"><em>LockoutPeriod</em></a> expires.</span></p>
+<p>The number of <span class="removed">times</span><span class="inserted">consecutive failed <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> attempts against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance (as determined by the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef associated with <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID parameters) that are allowed before</span> a <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.LockoutPeriod"><em>LockoutPeriod</em></a></span> is <span class="removed">retried</span><span class="inserted">started</span> <span class="removed">before</span><span class="inserted">for this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance. Counts of failed attempts for a <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance are reset after a successful <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> for</span> the <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a></span> <span class="removed">procedure</span><span class="inserted">instance</span> <span class="removed">is</span><span class="inserted">or</span> <span class="removed">terminated.}}</span><span class="inserted">after a started <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.LockoutPeriod"><em>LockoutPeriod</em></a> expires.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -38065,7 +37961,7 @@ establishing a trust relationship with a Controller.</p>
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">The time, in {{units}} that a Controller that has failed the challenge is locked out (based on the value of</span><span class="inserted">Once</span> the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.Retries"><em>Retries</em></a> <span class="removed">parameter) prior</span><span class="inserted">value has been reached by failed <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> attempts against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance (as determined by the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef associated with <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID parameters), the value of this parameter represents the amount of time (in <em>seconds</em>) that the Agent will prevent any <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> or <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance from succeeding. Any attempt</span> to <span class="removed">being provided the challenge again. </span><span class="inserted">issue a <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> or <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> command where the associated <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef points to this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance during the lockout period will result in an Error response with 7002 as the error code. When a started lockout period has expired, the count of failed attempts for this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance will be reset. If the Agent chooses to delete <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID values for a locked out <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a>, the Agent can send the 7004 error code for values it does not recognize.</span>A value of zero means that a <span class="removed">LockoutPeriod</span><span class="inserted">lockout period</span> doesn't apply and the <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> command</span> can be <span class="removed">provided indefinitely.</span><span class="inserted">attempted without the need to wait between failed challenges.</span></p>
+<p><span class="removed">The</span><span class="inserted">Once</span> <span class="removed">time,</span><span class="inserted">the</span> <span class="removed">in</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge.Retries"><em>Retries</em></a></span> <span class="removed">{{units}} that a Controller that</span><span class="inserted">value</span> has <span class="inserted">been reached by </span>failed<span class="inserted"> <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> attempts against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance (as determined by</span> the <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef</span> <span class="removed">is</span><span class="inserted">associated</span> <span class="removed">locked</span><span class="inserted">with</span> <span class="removed">out</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID</span> <span class="removed">(based on</span><span class="inserted">parameters),</span> the value of <span class="inserted">this parameter represents </span>the <span class="removed">{{param|Retries}}</span><span class="inserted">amount</span> <span class="removed">parameter)</span><span class="inserted">of</span> <span class="removed">prior</span><span class="inserted">time (in <em>seconds</em>) that the Agent will prevent any <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> or <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> against this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance from succeeding. Any attempt</span> to <span class="removed">being</span><span class="inserted">issue</span> <span class="removed">provided</span><span class="inserted">a <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> or <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a> command where</span> the <span class="removed">challenge</span><span class="inserted">associated</span> <span class="removed">again.</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a>.ChallengeRef</span> <span class="inserted">points to this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance during the lockout period will result in an Error response with 7002 as the error code. When a started lockout period has expired, the count of failed attempts for this <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a> instance will be reset. If the Agent chooses to delete <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.ChallengeResponse"><em>ChallengeResponse()</em></a>.ChallengeID values for a locked out <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Challenge."><em>Challenge</em></a>, the Agent can send the 7004 error code for values it does not recognize.</span>A value of zero means that a <span class="removed">LockoutPeriod</span><span class="inserted">lockout period</span> doesn't apply and the <span class="removed">challenge</span><span class="inserted"><a href="#D.Device:2.Device.LocalAgent.ControllerTrust.RequestChallenge"><em>RequestChallenge()</em></a> command</span> can be <span class="removed">provided</span><span class="inserted">attempted</span> <span class="removed">indefinitely.}}</span><span class="inserted">without the need to wait between failed challenges.</span></p>
 </td>
 <td>
 <p>30</p>
@@ -38724,7 +38620,7 @@ STOMP server.</p>
 ::::::::<span class="removed"> This parameter is DEPRECATED, </span></p>
 <div class="inserted">
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether all connections for this STOMP instance are or are not <span class="removed">encrypted.</span><span class="inserted">encrypted</span></p>
+<p>This parameter was DEPRECATED in 2.14.<span class="click"></span>because the <span class="removed">{{param|</span><span class="inserted"><em>IsEncrypted</em>EnableEncryption</span><span class="removed">}}</span> parameter will dictate whether all connections for this STOMP instance are or are not <span class="removed">encrypted.}}</span><span class="inserted">encrypted</span></p>
 </div>
 </div>
 </div>
@@ -38803,7 +38699,7 @@ STOMP server.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.3.1 (2025-04-11 version) on 2025-04-23 at 14:08:03 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2025-11-11 at 23:53:56 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-15-1-usp-diffs.html --show --transform diff --format html tr-181-2-14-1-usp.xml tr-181-2-15-1-usp.xml</p>
 </div>
 <div id="TOC">
