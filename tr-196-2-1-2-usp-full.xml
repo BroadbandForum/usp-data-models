@@ -2,7 +2,7 @@
 <!--
   FAPService:2.1 Femto Access Point Service Data Model [USP]
 
-  Copyright (c) 2010-2021, Broadband Forum
+  Copyright (c) 2010-2019, Broadband Forum
 
   Redistribution and use in source and binary forms, with or
   without modification, are permitted provided that the following
@@ -48,13 +48,13 @@
 
 <dm:document
     xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-15"
-    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-0-1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
       urn:broadband-forum-org:cwmp:datamodel-1-15
         https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-15.xsd
-      urn:broadband-forum-org:cwmp:datamodel-report-1-0
-        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+      urn:broadband-forum-org:cwmp:datamodel-report-0-1
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report.xsd"
     spec="urn:broadband-forum-org:tr-196-2-1-2-usp"
     file="tr-196-2-1-2-usp.xml">
 
@@ -4179,18 +4179,16 @@
     </object>
 
     <object name="FAPService.{i}.CellConfig.UMTS." access="readOnly"
-        minEntries="1" maxEntries="1" version="2.0">
+        minEntries="1" maxEntries="1" version="2.0" dmr:version="2.0">
       <description>
         This object contains parameters relating to configuring UMTS system
         specific information.
       </description>
 
-      <parameter name="TunnelInstance" access="readWrite">
+      <parameter name="TunnelInstance" access="readWrite" dmr:version="2.0">
         <description>
           This is the reference to the IPsec tunnel instance used by the UMTS
-          FAP.
-
-          The {{param}} MUST point to an IPsec tunnel instance defined in
+          FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
           {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
@@ -10789,12 +10787,10 @@
         </syntax>
       </parameter>
 
-      <parameter name="TunnelRef" access="readWrite">
+      <parameter name="TunnelRef" access="readWrite" dmr:version="2.0">
         <description>
           This is the reference to an IPsec tunnel instance used by the LTE
-          FAP.
-
-          The {{param}} MUST point to an IPsec tunnel instance defined in
+          FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
           {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
@@ -19246,19 +19242,17 @@
     </object>
 
     <object name="FAPService.{i}.CellConfig.CDMA2000." access="readOnly"
-        minEntries="1" maxEntries="1" version="2.0">
+        minEntries="1" maxEntries="1" version="2.0" dmr:version="2.0">
       <description>
         This object contains parameters relating to configuring the CDMA2000
         FAP.
       </description>
 
-      <parameter name="TunnelInstance" access="readWrite">
+      <parameter name="TunnelInstance" access="readWrite" dmr:version="2.0">
         <description>
           This is the reference to the IPsec tunnel instance used by the
-          CDMA2000 FAP.
-
-          The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.
+          CDMA2000 FAP. The {{param}} MUST point to an IPsec tunnel instance
+          defined in {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
           to an empty string.
