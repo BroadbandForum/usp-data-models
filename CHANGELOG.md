@@ -5,6 +5,16 @@
 The latest [User Services Platform (USP)](https://usp.technology)
 data models can be found at <https://usp-data-models.broadband-forum.org>.
 
+## 2026-07-22: TR-517 Issue 1
+
+*Tags: [v2026.2] (data models), 
+       [v1.4.0][TR-369-v1.4.0] (USP specification didn't change), 
+       [v1.17.0][TR-106-v1.17.0] (TR-106 didn't change), 
+       [v2.21.0][TR-181-v2.21.0] (TR-181 didn't change)*
+
+### TR-517
+* Initial release for MatterService data model based on Matter 1.5.
+
 ## 2026-06-01: [TR-106 Amendment 17] and [TR-181 Issue 2 Amendment 21]
 
 *Tags: [v2026.1] (data models), 
@@ -651,3 +661,4 @@ data models can be found at <https://usp-data-models.broadband-forum.org>.
 [v2025.3]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2025.3
 [v2025.4]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2025.4
 [v2026.1]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2026.1
+[v2026.2]: https://github.com/BroadbandForum/usp-data-models/releases/tag/v2026.2

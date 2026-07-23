@@ -14,10 +14,13 @@ Platform (USP) Data Models: Device Data Model Files and Documentation"/>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -274,11 +277,7 @@ Tool</a>
     <header id="title-block-header" class="cover-only">
       <h1 class="title auto-hoverlink" id="title">Broadband Forum User
 Services Platform (USP) Data Models</h1>
-      <p class="subtitle">2026-06-01: <a
-href="https://www.broadband-forum.org/download/TR-106_Amendment-17.pdf">TR-106
-Amendment 17</a> and <a
-href="https://www.broadband-forum.org/download/TR-181_Issue-2_Amendment-21.pdf">TR-181
-Issue 2 Amendment 21</a></p>
+      <p class="subtitle">2026-07-22: TR-517 Issue 1</p>
       <p class="author"></p>
     </header>
     <nav id="SIDEBAR" role="doc-toc">
@@ -288,6 +287,8 @@ Issue 2 Amendment 21</a></p>
 <ul>
 <li><a href="#sec:current-device2"><span
 class="heading">Device:2</span></a></li>
+<li><a href="#sec:current-matterservice1"><span
+class="heading">MatterService:1</span></a></li>
 <li><a href="#sec:current-fapservice2"><span
 class="heading">FAPService:2</span></a></li>
 <li><a href="#sec:current-storageservice1"><span
@@ -303,6 +304,7 @@ class="heading">VoiceService:2</span></a></li>
 </ul></li>
 <li><a href="#sec:service-data-models">Service Data Models</a>
 <ul>
+<li><a href="#sec:matterservice1">MatterService:1</a></li>
 <li><a href="#sec:fapservice2">FAPService:2</a></li>
 <li><a href="#sec:storageservice1">StorageService:1</a></li>
 <li><a href="#sec:stbservice1">STBService:1</a></li>
@@ -491,6 +493,26 @@ Issue 2 Amendment 21</a></p></td>
 <tr>
 <td style="text-align: left;"><a
 href="tr-181-2-21-0-usp-diffs.html">Diff</a></td>
+</tr>
+<tr>
+<td colspan="7" style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><h2 id="sec:current-matterservice1"
+class="auto-hoverlink" data-info="header"><a href="#sec:matterservice1"
+class="heading">MatterService:1</a></h2></td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;"><span id="tr-517-1-0-0-usp.xml"
+class="auto-hoverlink"><a
+href="tr-517-1-0-0-usp-full.xml">tr-517-1-0-0-usp-full.xml</a></span></td>
+<td style="text-align: left;"><a
+href="tr-517-1-0-0-usp.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Initial release for MatterService data model based on Matter
+1.5.</li>
+</ul></td>
+<td style="text-align: left;">July 2026</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td colspan="7" style="text-align: left;"></td>
@@ -1386,6 +1408,24 @@ class="auto-hoverlink new-section hidden" data-info="header">
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: left;"><h2 id="sec:matterservice1"
+class="auto-hoverlink" data-info="header">MatterService:1</h2></td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;"><a
+href="tr-517-1-0-0-usp-full.xml">tr-517-1-0-0-usp-full.xml</a></td>
+<td style="text-align: left;"><a
+href="tr-517-1-0-0-usp.html"><strong>Full</strong></a></td>
+<td style="text-align: left;"><ul>
+<li>Initial release for MatterService data model based on Matter
+1.5.</li>
+</ul></td>
+<td style="text-align: left;">July 2026</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td colspan="7" style="text-align: left;"></td>
+</tr>
 <tr>
 <td rowspan="4" style="text-align: left;"><h2 id="sec:fapservice2"
 class="auto-hoverlink" data-info="header">FAPService:2</h2></td>
