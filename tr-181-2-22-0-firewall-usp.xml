@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Device:2 Root Data Model: Common Object definitions [Firewall USP]
+
+  Copyright (c) 2010-2026, Broadband Forum
+
+  Redistribution and use in source and binary forms, with or
+  without modification, are permitted provided that the following
+  conditions are met:
+
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above
+     copyright notice, this list of conditions and the following
+     disclaimer in the documentation and/or other materials
+     provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products
+     derived from this software without specific prior written
+     permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  The above license is used as a license under copyright only.
+  Please reference the Forum IPR Policy for patent licensing terms
+  <https://www.broadband-forum.org/ipr-policy>.
+
+  Any moral rights which are necessary to exercise under the above
+  license grant are also deemed granted under this license.
+
+  Comments or questions about this Broadband Forum data model should be
+  directed to <info@broadband-forum.org>.
+-->
+
+<dm:document
+    xmlns:dm="urn:broadband-forum-org:cwmp:datamodel-1-18"
+    xmlns:dmr="urn:broadband-forum-org:cwmp:datamodel-report-1-0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+      urn:broadband-forum-org:cwmp:datamodel-1-18
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-1-18.xsd
+      urn:broadband-forum-org:cwmp:datamodel-report-1-0
+        https://www.broadband-forum.org/cwmp/cwmp-datamodel-report-1-0.xsd"
+    spec="urn:broadband-forum-org:tr-181-2-22-0-firewall-usp"
+    file="tr-181-2-22-0-firewall-usp.xml">
+
+  <import file="tr-069-biblio.xml" spec="urn:broadband-forum-org:tr-069"/>
+
+  <import file="tr-106-types.xml" spec="urn:broadband-forum-org:tr-106">
+    <component name="Alias"/>
+  </import>
+
+  <import file="tr-181-2-root.xml"
+      spec="urn:broadband-forum-org:tr-181-2-22-root">
+    <component name="Root"/>
+  </import>
+
+  <import file="tr-181-2-firewall.xml"
+      spec="urn:broadband-forum-org:tr-181-2-22-0-firewall">
+    <component name="Firewall"/>
+  </import>
+
+  <component name="PriorityMap">
+    <parameter name="PriorityMapNumberOfEntries" access="readOnly"
+          version="2.22">
+        <description>
+          {{numentries}}
+        </description>
+        <syntax>
+          <unsignedInt/>
+        </syntax>
+    </parameter>
+
+    <object name="PriorityMap.{i}." access="readWrite"
+        numEntriesParameter="PriorityMapNumberOfEntries" minEntries="0"
+        maxEntries="unbounded" version="2.22">
+      <description>
+        Each entry defines the {{param|Priority}} value to assign
+        automatically to firewall objects created by a specific USP
+        {{param|Controller}}.
+
+        When a Controller creates a firewall object, the device looks
+        up the matching entry in this table and assigns the configured
+        {{param|Priority}} to the new object.
+      </description>
+      <uniqueKey functional="false">
+        <parameter ref="Alias"/>
+      </uniqueKey>
+      <uniqueKey functional="true">
+        <parameter ref="Controller"/>
+        <parameter ref="Priority"/>
+      </uniqueKey>
+
+      <component ref="Alias"/>
+
+      <parameter name="Controller" access="readWrite" dmr:previousParameter=""
+          version="2.22">
+        <description>
+          The USP Controller to which this mapping applies.
+
+          If {{empty}}, the device sets {{param}} to the path name of the
+          USP Controller that configured this entry.
+        </description>
+        <syntax>
+          <string>
+            <pathRef refType="strong" targetParent=".LocalAgent.Controller."
+              targetType="row"/>
+          </string>
+          <default type="object" value=""/>
+        </syntax>
+      </parameter>
+
+      <component ref="ParamFirewallPriorityUSP" version="2.22"/>
+      <parameter base="Priority" access="readWrite">
+        <description action="replace">
+          The priority value to be assigned to entries in the objects
+          specified by {{param|TargetPaths}} when this mapping applies.
+
+          Lower values indicate higher precedence (entries with lower
+          {{param}} are evaluated first). A value of 0 represents the
+          highest precedence.
+        </description>
+      </parameter>
+
+      <parameter name="TargetPaths" access="readWrite">
+        <description>
+          Specifies which objects this mapping applies to.
+
+          Each item indicates an object path to which this mapping applies.
+
+          When {{param}} is an empty list, this mapping applies to all
+          supported objects.
+        </description>
+        <syntax>
+          <list/>
+          <string/>
+        </syntax>
+      </parameter>
+    </object>
+  </component>
+
+
+
+  <component name="ParamFirewallPriorityUSP">
+    <parameter name="Priority" access="readOnly" version="2.22">
+      <description>
+        Numeric priority used to determine evaluation precedence of
+        {{object}} entries. Lower values indicate higher precedence
+        (entries with lower {{param}} are evaluated first). A value of 0
+        represents the highest precedence.
+
+        The value of {{param}} can be automatically populated based on
+        {{param|Origin}} and the {{object|#.PriorityMap}} table
+        configuration.
+      </description>
+      <syntax>
+        <unsignedInt/>
+      </syntax>
+    </parameter>
+  </component>
+
+  <component name="ParamFirewallControllerUSP">
+    <parameter name="Controller" access="readOnly" dmr:previousParameter="" version="2.22">
+      <description>
+        {{noreference}} The value MUST be the Path Name of the 
+        {{object|.LocalAgent.Controller}} instance that created {{object}}.
+        If the referenced object is deleted, this instance MUST also be deleted.
+
+        The value of this parameter is automatically populated by the USP
+        Agent upon {{object}} creation using the reference to the USP
+        Controller that created the instance.
+
+        This parameter is used for access control. The device restricts
+        modification and deletion of this entry to the Controller
+        identified by {{param}}, unless a Controller with a higher trust
+        level intervenes.
+
+        For example, if a VPN application (Controller A) creates a
+        {{object}} entry, {{param}} is set to Controller A's reference.
+        A separate gaming application (Controller B) cannot modify or
+        delete that entry.
+
+        When {{empty}}, the entry is not associated with any Controller
+        and can therefore be modified or deleted by any Controller.
+      </description>
+      <syntax>
+        <string>
+          <pathRef refType="strong" targetParent=".LocalAgent.Controller."
+            targetType="row"/>
+        </string>
+      </syntax>
+    </parameter>
+  </component>
+
+
+  <component name="FirewallUSP">
+    <object base="Device.Firewall.">
+      <component ref="PriorityMap"/>
+    </object>
+
+    <object base="Device.Firewall.PriorityMap.{i}.">
+      <parameter base="TargetPaths">
+        <syntax>
+          <list/>
+          <string>
+            <enumeration value="Device.Firewall.DMZ"/>
+            <enumeration value="Device.Firewall.Pinhole"/>
+            <enumeration value="Device.Firewall.Policy"/>
+            <enumeration value="Device.Firewall.Service"/>
+          </string>
+        </syntax>
+      </parameter>
+    </object>
+
+    <object base="Device.Firewall.Policy.{i}.">
+      <parameter base="Origin" access="writeOnceReadOnly"/>
+
+      <component ref="ParamFirewallControllerUSP"/>
+      <component ref="ParamFirewallPriorityUSP" version="2.22"/>
+    </object>
+
+    <object base="Device.Firewall.Set.{i}.">
+      <parameter base="Origin" access="writeOnceReadOnly"/>
+
+      <component ref="ParamFirewallControllerUSP"/>
+    </object>
+
+    <object base="Device.Firewall.Pinhole.{i}.">
+      <parameter base="Origin" access="writeOnceReadOnly">
+        <description action="append">
+          Note: This parameter was changed to writeOnceReadOnly in the Device:2.18 version.
+        </description>
+      </parameter>
+
+      <component ref="ParamFirewallControllerUSP"/>
+      <component ref="ParamFirewallPriorityUSP" version="2.22"/>
+    </object>
+
+    <object base="Device.Firewall.DMZ.{i}.">
+      <uniqueKey functional="true">
+        <parameter ref="Controller"/>
+        <parameter ref="DestIP"/>
+        <parameter ref="SourcePrefix"/>
+      </uniqueKey>
+
+      <parameter base="Origin" access="writeOnceReadOnly">
+        <description action="append">
+          Note: This parameter was changed to writeOnceReadOnly in the Device:2.18 version.
+        </description>
+      </parameter>
+
+      <component ref="ParamFirewallControllerUSP"/>
+      <component ref="ParamFirewallPriorityUSP" version="2.22"/>
+    </object>
+
+    <object base="Device.Firewall.Service.{i}.">
+
+      <parameter base="Origin" access="writeOnceReadOnly"/>
+
+      <component ref="ParamFirewallControllerUSP"/>
+      <component ref="ParamFirewallPriorityUSP" version="2.22"/>
+    </object>
+
+    <object base="Device.Firewall.Log.{i}.">
+      <parameter base="Origin" access="writeOnceReadOnly"/>
+
+      <component ref="ParamFirewallControllerUSP"/>
+    </object>
+  </component>
+
+
+  <model name="FirewallUSP:2.22">
+    <component ref="Root"/>
+    <component ref="Firewall"/>
+    <component ref="FirewallUSP"/>
+  </model>
+</dm:document>
