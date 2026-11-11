@@ -78,14 +78,14 @@
     spec="urn:broadband-forum-org:tr-104-2-0-2-usp"
     file="tr-104-2-0-2-usp.xml">
   <description>
-    {{docname|VoiceService:2.0 for USP}} {{appdate|January 2020}}
-    {{trname|tr-104-2-0-0}} March 2014:
-
-    * Original September 2019: {{xmlref|tr-104-2-0-1-usp|Corrigendum 1}}
-
-    * Added USP support (split XML into common, CWMP and USP files) January
-      2020: {{xmlref|tr-104-2-0-2-usp|Corrigendum 2}}
-
+    {{docname|VoiceService:2.0 for USP}}
+    {{appdate|January 2020}}
+    {{trname|tr-104-2-0-0}}
+    March 2014:
+    * Original
+    September 2019: {{xmlref|tr-104-2-0-1-usp|Corrigendum 1}}
+    * Added USP support (split XML into common, CWMP and USP files)
+    January 2020: {{xmlref|tr-104-2-0-2-usp|Corrigendum 2}}
     * Clarified meaning of SessionID and added new SIPSessionID
   </description>
 
@@ -2957,8 +2957,8 @@
             <description>
               Indicates which test to perform. {{enum}}
 
-              The parameter MAY instead indicate a vendor-specific test, which
-              MUST use the format defined in {{bibref|TR-106}}. For example:
+              The parameter MAY instead indicate a vendor-specific test, which MUST
+              use the format defined in {{bibref|TR-106}}. For example:
               "X_EXAMPLE-COM_MyTest"
             </description>
             <syntax>
@@ -2966,8 +2966,8 @@
                 <enumeration value="Battery">
                   <description>
                     Tests for the presence of loop feed current; for a ''ground
-                    start'' line, also tests for polarity, to detect reversal
-                    of Tip and Ring
+                    start'' line, also tests for polarity, to detect reversal of Tip
+                    and Ring
                   </description>
                 </enumeration>
                 <enumeration value="DialTone">
@@ -2983,10 +2983,8 @@
 
           <parameter name="Status" dmr:version="2.0">
             <description>
-              Indicates the availability of diagnostics data. {{enum}} If the
-              value of this parameter is anything other than {{enum|Complete}},
-              the values of the other results parameters for this test are
-              indeterminate.
+              Indicates the availability of diagnostics data. {{enum}}
+              If the value of this parameter is anything other than {{enum|Complete}}, the values of the other results parameters for this test are indeterminate.
             </description>
             <syntax>
               <string>
@@ -3003,9 +3001,9 @@
             <description>
               Result of the selected test. {{enum}}
 
-              The parameter MAY instead indicate a vendor-specific result,
-              which MUST use the format defined in {{bibref|TR-106}}. For
-              example: "X_EXAMPLE-COM_MyResult"
+              The parameter MAY instead indicate a vendor-specific result, which MUST
+              use the format defined in {{bibref|TR-106}}. For example:
+              "X_EXAMPLE-COM_MyResult"
             </description>
             <syntax>
               <string>
@@ -3221,16 +3219,16 @@
               <string>
                 <enumeration value="Hazard Potential">
                   <description>
-                    Hazard Potential test is failed if the TIP-GND or RING-GND
-                    AC voltage is greater than 50 volts rms or DC voltage is
-                    greater than 135 volts
+                    Hazard Potential test is failed if the TIP-GND or RING-GND AC
+                    voltage is greater than 50 volts rms or DC voltage is greater
+                    than 135 volts
                   </description>
                 </enumeration>
                 <enumeration value="Foreign Voltage">
                   <description>
-                    Foreign Voltage test is failed if the TIP-GND or RING-GND
-                    AC voltage is greater than 10 volts or the TIP-GND or
-                    RING-GND DC voltage is greater than 6 volts
+                    Foreign Voltage test is failed if the TIP-GND or RING-GND AC
+                    voltage is greater than 10 volts or the TIP-GND or RING-GND DC
+                    voltage is greater than 6 volts
                   </description>
                 </enumeration>
                 <enumeration value="Resistive Faults">
@@ -3241,19 +3239,18 @@
                 </enumeration>
                 <enumeration value="Off-hook">
                   <description>
-                    Off-hook test is based upon criteria that permit the system
-                    to discriminate between a resistive fault and a
-                    receiver-off-hook condition. For example, a failure
-                    condition could be based on a non-linearity in the TIP-RING
-                    DC resistance of greater than 15% when measured at two
-                    different voltage levels
+                    Off-hook test is based upon criteria that permit the system to
+                    discriminate between a resistive fault and a receiver-off-hook
+                    condition. For example, a failure condition could be based on a
+                    non-linearity in the TIP-RING DC resistance of greater than 15%
+                    when measured at two different voltage levels
                   </description>
                 </enumeration>
                 <enumeration value="REN">
                   <description>
-                    Ringer Equivalence Number test is failed when the
-                    equivalent ringer count across TIP and RING is less than
-                    0.175 REN or greater than 5 REN
+                    Ringer Equivalence Number test is failed when the equivalent
+                    ringer count across TIP and RING is less than 0.175 REN or
+                    greater than 5 REN
                   </description>
                 </enumeration>
               </string>
@@ -3264,10 +3261,8 @@
 
           <parameter name="Status" dmr:version="2.0">
             <description>
-              Indicates the availability of diagnostics data. {{enum}} If the
-              value of this parameter is anything other than {{enum|Complete}},
-              the values of the other results parameters for this test are
-              indeterminate.
+              Indicates the availability of diagnostics data. {{enum}}
+              If the value of this parameter is anything other than {{enum|Complete}}, the values of the other results parameters for this test are indeterminate.
             </description>
             <syntax>
               <string>
@@ -3839,8 +3834,7 @@
 
       <parameter name="Name" access="readWrite" version="2.0.3">
         <description>
-          The name of the DECT portable as assigned by the CPE. May be used for
-          display on the handset screen.
+          The name of the DECT portable as assigned by the CPE. May be used for display on the handset screen.
         </description>
         <syntax>
           <string>
@@ -5550,11 +5544,10 @@
       <parameter name="TimerSubscriptionFailed" access="readWrite">
         <description>
           When starting a MWI subscription, on response of a SUBSCRIBE request
-
           : in case of no response or other response than 200 or 423, the CPE
-            shall retry according to retransmission algorithm defined in
-            {{bibref|RFC3261}}, then wait for expiration of this timer (in
-            {{units}}) before sending a new SUBSCRIBE request.
+          shall retry according to retransmission algorithm defined in
+          {{bibref|RFC3261}}, then wait for expiration of this timer (in
+          {{units}}) before sending a new SUBSCRIBE request.
         </description>
         <syntax>
           <unsignedInt>
@@ -11566,9 +11559,8 @@
       <parameter name="DuplicatePacketsReceived" access="readOnly"
           version="2.0.3">
         <description>
-          Total number of duplicate RTP packets that have been received for
-          this session. Note: duplicate packets are often the result of network
-          configuration errors.
+          Total number of duplicate RTP packets that have been received for this session.
+          Note: duplicate packets are often the result of network configuration errors.
         </description>
         <syntax>
           <dataType ref="StatsCounter64"/>
@@ -12124,9 +12116,8 @@
       <parameter name="DuplicatePacketsReceived" access="readOnly"
           version="2.0.3">
         <description>
-          Total number of duplicate RTP packets that have been received for
-          this session. Note: duplicate packets are often the result of network
-          configuration errors.
+          Total number of duplicate RTP packets that have been received for this session.
+          Note: duplicate packets are often the result of network configuration errors.
         </description>
         <syntax>
           <dataType ref="StatsCounter64"/>
@@ -13212,8 +13203,8 @@
         <description>
           Reference to the default tone event profile.
 
-          {{deprecated|2.0.3|due to a typo in its name. Use
-          {{param|DefaultEventProfile}} instead}}
+          {{deprecated|2.0.3|due to a typo in its name. Use {{param|DefaultEventProfile}}
+          instead}}
         </description>
         <syntax>
           <string>
@@ -13766,8 +13757,8 @@
             <description>
               Indicates which test to perform.
 
-              The parameter MAY instead indicate a vendor-specific test, which
-              MUST use the format defined in {{bibref|TR-106}}. For example:
+              The parameter MAY instead indicate a vendor-specific test, which MUST
+              use the format defined in {{bibref|TR-106}}. For example:
 
               "X_EXAMPLE-COM_MyTest"
             </description>
@@ -13782,10 +13773,8 @@
 
           <parameter name="Status" dmr:version="2.0">
             <description>
-              Indicates the availability of diagnostics data. {{enum}} If the
-              value of this parameter is anything other than {{enum|Complete}},
-              the values of the other results parameters for this test are
-              indeterminate.
+              Indicates the availability of diagnostics data. {{enum}}
+              If the value of this parameter is anything other than {{enum|Complete}}, the values of the other results parameters for this test are indeterminate.
             </description>
             <syntax>
               <string>

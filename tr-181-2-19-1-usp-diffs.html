@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -2717,7 +2755,19 @@ with only one server at a time, unlike most NTP clients.</p>
 <li><span id="D.Device:2.Device.Time.Status.Disabled"><em>Disabled</em></span> (Indicates that the CPE's time client services are disabled)</li>
 <li><span id="D.Device:2.Device.Time.Status.Unsynchronized"><em>Unsynchronized</em></span> (Indicates that the CPE's absolute time has not yet been set by any of the configured time clients)</li>
 <li><span id="D.Device:2.Device.Time.Status.Synchronized"><em>Synchronized</em></span> (Indicates that the CPE has acquired accurate absolute time; its current time is accurate. One or more time client was able to configure the time of the CPE)</li>
-<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>. This enumeration was OBSOLETED in 2.18. This enumeration was DELETED in 2.19. :::::: diffs <strong>Changes since 2.18:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.Time.Status.Error_FailedToSynchronize"><em>Error_FailedToSynchronize</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.16 due to the introduction of <a href="#D.Device:2.Device.Time.Client."><em>Client</em></a>.</p>
+<p>This enumeration was OBSOLETED in 2.18.</p>
+<p>This enumeration was DELETED in 2.19.</p>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.Time.Status.Error"><em>Error</em></span> (MAY be used by the CPE to indicate a locally defined error condition. None of the configured Time clients were able to synchronize the time, OPTIONAL)</li>
 </ul>
 </td>
@@ -3119,7 +3169,7 @@ object with at least one instance and an assigned relevant role in
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. <span class="removed">Points to</span><span class="inserted">Specifies</span> the server certificate to be presented by the <span class="removed">web</span><span class="inserted">server</span> <span class="removed">interface.</span><span class="inserted">during</span> <span class="removed">Only</span><span class="inserted">the</span> <span class="removed">required</span><span class="inserted">TLS handshake. This certificate is used to authenticate the server to remote clients, ensuring that the clients are connecting to a legitimate server. The server certificate must be issued by a trusted Certificate Authority (CA) and should match the server's private key. This parameter is applicable only</span> when <span class="removed">{{param|Protocol}}</span><span class="inserted">a TLS session</span> is <span class="removed">set</span><span class="inserted">being</span> <span class="removed">to <em>HTTPS</em>.}}</span><span class="inserted">used.</span></p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. <span class="removed">Points to</span><span class="inserted">Specifies</span> the server certificate to be presented by the <span class="removed">web</span><span class="inserted">server</span> <span class="removed">interface.</span><span class="inserted">during</span> <span class="removed">Only</span><span class="inserted">the</span> <span class="removed">required</span><span class="inserted">TLS handshake. This certificate is used to authenticate the server to remote clients, ensuring that the clients are connecting to a legitimate server. The server certificate must be issued by a trusted Certificate Authority (CA) and should match the server's private key. This parameter is applicable only</span> when <span class="removed">{{param|Protocol}}</span><span class="inserted">a TLS session</span> is <span class="removed">set</span><span class="inserted">being</span> <span class="removed">to <em>HTTPS</em>.</span><span class="inserted">used.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -3165,7 +3215,9 @@ This parameter is applicable only when a TLS session is being used.</p>
 </td>
 <td>
 <div class="hide">
-<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. Points to the CA certificate that must be used by the web interface. The <em>CACertificate</em> is used to validate the web client certificate. <a href="#D.Device:2.Device.UserInterface.HTTPAccess.Protocol"><em>Protocol</em></a> MUST be set to <span class="removed"><em>HTTPS</em>.}}</span><span class="inserted"><em>HTTPS</em></span></p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. Points to the CA certificate that must be used by the web interface. The <em>CACertificate</em> is used to validate the web client certificate. <a href="#D.Device:2.Device.UserInterface.HTTPAccess.Protocol"><em>Protocol</em></a> MUST be set to <span class="removed"><em>HTTPS</em>.</span><span class="inserted"><em>HTTPS</em></span></p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was DEPRECATED in 2.19<span class="hide"> Replaced by <a href="#D.Device:2.Device.UserInterface.HTTPAccess.CABundle"><em>CABundle</em></a> which can now contain one or more reference</span>.<span class="click"></span></p>
 </div>
@@ -3199,8 +3251,11 @@ This parameter is applicable only when a TLS session is being used.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (maximum number of characters 1024) of strings. Allow only access from the provided list of IPv4 prefixes.</p>
-<p>When <em>IPv4AllowedSourcePrefix</em> is set to an empty string and <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv4"><em>AllowAllIPv4</em></a> is set to <em>false</em>, no incoming connections are allowed.<span class="removed"> </span><span class="inserted">When <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv4"><em>AllowAllIPv4</em></a> is set <em>true</em>, <em>IPv4AllowedSourcePrefix</em> is ignored.</span></p>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Allow only access from the provided list of IPv4 prefixes.<span class="removed">{{div|{{classes}}|When {{param}} is set to {{empty}} and {{param|AllowAllIPv4}} is set to <em>false</em>, no incoming connections are allowed. When {{param|AllowAllIPv4}} is set <em>true</em>, {{param}} is ignored.}}</span></p>
+<div class="inserted">
+<p>When <em>IPv4AllowedSourcePrefix</em> is set to an empty string and <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv4"><em>AllowAllIPv4</em></a> is set to <em>false</em>, no incoming connections are allowed.</p>
+<p>When <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv4"><em>AllowAllIPv4</em></a> is set <em>true</em>, <em>IPv4AllowedSourcePrefix</em> is ignored.</p>
+</div>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -3226,8 +3281,11 @@ This parameter is applicable only when a TLS session is being used.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (maximum number of characters 1024) of strings. Allow only access from the provided list of IPv6 prefixes.</p>
-<p>When <em>IPv6AllowedSourcePrefix</em> is set to an empty string and <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv6"><em>AllowAllIPv6</em></a> is set to <em>false</em>, no incoming connections are allowed.<span class="removed"> </span><span class="inserted">When <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv6"><em>AllowAllIPv6</em></a> is set <em>true</em>, <em>IPv6AllowedSourcePrefix</em> is ignored.</span></p>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Allow only access from the provided list of IPv6 prefixes.<span class="removed">{{div|{{classes}}|When {{param}} is set to {{empty}} and {{param|AllowAllIPv6}} is set to <em>false</em>, no incoming connections are allowed. When {{param|AllowAllIPv6}} is set <em>true</em>, {{param}} is ignored.}}</span></p>
+<div class="inserted">
+<p>When <em>IPv6AllowedSourcePrefix</em> is set to an empty string and <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv6"><em>AllowAllIPv6</em></a> is set to <em>false</em>, no incoming connections are allowed.</p>
+<p>When <a href="#D.Device:2.Device.UserInterface.HTTPAccess.AllowAllIPv6"><em>AllowAllIPv6</em></a> is set <em>true</em>, <em>IPv6AllowedSourcePrefix</em> is ignored.</p>
+</div>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -7271,7 +7329,11 @@ Line interface.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables the <span class="removed">FAST line. </span><span class="inserted">interface.</span>This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
+<p><span class="removed">{{div|{{classes}}|Enables or disables the FAST line. This parameter is based on <em>ifAdminStatus</em> from {{bibref|RFC2863}}.}}</span></p>
+<div class="inserted">
+<p>Enables or disables the interface.</p>
+<p>This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -8050,8 +8112,8 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 <li><span id="D.Device:2.Device.Cellular.Interface.Status.Error"><em>Error</em></span> (OPTIONAL)</li>
 </ul>
 <p>When <a href="#D.Device:2.Device.Cellular.Interface.Enable"><em>Enable</em></a> is <em>false</em> then <em>Status</em> SHOULD normally be <a href="#D.Device:2.Device.Cellular.Interface.Status.Down"><em>Down</em></a> (or <a href="#D.Device:2.Device.Cellular.Interface.Status.NotPresent"><em>NotPresent</em></a> or <a href="#D.Device:2.Device.Cellular.Interface.Status.Error"><em>Error</em></a> if there is a fault condition on the interface).</p>
-<p>When <a href="#D.Device:2.Device.Cellular.Interface.Enable"><em>Enable</em></a> is changed to <em>true</em> then <em>Status</em><span class="removed">}}{{div|{{classes}}|{{li|*}}</span><span class="inserted"> </span>SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network <span class="removed">traffic.}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">traffic; it </span>SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> if still operable when the expected actions have <span class="removed">completed)}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">completed); it SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if the interface is prevented from entering the <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down; it </span>SHOULD remain in the <a href="#D.Device:2.Device.Cellular.Interface.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the <span class="removed">interface}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">interface; it </span>SHOULD remain in the <a href="#D.Device:2.Device.Cellular.Interface.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.<span class="removed">{{div|{{classes}}|Because the interface includes layer 1 the {{enum|LowerLayerDown}} value SHOULD never be used.}}</span></p>
-<p>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
+<p>When <a href="#D.Device:2.Device.Cellular.Interface.Enable"><em>Enable</em></a> is changed to <em>true</em> then <em>Status</em><span class="removed">}}{{div|{{classes}}|{{li|*}}</span><span class="inserted"> </span>SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network <span class="removed">traffic.}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">traffic; it </span>SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> if still operable when the expected actions have <span class="removed">completed)}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">completed); it SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if the interface is prevented from entering the <a href="#D.Device:2.Device.Cellular.Interface.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down; it </span>SHOULD remain in the <a href="#D.Device:2.Device.Cellular.Interface.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the <span class="removed">interface}}{{div|{{classes}}|{{li|*}}</span><span class="inserted">interface; it </span>SHOULD remain in the <a href="#D.Device:2.Device.Cellular.Interface.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.Cellular.Interface.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.</p>
+<p><span class="removed">Because the interface includes layer 1 the {{enum|LowerLayerDown}} value SHOULD never be used.}}{{div|{{classes}}|</span>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 <p><span class="inserted">Because the interface includes layer 1, the <a href="#D.Device:2.Device.Cellular.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> value SHOULD never be used.</span></p>
 </td>
 <td>
@@ -8074,8 +8136,13 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 <td>
 <p>The Reference Signal Received Power in <em>dBm</em> for <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.LTE"><em>LTE</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></a> values of <a href="#D.Device:2.Device.Cellular.Interface.CurrentAccessTechnology"><em>CurrentAccessTechnology</em></a>:</p>
 <ul>
-<li>The valid range of RSRP values from worst to best is -140 <em>dBm</em> to -44 <em>dBm</em><span class="removed">}}</span><span class="inserted"> * Set to <em>2147483647</em> (the maximum valid value) if RSRP is not supported by the current access technology</span></li>
+<li>The valid range of RSRP values from worst to best is -140 <em>dBm</em> to -44 <em>dBm</em></li>
 </ul>
+<div class="inserted">
+<ul>
+<li>Set to <em>2147483647</em> (the maximum valid value) if RSRP is not supported by the current access technology</li>
+</ul>
+</div>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -8098,8 +8165,15 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 <td>
 <p>The Reference Signal Received Quality in <em>dBm</em> for <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.LTE"><em>LTE</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></a> values of <a href="#D.Device:2.Device.Cellular.Interface.CurrentAccessTechnology"><em>CurrentAccessTechnology</em></a>:</p>
 <ul>
-<li>RSRQ is calculated using RSSI and RSRP values using RSRQ = (N<em>RSRP)/RSSI where N is the number of resource blocks (bandwidth).<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></em> The valid range of <span class="removed">RSRP</span><span class="inserted">RSRQ</span> values from worst to best is -20 <em>dBm</em> to -3 <em>dBm</em><span class="removed">}}</span><span class="inserted">. * Set to <em>2147483647</em> (the maximum valid value) if RSRQ is not supported by the current access technology.</span></li>
+<li>RSRQ is calculated using RSSI and RSRP values using RSRQ = (N*RSRP)/RSSI where N is the number of resource blocks (bandwidth).<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li>The valid range of <span class="removed">RSRP</span><span class="inserted">RSRQ</span> values from worst to best is -20 <em>dBm</em> to -3 <em>dBm</em></li>
 </ul>
+<div class="inserted">
+<p>.</p>
+<ul>
+<li>Set to <em>2147483647</em> (the maximum valid value) if RSRQ is not supported by the current access technology.</li>
+</ul>
+</div>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -12723,6 +12797,34 @@ Connection Access Method of the Ethernet interface MAC. A
 <p>2.12</p>
 </td>
 </tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Ethernet.Interface.SupportedLinkModes">SupportedLinkModes</span></p>
+</td>
+<td>
+<p>unsignedInt[]</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>Comma-separated list of unsigned integers. Reports the supported link modes. MUST be reported in a compliant way as defined in [<a href="#R.IANAMauMIB">IANAifMauTypeListBits/IANAMauMIB</a>]. For example, IANAifMauTypeListBits defines the following link mode types:<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></p>
+<ul>
+<li><em>16</em> (100BASE-TX full duplex mode)<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li><em>26</em> (1000BASE-SX full duplex mode)<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li><em>30</em> (1000BASE-T full duplex mode)<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li><em>54</em> (10GBASE-T)<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li><em>103</em> (2.5GBASE-T)<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span></li>
+<li><em>104</em> (5GBASE-T)</li>
+</ul>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>2.16</p>
+</td>
+</tr>
 <tr class="parameter inserted">
 <td>
 <p><span id="D.Device:2.Device.Ethernet.Interface.AdvertisedLinkModes">AdvertisedLinkModes</span></p>
@@ -12738,12 +12840,24 @@ Connection Access Method of the Ethernet interface MAC. A
 as defined in [<a href="#R.IANAMauMIB">IANAifMauTypeListBits/IANAMauMIB</a>]. For
 example, IANAifMauTypeListBits defines the following link mode types:</p>
 <ul>
-<li><em>16</em> (100BASE-TX full duplex mode)</li>
-<li><em>26</em> (1000BASE-SX full duplex mode)</li>
-<li><em>30</em> (1000BASE-T full duplex mode)</li>
-<li><em>54</em> (10GBASE-T)</li>
-<li><em>103</em> (2.5GBASE-T)</li>
-<li><em>104</em> (5GBASE-T)</li>
+<li>
+<p><em>16</em> (100BASE-TX full duplex mode)</p>
+</li>
+<li>
+<p><em>26</em> (1000BASE-SX full duplex mode)</p>
+</li>
+<li>
+<p><em>30</em> (1000BASE-T full duplex mode)</p>
+</li>
+<li>
+<p><em>54</em> (10GBASE-T)</p>
+</li>
+<li>
+<p><em>103</em> (2.5GBASE-T)</p>
+</li>
+<li>
+<p><em>104</em> (5GBASE-T)</p>
+</li>
 </ul>
 </td>
 <td>
@@ -12768,12 +12882,24 @@ example, IANAifMauTypeListBits defines the following link mode types:</p>
 as defined in [<a href="#R.IANAMauMIB">IANAifMauTypeListBits/IANAMauMIB</a>]. For
 example, IANAifMauTypeListBits defines the following link mode types:</p>
 <ul>
-<li><em>16</em> (100BASE-TX full duplex mode)</li>
-<li><em>26</em> (1000BASE-SX full duplex mode)</li>
-<li><em>30</em> (1000BASE-T full duplex mode)</li>
-<li><em>54</em> (10GBASE-T)</li>
-<li><em>103</em> (2.5GBASE-T)</li>
-<li><em>104</em> (5GBASE-T)</li>
+<li>
+<p><em>16</em> (100BASE-TX full duplex mode)</p>
+</li>
+<li>
+<p><em>26</em> (1000BASE-SX full duplex mode)</p>
+</li>
+<li>
+<p><em>30</em> (1000BASE-T full duplex mode)</p>
+</li>
+<li>
+<p><em>54</em> (10GBASE-T)</p>
+</li>
+<li>
+<p><em>103</em> (2.5GBASE-T)</p>
+</li>
+<li>
+<p><em>104</em> (5GBASE-T)</p>
+</li>
 </ul>
 </td>
 <td>
@@ -15472,7 +15598,7 @@ MAC levels of an HPNA interface [<a href="#R.G.9954">G.9954</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum <span class="removed">HPNA</span><span class="inserted">upstream and downstream</span> PHY bit rate <span class="inserted">supported by this interface </span>(expressed in <em>Mbps</em><span class="removed">) of this interface.}}</span><span class="inserted">).</span></p>
+<p>The maximum <span class="removed">HPNA</span><span class="inserted">upstream and downstream</span> PHY bit rate <span class="inserted">supported by this interface </span>(expressed in <em>Mbps</em><span class="removed">) of this interface.</span><span class="inserted">).</span></p>
 </td>
 <td>
 <p>-</p>
@@ -16029,7 +16155,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>R</p>
 </td>
 <td>
-<p>The maximum <span class="removed">MoCA</span><span class="inserted">upstream and downstream</span> PHY bit rate <span class="inserted">supported by this interface </span>(expressed in <em>Mbps</em>).</p>
+<p>The maximum <span class="removed">MoCA</span><span class="inserted">upstream and downstream</span> PHY bit rate<span class="inserted"> supported by this interface</span> (expressed in <em>Mbps</em>).</p>
 <p>This parameter MUST NOT be implemented for MoCA 2.0 because it doesn't map to a MIB object.</p>
 </td>
 <td>
@@ -24546,7 +24672,7 @@ that the Radio on which the Affiliated AP with the given
 </td>
 <td>
 <p>The Access Points (APs) affiliated to the AP MLD. [<a href="#R.EasyMesh">EasyMesh</a>] Source: Agent AP MLD Configuration TLV.</p>
-<p>Counters in this object <span class="inserted">only </span>include<span class="removed"> all traffic,</span> MLD <span class="removed">and non-MLD.}}</span><span class="inserted">traffic.</span></p>
+<p>Counters in this object <span class="inserted">only </span>include<span class="removed"> all traffic,</span> MLD <span class="removed">and non-MLD.</span><span class="inserted">traffic.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.AffiliatedAP.BSSID"><em>BSSID</em></a>.</p>
 </td>
 <td>
@@ -26447,7 +26573,7 @@ Points discovered by a Radio during a channel scan.</p>
 <p>R</p>
 </td>
 <td>
-<p>Throughput statistics for this interface.<strong>{{replaced: unexpected argument [removed(Appendix III}} for further details. ), &quot;The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's &quot;, param(#.Status), &quot; parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's &quot;, param(#.Enable), ' parameter transitions from ', false(), ' to ', true(), '). Administrative and operational interface status is discussed in ', bibref(TR-181i2, [replaced(Section, section), ' 4.2.2']), '.'] after:  Packet counters here count 802.11 WiFi frames. See {{bibref|TR-181i2, [div([classes()])]}}</strong></p>
+<p>Throughput statistics for this interface.<span class="removed"> Packet counters here count 802.11 WiFi frames. See {{bibref|TR-181i2|Appendix III}} for further details. </span>The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.WiFi.Radio.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <p><span class="inserted">Packet counters here count 802.11 WiFi frames. See [<a href="#R.TR-181i2">Appendix III/TR-181i2</a>] for further details.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -26834,7 +26960,7 @@ can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio
 <p>R</p>
 </td>
 <td>
-<p>Throughput statistics for this interface.<strong>{{replaced: unexpected argument [removed(Appendix III}} for further details. ), &quot;The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's &quot;, param(#.Status), &quot; parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's &quot;, param(#.Enable), ' parameter transitions from ', false(), ' to ', true(), '). Administrative and operational interface status is discussed in ', bibref(TR-181i2, [replaced(Section, section), ' 4.2.2']), '.'] after:  Packet counters here count 802.11 WiFi frames. See {{bibref|TR-181i2, [div([classes()])]}}</strong></p>
+<p>Throughput statistics for this interface.<span class="removed"> Packet counters here count 802.11 WiFi frames. See {{bibref|TR-181i2|Appendix III}} for further details. </span>The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.WiFi.SSID.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.WiFi.SSID.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <p><span class="inserted">Packet counters here count 802.11 WiFi frames. See [<a href="#R.TR-181i2">Appendix III/TR-181i2</a>] for further details.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -26989,7 +27115,7 @@ can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">packets</span><span class="inserted"><em>packets</em></span> that could not be transmitted because of errors.<span class="removed"> </span><span class="inserted">These can be due to the number of retransmissions exceeding the retry limit, or from other causes.</span></p>
+<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of outbound <span class="removed">packets</span><span class="inserted"><em>packets</em></span> that could not be transmitted because of errors.<span class="removed"> </span>These can be due to the number of retransmissions exceeding the retry limit, or from other causes.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -29571,12 +29697,16 @@ associated border router can only support one standard at a time.</p>
 <p>Create, or replace existing, <a href="#D.Device:2.Device.Thread.MLE.Dataset."><em>Dataset</em></a> instance.</p>
 <p>When this command is call :</p>
 <ul>
-<li>if the <a href="#D.Device:2.Device.Thread.MLE."><em>Device.Thread.MLE.{i}.</em></a> instance
+<li>
+<p>if the <a href="#D.Device:2.Device.Thread.MLE."><em>Device.Thread.MLE.{i}.</em></a> instance
 is enabled and <a href="#D.Device:2.Device.Thread.MLE.Status"><em>Status</em></a> is Up then all nodes attached to the
-interface receive the order to change their Dataset,</li>
-<li>else the active Dataset is stored and will be activated
+interface receive the order to change their Dataset,</p>
+</li>
+<li>
+<p>else the active Dataset is stored and will be activated
 when the <a href="#D.Device:2.Device.Thread.MLE."><em>Device.Thread.MLE.{i}.</em></a> instance becomes enabled
-and Up.</li>
+and Up.</p>
+</li>
 </ul>
 </td>
 <td>
@@ -29621,15 +29751,33 @@ and Up.</li>
 parameters that will be used across an entire Thread network.
 The active Operational Dataset TLVs encode :</p>
 <ul>
-<li>Active Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Security Policy</li>
+<li>
+<p>Active Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The encoding in <em>TLVs</em> for the active Dataset field is defined in
 the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
@@ -29697,15 +29845,33 @@ parameters provided in the TLVs.</p>
 be use across an entire Thread network. The pending Operational
 Dataset TLVs encode :</p>
 <ul>
-<li>Pending Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Security Policy</li>
+<li>
+<p>Pending Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The encoding in <em>TLVs</em> for the pending Dataset field is defined
 in the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
@@ -29773,15 +29939,33 @@ in the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
 be use across an entire Thread network. The active Operational
 Dataset TLVs encode :</p>
 <ul>
-<li>Active Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Security Policy</li>
+<li>
+<p>Active Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The encoding in <em>TLVs</em> for the active Dataset field is defined in
 the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
@@ -29849,16 +30033,36 @@ the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
 be use across an entire Thread network. The pending Operational
 Dataset TLVs encode :</p>
 <ul>
-<li>Pending Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Delay Timer</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Security Policy</li>
+<li>
+<p>Pending Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Delay Timer</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The encoding in <em>TLVs</em> for the pending Dataset field is defined
 in the Thread specification (see [<a href="#R.ThreadSpec">ThreadSpec</a>]).</p>
@@ -30398,16 +30602,36 @@ Thread specification, see [<a href="#R.ThreadSpec">ThreadSpec</a>]) that are cur
 use across an entire Thread network. The active Operational Dataset
 contains:</p>
 <ul>
-<li>Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Network key</li>
-<li>Security Policy</li>
+<li>
+<p>Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Network key</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The pending Operational Dataset is used to communicate changes to the
 active Operational Dataset before they take effect. The pending
@@ -30498,8 +30722,12 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <td>
 <p><em>TimeStamp</em> of the dataset, depending status, it represent :</p>
 <ul>
-<li>Active Timestamp (timestamp of the current dataset)</li>
-<li>Pending Timestamp</li>
+<li>
+<p>Active Timestamp (timestamp of the current dataset)</p>
+</li>
+<li>
+<p>Pending Timestamp</p>
+</li>
 </ul>
 </td>
 <td>
@@ -30931,9 +31159,9 @@ has received data from remote node.</p>
 <p>Thread Device mode value.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.rx-on-when-idle"><em>rx-on-when-idle</em></span></li>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullThreadDevice"><em>Full Thread Device</em></span></li>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullNetworkData"><em>Full Network Data</em></span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.rx-on-when-idle"><em>rx-on-when-idle</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullThreadDevice"><em>Full Thread Device</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullNetworkData"><em>Full Network Data</em> [<code>3</code>]</span></li>
 </ul>
 </td>
 <td>
@@ -31090,12 +31318,20 @@ to the Thread Specification (i.e. a child node has an empty <em>Route</em>
 table). It maintains information for each link to Router neighbor as
 follows:</p>
 <ul>
-<li>the Router ID assigned to that neighbor.</li>
-<li>the routing cost.</li>
-<li>the incoming link quality metric calculated from the measured link
-margin for messages received from the neighbor.</li>
-<li>the incoming link quality metric reported by the neighbor for
-messages arriving from this Router.</li>
+<li>
+<p>the Router ID assigned to that neighbor.</p>
+</li>
+<li>
+<p>the routing cost.</p>
+</li>
+<li>
+<p>the incoming link quality metric calculated from the measured link
+margin for messages received from the neighbor.</p>
+</li>
+<li>
+<p>the incoming link quality metric reported by the neighbor for
+messages arriving from this Router.</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Thread.MLE.AssociatedNode.Route.ID"><em>ID</em></a>.</p>
 </td>
@@ -31261,12 +31497,18 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <td>
 <p>The IPv6 address may by of one the following types. Enumeration of:</p>
 <ul>
-<li>LinkLocal (Address reachable by a single radio transmission with
-the prefixes fe80::/16).</li>
-<li>MeshLocal (Address reachable within the same Thread network with
-the prefix defined by the Thread network).</li>
-<li>Global (Address reachable from outside a Thread network with the
-prefix provided by the Border Router).</li>
+<li>
+<p>LinkLocal (Address reachable by a single radio transmission with
+the prefixes fe80::/16).</p>
+</li>
+<li>
+<p>MeshLocal (Address reachable within the same Thread network with
+the prefix defined by the Thread network).</p>
+</li>
+<li>
+<p>Global (Address reachable from outside a Thread network with the
+prefix provided by the Border Router).</p>
+</li>
 </ul>
 </td>
 <td>
@@ -31425,6 +31667,30 @@ interface of a ZigBee end device, ZigBee router or ZigBee coordinator.</p>
 <li>Added <a href="#D.Device:2.Device.ZigBee.Interface.Upstream"><em>Upstream</em></a> parameter</li>
 <li>Added <a href="#D.Device:2.Device.ZigBee.Interface.MaxBitRate"><em>MaxBitRate</em></a> parameter</li>
 </ul>
+</div>
+</td>
+<td>
+<p>-</p>
+</td>
+<td>
+<p>2.12</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.ZigBee.Interface.Enable">Enable</span></p>
+</td>
+<td>
+<p>boolean</p>
+</td>
+<td>
+<p>W</p>
+</td>
+<td>
+<p><span class="removed">{{div|{{classes}}|Enables or disables the interface. This parameter is based on <em>ifAdminStatus</em> from {{bibref|RFC2863}}.}}</span></p>
+<div class="inserted">
+<p>Enables or disables the interface.</p>
+<p>This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 </div>
 </td>
 <td>
@@ -31666,7 +31932,7 @@ operational interface status is discussed in [<a href="#R.TR-181i2">Section
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">outbound </span><em>packets</em> <span class="removed">discarded</span><span class="inserted">that</span> <span class="removed">by</span><span class="inserted">could</span> <span class="removed">interface</span><span class="inserted">not</span> <span class="removed">due</span><span class="inserted">be</span> <span class="removed">to</span><span class="inserted">transmitted</span> <span class="removed">any</span><span class="inserted">because</span> <span class="removed">error.}}</span><span class="inserted">of errors.</span></p>
+<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">outbound </span><em>packets</em> <span class="removed">discarded</span><span class="inserted">that</span> <span class="removed">by</span><span class="inserted">could</span> <span class="removed">interface</span><span class="inserted">not</span> <span class="removed">due</span><span class="inserted">be</span> <span class="removed">to</span><span class="inserted">transmitted</span> <span class="removed">any</span><span class="inserted">because</span> <span class="removed">error.</span><span class="inserted">of errors.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -31750,7 +32016,7 @@ including those that were discarded or not sent.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">outbound </span><em>packets</em><span class="removed"> requested for transmission</span> which were chosen to be discarded even though no errors had been detected to prevent <span class="removed">the {{units}}</span><span class="inserted">their</span> being transmitted.<span class="removed">}}</span><span class="inserted"> One possible reason for discarding such a packet could be to free up buffer space.</span></p>
+<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">outbound </span><em>packets</em><span class="removed"> requested for transmission</span> which were chosen to be discarded even though no errors had been detected to prevent <span class="removed">the {{units}}</span><span class="inserted">their</span> being transmitted.<span class="inserted"> One possible reason for discarding such a packet could be to free up buffer space.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -31777,7 +32043,7 @@ including those that were discarded or not sent.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">inbound </span><em>packets</em><span class="removed"> received</span> which were chosen to be discarded even though no errors had been detected to prevent their being delivered.<span class="removed">}}</span><span class="inserted"> One possible reason for discarding such a packet could be to free up buffer space.</span></p>
+<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of <span class="inserted">inbound </span><em>packets</em><span class="removed"> received</span> which were chosen to be discarded even though no errors had been detected to prevent their being delivered.<span class="inserted"> One possible reason for discarding such a packet could be to free up buffer space.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -33257,8 +33523,10 @@ above technology-specific Tunnel Interfaces, e.g. above
 <p>-</p>
 </td>
 <td>
+<div class="inserted">
 <p>On a reset device MUST tear down the existing IP connection represented by this object and establish a new one.</p>
-<p><span class="inserted">This is the same as disabling and re-enabling the IP interface, after which all associated IP addresses and prefixes MUST be refreshed. If refreshing is not possible (e.g., due to a significant remaining lifetime of a prefix), the implementation may choose to retain them instead of discarding them.</span></p>
+<p>This is the same as disabling and re-enabling the IP interface, after which all associated IP addresses and prefixes MUST be refreshed. If refreshing is not possible (e.g., due to a significant remaining lifetime of a prefix), the implementation may choose to retain them instead of discarding them.</p>
+</div>
 <p>The device MAY delay resetting the connection in order to avoid interruption of a user service such as an ongoing voice call.</p>
 <p>Reset on a disabled interface is a no-op (not an error).</p>
 </td>
@@ -34518,8 +34786,8 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this <span class="removed">GRE tunnel interface, i.e. all traffic that has passed through the </span>interface.</p>
-<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.GRE.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.GRE.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="removed">}}</span><span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
+<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this<span class="removed"> GRE tunnel interface, i.e. all traffic that has passed through the</span> interface.</p>
+<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.GRE.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.GRE.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -34574,7 +34842,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.}}</span><span class="inserted">the interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.</span><span class="inserted">the interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -34595,7 +34863,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.}}</span><span class="inserted">interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.</span><span class="inserted">interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -35102,8 +35370,8 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this <span class="removed">L2TPv3 tunnel interface, i.e. all traffic that has passed through the </span>interface.</p>
-<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.L2TPv3.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.L2TPv3.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="removed">}}</span><span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
+<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this<span class="removed"> L2TPv3 tunnel interface, i.e. all traffic that has passed through the</span> interface.</p>
+<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.L2TPv3.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.L2TPv3.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -35158,7 +35426,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.}}</span><span class="inserted">the interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.</span><span class="inserted">the interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -35179,7 +35447,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.}}</span><span class="inserted">interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.</span><span class="inserted">interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -35685,8 +35953,8 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this <span class="removed">VXLAN tunnel interface, i.e. all traffic that has passed through the </span>interface.</p>
-<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.VXLAN.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.VXLAN.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="removed">}}</span><span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
+<p><span class="removed">Statistics</span><span class="inserted">Throughput statistics</span> for this<span class="removed"> VXLAN tunnel interface, i.e. all traffic that has passed through the</span> interface.</p>
+<p>The <span class="removed">device</span><span class="inserted">CPE</span> MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down <span class="removed">(i.e.,</span><span class="inserted">(i.e.</span> the interface's <span class="removed">Status</span><span class="inserted"><a href="#D.Device:2.Device.VXLAN.Tunnel.Interface.Status"><em>Status</em></a></span> parameter transitions to a down state after the interface <span class="removed">has been</span><span class="inserted">is</span> disabled) or when the interface becomes administratively up (i.e. the <span class="removed">Enable</span><span class="inserted">interface's <a href="#D.Device:2.Device.VXLAN.Tunnel.Interface.Enable"><em>Enable</em></a></span> parameter <span class="removed">transitioned</span><span class="inserted">transitions</span> from <em>false</em> to <em>true</em>).<span class="inserted"> Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -35741,7 +36009,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.}}</span><span class="inserted">the interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> <span class="removed">sent</span><span class="inserted">transmitted</span> <span class="removed">by</span><span class="inserted">out</span> <span class="removed">this</span><span class="inserted">of</span> <span class="removed">interface.</span><span class="inserted">the interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -35762,7 +36030,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.}}</span><span class="inserted">interface, including framing characters.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <em>bytes</em> received <span class="removed">by</span><span class="inserted">on</span> <span class="removed">this</span><span class="inserted">the</span> <span class="removed">interface.</span><span class="inserted">interface, including framing characters.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -36252,7 +36520,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>Throughput statistics for this <span class="removed">MAP domain </span>interface.</p>
+<p>Throughput statistics for this<span class="removed"> MAP domain</span> interface.</p>
 <p>The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.MAP.Domain.Interface.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.MAP.Domain.Interface.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -36751,7 +37019,7 @@ configuration of the device.</p>
 </td>
 <td>
 <p>Layer 3 IPv4 forwarding table.</p>
-<p>In addition to statically configured routes, this table MUST include dynamic routes learned through layer 3 routing protocols, including RIP (i.e. RIP version 2), OSPF, DHCPv4, 3GPP-NAS <span class="inserted">(3GPP Non Access Stratum) </span>and IPCP. The CPE MAY reject attempts to delete or modify a dynamic route entry.</p>
+<p>In addition to statically configured routes, this table MUST include dynamic routes learned through layer 3 routing protocols, including RIP (i.e. RIP version 2), OSPF, DHCPv4, 3GPP-NAS<span class="inserted"> (3GPP Non Access Stratum)</span> and IPCP. The CPE MAY reject attempts to delete or modify a dynamic route entry.</p>
 <p>For each incoming packet, the layer 3 forwarding decision is conceptually made as follows:</p>
 <ul>
 <li>
@@ -36837,7 +37105,7 @@ will be associated with either DHCPv4 or DHCPv6, as indicated by the
 </td>
 <td>
 <p>Classification criterion.</p>
-<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:}}{{div|{{classes}}|{{li|*}}<em>4</em></span><span class="inserted">values</span> <span class="removed">(IPv4)}}{{div|{{classes}}|{{li|*}}<em>6</em></span><span class="inserted">are:</span> <span class="removed">(IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
+<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values are: 4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span><span class="removed">{{div|{{classes}}|{{li|<em>}}<em>4</em> (IPv4)}}{{div|{{classes}}|{{li|</em>}}<em>6</em> (IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -36950,7 +37218,7 @@ server(s) [<a href="#R.RFC5625">RFC5625</a>].</p>
 <p>W</p>
 </td>
 <td>
-<p>DNS Server forwarding policy to be used by the DNS Relay. Entries are either automatically created as result of DHCP (v4 or v6), IPCP, <span class="inserted">3GPP-NAS (3GPP Non Access Stratum) </span>or RA received DNS server information, or are statically configured by the Controller.</p>
+<p>DNS Server forwarding policy to be used by the DNS Relay. Entries are either automatically created as result of DHCP (v4 or v6), IPCP,<span class="inserted"> 3GPP-NAS (3GPP Non Access Stratum)</span> or RA received DNS server information, or are statically configured by the Controller.</p>
 <p>Note: Management of re-directing queries to the device embedded DNS server is not defined in this version of the specification.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DNS.Relay.Forwarding.DNSServer"><em>DNSServer</em></a>, or with a given value for <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.DNS.Relay.Forwarding.DNSServer"><em>DNSServer</em></a> and <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
@@ -37028,7 +37296,7 @@ interface.</p>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.3GPP-NAS"><em>3GPP-NAS</em></span> (Assigned by the core network (fixed or cellular) using 3GPP NAS signalling methods. e.g. PDU Session Establishment Request using the extended Protocol Configuration Options, PDN Connectivity Request using the Protocol Configuration Options, PDP Context Activation Request using the Protocol Configuration Options [<a href="#R.3GPP-TS.24.008">Clause 10.5.6.3/3GPP-TS.24.008</a>], ... This information is available from the AT commands [<a href="#R.3GPP-TS.27.007">Clause 10.1.23/3GPP-TS.27.007</a>] PDP context read dynamic parameters +CGCONTRDP, added in 2.19)</li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.Static"><em>Static</em></span></li>
 </ul>
-<p>Table entries that are automatically created as result of DHCP, IPCP, <span class="inserted">3GPP-NAS, </span>or RA received DNS server information will have <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>, <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv6"><em>DHCPv6</em></a>, <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.IPCP"><em>IPCP</em></a><span class="inserted">, <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.3GPP-NAS"><em>3GPP-NAS</em></a></span>, or <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.RouterAdvertisement"><em>RouterAdvertisement</em></a>, as the case may be. Manually created table entries will have their <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.Static"><em>Static</em></a>.</p>
+<p>Table entries that are automatically created as result of DHCP, IPCP, <span class="inserted">3GPP-NAS, </span>or RA received DNS server information will have <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>, <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv6"><em>DHCPv6</em></a>, <span class="inserted"><a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.IPCP"><em>IPCP</em></a>, <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.3GPP-NAS"><em>3GPP-NAS</em></a></span>, or <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.RouterAdvertisement"><em>RouterAdvertisement</em></a>, as the case may be. Manually created table entries will have their <em>Type</em> set to <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.Static"><em>Static</em></a>.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -37215,7 +37483,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.NAT.PortMapping.Stat
 <td>
 <p>Determines the time to live, in <em>seconds</em>, of a port mapping lease, where &quot;time to live&quot; means the number of <em>seconds</em> before the port mapping expires.</p>
 <p>A value of 0 means the port mapping is static. Support for dynamic (non-static) port mappings is OPTIONAL. That is, the only value for <em>LeaseDuration</em> that MUST be supported is 0.</p>
-<p>For a dynamic (non-static) port mapping, when this parameter is read, the value <span class="removed">represents</span><span class="inserted">is</span> the <span class="removed">time</span><span class="inserted">same</span> <span class="removed">remaining</span><span class="inserted">as</span> <span class="removed">on</span><span class="inserted">when</span> the <span class="removed">port</span><span class="inserted"><a href="#D.Device:2.Device.NAT.PortMapping."><em>PortMapping</em></a></span> <span class="removed">mapping</span><span class="inserted">was</span> <span class="removed">lease.</span><span class="inserted">created.</span> <span class="removed">That</span><span class="inserted">Note:</span> <span class="removed">is,</span><span class="inserted">the</span> <span class="removed">for</span><span class="inserted">Device:2.19</span> <span class="removed">a</span><span class="inserted">version of the data model moved the</span> dynamic <span class="removed">port</span><span class="inserted">countdown</span> <span class="removed">mapping,</span><span class="inserted">behavior, when reading</span> the <span class="removed">value</span><span class="inserted"><em>LeaseDuration</em>,</span> <span class="removed">counts down toward 0. When a dynamic port mapping lease expires,</span><span class="inserted">to</span> the <span class="removed">CPE MUST automatically terminate that port mapping, and MUST automatically delete the corresponding {{object}} table entry.}}</span><span class="inserted"><a href="#D.Device:2.Device.NAT.PortMapping.RemainingLeaseTime"><em>RemainingLeaseTime</em></a>.</span></p>
+<p>For a dynamic (non-static) port mapping, when this parameter is read, the value <span class="removed">represents</span><span class="inserted">is</span> the <span class="removed">time</span><span class="inserted">same</span> <span class="removed">remaining</span><span class="inserted">as</span> <span class="removed">on</span><span class="inserted">when</span> the <span class="removed">port</span><span class="inserted"><a href="#D.Device:2.Device.NAT.PortMapping."><em>PortMapping</em></a></span> <span class="removed">mapping</span><span class="inserted">was</span> <span class="removed">lease.</span><span class="inserted">created.</span> <span class="removed">That</span><span class="inserted">Note:</span> <span class="removed">is,</span><span class="inserted">the</span> <span class="removed">for</span><span class="inserted">Device:2.19</span> <span class="removed">a</span><span class="inserted">version of the data model moved the</span> dynamic <span class="removed">port</span><span class="inserted">countdown</span> <span class="removed">mapping,</span><span class="inserted">behavior, when reading</span> the <span class="removed">value</span><span class="inserted"><em>LeaseDuration</em>,</span> <span class="removed">counts down toward 0. When a dynamic port mapping lease expires,</span><span class="inserted">to</span> the <span class="removed">CPE MUST automatically terminate that port mapping, and MUST automatically delete the corresponding {{object}} table entry.</span><span class="inserted"><a href="#D.Device:2.Device.NAT.PortMapping.RemainingLeaseTime"><em>RemainingLeaseTime</em></a>.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -37238,7 +37506,16 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.NAT.PortMapping.Stat
 <td>
 <p>The port on <a href="#D.Device:2.Device.NAT.PortMapping.InternalClient"><em>InternalClient</em></a> that the gateway SHOULD forward traffic to.</p>
 <p>When <a href="#D.Device:2.Device.NAT.PortMapping.ExternalPortEndRange"><em>ExternalPortEndRange</em></a> is utilized, this range will also be applied accordingly, starting from the <em>InternalPort</em> number.</p>
-<p><span class="inserted">Example: ExternalPort=3000 and ExternalPortEndRange=3010 with InternalPort=5000 means the ports are mapped as follows: * External port 3000 maps to internal port 5000 * External port 3001 maps to internal port 5001 * External port 3002 maps to internal port 5002 * ... * External port 3010 maps to internal port 5010</span></p>
+<div class="inserted">
+<p>Example: ExternalPort=3000 and ExternalPortEndRange=3010 with InternalPort=5000 means the ports are mapped as follows:</p>
+<ul>
+<li>External port 3000 maps to internal port 5000</li>
+<li>External port 3001 maps to internal port 5001</li>
+<li>External port 3002 maps to internal port 5002</li>
+<li>...</li>
+<li>External port 3010 maps to internal port 5010</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -39344,7 +39621,7 @@ this table. Each <em>Policy</em> table entry references the
 <p>W</p>
 </td>
 <td>
-<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:}}{{div|{{classes}}|{{li|*}}<em>4</em></span><span class="inserted">values</span> <span class="removed">(IPv4)}}{{div|{{classes}}|{{li|*}}<em>6</em></span><span class="inserted">are:</span> <span class="removed">(IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
+<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values are: 4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span><span class="removed">{{div|{{classes}}|{{li|<em>}}<em>4</em> (IPv4)}}{{div|{{classes}}|{{li|</em>}}<em>6</em> (IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -39598,7 +39875,7 @@ set <a href="#D.Device:2.Device.Firewall.Pinhole.Status"><em>Status</em></a> to 
 <p>W</p>
 </td>
 <td>
-<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:}}{{div|{{classes}}|{{li|*}}<em>4</em></span><span class="inserted">values</span> <span class="removed">(IPv4)}}{{div|{{classes}}|{{li|*}}<em>6</em></span><span class="inserted">are:</span> <span class="removed">(IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
+<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values are: 4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span><span class="removed">{{div|{{classes}}|{{li|<em>}}<em>4</em> (IPv4)}}{{div|{{classes}}|{{li|</em>}}<em>6</em> (IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -39796,7 +40073,7 @@ MUST set <a href="#D.Device:2.Device.Firewall.Service.Status"><em>Status</em></a
 <p>W</p>
 </td>
 <td>
-<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:}}{{div|{{classes}}|{{li|*}}<em>4</em></span><span class="inserted">values</span> <span class="removed">(IPv4)}}{{div|{{classes}}|{{li|*}}<em>6</em></span><span class="inserted">are:</span> <span class="removed">(IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
+<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values are: 4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span><span class="removed">{{div|{{classes}}|{{li|<em>}}<em>4</em> (IPv4)}}{{div|{{classes}}|{{li|</em>}}<em>6</em> (IPv6)}}{{div|{{classes}}|A value of <em>-1</em> indicates this criterion is not used for matching.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -39893,7 +40170,7 @@ compared to traditional methods of listing them individually within firewall rul
 <p>W</p>
 </td>
 <td>
-<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values</span> <span class="removed">{{li|*}}<em>4</em></span><span class="inserted">are:</span> <span class="removed">(IPv4) {{li|*}}<em>6</em> (IPv6)}}</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
+<p><span class="inserted">Specifies the </span>IP <span class="removed">Protocol</span><span class="inserted">protocol</span> <span class="removed">Version</span><span class="inserted">version,</span> <span class="removed">as</span><span class="inserted">following</span> <span class="removed">specified</span><span class="inserted">the definitions</span> in [<a href="#R.IANA-ipversionnumbers">IANA-ipversionnumbers</a>]. <span class="removed">For</span><span class="inserted">Valid</span> <span class="removed">example:</span><span class="inserted">values</span> <span class="removed">{{li|*}}<em>4</em></span><span class="inserted">are:</span> <span class="removed">(IPv4) {{li|*}}<em>6</em> (IPv6)</span><span class="inserted">4 (IPv4), 6 (IPv6), or -1 (No specific IP version is required).</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -40823,7 +41100,18 @@ interest of scalability.</p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Installed"><em>Installed</em></span> (The DU is in an Installed state due to one of the following: successful Install, successful Update, failed Update, or failed Uninstall. In the case of a failed Update or failed Uninstall the Fault argument will contain an explanation of the failure)</li>
-<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (The DU was successfully uninstalled from the device. This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization. ::::: diffs <strong>Changes since 2.18:</strong> * Added status = <em>deprecated</em> :::::)</li>
+<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (</li>
+</ul>
+<p>The DU was successfully uninstalled from the device.</p>
+<p>This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization.</p>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Uninstalled"><em>Uninstalled</em></span> (The DU was successfully uninstalled from the device, added in 2.19)</li>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Failed"><em>Failed</em></span> (The DU could not be installed in which case a DU instance MUST NOT be created in the Data Model)</li>
 </ul>
@@ -43170,10 +43458,8 @@ interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>
 <li><span id="D.Device:2.Device.FWE.Link.Status.LowerLayerDown"><em>LowerLayerDown</em></span></li>
 <li><span id="D.Device:2.Device.FWE.Link.Status.Error"><em>Error</em></span> (OPTIONAL)</li>
 </ul>
-<div class="inserted">
 <p>When <a href="#D.Device:2.Device.FWE.Link.Enable"><em>Enable</em></a> is <em>false</em> then <em>Status</em> SHOULD normally be <a href="#D.Device:2.Device.FWE.Link.Status.Down"><em>Down</em></a> (or <a href="#D.Device:2.Device.FWE.Link.Status.NotPresent"><em>NotPresent</em></a> or <a href="#D.Device:2.Device.FWE.Link.Status.Error"><em>Error</em></a> if there is a fault condition on the interface).</p>
 <p>When <a href="#D.Device:2.Device.FWE.Link.Enable"><em>Enable</em></a> is changed to <em>true</em> then <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.FWE.Link.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network traffic; it SHOULD change to <a href="#D.Device:2.Device.FWE.Link.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.FWE.Link.Status.Up"><em>Up</em></a> if still operable when the expected actions have completed); it SHOULD change to <a href="#D.Device:2.Device.FWE.Link.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if the interface is prevented from entering the <a href="#D.Device:2.Device.FWE.Link.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down; it SHOULD remain in the <a href="#D.Device:2.Device.FWE.Link.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the interface; it SHOULD remain in the <a href="#D.Device:2.Device.FWE.Link.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.FWE.Link.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.</p>
-</div>
 <p>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 </td>
 <td>
@@ -43752,7 +44038,11 @@ interfaces.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables the interface.<span class="removed"> </span><span class="inserted">This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</span></p>
+<p><span class="removed">{{div|{{classes}}|Enables or disables the interface. This parameter is based on <em>ifAdminStatus</em> from {{bibref|RFC2863}}.}}</span></p>
+<div class="inserted">
+<p>Enables or disables the interface.</p>
+<p>This parameter is based on <em>ifAdminStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
+</div>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
 <ul>
@@ -43780,18 +44070,94 @@ interfaces.</p>
 <td>
 <p>The current operational state of the <span class="removed">logical </span>interface (see [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>]).  Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>When <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is changed to <em>true</em> then <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a> SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if and only if all the active lower layer interfaces are able to transmit and receive network traffic</em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.Down"><em>Down</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>When <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is <em>false</em> then <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a> SHOULD normally be <a href="#D.Device:2.Device.Logical.Interface.Status.Down"><em>Down</em></a></em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.Unknown"><em>Unknown</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Unknown"><em>Unknown</em></a> if the state of one or more of the active lower interfaces can not be determined for some reason</em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.Dormant"><em>Dormant</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Dormant"><em>Dormant</em></a> if and only if one ore more of the active lower interfaces is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if still operable when the expected actions have completed)</em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>It SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></a> state if the interface, or one or more of the active lower interfaces has missing (typically hardware) components</em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if one or more of the active lower interfaces is prevented from entering the <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down</em>  description :::::)</li>
-<li><span id="D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></span> (::::: diffs <strong>Changes since 2.18:</strong> * Removed <em>It SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected with one more of the active lower layer interfaces</em>  description :::::, OPTIONAL)</li>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></span> (</li>
 </ul>
-<div class="inserted">
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>When <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is changed to <em>true</em> then <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a>
+SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if and only if all the active
+lower layer interfaces are able to transmit and receive network
+traffic</em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.Down"><em>Down</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>When <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is <em>false</em> then <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a> SHOULD
+normally be <a href="#D.Device:2.Device.Logical.Interface.Status.Down"><em>Down</em></a></em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.Unknown"><em>Unknown</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Unknown"><em>Unknown</em></a> if the state of one or
+more of the active lower interfaces can not be determined for
+some reason</em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.Dormant"><em>Dormant</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Dormant"><em>Dormant</em></a> if and only if one ore
+more of the active lower interfaces is operable but is waiting
+for external actions before it can transmit and receive network
+traffic (and subsequently change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if still
+operable when the expected actions have completed)</em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>It SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></a> state if the
+interface, or one or more of the active lower interfaces has
+missing (typically hardware) components</em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>It SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if one
+or more of the active lower interfaces is prevented from
+entering the <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> state because one or more of the
+interfaces beneath it is down</em>  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 2.18:</strong></p>
+<ul>
+<li>Removed <em>It SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></a> state if there is an
+error or other fault condition detected with one more of the
+active lower layer interfaces</em>  description</li>
+</ul>
+</div>
+<p>, OPTIONAL)</p>
 <p>When <span class="inserted"><a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is <em>false</em> then <em>Status</em> SHOULD normally be <a href="#D.Device:2.Device.Logical.Interface.Status.Down"><em>Down</em></a> (or <a href="#D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></a> or <a href="#D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></a> if there is a fault condition on the interface).</span></p>
 <p>When <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> is changed to <em>true</em> then <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network traffic; it SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> if still operable when the expected actions have completed); it SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if the interface is prevented from entering the <a href="#D.Device:2.Device.Logical.Interface.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down; it SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the interface; it SHOULD remain in the <a href="#D.Device:2.Device.Logical.Interface.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.Logical.Interface.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
-</div>
 </td>
 <td>
 <p>Down</p>
@@ -43859,7 +44225,11 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>Throughput statistics for this interface.<span class="removed"> </span><span class="inserted">The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</span></p>
+<p><span class="removed">{{div|{{classes}}|Throughput statistics for this interface. The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's {{param|#.Status}} parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's {{param|#.Enable}} parameter transitions from {{false}} to {{true}}). Administrative and operational interface status is discussed in {{bibref|TR-181i2|section 4.2.2}}.}}</span></p>
+<div class="inserted">
+<p>Throughput statistics for this interface.</p>
+<p>The CPE MUST reset the interface's Stats parameters (unless otherwise stated in individual object or parameter descriptions) either when the interface becomes operationally down due to a previous administrative down (i.e. the interface's <a href="#D.Device:2.Device.Logical.Interface.Status"><em>Status</em></a> parameter transitions to a down state after the interface is disabled) or when the interface becomes administratively up (i.e. the interface's <a href="#D.Device:2.Device.Logical.Interface.Enable"><em>Enable</em></a> parameter transitions from <em>false</em> to <em>true</em>). Administrative and operational interface status is discussed in [<a href="#R.TR-181i2">Section 4.2.2/TR-181i2</a>].</p>
+</div>
 <p>This information SHOULD be mirrored or aggregated from the active underlying interfaces.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -44230,7 +44600,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">packets</span><span class="inserted"><em>packets</em></span> that higher-level protocols requested for transmission and which were addressed to a broadcast address at this layer, including those that were discarded or not sent.<span class="removed"> </span><span class="inserted">Note that IPv6 does not define broadcast addresses, so IPv6 <span class="removed">packets</span><span class="inserted"><em>packets</em></span> will never cause this counter to increment.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of <span class="removed">packets</span><span class="inserted"><em>packets</em></span> that higher-level protocols requested for transmission and which were addressed to a broadcast address at this layer, including those that were discarded or not sent.<span class="removed"> </span>Note that IPv6 does not define broadcast addresses, so IPv6 <span class="removed">packets</span><span class="inserted"><em>packets</em></span> will never cause this counter to increment.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -44257,7 +44627,7 @@ below this interface object, or an empty string. See [<a href="#R.TR-181i2">Sect
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">packets,</span><span class="inserted"><em>packets</em>,</span> delivered by this layer to a higher layer, which were addressed to a broadcast address at this layer.<span class="removed"> </span><span class="inserted">Note that IPv6 does not define broadcast addresses, so IPv6 <span class="removed">packets</span><span class="inserted"><em>packets</em></span> will never cause this counter to increment.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] The total number of received <span class="removed">packets,</span><span class="inserted"><em>packets</em>,</span> delivered by this layer to a higher layer, which were addressed to a broadcast address at this layer.<span class="removed"> </span>Note that IPv6 does not define broadcast addresses, so IPv6 <span class="removed">packets</span><span class="inserted"><em>packets</em></span> will never cause this counter to increment.</p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -44410,11 +44780,8 @@ EthernetUNI models a virtual UNI.</p>
 </ul>
 <p>When <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Enable"><em>Enable</em></a> is <em>false</em> then <em>Status</em> SHOULD normally be <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Down"><em>Down</em></a> (or <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.NotPresent"><em>NotPresent</em></a> or <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Error"><em>Error</em></a> if there is a fault condition on the interface).</p>
 <p>When <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Enable"><em>Enable</em></a> <span class="removed">becomes</span><span class="inserted">is changed to</span> <em>true</em> then <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network traffic; it SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Up"><em>Up</em></a> if still operable when the expected actions have completed); it SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.LowerLayerDown"><em>LowerLayerDown</em></a> if and only if the interface is prevented from entering the <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Up"><em>Up</em></a> state because one or more of the interfaces beneath it is down; it SHOULD remain in the <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the interface; it SHOULD remain in the <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.</p>
-<div class="inserted">
-<p>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
-<p>Because the interface includes layer 1, the <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.LowerLayerDown"><em>LowerLayerDown</em></a> value SHOULD never be used.</p>
-</div>
-<p>If the ONU is managed via OMCI, then <em>Status</em> can only be <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Up"><em>Up</em></a> if the ONU has been provisioned at OMCI level in such a way that this interface is able to pass traffic.<span class="removed">{{div|{{classes}}|This parameter is based on <em>ifOperStatus</em> from {{bibref|RFC2863}}.}}</span></p>
+<p><span class="inserted">This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</span></p>
+<p>Because the interface includes layer 1, the <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.LowerLayerDown"><em>LowerLayerDown</em></a> value SHOULD never be used.If the ONU is managed via OMCI, then <em>Status</em> can only be <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI.Status.Up"><em>Up</em></a> if the ONU has been provisioned at OMCI level in such a way that this interface is able to pass traffic.<span class="removed">{{div|{{classes}}|This parameter is based on <em>ifOperStatus</em> from {{bibref|RFC2863}}.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -44456,7 +44823,7 @@ EthernetUNI models a virtual UNI.</p>
 </td>
 <td>
 <p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of an interface object that is stacked immediately below this interface object, or an empty string. See [<a href="#R.TR-181i2">Section 4.2.1/TR-181i2</a>].</p>
-<p>Note:<span class="inserted"> Since <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI."><em>EthernetUNI</em></a> is a layer 1 interface,</span> it is expected that <em>LowerLayers</em> will not be <span class="removed">used: if</span><span class="inserted">used.</span></p>
+<p>Note: <span class="inserted">Since <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI."><em>EthernetUNI</em></a> is a layer 1 interface, </span>it is expected that <em>LowerLayers</em> will not be <span class="removed">used: if</span><span class="inserted">used.</span></p>
 <p>If <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI."><em>EthernetUNI</em></a> models a physical UNI, it represents a layer 1 interface; if <a href="#D.Device:2.Device.XPON.ONU.EthernetUNI."><em>EthernetUNI</em></a> models a virtual UNI, it virtualizes a layer 1 interface.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -44711,7 +45078,7 @@ source.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted"><em>packets</em></span> that contained errors preventing them from being delivered to <span class="removed">the</span><span class="inserted">a</span> <span class="removed">TR-181</span><span class="inserted">higher-layer</span> <span class="removed">domain.}}</span><span class="inserted">protocol.</span></p>
+<p>[<a href="#T.StatsCounter32">StatsCounter32</a>] The total number of inbound <span class="removed">Ethernet frames</span><span class="inserted"><em>packets</em></span> that contained errors preventing them from being delivered to <span class="removed">the</span><span class="inserted">a</span> <span class="removed">TR-181</span><span class="inserted">higher-layer</span> <span class="removed">domain.</span><span class="inserted">protocol.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 <div class="diffs">
 <p><strong>Changes since 2.18:</strong></p>
@@ -45920,7 +46287,7 @@ to remote relays or collectors.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. <span class="removed">Certificate</span><span class="inserted">Specifies the client certificate</span> that must be <span class="inserted">presented to the remote server for mutual authentication. This certificate is </span>used<span class="inserted"> to authenticate the client</span> by the <span class="removed">syslog</span><span class="inserted">remote</span> <span class="removed">service.}}</span><span class="inserted">server, ensuring that the remote server is communicating with a trusted client. The client certificate must be issued by a trusted Certificate Authority (CA) and should match the client's private key. This parameter is applicable only when a TLS session is being used.</span></p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Security.Certificate."><em>Security.Certificate.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. <span class="removed">Certificate</span><span class="inserted">Specifies the client certificate</span> that must be <span class="inserted">presented to the remote server for mutual authentication. This certificate is </span>used<span class="inserted"> to authenticate the client</span> by the <span class="removed">syslog</span><span class="inserted">remote</span> <span class="removed">service.</span><span class="inserted">server, ensuring that the remote server is communicating with a trusted client. The client certificate must be issued by a trusted Certificate Authority (CA) and should match the client's private key. This parameter is applicable only when a TLS session is being used.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -49580,10 +49947,11 @@ The current value reading of this <a href="#D.Device:2.Device.IoTCapability.Blob
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:31 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:00:49 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-19-1-usp-diffs.html --show --transform diff --format html tr-181-2-18-1-usp.xml tr-181-2-19-1-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -50560,5 +50928,5 @@ report.py --include ../../install/cwmp --output tr-181-2-19-1-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

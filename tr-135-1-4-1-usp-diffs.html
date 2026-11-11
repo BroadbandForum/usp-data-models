@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1691,7 +1729,7 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>W</p>
 </td>
 <td>
-<p>Indicates the current frequency in <em>kHz</em>.<span class="removed"> </span><span class="inserted">The value of this parameter is undefined while installing the service list (see <span class="removed">{{object|.Components.FrontEnd.{i}.DVBT.Install}}</span><span class="inserted"><a href="#D.STBService:1.STBService.Components.FrontEnd.DVBT.Install"><em>Components.FrontEnd.{i}.DVBT.Install()</em></a></span>).</span></p>
+<p>Indicates the current frequency in <em>kHz</em>.<span class="removed"> </span>The value of this parameter is undefined while installing the service list (see <span class="removed">{{object|.Components.FrontEnd.{i}.DVBT.Install}}</span><span class="inserted"><a href="#D.STBService:1.STBService.Components.FrontEnd.DVBT.Install"><em>Components.FrontEnd.{i}.DVBT.Install()</em></a></span>).</p>
 </td>
 <td>
 <p>-</p>
@@ -1715,7 +1753,16 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.0"><em>0</em></span> (no hierarchy)</li>
-<li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.1"><em>1</em></span> (:::: diffs <strong>Changes since 1.3:</strong> * Removed  description ::::)</li>
+<li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.1"><em>1</em></span> (</li>
+</ul>
+<div class="diffs">
+<p><strong>Changes since 1.3:</strong></p>
+<ul>
+<li>Removed  description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.2"><em>2</em></span></li>
 <li><span id="D.STBService:1.STBService.Components.FrontEnd.DVBT.Modulation.HierarchicalInformation.4"><em>4</em></span></li>
 </ul>
@@ -1855,24 +1902,46 @@ If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>Serv
 <td>
 <p>RFC 3986 URI that  describes the service to connect to in the form:</p>
 <ul>
-<li><trsp>://<addr>:<port>?StrCtrl=<strctrl>?StrTrspCtrl=<trspctrl>?MuxType=<muxtype>
-where:</li>
-<li><strong><addr></strong> is the IP address of the service source (for Unicast) or IGMP  group (for Multicast).</li>
-<li><strong><port></strong> is the associated TCP/UDP port.  If not specified, the STB is assumed to know and use an appropriate default port.</li>
-<li><strong><trsp></strong> is the streaming transport protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportProtocols</em></a>, which SHOULD be converted to lower-case.</li>
-<li><strong><strctrl></strong> is the streaming control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingControlProtocols</em></a>.  If not specified, no streaming control protocol is to be used.</li>
-<li><strong><trspctrl></strong> is the streaming transport control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportControlProtocols</em></a>.  If not specified, no streaming transport control protocol is to be used.</li>
-<li><strong><muxtype></strong> is the multiplex type and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.MultiplexTypes"><em>Capabilities.FrontEnd.IP.MultiplexTypes</em></a>.  This tells the STB which multiplex type to expect.  If not specified, the STB is assumed to know, or to be able to determine, the multiplex type.
+<li>
+<p><trsp>://<addr>:<port>?StrCtrl=<strctrl>?StrTrspCtrl=<trspctrl>?MuxType=<muxtype>
+where:</p>
+</li>
+<li>
+<p><strong><addr></strong> is the IP address of the service source (for Unicast) or IGMP  group (for Multicast).</p>
+</li>
+<li>
+<p><strong><port></strong> is the associated TCP/UDP port.  If not specified, the STB is assumed to know and use an appropriate default port.</p>
+</li>
+<li>
+<p><strong><trsp></strong> is the streaming transport protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportProtocols</em></a>, which SHOULD be converted to lower-case.</p>
+</li>
+<li>
+<p><strong><strctrl></strong> is the streaming control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingControlProtocols</em></a>.  If not specified, no streaming control protocol is to be used.</p>
+</li>
+<li>
+<p><strong><trspctrl></strong> is the streaming transport control protocol and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.StreamingTransportControlProtocols"><em>Capabilities.FrontEnd.IP.StreamingTransportControlProtocols</em></a>.  If not specified, no streaming transport control protocol is to be used.</p>
+</li>
+<li>
+<p><strong><muxtype></strong> is the multiplex type and MUST be one of the values in <a href="#D.STBService:1.STBService.Capabilities.FrontEnd.IP.MultiplexTypes"><em>Capabilities.FrontEnd.IP.MultiplexTypes</em></a>.  This tells the STB which multiplex type to expect.  If not specified, the STB is assumed to know, or to be able to determine, the multiplex type.
 Note that download protocols are not supported by the above syntax.  However, the specified syntax is just a baseline, and STBs MAY support an extended syntax.
-Example of Multicast MPEG2-TS over RTP with no transport control:</li>
-<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS</a>
-Example of Multicast MPEG2-TS over RTP with AL-FEC transport control:</li>
-<li><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS</a>
-Example of Unicast MPEG2-TS over UDP with RTSP transport control:</li>
-<li><a href="udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS">udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS</a>
-Example of Unicast raw AV over RTP with RTCP control and RTSP transport control:</li>
-<li><a href="rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None">rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None</a>
-If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>IP</em> or <em>IPTV</em> (or <em>VoD</em> if the URI accesses a VoD service) is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.</li>
+Example of Multicast MPEG2-TS over RTP with no transport control:</p>
+</li>
+<li>
+<p><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?MuxType=MPEG2-TS</a>
+Example of Multicast MPEG2-TS over RTP with AL-FEC transport control:</p>
+</li>
+<li>
+<p><a href="rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS">rtp://224.112.15.18:3257?StrCtrl=IGMP?StrTrspCtrl=AL-FEC?MuxType=MPEG2-TS</a>
+Example of Unicast MPEG2-TS over UDP with RTSP transport control:</p>
+</li>
+<li>
+<p><a href="udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS">udp://174.146.35.12:3257?StrCtrl=RTSP?MuxType=MPEG2-TS</a>
+Example of Unicast raw AV over RTP with RTCP control and RTSP transport control:</p>
+</li>
+<li>
+<p><a href="rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None">rtp://174.146.35.12:3257?StrCtrl=RTSP?StrTrspCtrl=RTCP?MuxType=None</a>
+If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>IP</em> or <em>IPTV</em> (or <em>VoD</em> if the URI accesses a VoD service) is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance.</p>
+</li>
 </ul>
 </td>
 <td>
@@ -1916,7 +1985,7 @@ The force monitor mode allows to maintain an active stream coming from the netwo
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">describes</span><span class="inserted">Describes</span> the service to connect to for force monitoring purposes with the same <span class="removed">syntaxt</span><span class="inserted">syntax</span> as **{{param: non-existent #.ServiceConnect().URI.}}**If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>TEST</em> or <em>IP-All</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance. The value when read is not specified and need not be the value that was most recently written.</p>
+<p><span class="removed">describes</span><span class="inserted">Describes</span> the service to connect to for force monitoring purposes with the same <span class="removed">syntaxt</span><span class="inserted">syntax</span> as <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>ServiceConnect().URI</em></a><span class="removed"> </span><span class="inserted">.</span>If a <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>ServiceMonitoring.MainStream</em></a> instance with <em>ServiceType</em> = <em>TEST</em> or <em>IP-All</em> is currently enabled, the STB MUST ensure that performance data for this service is collected in that instance. The value when read is not specified and need not be the value that was most recently written.</p>
 </td>
 <td>
 <p>-</p>
@@ -2033,7 +2102,11 @@ There is no guarantee that the STB has the resources to enable all of its AV pla
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Contains</span><span class="inserted">Records</span> <span class="removed">statistics</span><span class="inserted">events</span> <span class="removed">relating</span><span class="inserted">and</span> <span class="removed">to the</span><span class="inserted">collects</span> QoS / QoE <span class="removed">of</span><span class="inserted">related statistics for</span> Main AV streams. These statistics are broken down into categories, e.g. de-jittering and RTP, and for each category there are two types of statistics: * <strong>Total</strong> statistics, which count the number of occurrences of something. * <strong>Sample</strong> statistics, which are measured over a sample interval, and are made available to the ACS as a list of the most recent n samples. Total statistics are always collected (collection cannot be disabled, but the values can be reset). For Sample statistics, an STB uses a single sample interval and number of samples (n) for all <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>MainStream</em></a> instances. The sample interval can be aligned with absolute time. When Sample statistics collection is enabled, statistics collection MUST proceed regardless of whether there are any active Main AV streams. For example, even when the STB is not receiving any data, sample intervals will continue to be timed as normal. Refer to [<a href="#R.TR-135">I.3/TR-135</a>] for non-normative explanation of the operation of the <em>ServiceMonitoring</em> object.</p>
+<p><span class="removed">Contains</span><span class="inserted">Records</span> <span class="removed">statistics</span><span class="inserted">events</span> <span class="removed">relating</span><span class="inserted">and</span> <span class="removed">to the</span><span class="inserted">collects</span> QoS / QoE <span class="removed">of</span><span class="inserted">related statistics for</span> Main AV streams. These statistics are broken down into categories, e.g. de-jittering and RTP, and for each category there are two types of statistics:</p>
+<ul>
+<li><strong>Total</strong> statistics, which count the number of occurrences of something.</li>
+<li><strong>Sample</strong> statistics, which are measured over a sample interval, and are made available to the ACS as a list of the most recent n samples. Total statistics are always collected (collection cannot be disabled, but the values can be reset). For Sample statistics, an STB uses a single sample interval and number of samples (n) for all <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream."><em>MainStream</em></a> instances. The sample interval can be aligned with absolute time. When Sample statistics collection is enabled, statistics collection MUST proceed regardless of whether there are any active Main AV streams. For example, even when the STB is not receiving any data, sample intervals will continue to be timed as normal. Refer to [<a href="#R.TR-135">I.3/TR-135</a>] for non-normative explanation of the operation of the <em>ServiceMonitoring</em> object.</li>
+</ul>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
 <ul>
@@ -2106,7 +2179,7 @@ When the collection of events is enabled, any previously collected events are di
 <p>R</p>
 </td>
 <td>
-<p>List of Main AV stream objects. Each instance is associated with a specified service type and will collect statistics only for the main stream that matches that service type. Note that this means that streams that do not match an instance's service type MUST NOT contribute to the instance's Total and Sample statistics. It is up to the STB to determine which AV stream should be regarded as the Main AV stream for a given service type at any given time. For example, if two active streams are associated with the same service type, the STB might prefer streams that are associated with an AV player, or if more than one stream is associated with an AV player, the STB might prefer a player that is outputting a DVI stream to a player that is outputting an RF stream.<span class="removed"> </span><span class="inserted">Note that some parameters, e.g. <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>Components.FrontEnd.{i}.IP.ServiceConnect().URI</em></a>, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.</span></p>
+<p>List of Main AV stream objects. Each instance is associated with a specified service type and will collect statistics only for the main stream that matches that service type. Note that this means that streams that do not match an instance's service type MUST NOT contribute to the instance's Total and Sample statistics. It is up to the STB to determine which AV stream should be regarded as the Main AV stream for a given service type at any given time. For example, if two active streams are associated with the same service type, the STB might prefer streams that are associated with an AV player, or if more than one stream is associated with an AV player, the STB might prefer a player that is outputting a DVI stream to a player that is outputting an RF stream.<span class="removed"> </span>Note that some parameters, e.g. <a href="#D.STBService:1.STBService.Components.FrontEnd.IP.ServiceConnect.Input.URI"><em>Components.FrontEnd.{i}.IP.ServiceConnect().URI</em></a>, include requirements that restrict the STB's freedom to determine which AV stream should be regarded as the Main AV stream for a given service.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.ServiceType"><em>ServiceType</em></a>, or with a given value for <a href="#D.STBService:1.STBService.ServiceMonitoring.MainStream.Alias"><em>Alias</em></a>.</p>
 <div class="diffs">
 <p><strong>Changes since 1.3:</strong></p>
@@ -2134,7 +2207,7 @@ When the collection of events is enabled, any previously collected events are di
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables collection of Total and Sample statistics <span class="inserted">and events </span>for this object instance.<span class="removed">}}</span><span class="inserted"> The collection of events requires the value of this parameter to be <em>true</em> and the value of the <a href="#D.STBService:1.STBService.ServiceMonitoring.EventCollectionEnable"><em>ServiceMonitoring.EventCollectionEnable</em></a> to be <em>true</em>.</span></p>
+<p>Enables or disables collection of Total and Sample statistics <span class="inserted">and events </span>for this object instance.<span class="inserted"> The collection of events requires the value of this parameter to be <em>true</em> and the value of the <a href="#D.STBService:1.STBService.ServiceMonitoring.EventCollectionEnable"><em>ServiceMonitoring.EventCollectionEnable</em></a> to be <em>true</em>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2668,10 +2741,11 @@ Resetting statistics MUST reset all <a href="#D.STBService:1.STBService.Applicat
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:57 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:03:16 UTC.<br />
 report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --show --transform diff --format html tr-135-1-3-0.xml tr-135-1-4-1-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -2788,5 +2862,5 @@ report.py --include ../../install/cwmp --output tr-135-1-4-1-usp-diffs.html --sh
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

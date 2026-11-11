@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1157,14 +1195,14 @@ definition.</p>
 <td>
 <p>Represents the MoCA Bands and sub-bands the device is configured to operate in or that the device supports.  Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D..reserved"><em>reserved</em></span> (READONLY)</li>
-<li><span id="D..bandFCBL"><em>bandFCBL</em></span></li>
-<li><span id="D..bandFSAT"><em>bandFSAT</em></span></li>
-<li><span id="D..bandE"><em>bandE</em></span></li>
-<li><span id="D..bandExD"><em>bandExD</em></span></li>
-<li><span id="D..bandDH"><em>bandDH</em></span></li>
-<li><span id="D..bandDL"><em>bandDL</em></span></li>
-<li><span id="D..noBand"><em>noBand</em></span></li>
+<li><span id="D..reserved"><em>reserved</em> [<code>0</code>]</span> (READONLY)</li>
+<li><span id="D..bandFCBL"><em>bandFCBL</em> [<code>1</code>]</span></li>
+<li><span id="D..bandFSAT"><em>bandFSAT</em> [<code>2</code>]</span></li>
+<li><span id="D..bandE"><em>bandE</em> [<code>3</code>]</span></li>
+<li><span id="D..bandExD"><em>bandExD</em> [<code>4</code>]</span></li>
+<li><span id="D..bandDH"><em>bandDH</em> [<code>5</code>]</span></li>
+<li><span id="D..bandDL"><em>bandDL</em> [<code>6</code>]</span></li>
+<li><span id="D..noBand"><em>noBand</em> [<code>7</code>]</span></li>
 </ul>
 <p>See [<a href="#R.MoCAv2.0">Section 15/MoCAv2.0</a>].</p>
 </td>
@@ -1180,13 +1218,13 @@ definition.</p>
 <p>Represents the MoCA 2.0 primary or secondary channel, or MoCA 2.5 first, second, third, fourth, or fifth channel.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..primary"><em>primary</em></span></li>
-<li><span id="D..secondary"><em>secondary</em></span></li>
-<li><span id="D..m25first"><em>m25first</em></span></li>
-<li><span id="D..m25second"><em>m25second</em></span></li>
-<li><span id="D..m25third"><em>m25third</em></span></li>
-<li><span id="D..m25fourth"><em>m25fourth</em></span></li>
-<li><span id="D..m25fifth"><em>m25fifth</em></span></li>
+<li><span id="D..primary"><em>primary</em> [<code>1</code>]</span></li>
+<li><span id="D..secondary"><em>secondary</em> [<code>2</code>]</span></li>
+<li><span id="D..m25first"><em>m25first</em> [<code>3</code>]</span></li>
+<li><span id="D..m25second"><em>m25second</em> [<code>4</code>]</span></li>
+<li><span id="D..m25third"><em>m25third</em> [<code>5</code>]</span></li>
+<li><span id="D..m25fourth"><em>m25fourth</em> [<code>6</code>]</span></li>
+<li><span id="D..m25fifth"><em>m25fifth</em> [<code>7</code>]</span></li>
 </ul>
 </td>
 </tr>
@@ -1202,8 +1240,12 @@ definition.</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <em>HighestVersion</em> parameter.</p>
@@ -1244,11 +1286,11 @@ definition.</p>
 <p>Represents the MoCA 2.0 PQOS Ingress Classification Rule.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..ruleDAVLANtag4or5"><em>ruleDAVLANtag4or5</em></span></li>
-<li><span id="D..ruleDAonly"><em>ruleDAonly</em></span></li>
-<li><span id="D..ruleDAandDSCPnoVLAN"><em>ruleDAandDSCPnoVLAN</em></span></li>
-<li><span id="D..ruleDAandVLANignoreDSCP"><em>ruleDAandVLANignoreDSCP</em></span></li>
-<li><span id="D..ruleDAandVLANorDSCP"><em>ruleDAandVLANorDSCP</em></span></li>
+<li><span id="D..ruleDAVLANtag4or5"><em>ruleDAVLANtag4or5</em> [<code>0</code>]</span></li>
+<li><span id="D..ruleDAonly"><em>ruleDAonly</em> [<code>4</code>]</span></li>
+<li><span id="D..ruleDAandDSCPnoVLAN"><em>ruleDAandDSCPnoVLAN</em> [<code>5</code>]</span></li>
+<li><span id="D..ruleDAandVLANignoreDSCP"><em>ruleDAandVLANignoreDSCP</em> [<code>6</code>]</span></li>
+<li><span id="D..ruleDAandVLANorDSCP"><em>ruleDAandVLANorDSCP</em> [<code>7</code>]</span></li>
 </ul>
 </td>
 </tr>
@@ -1273,8 +1315,12 @@ definition.</p>
 <td>
 <p>Represents a MoCA Node ID.</p>
 <ul>
-<li>MoCA 1.0 network can have a maximum of 8 MoCA Nodes, so Node ID is 0 to 7.</li>
-<li>MoCA 1.1, MoCA 2.0, or MoCA 2.5 network can have a maximum of 16 MoCA Nodes, so Node ID is 0 to 15.</li>
+<li>
+<p>MoCA 1.0 network can have a maximum of 8 MoCA Nodes, so Node ID is 0 to 7.</p>
+</li>
+<li>
+<p>MoCA 1.1, MoCA 2.0, or MoCA 2.5 network can have a maximum of 16 MoCA Nodes, so Node ID is 0 to 15.</p>
+</li>
 </ul>
 </td>
 </tr>
@@ -1300,10 +1346,10 @@ definition.</p>
 <p>Represents the Power State defined by the MoCA2.0 specification.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..m0Active"><em>m0Active</em></span> (Power State M0: Active)</li>
-<li><span id="D..m1LowPowerIdle"><em>m1LowPowerIdle</em></span> (Power State M1: Low Power Idle)</li>
-<li><span id="D..m2Standby"><em>m2Standby</em></span> (Power State M2: Standby)</li>
-<li><span id="D..m3Sleep"><em>m3Sleep</em></span> (Power State M3: Sleep)</li>
+<li><span id="D..m0Active"><em>m0Active</em> [<code>0</code>]</span> (Power State M0: Active)</li>
+<li><span id="D..m1LowPowerIdle"><em>m1LowPowerIdle</em> [<code>1</code>]</span> (Power State M1: Low Power Idle)</li>
+<li><span id="D..m2Standby"><em>m2Standby</em> [<code>2</code>]</span> (Power State M2: Standby)</li>
+<li><span id="D..m3Sleep"><em>m3Sleep</em> [<code>3</code>]</span> (Power State M3: Sleep)</li>
 </ul>
 <p>See [<a href="#R.MoCAv2.0">Section 12/MoCAv2.0</a>].</p>
 </td>
@@ -1319,14 +1365,14 @@ definition.</p>
 <p>Represents a type of MoCA Privacy.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..mocaReserved5"><em>mocaReserved5</em></span></li>
-<li><span id="D..mocaReserved4"><em>mocaReserved4</em></span></li>
-<li><span id="D..mocaReserved3"><em>mocaReserved3</em></span></li>
-<li><span id="D..mocaReserved2"><em>mocaReserved2</em></span></li>
-<li><span id="D..mocaReserved1"><em>mocaReserved1</em></span></li>
-<li><span id="D..moca2EnhancedPrivacy"><em>moca2EnhancedPrivacy</em></span></li>
-<li><span id="D..moca20Privacy"><em>moca20Privacy</em></span></li>
-<li><span id="D..moca1Privacy"><em>moca1Privacy</em></span></li>
+<li><span id="D..mocaReserved5"><em>mocaReserved5</em> [<code>0</code>]</span></li>
+<li><span id="D..mocaReserved4"><em>mocaReserved4</em> [<code>1</code>]</span></li>
+<li><span id="D..mocaReserved3"><em>mocaReserved3</em> [<code>2</code>]</span></li>
+<li><span id="D..mocaReserved2"><em>mocaReserved2</em> [<code>3</code>]</span></li>
+<li><span id="D..mocaReserved1"><em>mocaReserved1</em> [<code>4</code>]</span></li>
+<li><span id="D..moca2EnhancedPrivacy"><em>moca2EnhancedPrivacy</em> [<code>5</code>]</span></li>
+<li><span id="D..moca20Privacy"><em>moca20Privacy</em> [<code>6</code>]</span></li>
+<li><span id="D..moca1Privacy"><em>moca1Privacy</em> [<code>7</code>]</span></li>
 </ul>
 </td>
 </tr>
@@ -1376,12 +1422,12 @@ value (lowest precedence).</p>
 <p>Cut-down version of SNMP RowStatus that supports only its &quot;status&quot; values, not its &quot;control&quot; values.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..active"><em>active</em></span> (The row is available for use by the managed device)</li>
-<li><span id="D..notInService"><em>notInService</em></span> (The row exists in the Agent, but is unavailable for use by the managed device (see NOTE below); &quot;notInService&quot; has no implication regarding the internal consistency of the row, availability of resources, or consistency with the current state of the managed device)</li>
-<li><span id="D..notReady"><em>notReady</em></span> (The row exists in the Agent, but is missing information necessary in order to be available for use by the managed device, i.e., one or more required parameter in the row have not been populated)</li>
-<li><span id="D..createAndGo"><em>createAndGo</em></span> (Not used)</li>
-<li><span id="D..createAndWait"><em>createAndWait</em></span> (Not used)</li>
-<li><span id="D..destroy"><em>destroy</em></span> (Not used)</li>
+<li><span id="D..active"><em>active</em> [<code>1</code>]</span> (The row is available for use by the managed device)</li>
+<li><span id="D..notInService"><em>notInService</em> [<code>2</code>]</span> (The row exists in the Agent, but is unavailable for use by the managed device (see NOTE below); &quot;notInService&quot; has no implication regarding the internal consistency of the row, availability of resources, or consistency with the current state of the managed device)</li>
+<li><span id="D..notReady"><em>notReady</em> [<code>3</code>]</span> (The row exists in the Agent, but is missing information necessary in order to be available for use by the managed device, i.e., one or more required parameter in the row have not been populated)</li>
+<li><span id="D..createAndGo"><em>createAndGo</em> [<code>4</code>]</span> (Not used)</li>
+<li><span id="D..createAndWait"><em>createAndWait</em> [<code>5</code>]</span> (Not used)</li>
+<li><span id="D..destroy"><em>destroy</em> [<code>6</code>]</span> (Not used)</li>
 </ul>
 </td>
 </tr>
@@ -4765,7 +4811,7 @@ compaction.</p>
 it MUST be assigned a value that is one more than the largest current
 value (lowest precedence).</p>
 </div>
-<p>For each incoming connection, the highest ordered entry that matches the Host: HTTP header and path prefix is applied. All lower <em>Order</em> entries are ignored.<span class="removed"> When this value is set, if the value matches that of an existing entry, the {{param}} value for the existing entry and all lower {{param}} entries is incremented (lowered in precedence) to ensure uniqueness of this value.}}{{div|{{classes}}|A deletion causes {{param}} values to be compacted. When a value is changed, incrementing occurs before compaction.}}</span></p>
+<p>For each incoming connection, the highest ordered entry that matches the Host: HTTP header and path prefix is applied. All lower <em>Order</em> entries are ignored.<span class="removed"> When this value is set, if the value matches that of an existing entry, the {{param}} value for the existing entry and all lower {{param}} entries is incremented (lowered in precedence) to ensure uniqueness of this value.</span><span class="removed">{{div|{{classes}}|A deletion causes {{param}} values to be compacted. When a value is changed, incrementing occurs before compaction.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
 <ul>
@@ -4794,7 +4840,8 @@ value (lowest precedence).</p>
 <td>
 <p>The value MUST be the Path Name of a table row. The IP or Logical Interface associated with the <a href="#D.Device:2.Device.UserInterface.HTTPAccess."><em>HTTPAccess</em></a> entry. Example:</p>
 <ul>
-<li><span class="removed"><em>Device.IP.Interface.1</em>.}}{{div|{{classes}}|</span><span class="inserted"><em>Device.IP.Interface.1</em> </span>* <span class="removed"><em>Device.Logical.Interface.1</em>.</span><span class="inserted"><em>Device.Logical.Interface.1</em></span></li>
+<li><span class="removed"><em>Device.IP.Interface.1</em>.}}{{div|{{classes}}|</span><span class="inserted"><em>Device.IP.Interface.1</em> </span></li>
+<li><span class="removed"><em>Device.Logical.Interface.1</em>.</span><span class="inserted"><em>Device.Logical.Interface.1</em></span></li>
 </ul>
 <p>If the value is an empty string, the CPE MUST use its routing policy (IP
 Forwarding table entries), if necessary, to determine the appropriate
@@ -8553,18 +8600,23 @@ See [<a href="#R.MoCAv2.0">Section 8.1.1, and Table 17-1/MoCAv2.0</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p><span class="mark"><strong>[mocaIfChannelSupport/1.3.6.1.4.1.31621.1.2.1.7.1.22]</strong></span> <span class="removed">Hexadecimal</span><span class="inserted">The</span> <span class="removed">encoded 64-bit mask of supported frequencies. This is the bit map of the spectrum</span><span class="inserted">frequencies</span> that the interface <span class="removed">supports,</span><span class="inserted">supports.</span> <span class="removed">and each bit represents 25 MHz of spectrum. The least significant bit of the rightmost character corresponds to 800MHz, which is the lowest frequency.}}{{div|{{classes}}|For example, an interface that supports 1150 MHz through 1500 MHz would have a value of 0x000000001FFFC000.}}{{div|{{classes}}|This parameter is based on <em>mocaIfCapabilityMask</em> from {{bibref|MOCA11-MIB}}.}}</span></p>
+<p><span class="mark"><strong>[mocaIfChannelSupport/1.3.6.1.4.1.31621.1.2.1.7.1.22]</strong></span> <span class="removed">Hexadecimal</span><span class="inserted">The</span> <span class="removed">encoded 64-bit mask of supported frequencies. This is the bit map of the spectrum</span><span class="inserted">frequencies</span> that the interface <span class="removed">supports,</span><span class="inserted">supports.</span> <span class="removed">and each bit represents 25 MHz of spectrum. The least significant bit of the rightmost character corresponds to 800MHz, which is the lowest frequency.</span></p>
 <div class="inserted">
 <p>[<a href="#T.MocaChannelMask">MocaChannelMask</a>] Represents one or more MoCA channel RF center frequencies using a hexadecimal encoded 64-bit mask.</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <a href="#D.Device:2.Device.MoCA.Interface.HighestVersion"><em>HighestVersion</em></a> parameter.</p>
 </div>
+<p><span class="removed">{{div|{{classes}}|For example, an interface that supports 1150 MHz through 1500 MHz would have a value of 0x000000001FFFC000.}}{{div|{{classes}}|This parameter is based on <em>mocaIfCapabilityMask</em> from {{bibref|MOCA11-MIB}}.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
 <ul>
@@ -8597,8 +8649,12 @@ See [<a href="#R.MoCAv2.0">Section 8.1.1, and Table 17-1/MoCAv2.0</a>].</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <a href="#D.Device:2.Device.MoCA.Interface.HighestVersion"><em>HighestVersion</em></a> parameter.</p>
@@ -8631,14 +8687,18 @@ See [<a href="#R.MoCAv2.0">Section 8.1.1, and Table 17-1/MoCAv2.0</a>].</p>
 </td>
 <td>
 <p><span class="mark"><strong>[mocaIfChannelSupport/1.3.6.1.4.1.31621.1.2.1.7.1.22]</strong></span> <span class="removed">Hexadecimal</span><span class="inserted">The</span> <span class="removed">encoded 64-bit mask of used frequencies. This is the bit map of the spectrum</span><span class="inserted">frequencies</span> that can be <span class="removed">used</span><span class="inserted">used.</span> <span class="removed">and</span><span class="inserted">This</span> is a subset of the <a href="#D.Device:2.Device.MoCA.Interface.FreqCapabilityMask"><em>FreqCapabilityMask</em></a><span class="removed">.</span> <span class="removed">Each bit represents 25 MHz of spectrum. The least significant bit of the rightmost character corresponds to 800MHz, which is the lowest frequency.</span><span class="inserted">frequencies.</span></p>
-<p><span class="removed">This parameter is based on <em>mocaIfChannelMask</em> from {{bibref|MOCA11-MIB}}.}}</span></p>
+<p><span class="removed">This parameter is based on <em>mocaIfChannelMask</em> from {{bibref|MOCA11-MIB}}.</span></p>
 <div class="inserted">
 <p>[<a href="#T.MocaChannelMask">MocaChannelMask</a>] Represents one or more MoCA channel RF center frequencies using a hexadecimal encoded 64-bit mask.</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <a href="#D.Device:2.Device.MoCA.Interface.HighestVersion"><em>HighestVersion</em></a> parameter.</p>
@@ -8877,11 +8937,21 @@ Possible patterns:</p>
 <p><span class="mark"><strong>[mocaIfTlpMax/1.3.6.1.4.1.31621.1.2.1.1.1.24]</strong></span> The maximum time (in milliseconds) a MoCA Node is required to stay in the Listening Phase of the Network Search (TLP_MAX Managed Parameter).</p>
 <p>Default value of <em>TlpMax</em> depends on the band configuration as follows:</p>
 <ul>
-<li>20 seconds for band E</li>
-<li>35 seconds for band F</li>
-<li>95 seconds for Band ExD</li>
-<li>10 seconds for Band D-Low</li>
-<li>55 seconds for Band D-High</li>
+<li>
+<p>20 seconds for band E</p>
+</li>
+<li>
+<p>35 seconds for band F</p>
+</li>
+<li>
+<p>95 seconds for Band ExD</p>
+</li>
+<li>
+<p>10 seconds for Band D-Low</p>
+</li>
+<li>
+<p>55 seconds for Band D-High</p>
+</li>
 </ul>
 <p>See [<a href="#R.MoCAv2.0">Section 8.1/MoCAv2.0</a>].</p>
 </td>
@@ -9037,8 +9107,12 @@ Possible patterns:</p>
 <td>
 <p><span class="mark"><strong>[mocaIfPowerStateTrapEnable/1.3.6.1.4.1.31621.1.2.1.1.1.31]</strong></span> Used for power state message trap.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on each Power State transition.</li>
-<li>When set to <em>false</em> no trap report is generated when the MoCA Node Power State changes.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on each Power State transition.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report is generated when the MoCA Node Power State changes.</p>
+</li>
 </ul>
 <p>See [<a href="#R.MoCAv2.0">Section 12/MoCAv2.0</a>].</p>
 <p>The factory default value MUST be <em>false</em>.</p>
@@ -9063,8 +9137,12 @@ Possible patterns:</p>
 <td>
 <p><span class="mark"><strong>[mocaIfLmoTrapEnable/1.3.6.1.4.1.31621.1.2.1.1.1.32]</strong></span> Used for LMO (Link Maintenance Operation) message trap.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on transitioning to LMO.</li>
-<li>When set to <em>false</em> no trap report the MoCA Node is not transitioning to LMO.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on transitioning to LMO.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report the MoCA Node is not transitioning to LMO.</p>
+</li>
 </ul>
 <p>See [<a href="#R.MoCAv2.0">Section 12/MoCAv2.0</a>].</p>
 <p>The factory default value MUST be <em>false</em>.</p>
@@ -9081,7 +9159,7 @@ Possible patterns:</p>
 <p><span id="D.Device:2.Device.MoCA.Interface.PrimaryOffset">PrimaryOffset</span></p>
 </td>
 <td>
-<p>int(-25:1:25)</p>
+<p>int(-25:25:25)</p>
 </td>
 <td>
 <p>W</p>
@@ -9101,7 +9179,7 @@ Possible patterns:</p>
 <p><span id="D.Device:2.Device.MoCA.Interface.SecondaryOffset">SecondaryOffset</span></p>
 </td>
 <td>
-<p>int(-125:1:125)</p>
+<p>int(-125:125:125)</p>
 </td>
 <td>
 <p>W</p>
@@ -9215,8 +9293,12 @@ Possible patterns:</p>
 <td>
 <p><span class="mark"><strong>[moca25IfBeaconPowerNetConfig/1.3.6.1.4.1.31621.1.3.1.1.1.5]</strong></span> Controls whether the Node is allowed to configure its Beacon power (both Beacon Power Distributed and Beacon Power Local) according to the Beacon Power PIE (Power Information Element) sent by the NC (Network Coordinator).</p>
 <ul>
-<li>When set to true the Node is allowed to configure its Beacon power.</li>
-<li>When set to false the Node is not allowed to configure its Beacon power.</li>
+<li>
+<p>When set to true the Node is allowed to configure its Beacon power.</p>
+</li>
+<li>
+<p>When set to false the Node is not allowed to configure its Beacon power.</p>
+</li>
 </ul>
 <p>See [<a href="#R.MoCAv2.5">Section 7.1.5 and Table 17-1/MoCAv2.5</a>].</p>
 </td>
@@ -9673,8 +9755,12 @@ short  SrcNodeBitmask; // 2 octets (SOURCE_NODE_BITMASK in the latest Authorized
 <td>
 <p><span class="mark"><strong>[moca25IfConnectedNodesChangeTrapEn/1.3.6.1.4.1.31621.1.3.1.1.1.25]</strong></span> Used to enable <a href="#D.Device:2.Device.MoCA.Interface.ConnectedNodesChangeTrap"><em>ConnectedNodesChangeTrap!</em></a>.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on the change of <a href="#D.Device:2.Device.MoCA.Interface.NumNodes"><em>NumNodes</em></a>.</li>
-<li>When set to <em>false</em> no trap report is generated when <a href="#D.Device:2.Device.MoCA.Interface.NumNodes"><em>NumNodes</em></a> changes.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on the change of <a href="#D.Device:2.Device.MoCA.Interface.NumNodes"><em>NumNodes</em></a>.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report is generated when <a href="#D.Device:2.Device.MoCA.Interface.NumNodes"><em>NumNodes</em></a> changes.</p>
+</li>
 </ul>
 <p>The factory default value MUST be <em>false</em>.</p>
 </td>
@@ -9698,8 +9784,12 @@ short  SrcNodeBitmask; // 2 octets (SOURCE_NODE_BITMASK in the latest Authorized
 <td>
 <p><span class="mark"><strong>[moca25IfMgntEntityNetwIePayloadRecTrapEn/1.3.6.1.4.1.31621.1.3.1.1.1.26]</strong></span> Used to enable <a href="#D.Device:2.Device.MoCA.Interface.MgntEntityNetwIePayloadRecTrap"><em>MgntEntityNetwIePayloadRecTrap!</em></a>.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a Management Entity Request/Response Network IE.</li>
-<li>When set to <em>false</em> no trap report is generated when a Management Entity Request/Response Network IE is received.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a Management Entity Request/Response Network IE.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report is generated when a Management Entity Request/Response Network IE is received.</p>
+</li>
 </ul>
 <p>The factory default value MUST be <em>false</em>.</p>
 </td>
@@ -9744,8 +9834,12 @@ short  SrcNodeBitmask; // 2 octets (SOURCE_NODE_BITMASK in the latest Authorized
 <td>
 <p><span class="mark"><strong>[moca25IfNcPrivSupportedRecTrapEn/1.3.6.1.4.1.31621.1.3.1.1.1.28]</strong></span> Used to enable <a href="#D.Device:2.Device.MoCA.Interface.NcPrivacySupportedRecTrap"><em>NcPrivacySupportedRecTrap!</em></a>.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a new NC_PRIVACY_SUPPORTED value.</li>
-<li>When set to <em>false</em> no trap report is generated when a new NC_PRIVACY_SUPPORTED value is received.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a new NC_PRIVACY_SUPPORTED value.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report is generated when a new NC_PRIVACY_SUPPORTED value is received.</p>
+</li>
 </ul>
 <p>The factory default value MUST be <em>false</em>.</p>
 </td>
@@ -9769,8 +9863,12 @@ short  SrcNodeBitmask; // 2 octets (SOURCE_NODE_BITMASK in the latest Authorized
 <td>
 <p><span class="mark"><strong>[moca25IfNetworkNameRecTrapEn/1.3.6.1.4.1.31621.1.3.1.1.1.29]</strong></span> Used to enable <a href="#D.Device:2.Device.MoCA.Interface.NetworkNameRecTrap"><em>NetworkNameRecTrap!</em></a>.</p>
 <ul>
-<li>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a Network Name.</li>
-<li>When set to <em>false</em> no trap report is generated when a Network Name is received.</li>
+<li>
+<p>When set to <em>true</em> it allows the MoCA Node to report a trap on reception of a Network Name.</p>
+</li>
+<li>
+<p>When set to <em>false</em> no trap report is generated when a Network Name is received.</p>
+</li>
 </ul>
 <p>The factory default value MUST be <em>false</em>.</p>
 </td>
@@ -9813,7 +9911,7 @@ short  SrcNodeBitmask; // 2 octets (SOURCE_NODE_BITMASK in the latest Authorized
 <p>W</p>
 </td>
 <td>
-<p><span class="mark"><strong>[mocaIfTxPowerLimit/1.3.6.1.4.1.31621.1.2.1.1.1.4]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] <span class="removed">Transmit</span><span class="inserted">The</span> <span class="removed">Power attenuation</span><span class="inserted">value</span> in dB <span class="removed">relative</span><span class="inserted">by which</span> to <span class="inserted">reduce </span>the<span class="inserted"> transmit power of the node from its</span> maximum transmit power.<strong>{{replaced: unexpected argument [replaced(The, Status), ', which means the interface is not part of a MoCA network. If changed, the parameter may not take effect until the'] after: }}{{div|{{classes}}, [' The transmit power SHALL only be changed when ', param(Status), ' is not ', enum(Up)]}}</strong> MoCA interface <span class="removed">SHOULD have {{param|Enable}} set to {{false}} for any change in this configuration. If the parameter </span>is <span class="removed">modified when {{param|Enable}} is {{true}} then this change might take several minutes to complete.</span><span class="inserted">restarted.</span></p>
+<p><span class="mark"><strong>[mocaIfTxPowerLimit/1.3.6.1.4.1.31621.1.2.1.1.1.4]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] <span class="removed">Transmit</span><span class="inserted">The</span> <span class="removed">Power attenuation</span><span class="inserted">value</span> in dB <span class="removed">relative</span><span class="inserted">by which</span> to <span class="inserted">reduce </span>the<span class="inserted"> transmit power of the node from its</span> maximum transmit power.<span class="removed">}}{{div|{{classes}}|</span><span class="inserted"> </span>The<span class="inserted"> transmit power SHALL only be changed when <a href="#D.Device:2.Device.MoCA.Interface.Status"><em>Status</em></a> is not <a href="#D.Device:2.Device.MoCA.Interface.Status.Up"><em>Up</em></a>, which means the interface is not part of a MoCA network. If changed, the parameter may not take effect until the</span> MoCA interface <span class="removed">SHOULD have {{param|Enable}} set to {{false}} for any change in this configuration. If the parameter </span>is <span class="removed">modified when {{param|Enable}} is {{true}} then this change might take several minutes to complete.</span><span class="inserted">restarted.</span></p>
 <p>This parameter is based on <em>mocaIfTxPowerLimit</em> from [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
 <p>The factory default value MUST be <em>0</em>.</p>
 <div class="diffs">
@@ -9881,7 +9979,7 @@ minutes to complete.</p>
 </td>
 <td>
 <div class="hide">
-<p><span class="mark"><strong>[mocaIfBeaconPowerBackoff/1.3.6.1.4.1.31621.1.2.1.1.1.5]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] <span class="removed">Beacon</span><span class="inserted">The</span> <span class="removed">Transmit Power attenuation</span><span class="inserted">value</span> in <span class="removed">{{units}}</span><span class="inserted">dB</span> <span class="removed">relative</span><span class="inserted">by which</span> to<span class="inserted"> reduce the setting of the transmit power of the Beacon from</span> the maximum transmit <strong>{{replaced: unexpected argument [replaced(The, Status), ', which means the interface is not part of a MoCA network. If changed, the parameter may not take effect until the'] after: power.}}{{div|{{classes}}, ['power (BEACON_PWR_BACKOFF Managed Parameter). The beacon transmit power SHALL only be changed when ', param(Status), ' is not ', enum(Up)]}}</strong> MoCA interface <span class="removed">SHOULD have {{param|Enable}} set to {{false}} for any change in this configuration. If the parameter </span>is <span class="removed">modified when {{param|Enable}} is {{true}} then this change might take several minutes to complete.</span><span class="inserted">restarted.</span></p>
+<p><span class="mark"><strong>[mocaIfBeaconPowerBackoff/1.3.6.1.4.1.31621.1.2.1.1.1.5]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] <span class="removed">Beacon</span><span class="inserted">The</span> <span class="removed">Transmit Power attenuation</span><span class="inserted">value</span> in <span class="removed">{{units}}</span><span class="inserted">dB</span> <span class="removed">relative</span><span class="inserted">by which</span> to<span class="inserted"> reduce the setting of the transmit power of the Beacon from</span> the maximum transmit <span class="removed">power.}}{{div|{{classes}}|</span><span class="inserted">power (BEACON_PWR_BACKOFF Managed Parameter). </span>The<span class="inserted"> beacon transmit power SHALL only be changed when <a href="#D.Device:2.Device.MoCA.Interface.Status"><em>Status</em></a> is not <a href="#D.Device:2.Device.MoCA.Interface.Status.Up"><em>Up</em></a>, which means the interface is not part of a MoCA network. If changed, the parameter may not take effect until the</span> MoCA interface <span class="removed">SHOULD have {{param|Enable}} set to {{false}} for any change in this configuration. If the parameter </span>is <span class="removed">modified when {{param|Enable}} is {{true}} then this change might take several minutes to complete.</span><span class="inserted">restarted.</span></p>
 </div>
 <div class="hide">
 <p>This parameter is based on <em>mocaIfBeaconPowerLimit</em> from [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
@@ -9930,14 +10028,18 @@ minutes to complete.</p>
 </td>
 <td>
 <p><span class="mark"><strong>[mocaIfTabooChannelMask/1.3.6.1.4.1.31621.1.2.1.7.1.13]</strong></span> <span class="removed">Hexadecimal encoded 64-bit mask of</span><span class="inserted">The</span> MoCA taboo channels identified for the home network.<span class="removed"> This is the bit map of the spectrum that the interface supports, and each bit represents 25 MHz of spectrum. The least significant bit of the rightmost character corresponds to 800MHz, which is the lowest frequency.</span></p>
-<p><span class="removed">This parameter is based on <em>mocaIfTabooChannelMask</em> from {{bibref|MOCA11-MIB}}.}}</span></p>
+<p><span class="removed">This parameter is based on <em>mocaIfTabooChannelMask</em> from {{bibref|MOCA11-MIB}}.</span></p>
 <div class="inserted">
 <p>[<a href="#T.MocaChannelMask">MocaChannelMask</a>] Represents one or more MoCA channel RF center frequencies using a hexadecimal encoded 64-bit mask.</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <a href="#D.Device:2.Device.MoCA.Interface.HighestVersion"><em>HighestVersion</em></a> parameter.</p>
@@ -9969,14 +10071,18 @@ minutes to complete.</p>
 </td>
 <td>
 <p><span class="mark"><strong>[mocaIfNodeTabooChannelMask/1.3.6.1.4.1.31621.1.2.1.7.1.14]</strong></span> <span class="removed">Hexadecimal encoded 64-bit mask of supported frequencies. This is the bit map of the spectrum that the interface supports, and each bit represents 25 MHz of spectrum. </span>The <span class="removed">least</span><span class="inserted">MoCA</span> <span class="removed">significant</span><span class="inserted">taboo</span> <span class="removed">bit</span><span class="inserted">channels</span> <span class="removed">of</span><span class="inserted">identified</span> <span class="removed">the</span><span class="inserted">for</span> <span class="removed">rightmost</span><span class="inserted">this</span> <span class="removed">character corresponds to 800MHz, which is the lowest frequency.</span><span class="inserted">device.</span></p>
-<p><span class="removed">This parameter is based on <em>mocaIfNodeTabooChannelMask</em> from {{bibref|MOCA11-MIB}}.}}</span></p>
+<p><span class="removed">This parameter is based on <em>mocaIfNodeTabooChannelMask</em> from {{bibref|MOCA11-MIB}}.</span></p>
 <div class="inserted">
 <p>[<a href="#T.MocaChannelMask">MocaChannelMask</a>] Represents one or more MoCA channel RF center frequencies using a hexadecimal encoded 64-bit mask.</p>
 <p>Bit 63 (the leftmost bit of the leftmost character) is the most significant bit (highest frequency), and bit 0 (the rightmost bit of the rightmost character) is the least significant bit (lowest frequency).  Not all bits are valid MoCA channels.</p>
 <p>Each bit represents 25 MHz of spectrum, but the mapping from bits to frequencies varies with the MoCA version:</p>
 <ul>
-<li>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</li>
-<li>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</li>
+<li>
+<p>MoCA 1.0 and MoCA 1.1: bits 63 through 32 are not used, bit 31 represents 1575 MHz and bit 0 represents 800 MHz</p>
+</li>
+<li>
+<p>MoCA 2.0 and MoCA 2.5: bit 63 represents 1975 MHz and bit 0 represents 400 MHz</p>
+</li>
 </ul>
 <p>For example, a MoCA 1.0 or MoCA 1.1 interface would use 0x000000001FFFC000 to represent 1150 MHz through 1500 MHz.</p>
 <p>Note that the MoCA version is indicated by the <a href="#D.Device:2.Device.MoCA.Interface.HighestVersion"><em>HighestVersion</em></a> parameter.</p>
@@ -10027,7 +10133,7 @@ minutes to complete.</p>
 <p>R</p>
 </td>
 <td>
-<p><span class="mark"><strong>[mocaIfTxGcdRate/1.3.6.1.4.1.31621.1.2.1.7.1.20]</strong></span> [<a href="#T.MocaPhyRate">MocaPhyRate</a>] The broadcast PHY transmit rate <span class="removed">in {{units}} </span>for this interface.</p>
+<p><span class="mark"><strong>[mocaIfTxGcdRate/1.3.6.1.4.1.31621.1.2.1.7.1.20]</strong></span> [<a href="#T.MocaPhyRate">MocaPhyRate</a>] The broadcast PHY transmit rate<span class="removed"> in {{units}}</span> for this interface.</p>
 <p>This parameter is based on <em>mocaIfTxGcdRate</em> from [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
@@ -12003,11 +12109,11 @@ char   dropReason;    // 1 octet  (Reason of node drop:
 <p>If the value of this parameter is anything other than <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.success"><em>success</em></a>, the values of the other output arguments for this operation are indeterminate.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.success"><em>success</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failBADCHANNEL"><em>failBADCHANNEL</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failNOEVMPROBE"><em>failNOEVMPROBE</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.fail"><em>fail</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.inPROGRESS"><em>inPROGRESS</em></span> (Not used)</li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.success"><em>success</em> [<code>0</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failBADCHANNEL"><em>failBADCHANNEL</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failNOEVMPROBE"><em>failNOEVMPROBE</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.fail"><em>fail</em> [<code>3</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.inPROGRESS"><em>inPROGRESS</em> [<code>4</code>]</span> (Not used)</li>
 </ul>
 </td>
 <td>
@@ -13378,7 +13484,7 @@ revision number.  Possible patterns:</p>
 </td>
 <td>
 <div class="hide">
-<p><span class="mark"><strong>[mocaNodeTxPowerReduction/1.3.6.1.4.1.31621.1.2.1.11.1.6]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] The reduction in transmitter level <span class="removed">(in {{units}}) </span>due to power control.</p>
+<p><span class="mark"><strong>[mocaNodeTxPowerReduction/1.3.6.1.4.1.31621.1.2.1.11.1.6]</strong></span> [<a href="#T.MocaDB">MocaDB</a>] The reduction in transmitter level<span class="removed"> (in {{units}})</span> due to power control.</p>
 </div>
 <div class="hide">
 <p>This parameter is based on <em>mocaNodeTxPowerReduction</em> from [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
@@ -13463,7 +13569,7 @@ revision number.  Possible patterns:</p>
 <p>R</p>
 </td>
 <td>
-<p><span class="mark"><strong>[mocaNodeTxGcdRate/1.3.6.1.4.1.31621.1.2.1.11.1.4]</strong></span> [<a href="#T.MocaPhyRate">MocaPhyRate</a>] The broadcast PHY transmit rate <span class="removed">(in {{units}}) </span>from this remote device.</p>
+<p><span class="mark"><strong>[mocaNodeTxGcdRate/1.3.6.1.4.1.31621.1.2.1.11.1.4]</strong></span> [<a href="#T.MocaPhyRate">MocaPhyRate</a>] The broadcast PHY transmit rate<span class="removed"> (in {{units}})</span> from this remote device.</p>
 <p>This parameter is based on <em>mocaNodeTxGcdRate</em> from [<a href="#R.MOCA11-MIB">MOCA11-MIB</a>].</p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
@@ -13978,12 +14084,24 @@ device.</p>
 <p>The power measurement should cover the preamble and/or at least a symbol time. The averaging method employed for this measurement is implementation specific and not specified. It is recommended but not required to utilize the LMO (Link Maintenance Operation) EVM probes for this measurement.</p>
 <p>The field numValues is a function of <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li>MoCA 1 PHY - 1</li>
-<li>Primary - 1</li>
-<li>Bonded - 2</li>
-<li>300 MHz MoCA 2.5 PHY - 3</li>
-<li>400 MHz MoCA 2.5 PHY - 4</li>
-<li>500 MHz MoCA 2.5 PHY - 5</li>
+<li>
+<p>MoCA 1 PHY - 1</p>
+</li>
+<li>
+<p>Primary - 1</p>
+</li>
+<li>
+<p>Bonded - 2</p>
+</li>
+<li>
+<p>300 MHz MoCA 2.5 PHY - 3</p>
+</li>
+<li>
+<p>400 MHz MoCA 2.5 PHY - 4</p>
+</li>
+<li>
+<p>500 MHz MoCA 2.5 PHY - 5</p>
+</li>
 </ul>
 <p>struct moca25NodePowerList {
 char  numValues;     // 1 octet (Number of Values to follow)
@@ -14013,12 +14131,24 @@ char  power;       // 1 octet (Rx Power Level in dBm)
 <p><span class="mark"><strong>[moca25NodeRxSNRList/1.3.6.1.4.1.31621.1.3.1.3.1.6]</strong></span> Per channel list of Average Receive Signal to Noise Ratio (SNR) across all available subcarriers based on the EVM probe from the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.MACAddress"><em>MACAddress</em></a> to the managed MoCA Node.</p>
 <p>The field numValues is a function of <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li>MoCA 1 PHY - 1</li>
-<li>Primary - 1</li>
-<li>Bonded - 2</li>
-<li>300 MHz MoCA 2.5 PHY - 3</li>
-<li>400 MHz MoCA 2.5 PHY - 4</li>
-<li>500 MHz MoCA 2.5 PHY - 5</li>
+<li>
+<p>MoCA 1 PHY - 1</p>
+</li>
+<li>
+<p>Primary - 1</p>
+</li>
+<li>
+<p>Bonded - 2</p>
+</li>
+<li>
+<p>300 MHz MoCA 2.5 PHY - 3</p>
+</li>
+<li>
+<p>400 MHz MoCA 2.5 PHY - 4</p>
+</li>
+<li>
+<p>500 MHz MoCA 2.5 PHY - 5</p>
+</li>
 </ul>
 <p>struct moca25NodeRxSNRList {
 char  numValues;     // 1 octet (Number of Values to follow)
@@ -14048,12 +14178,24 @@ char  snr;         // 1 octet (Rx SNR in dB)
 <p><span class="mark"><strong>[moca25NodeTxPwrList/1.3.6.1.4.1.31621.1.3.1.3.1.7]</strong></span> Per channel list of Transmit power levels in dBm from the managed MoCA Node to the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.MACAddress"><em>MACAddress</em></a>. The transmit power should be max power for the channel less the Transmit Power Control.</p>
 <p>The field numValues is a function of <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li>MoCA 1 PHY - 1</li>
-<li>Primary - 1</li>
-<li>Bonded - 2</li>
-<li>300 MHz MoCA 2.5 PHY - 3</li>
-<li>400 MHz MoCA 2.5 PHY - 4</li>
-<li>500 MHz MoCA 2.5 PHY - 5</li>
+<li>
+<p>MoCA 1 PHY - 1</p>
+</li>
+<li>
+<p>Primary - 1</p>
+</li>
+<li>
+<p>Bonded - 2</p>
+</li>
+<li>
+<p>300 MHz MoCA 2.5 PHY - 3</p>
+</li>
+<li>
+<p>400 MHz MoCA 2.5 PHY - 4</p>
+</li>
+<li>
+<p>500 MHz MoCA 2.5 PHY - 5</p>
+</li>
 </ul>
 <p>struct moca25NodePowerList {
 char  numValues;     // 1 octet (Number of Values to follow)
@@ -14084,12 +14226,24 @@ char  power;       // 1 octet (Tx Power Level in dBm)
 <p><em>TxPwrReductionList</em> is identical to the TPC back-off utilized for transmission from the TPC backoff parameter TX_POWER_ADJUSTMENT_100MHZ.</p>
 <p>The field numValues is a function of <a href="#D.Device:2.Device.MoCA.Interface.AssociatedDevice.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li>MoCA 1 PHY - 1</li>
-<li>Primary - 1</li>
-<li>Bonded - 2</li>
-<li>300 MHz MoCA 2.5 PHY - 3</li>
-<li>400 MHz MoCA 2.5 PHY - 4</li>
-<li>500 MHz MoCA 2.5 PHY - 5</li>
+<li>
+<p>MoCA 1 PHY - 1</p>
+</li>
+<li>
+<p>Primary - 1</p>
+</li>
+<li>
+<p>Bonded - 2</p>
+</li>
+<li>
+<p>300 MHz MoCA 2.5 PHY - 3</p>
+</li>
+<li>
+<p>400 MHz MoCA 2.5 PHY - 4</p>
+</li>
+<li>
+<p>500 MHz MoCA 2.5 PHY - 5</p>
+</li>
 </ul>
 <p>struct moca25NodeTxPwrReductionList {
 char  numValues;     // 1 octet (Number of Values to follow)
@@ -14281,9 +14435,9 @@ char  tpc;         // 1 octet (TPC in dB)
 <td>
 <p><span class="mark"><strong>[mocaMeshLinkType/1.3.6.1.4.1.31621.1.2.1.12.1.6]</strong></span> The type of link which exists from the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.Mesh.TxNodeIndex"><em>TxNodeIndex</em></a> to the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.Mesh.RxNodeIndex"><em>RxNodeIndex</em></a>.  Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></span></li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em> [<code>0</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em> [<code>2</code>]</span></li>
 </ul>
 <p>This parameter is only used for MoCA 2.0.</p>
 </td>
@@ -14309,9 +14463,15 @@ char  tpc;         // 1 octet (TPC in dB)
 <p>For transmit power, the power should be max power for the channel less the Transmit Power Control.  For received power, the power measurement should cover the preamble and/or at least a symbol time. The averaging method employed for this measurement is implementation specific and not specified. It is recommended but not required to utilize the LMO (Link Maintenance Operation) EVM probes for this measurement.</p>
 <p>The field <em>numValues</em> is a function of <a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</p>
+</li>
 </ul>
 <p>struct mocaPower {
 char  numValues;     // 1 octet (Number of Values to follow)
@@ -14343,9 +14503,15 @@ char  power;       // 1 octet (Tx or Rx Power Level in dB)
 <p><em>PowerReduction</em> is identical to the TPC back-off utilized for transmission and determined from the TPC backoff parameters TPC_BACKOFF_MAJOR and TPC_BACKOFF_MINOR as follows: <em>PowerReduction</em> = TPC_BACKOFF_MAJOR * 3 +TPC_BACKOFF_MINOR.</p>
 <p>The field <em>numValues</em> is a function of <a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</p>
+</li>
 </ul>
 <p>struct mocaPowerReduction {
 char  numValues;     // 1 octet  (Number of Values to follow)
@@ -14376,9 +14542,15 @@ char  tpc;         // 1 octet (TPC in dB)
 <p><span class="mark"><strong>[mocaMeshRxSNR/1.3.6.1.4.1.31621.1.2.1.12.1.9]</strong></span> Per channel list of average received Signal to Noise Ratio (SNR) in dB. If the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.Mesh.RxNodeIndex"><em>RxNodeIndex</em></a> is not equal to <a href="#D.Device:2.Device.MoCA.Interface.NodeID"><em>NodeID</em></a> or the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.Mesh.TxNodeIndex"><em>TxNodeIndex</em></a> is equal to <a href="#D.Device:2.Device.MoCA.Interface.NodeID"><em>NodeID</em></a>, then this parameter is not present. Otherwise indicates the average received SNR across all the available carriers based on the EVM probe from the MoCA Node identified by <a href="#D.Device:2.Device.MoCA.Interface.Mesh.TxNodeIndex"><em>TxNodeIndex</em></a>.</p>
 <p>The field <em>numValues</em> is a function of <a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType"><em>LinkType</em></a>:</p>
 <ul>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</li>
-<li><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.moca1PHY"><em>moca1PHY</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.primary"><em>primary</em></a> - 1</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.MoCA.Interface.Mesh.LinkType.bonded"><em>bonded</em></a> - 2</p>
+</li>
 </ul>
 <p>struct mocaRxSNR {
 char  numValues;     // 1 octet  (Number of Values to follow)
@@ -15272,6 +15444,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice."><em>APDevice.{i}</em></a> is being deprecated.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -15349,6 +15523,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This object was DEPRECATED in 2.15 because <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.ManufacturerOUI"><em>ManufacturerOUI</em></a> and <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.LastContactTime"><em>LastContactTime</em></a> have moved to <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice."><em>DataElements.Network.Device.{i}.MultiAPDevice</em></a>, Backhaul parameters have moved to <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.MultiAPDevice.Backhaul."><em>DataElements.Network.Device.{i}.MultiAPDevice.Backhaul</em></a> and <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.MACAddress"><em>MACAddress</em></a> is duplicated in <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.ID"><em>DataElements.Network.Device.{i}.ID</em></a>. All the rest are deprecated as noted.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This object was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -15624,7 +15800,9 @@ device is able to receive.</p>
 <p>The number of entries in the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio."><em>Radio</em></a> table.</p>
 </div>
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio."><em>Radio.{i}</em></a> is being deprecated.<span class="removed">}}</span></p>
+<p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio."><em>Radio.{i}</em></a> is being deprecated.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -15661,6 +15839,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This object was DEPRECATED in 2.15 because <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.MACAddress"><em>MACAddress</em></a> is duplicated in <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.ID"><em>DataElements.Network.Device.{i}.Radio.{i}.ID</em></a> and <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is replaced with <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.CurrentOperatingClassProfile.Class"><em>DataElements.Network.Device.{i}.Radio.{i}.CurrentOperatingClassProfile.{i}.Class</em></a>. <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.Channel"><em>Channel</em></a> is duplicated in <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.CurrentOperatingClassProfile.Channel"><em>DataElements.Network.Device.{i}.Radio.{i}.CurrentOperatingClassProfile.{i}.Channel</em></a>. <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.TransmitPower"><em>TransmitPower</em></a> is duplicated in <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.CurrentOperatingClassProfile.TxPower"><em>DataElements.Network.Device.{i}.Radio.{i}.CurrentOperatingClassProfile.{i}.TxPower</em></a>. The remaining parameters deprecated as noted.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This object was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -16137,6 +16317,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP."><em>AP.{i}.</em></a> is being deprecated.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -16214,6 +16396,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice."><em>AssociatedDevice.{i}.</em></a> is being deprecated.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -16250,6 +16434,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This object was DEPRECATED in 2.15 because it has moved <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice.AssociationTime"><em>AssociationTime</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice.Noise"><em>Noise</em></a> into <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA.MultiAPSTA."><em>DataElements.Network.Device.{i}.Radio.{i}.BSS.{i}.STA.{i}.MultiAPSTA.</em></a> and the remaining parameters are duplicated in <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA."><em>DataElements.Network.Device.{i}.Radio.{i}.BSS.{i}.STA.{i}.</em></a> except <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice.OperatingStandard"><em>OperatingStandard</em></a> which was deprecated as noted.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This object was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -16376,6 +16562,8 @@ device is able to receive.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15  because the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice.SteeringHistory."><em>MultiAP.APDevice.{i}.Radio.{i}.AP.{i}.AssociatedDevice.{i}.SteeringHistory.{i}.</em></a> is being deprecated.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -18235,7 +18423,7 @@ the identified Access Point device known to the controller.</p>
 <p>-</p>
 </td>
 <td>
-<p><strong>[ASYNC]</strong> Request to initiate a channel scan. The operating classes, and list of channels for each operating class, are input. <span class="inserted">If no operating class is provided to the input, then all available opclasses and channels are to be scanned. </span>For 2.4GHz and 5GHz bands, only 20MHz operating classes are valid inputs.</p>
+<p><strong>[ASYNC]</strong> Request to initiate a channel scan. The operating classes, and list of channels for each operating class, are input.<span class="inserted"> If no operating class is provided to the input, then all available opclasses and channels are to be scanned.</span> For 2.4GHz and 5GHz bands, only 20MHz operating classes are valid inputs.</p>
 <p>This command should result in updating <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.ScanResult."><em>Device.WiFi.DataElements.Network.Device.{i}.Radio.{i}.ScanResult.</em></a></p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
@@ -18829,7 +19017,9 @@ different from the current operational configuration.</p>
 <p>Describes the HE capabilities of the radio as defined by the HECapabilities TLV [<a href="#R.EasyMesh">Section 17.2.10/EasyMesh</a>].</p>
 </div>
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.15 because it is superseded by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.Capabilities.WiFi6APRole."><em>WiFi6APRole</em></a> and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.Capabilities.WiFi6bSTARole."><em>WiFi6bSTARole</em></a>.<span class="removed">.}}}}</span></p>
+<p>This parameter was DEPRECATED in 2.15 because it is superseded by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.Capabilities.WiFi6APRole."><em>WiFi6APRole</em></a> and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.Capabilities.WiFi6bSTARole."><em>WiFi6bSTARole</em></a>.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -21595,7 +21785,7 @@ MU-MIMO.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of times a BTM (BSS Transition Management; <strong>{{bibref: non-existent <strong>{{replaced: unexpected argument sections 4.3.19.3 and 6.3.57 after: 802.11k}}), 802.11-2020}}</strong>}}</strong> steer was attempted for this Access Point.</p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of times a BTM (BSS Transition Management; <strong>{{bibref: non-existent <strong>{{replaced: unexpected argument sections 4.3.19.3 and 6.3.57 after: 802.11k, 802.11-2020}}</strong>}}</strong><span class="removed">)</span> steer was attempted for this Access Point.</p>
 </td>
 <td>
 <p>-</p>
@@ -21615,7 +21805,7 @@ MU-MIMO.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of asynchronous BTM (BSS Transition Management; <strong>{{bibref: non-existent <strong>{{replaced: unexpected argument sections 4.3.19.3 and 6.3.57 after: 802.11k}}), 802.11-2020}}</strong>}}</strong> Queries for which a BTM Request was issued by this Access Point.</p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of asynchronous BTM (BSS Transition Management; <strong>{{bibref: non-existent <strong>{{replaced: unexpected argument sections 4.3.19.3 and 6.3.57 after: 802.11k, 802.11-2020}}</strong>}}</strong><span class="removed">)</span> Queries for which a BTM Request was issued by this Access Point.</p>
 </td>
 <td>
 <p>-</p>
@@ -22160,7 +22350,9 @@ only.</p>
 <p>Describes the HE capabilities of the Associated Device (STA).</p>
 </div>
 <div class="hide">
-<p>This parameter was DEPRECATED in 2.15 because it is superseded by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA.WiFi6Capabilities."><em>WiFi6Capabilities</em></a>.<span class="removed">.}}}}</span></p>
+<p>This parameter was DEPRECATED in 2.15 because it is superseded by <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA.WiFi6Capabilities."><em>WiFi6Capabilities</em></a>.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -22194,8 +22386,8 @@ only.</p>
 <p>R</p>
 </td>
 <td>
-<p>An indicator of radio signal strength of the uplink from the associated STA to the access point - measured in <em>dBm</em>. RCPI is encoded per [<a href="#R.802.11-2020">Table 9-176/802.11-2020</a>], and described in [<a href="#R.EasyMesh">Section 10.3.1/EasyMesh</a>]). Reserved: 221 - 255.<span class="removed">}}{{div|{{classes}}|NOTE: The underlying WFA specification is in the process of being reviewed for possible clarification. Please refer to that specification for more details.</span></p>
-<p>If the instance of this <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA."><em>STA</em></a> is the same as <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice."><em>Device.WiFi.AccessPoint.{i}.AssociatedDevice.{i}</em></a>, then this parameter is the same as <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.SignalStrength"><em>Device.WiFi.AccessPoint.{i}.AssociatedDevice.{i}.SignalStrength</em></a>.</p>
+<p>An indicator of radio signal strength of the uplink from the associated STA to the access point - measured in <em>dBm</em>. RCPI is encoded per [<a href="#R.802.11-2020">Table 9-176/802.11-2020</a>], and described in [<a href="#R.EasyMesh">Section 10.3.1/EasyMesh</a>]). Reserved: 221 - 255.</p>
+<p><span class="removed">NOTE: The underlying WFA specification is in the process of being reviewed for possible clarification. Please refer to that specification for more details.}}{{div|{{classes}}|</span>If the instance of this <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA."><em>STA</em></a> is the same as <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice."><em>Device.WiFi.AccessPoint.{i}.AssociatedDevice.{i}</em></a>, then this parameter is the same as <a href="#D.Device:2.Device.WiFi.AccessPoint.AssociatedDevice.SignalStrength"><em>Device.WiFi.AccessPoint.{i}.AssociatedDevice.{i}.SignalStrength</em></a>.</p>
 </td>
 <td>
 <p>-</p>
@@ -27493,7 +27685,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>The Modulation Coding Scheme index (applicable to 802.11n, 802.11ac, <span class="inserted">802.11ax </span>and <span class="removed">802.11ax</span><span class="inserted">802.11be</span> specifications only). Values from 0 to 15 MUST be supported for ([<a href="#R.802.11n-2009">802.11n-2009</a>]). Values from 0 to 9 MUST be supported for [<a href="#R.802.11ac-2013">802.11ac-2013</a>]. Values from 0 to 11 MUST be supported for [<a href="#R.802.11ax">802.11ax</a>]<span class="inserted">. Values from 0 to 15 MUST be supported for [<a href="#R.802.11be">802.11be</a>]</span>. A value of -1 indicates automatic selection of the MCS index.</p>
+<p>The Modulation Coding Scheme index (applicable to 802.11n, 802.11ac, <span class="inserted">802.11ax </span>and <span class="removed">802.11ax</span><span class="inserted">802.11be</span> specifications only). Values from 0 to 15 MUST be supported for ([<a href="#R.802.11n-2009">802.11n-2009</a>]). Values from 0 to 9 MUST be supported for [<a href="#R.802.11ac-2013">802.11ac-2013</a>]. Values from 0 to 11 MUST be supported for [<a href="#R.802.11ax">802.11ax</a>]. <span class="inserted">Values from 0 to 15 MUST be supported for [<a href="#R.802.11be">802.11be</a>]. </span>A value of -1 indicates automatic selection of the MCS index.</p>
 </td>
 <td>
 <p>-</p>
@@ -28731,6 +28923,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -28769,6 +28963,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -28807,6 +29003,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -28845,6 +29043,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -29112,6 +29312,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -29150,6 +29352,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -29188,6 +29392,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -29226,6 +29432,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </div>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.15 because it is superseded by the WMM Specification.</p>
+</div>
+<div class="inserted">
 <div class="chevron">
 <p>This parameter was OBSOLETED in 2.17.<span class="click"></span></p>
 </div>
@@ -32878,7 +33086,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>Routing object that contains the <a href="#D.Device:2.Device.Routing.Router."><em>Router</em></a> <span class="removed">table</span><span class="inserted">table, the received router advertisement information <a href="#D.Device:2.Device.Routing.RouteInformation."><em>RouteInformation</em></a>, <a href="#D.Device:2.Device.Routing.Babel."><em>Babel</em></a>,</span> and <a href="#D.Device:2.Device.Routing.RIP."><em>RIP</em></a> protocol <span class="removed">object.}}</span><span class="inserted">objects.</span></p>
+<p>Routing object that contains the <a href="#D.Device:2.Device.Routing.Router."><em>Router</em></a> <span class="removed">table</span><span class="inserted">table, the received router advertisement information <a href="#D.Device:2.Device.Routing.RouteInformation."><em>RouteInformation</em></a>, <a href="#D.Device:2.Device.Routing.Babel."><em>Babel</em></a>,</span> and <a href="#D.Device:2.Device.Routing.RIP."><em>RIP</em></a> protocol <span class="removed">object.</span><span class="inserted">objects.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37470,7 +37678,7 @@ compaction.</p>
 it MUST be assigned a value that is one more than the largest current
 value (lowest precedence).</p>
 </div>
-<p>This indicates the position of the option in the DHCP client request.<span class="removed"> A value of <em>1</em> indicates the first entry.}}{{div|{{classes}}|When this value is modified, if the value matches that of an existing entry, the {{param}} value for the existing entry and all lower {{param}} entries is incremented to ensure uniqueness of this value. A deletion causes {{param}} values to be compacted. When a value is changed, incrementing occurs before compaction.}}{{div|{{classes}}|The value of {{param}} on creation of a {{object}} table entry MUST be one greater than the largest current value.}}</span></p>
+<p>This indicates the position of the option in the DHCP client request.<span class="removed"> A value of <em>1</em> indicates the first entry.</span><span class="removed">{{div|{{classes}}|When this value is modified, if the value matches that of an existing entry, the {{param}} value for the existing entry and all lower {{param}} entries is incremented to ensure uniqueness of this value. A deletion causes {{param}} values to be compacted. When a value is changed, incrementing occurs before compaction.}}{{div|{{classes}}|The value of {{param}} on creation of a {{object}} table entry MUST be one greater than the largest current value.}}</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.16:</strong></p>
 <ul>
@@ -40663,7 +40871,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </td>
 <td>
 <p>The sample interval in <em>seconds</em>. Each statistic is measured over this sample interval.</p>
-<p><span class="inserted">The CPE MAY also support an internal sampling rate (implementation dependent) that is faster than the <em>SampleInterval</em> and allows the CPE to support the various options available in <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.CalculationMode"><em>Parameter.{i}.CalculationMode</em></a>.</span></p>
+<p>The CPE MAY also support an internal sampling rate (implementation dependent) that is faster than the <em>SampleInterval</em> and allows the CPE to support the various options available in <a href="#D.Device:2.Device.PeriodicStatistics.SampleSet.Parameter.CalculationMode"><em>Parameter.{i}.CalculationMode</em></a>.</p>
 <p>The CPE MAY reject a request to set <em>SampleInterval</em> to less than <a href="#D.Device:2.Device.PeriodicStatistics.MinSampleInterval"><em>MinSampleInterval</em></a>.</p>
 <p>Sample intervals MUST begin every <em>SampleInterval</em> <em>seconds</em>, with no delay between samples.</p>
 <p>If <em>SampleInterval</em> is changed while collection of periodic statistics is enabled, any stored samples are discarded, and the first sample interval begins immediately.</p>
@@ -41023,8 +41231,32 @@ available to the collection server.</p>
 capable of supporting.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.BulkData.Protocols.Streaming"><em>Streaming</em></span> (IPDR Streaming Protocol [<a href="#R.IPDR-SP">IPDR-SP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. ::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
-<li><span id="D.Device:2.Device.BulkData.Protocols.File"><em>File</em></span> (IPDR File Transfer Protocol [<a href="#R.IPDR-FTP">IPDR-FTP</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. ::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.Protocols.Streaming"><em>Streaming</em></span> (</li>
+</ul>
+<p>IPDR Streaming Protocol [<a href="#R.IPDR-SP">IPDR-SP</a>]</p>
+<p>This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP.</p>
+<p>This enumeration was OBSOLETED in 2.17.</p>
+<div class="diffs">
+<p><strong>Changes since 2.16:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.BulkData.Protocols.File"><em>File</em></span> (</li>
+</ul>
+<p>IPDR File Transfer Protocol [<a href="#R.IPDR-FTP">IPDR-FTP</a>]</p>
+<p>This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP.</p>
+<p>This enumeration was OBSOLETED in 2.17.</p>
+<div class="diffs">
+<p><strong>Changes since 2.16:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.BulkData.Protocols.HTTP"><em>HTTP</em></span> (Hypertext Transfer Protocol [<a href="#R.RFC2616">RFC2616</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.Protocols.MQTT"><em>MQTT</em></span> (Message Queuing Telemetry Transport [<a href="#R.MQTT31">MQTT31</a>], [<a href="#R.MQTT311">MQTT311</a>], and [<a href="#R.MQTT50">MQTT50</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.Protocols.USPEventNotif"><em>USPEventNotif</em></span> (User Services Platform (USP - [<a href="#R.TR-369">Annex A/TR-369</a>]) Event Notification)</li>
@@ -41052,8 +41284,32 @@ capable of supporting.</p>
 capable of supporting.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XML"><em>XML</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XML">IPDR-XML</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. ::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
-<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XDR"><em>XDR</em></span> (Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XDR">IPDR-XDR</a>] This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP. This enumeration was OBSOLETED in 2.17. ::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XML"><em>XML</em></span> (</li>
+</ul>
+<p>Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XML">IPDR-XML</a>]</p>
+<p>This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP.</p>
+<p>This enumeration was OBSOLETED in 2.17.</p>
+<div class="diffs">
+<p><strong>Changes since 2.16:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.BulkData.EncodingTypes.XDR"><em>XDR</em></span> (</li>
+</ul>
+<p>Used with the IPDR Streaming and File Protocols. [<a href="#R.IPDR-XDR">IPDR-XDR</a>]</p>
+<p>This enumeration was DEPRECATED in 2.15 because IPDR Bulk Data Collection is not supported in USP.</p>
+<p>This enumeration was OBSOLETED in 2.17.</p>
+<div class="diffs">
+<p><strong>Changes since 2.16:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.BulkData.EncodingTypes.CSV"><em>CSV</em></span> (Comma Separated Values. Used with the HTTP and USPEventNotif Protocols. [<a href="#R.RFC4180">RFC4180</a>])</li>
 <li><span id="D.Device:2.Device.BulkData.EncodingTypes.JSON"><em>JSON</em></span> (JavaScript Object Notation. Used with the HTTP and USPEventNotif Protocols. [<a href="#R.RFC7159">RFC7159</a>])</li>
 </ul>
@@ -42329,7 +42585,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Comma-separated list of strings (maximum number of characters per item 256). If this argument is present, it lists the roles which the application will need to be assigned in order to be able to function at all after this update. If it is absent then the required roles are unchanged from the previous version.</p>
 <p>If any of these roles are not present in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableRoles"><em>ExecEnv.{i}.AvailableRoles</em></a> of the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> in which the DU is installed then the command will fail. Some Agents may apply further filtering for roles which are considered security- or privacy-sensitive.</p>
 <p>Each entry in the list is the Name of a row in <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Role."><em>LocalAgent.ControllerTrust.Role</em></a>. If there is no such row then the command will fail, as installation requires a role which is not available on the Device.</p>
-<p>If this argument is<span class="removed"> absent or</span> empty then no roles are required in order for the application to function.</p>
+<p>If this argument is <span class="removed">absent or </span>empty then no roles are required in order for the application to function.</p>
 </td>
 <td>
 <p>-</p>
@@ -42351,7 +42607,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). If this argument is present, it lists the additional roles which the application would need to be assigned in order to be able to provide its full functionality after this update. If it is absent then the required roles are unchanged from the previous version.</p>
 <p>Each entry in the list is the Name of a row in <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Role."><em>LocalAgent.ControllerTrust.Role</em></a>. If there is no such row, or the matching row is not present in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableRoles"><em>ExecEnv.{i}.AvailableRoles</em></a> of the Execution Environment into which the DU is to be installed, then the entry will be ignored. Some Agents may apply further filtering, for roles which are considered security- or privacy-sensitive.</p>
-<p>If this argument is<span class="removed"> absent or</span> empty then no additional roles are required in order for the application to be able to provide its full functionality.</p>
+<p>If this argument is <span class="removed">absent or </span>empty then no additional roles are required in order for the application to be able to provide its full functionality.</p>
 </td>
 <td>
 <p>-</p>
@@ -42751,7 +43007,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enable the auto-restart feature for this <span class="removed">{{object|#}}.}}</span><span class="inserted">EU.</span></p>
+<p>Enable the auto-restart feature for this <span class="removed">{{object|#}}.</span><span class="inserted">EU.</span></p>
 <p>The default value SHOULD be <em>false</em>.</p>
 </td>
 <td>
@@ -46570,7 +46826,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>The Message <span class="removed">Transport</span><span class="inserted">Transfer</span> Protocol (MTP) to be used for communications by a USP Endpoint.<span class="removed">}}</span><span class="inserted"> Note: This parameter was demoted to readOnly in the Device:2.17 version.</span></p>
+<p>The Message <span class="removed">Transport</span><span class="inserted">Transfer</span> Protocol (MTP) to be used for communications by a USP Endpoint.<span class="inserted"> Note: This parameter was demoted to readOnly in the Device:2.17 version.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.USPServices.USPService.Protocol.WebSocket"><em>WebSocket</em></span> (See [<a href="#R.RFC6455">RFC6455</a>])</li>
@@ -47824,7 +48080,19 @@ details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceIn
 Agent MUST support at least one Protocol.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.CoAP"><em>CoAP</em></span> (See [<a href="#R.RFC7252">RFC7252</a>]. This enumeration was DEPRECATED in 2.15 because the CoAP MTP was deprecated in USP 1.2. This enumeration was OBSOLETED in 2.17. ::::: diffs <strong>Changes since 2.16:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.CoAP"><em>CoAP</em></span> (</li>
+</ul>
+<p>See [<a href="#R.RFC7252">RFC7252</a>].</p>
+<p>This enumeration was DEPRECATED in 2.15 because the CoAP MTP was deprecated in USP 1.2.</p>
+<p>This enumeration was OBSOLETED in 2.17.</p>
+<div class="diffs">
+<p><strong>Changes since 2.16:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.WebSocket"><em>WebSocket</em></span> (See [<a href="#R.RFC6455">RFC6455</a>])</li>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.STOMP"><em>STOMP</em></span> (See [<a href="#R.STOMP1.2">STOMP1.2</a>])</li>
 <li><span id="D.Device:2.Device.LocalAgent.SupportedProtocols.MQTT"><em>MQTT</em></span> (See [<a href="#R.MQTT311">MQTT311</a>] and [<a href="#R.MQTT50">MQTT50</a>])</li>
@@ -48256,8 +48524,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>If the USP Endpoint uses the Unix Domain Socket (UDS) Message Transfer Protocol (MTP), then this object contains UDS <span class="removed">Client </span>specific configuration parameters related to how <span class="removed">the</span><span class="inserted">this</span> Agent communicates with <span class="removed">the</span><span class="inserted">a</span> <span class="removed">UDS</span><span class="inserted">Controller</span> <span class="removed">Server.}}</span><span class="inserted">on another USP Endpoint.</span></p>
-<p>An example of how to set up this MTP can be found in [<a href="#R.TR-369">Section &quot;Example Data Models for a USP Broker and USP Services&quot;/TR-369</a>].</p>
+<p>If the USP Endpoint uses the Unix Domain Socket (UDS) Message Transfer Protocol (MTP), then this object contains UDS <span class="removed">Client </span>specific configuration parameters related to how <span class="removed">the</span><span class="inserted">this</span> Agent communicates with <span class="removed">the</span><span class="inserted">a</span> <span class="removed">UDS</span><span class="inserted">Controller</span> <span class="removed">Server.</span><span class="inserted">on another USP Endpoint.</span></p>
+<p><span class="inserted">An example of how to set up this MTP can be found in [<a href="#R.TR-369">Section &quot;Example Data Models for a USP Broker and USP Services&quot;/TR-369</a>].</span></p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.LocalAgent.MTP.Protocol"><em>Protocol</em></a> is <a href="#D.Device:2.Device.LocalAgent.SupportedProtocols.UDS"><em>UDS</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 </td>
@@ -48676,7 +48944,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>-</p>
 </td>
 <td>
-<p>Requests the Agent to send an <em>OnBoardRequest</em> notification to this Controller.<span class="removed">}}</span><span class="inserted"> This sets the value of <a href="#D.Device:2.Device.LocalAgent.Controller.OnBoardingComplete"><em>OnBoardingComplete</em></a> to <em>false</em>.</span></p>
+<p>Requests the Agent to send an <em>OnBoardRequest</em> notification to this Controller.<span class="inserted"> This sets the value of <a href="#D.Device:2.Device.LocalAgent.Controller.OnBoardingComplete"><em>OnBoardingComplete</em></a> to <em>false</em>.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -49009,8 +49277,8 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>R</p>
 </td>
 <td>
-<p>If the USP Endpoint uses the Unix Domain Socket (UDS) Message <span class="removed">Transport</span><span class="inserted">Transfer</span> Protocol (MTP), then this object contains UDS <span class="removed">Client </span>specific configuration parameters related to how <span class="removed">the</span><span class="inserted">this</span> <span class="removed">Controller</span><span class="inserted">Agent</span> communicates with <span class="removed">the</span><span class="inserted">a</span> <span class="removed">UDS</span><span class="inserted">Controller</span> <span class="removed">Server.}}</span><span class="inserted">on another USP Endpoint.</span></p>
-<p>An example of how to set up this MTP can be found in [<a href="#R.TR-369">Section &quot;Example Data Models for a USP Broker and USP Services&quot;/TR-369</a>].</p>
+<p>If the USP Endpoint uses the Unix Domain Socket (UDS) Message <span class="removed">Transport</span><span class="inserted">Transfer</span> Protocol (MTP), then this object contains UDS <span class="removed">Client </span>specific configuration parameters related to how <span class="removed">the</span><span class="inserted">this</span> <span class="removed">Controller</span><span class="inserted">Agent</span> communicates with <span class="removed">the</span><span class="inserted">a</span> <span class="removed">UDS</span><span class="inserted">Controller</span> <span class="removed">Server.</span><span class="inserted">on another USP Endpoint.</span></p>
+<p><span class="inserted">An example of how to set up this MTP can be found in [<a href="#R.TR-369">Section &quot;Example Data Models for a USP Broker and USP Services&quot;/TR-369</a>].</span></p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.Protocol"><em>Protocol</em></a> is <a href="#D.Device:2.Device.LocalAgent.SupportedProtocols.UDS"><em>UDS</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 </td>
@@ -49954,10 +50222,11 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:44 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:02:02 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-17-0-usp-diffs.html --show --transform diff --format html tr-181-2-16-0-usp.xml tr-181-2-17-0-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -51015,5 +51284,5 @@ report.py --include ../../install/cwmp --output tr-181-2-17-0-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

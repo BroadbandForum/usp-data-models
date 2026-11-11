@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1137,9 +1175,13 @@ definition.</p>
 </td>
 <td>
 <ol>
-<li>the Power Spectral Density (PSD) breakpoint sub-carrier index in the range [0:8191] with Df = 4.3125 kHz frequency spacing, and</li>
-<li>the value of the level of the PSD at this sub-carrier expressed in <em>0.1 dBm/Hz</em> with an offset of -200 dBm/Hz. The range of valid values for PSD is -30 to -200 dBm/Hz.
-Both values are represented as unsignedInt.</li>
+<li>
+<p>the Power Spectral Density (PSD) breakpoint sub-carrier index in the range [0:8191] with Df = 4.3125 kHz frequency spacing, and</p>
+</li>
+<li>
+<p>the value of the level of the PSD at this sub-carrier expressed in <em>0.1 dBm/Hz</em> with an offset of -200 dBm/Hz. The range of valid values for PSD is -30 to -200 dBm/Hz.
+Both values are represented as unsignedInt.</p>
+</li>
 </ol>
 </td>
 </tr>
@@ -1152,10 +1194,14 @@ Both values are represented as unsignedInt.</li>
 </td>
 <td>
 <ol>
-<li>The PSM breakpoint sub-carrier index in the range [0:4095], and</li>
-<li>the value of the level of the PSM at this sub-carrier expressed in <em>0.1 dBm/Hz</em> with an offset of -140 dBm/Hz.
+<li>
+<p>The PSM breakpoint sub-carrier index in the range [0:4095], and</p>
+</li>
+<li>
+<p>the value of the level of the PSM at this sub-carrier expressed in <em>0.1 dBm/Hz</em> with an offset of -140 dBm/Hz.
 Both values are represented as unsignedInt.
-[<a href="#R.G.9964">Clause 5.2/G.9964</a>] defines limits on PSM breakpoint levels.</li>
+[<a href="#R.G.9964">Clause 5.2/G.9964</a>] defines limits on PSM breakpoint levels.</p>
+</li>
 </ol>
 </td>
 </tr>
@@ -1168,9 +1214,13 @@ Both values are represented as unsignedInt.
 </td>
 <td>
 <ol>
-<li>The paired frequency spacing index in the range [0:8191], and</li>
-<li>The transfer function log value, i.e. [i, TFlog(i * <em>TFlogGroupSize</em> * Df)], where the reference frequency spacing Df = 4.3125 kHz, the index i valid range is 0 to 8191, and TFlog(i * <em>TFlogGroupSize</em> * Df) spans a range from +6.0 dB down to -96.2 dB with units of 0.1 dB.
-Both values are represented as unsignedInt.</li>
+<li>
+<p>The paired frequency spacing index in the range [0:8191], and</p>
+</li>
+<li>
+<p>The transfer function log value, i.e. [i, TFlog(i * <em>TFlogGroupSize</em> * Df)], where the reference frequency spacing Df = 4.3125 kHz, the index i valid range is 0 to 8191, and TFlog(i * <em>TFlogGroupSize</em> * Df) spans a range from +6.0 dB down to -96.2 dB with units of 0.1 dB.
+Both values are represented as unsignedInt.</p>
+</li>
 </ol>
 </td>
 </tr>
@@ -1245,10 +1295,14 @@ Ethernet frame.</p>
 <td>
 <p>Pair of 32-bit signed integers a(i),b(i) with each pair representing a complex component of the uncalibrated echo response (UER);</p>
 <ol>
-<li>Real UER component, a(i)</li>
-<li>Imaginary UER component, b(i)
+<li>
+<p>Real UER component, a(i)</p>
+</li>
+<li>
+<p>Imaginary UER component, b(i)
 for values of i starting at i=0. Both values are represented as signed integers.
-The interpretation of the UER value is as defined in [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</li>
+The interpretation of the UER value is as defined in [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</p>
+</li>
 </ol>
 </td>
 </tr>
@@ -2158,7 +2212,7 @@ NOTE: This command changed from synchronous to asynchronous in version 2.14.</p>
 <p>R</p>
 </td>
 <td>
-<p>Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the <a href="#D.Device:2.Device.DeviceInfo.SerialNumber"><em>SerialNumber</em></a> parameter is unique. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.}}</span></p>
+<p>Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the <a href="#D.Device:2.Device.DeviceInfo.SerialNumber"><em>SerialNumber</em></a> parameter is unique. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2178,7 +2232,7 @@ NOTE: This command changed from synchronous to asynchronous in version 2.14.</p>
 <p>R</p>
 </td>
 <td>
-<p>Identifier of the particular device that is unique for the indicated class of product and manufacturer. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.}}</span></p>
+<p>Identifier of the particular device that is unique for the indicated class of product and manufacturer. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2469,7 +2523,7 @@ This is a static table – the number of object instances in this table is defin
 <p>W</p>
 </td>
 <td>
-<p>Specifies whether or not this particular firmware image can be used by the Agent. An Agent will only attempt to boot this particular firmware image if this parameter value is set to <em>true</em>. This value MUST be set to <em>true</em> <span class="inserted">by the device </span>whenever a new firmware image is installed. This value cannot be set to <em>false</em> if the firmware image is active or is referenced by the <a href="#D.Device:2.Device.DeviceInfo.BootFirmwareImage"><em>BootFirmwareImage</em></a> parameter. Firmware image instances cannot be deleted, so a Controller MAY use this parameter to subsequently mark a particular firmware as being invalid, which will prevent the Agent from attempting to boot it.</p>
+<p>Specifies whether or not this particular firmware image can be used by the Agent. An Agent will only attempt to boot this particular firmware image if this parameter value is set to <em>true</em>. This value MUST be set to <em>true</em><span class="inserted"> by the device</span> whenever a new firmware image is installed. This value cannot be set to <em>false</em> if the firmware image is active or is referenced by the <a href="#D.Device:2.Device.DeviceInfo.BootFirmwareImage"><em>BootFirmwareImage</em></a> parameter. Firmware image instances cannot be deleted, so a Controller MAY use this parameter to subsequently mark a particular firmware as being invalid, which will prevent the Agent from attempting to boot it.</p>
 </td>
 <td>
 <p>-</p>
@@ -2788,7 +2842,7 @@ This table models physical DSL lines.</p>
 <li><span id="D.Device:2.Device.DSL.Line.StandardsSupported.G.993.2_Annex_A"><em>G.993.2_Annex_A</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Line.StandardsSupported.G.993.2_Annex_B"><em>G.993.2_Annex_B</em></span></li>
 <li><span id="D.Device:2.Device.DSL.Line.StandardsSupported.G.993.2_Annex_C"><em>G.993.2_Annex_C</em></span>
-Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabilities&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> is supported.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
+Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabilities&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> is supported.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
 </ul>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
@@ -2815,7 +2869,7 @@ Note: In G.997.1, this parameter is called &quot;xDSL Transmission system capabi
 <p>R</p>
 </td>
 <td>
-<p>The value MUST be a member of the list reported by the <a href="#D.Device:2.Device.DSL.Line.StandardsSupported"><em>StandardsSupported</em></a> parameter. Indicates the standard that the <a href="#D.Device:2.Device.DSL.Line."><em>Line</em></a> instance is using for the connection. Note: In G.997.1, this parameter is called &quot;xDSL Transmission system&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSUsed"><em>XTSUsed</em></a> is supported.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>The value MUST be a member of the list reported by the <a href="#D.Device:2.Device.DSL.Line.StandardsSupported"><em>StandardsSupported</em></a> parameter. Indicates the standard that the <a href="#D.Device:2.Device.DSL.Line."><em>Line</em></a> instance is using for the connection. Note: In G.997.1, this parameter is called &quot;xDSL Transmission system&quot;. See ITU-T Recommendation [<a href="#R.G.997.1">G.997.1</a>]. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because its entries are out-of-date; <a href="#D.Device:2.Device.DSL.Line.XTSE"><em>XTSE</em></a> points to a current list. Therefore its value MAY be an empty string if (and only if) <a href="#D.Device:2.Device.DSL.Line.XTSUsed"><em>XTSUsed</em></a> is supported.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -3301,10 +3355,14 @@ Reference: ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2, SELT-PMD manag
 <td>
 <p>The Uncalibrated Echo Response (UER) [a(0),b(0)], [a(1),b(1)], ... Comma-separated list (1 to 4096 items) of UERComplexs, with each list item consisting <span class="removed">of:</span><span class="inserted">of the following</span>. [<a href="#T.UERComplex">UERComplex</a>] Pair of 32-bit signed integers a(i),b(i) with each pair representing a complex component of the uncalibrated echo response (UER);</p>
 <ol>
-<li>Real UER component, a(i)</li>
-<li>Imaginary UER component, b(i)
+<li>
+<p>Real UER component, a(i)</p>
+</li>
+<li>
+<p>Imaginary UER component, b(i)
 for values of i starting at i=0. Both values are represented as signed integers.
-The interpretation of the UER value is as defined in [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>]. The value of UER at frequency i*<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERGroupSize"><em>UERGroupSize</em></a><em>Df = (<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERScaleFactor"><em>UERScaleFactor</em></a>/(2^31))</em>(a(i)+j*b(i))/(2^31) where Df = 4.3125 kHz. This parameter is defined as CPE SELT uncalibrated echo response (SELT-UER-R) in ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</li>
+The interpretation of the UER value is as defined in [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>]. The value of UER at frequency i*<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERGroupSize"><em>UERGroupSize</em></a>*Df = (<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERScaleFactor"><em>UERScaleFactor</em></a>/(2<sup>31))*(a(i)+j*b(i))/(2</sup>31) where Df = 4.3125 kHz. This parameter is defined as CPE SELT uncalibrated echo response (SELT-UER-R) in ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</p>
+</li>
 </ol>
 </td>
 <td>
@@ -3325,7 +3383,7 @@ The interpretation of the UER value is as defined in [<a href="#R.G.996.2">Claus
 <p>R</p>
 </td>
 <td>
-<p>The Uncalibrated Echo Response (UER) scale factor. This parameter is defined as part of the CPE SELT uncalibrated echo response (SELT-UER-R) in ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].<span class="removed">}}</span><span class="inserted"> Note that the scale factor is chosen such that max(abs(a(i)), abs(b(i))) over all i is equal to 2^31 - 1, which doesn't allow <em>UERScaleFactor</em> to be zero.</span></p>
+<p>The Uncalibrated Echo Response (UER) scale factor. This parameter is defined as part of the CPE SELT uncalibrated echo response (SELT-UER-R) in ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].<span class="inserted"> Note that the scale factor is chosen such that max(abs(a(i)), abs(b(i))) over all i is equal to 2^31 - 1, which doesn't allow <em>UERScaleFactor</em> to be zero.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -4549,9 +4607,9 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
-<li>Changed <em>-65536:65533:2</em> range minInclusive = <em>-127000</em> ⇒ <em>-65536</em></li>
-<li>Changed <em>-65536:65533:2</em> range maxInclusive = <em>0</em> ⇒ <em>65534</em></li>
-<li>Changed <em>-65536:65533:2</em> range step = <em>500</em> ⇒ <em>2</em></li>
+<li>Changed <em>-65536:65534:2</em> range minInclusive = <em>-127000</em> ⇒ <em>-65536</em></li>
+<li>Changed <em>-65536:65534:2</em> range maxInclusive = <em>0</em> ⇒ <em>65534</em></li>
+<li>Changed <em>-65536:65534:2</em> range step = <em>500</em> ⇒ <em>2</em></li>
 </ul>
 </div>
 </td>
@@ -4658,7 +4716,12 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <p>R</p>
 </td>
 <td>
-<p>The received signal strength in <em>dBm</em>. The allowed values depend on <a href="#D.Device:2.Device.Cellular.Interface.CurrentAccessTechnology"><em>CurrentAccessTechnology</em></a>: * For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.GPRS"><em>GPRS</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.EDGE"><em>EDGE</em></a> the range is -111 <em>dBm</em> to -49 <em>dBm</em> * For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.UMTS"><em>UMTS</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.UMTSHSPA"><em>UMTSHSPA</em></a> the range is -117 <em>dBm</em> to -54 <em>dBm</em> * For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.LTE"><em>LTE</em></a><span class="inserted">, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></a></span> the range is -117 <em>dBm</em> to -25 <em>dBm</em> Note: An undetectable signal is indicated by the appropriate lower limit, e.g. -117 <em>dBm</em> for LTE.</p>
+<p>The received signal strength in <em>dBm</em>. The allowed values depend on <a href="#D.Device:2.Device.Cellular.Interface.CurrentAccessTechnology"><em>CurrentAccessTechnology</em></a>:</p>
+<ul>
+<li>For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.GPRS"><em>GPRS</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.EDGE"><em>EDGE</em></a> the range is -111 <em>dBm</em> to -49 <em>dBm</em></li>
+<li>For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.UMTS"><em>UMTS</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.UMTSHSPA"><em>UMTSHSPA</em></a> the range is -117 <em>dBm</em> to -54 <em>dBm</em></li>
+<li>For <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.LTE"><em>LTE</em></a><span class="inserted">, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></a></span> the range is -117 <em>dBm</em> to -25 <em>dBm</em> Note: An undetectable signal is indicated by the appropriate lower limit, e.g. -117 <em>dBm</em> for LTE.</li>
+</ul>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -4705,8 +4768,12 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <td>
 <p>The Reference Signal Received Quality in <em>dBm</em> for <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.LTE"><em>LTE</em></a>, <a href="#D.Device:2.Device.Cellular.Interface.SupportedAccessTechnologies.NR"><em>NR</em></a> values of <a href="#D.Device:2.Device.Cellular.Interface.CurrentAccessTechnology"><em>CurrentAccessTechnology</em></a>:</p>
 <ul>
-<li>RSRQ is calculated using RSSI and RSRP values using RSRQ = (N*RSRP)/RSSI where N is the number of resource blocks (bandwidth).</li>
-<li>The valid range of RSRP values from worst to best is -20 <em>dBm</em> to -3 <em>dBm</em></li>
+<li>
+<p>RSRQ is calculated using RSSI and RSRP values using RSRQ = (N*RSRP)/RSSI where N is the number of resource blocks (bandwidth).</p>
+</li>
+<li>
+<p>The valid range of RSRP values from worst to best is -20 <em>dBm</em> to -3 <em>dBm</em></p>
+</li>
 </ul>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
@@ -4862,7 +4929,7 @@ dB relative to 1 mW. For example, -12345 means -12.345 dBm, 0 means 0 dBm
 <p>R</p>
 </td>
 <td>
-<p>This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it has been replaced by <a href="#D.Device:2.Device.Ghn.Interface.MediumType"><em>MediumType</em></a>.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it has been replaced by <a href="#D.Device:2.Device.Ghn.Interface.MediumType"><em>MediumType</em></a>.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.Ghn.Interface.ConnectionType.Powerline"><em>Powerline</em></span></li>
@@ -5033,7 +5100,7 @@ Both values are represented as unsignedInt.
 <p>R</p>
 </td>
 <td>
-<p>The type of encryption the neighboring WiFi SSID advertises.<span class="removed">}}</span><span class="inserted"> The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WEP"><em>WEP</em></a> value indicates either WEP-64 or WEP-128. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA"><em>WPA</em></a> value is the same as WPA-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2"><em>WPA2</em></a> value is the same as WPA2-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> value is the same as WPA-WPA2-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a> value is the same as WPA3-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a> value is the same as WPA3-Personal-Transition.</span></p>
+<p>The type of encryption the neighboring WiFi SSID advertises.<span class="inserted"> The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WEP"><em>WEP</em></a> value indicates either WEP-64 or WEP-128. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA"><em>WPA</em></a> value is the same as WPA-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2"><em>WPA2</em></a> value is the same as WPA2-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> value is the same as WPA-WPA2-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a> value is the same as WPA3-Personal. The <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a> value is the same as WPA3-Personal-Transition.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.None"><em>None</em></span></li>
@@ -5116,7 +5183,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <p>R</p>
 </td>
 <td>
-<p>Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.SerialNumber"><em>SerialNumber</em></a> parameter is unique. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.}}</span></p>
+<p>Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.SerialNumber"><em>SerialNumber</em></a> parameter is unique. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5136,7 +5203,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <p>R</p>
 </td>
 <td>
-<p>Identifier of the particular Access Point device that is unique for the indicated class of product and manufacturer. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.}}</span></p>
+<p>Identifier of the particular Access Point device that is unique for the indicated class of product and manufacturer. This value MUST remain fixed over the lifetime of the device, including across firmware updates.<span class="removed"> Any change would indicate that it's a new device and would therefore require a BOOTSTRAP Inform.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5232,7 +5299,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <li><span id="D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.n"><em>n</em></span> ([<a href="#R.802.11n-2009">802.11n-2009</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ac"><em>ac</em></span> ([<a href="#R.802.11ac-2013">802.11ac-2013</a>])</li>
 <li><span id="D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ax"><em>ax</em></span> ([<a href="#R.802.11ax">802.11ax</a>])
-<span class="removed">Each value indicates support for the indicated standard. </span>If <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ax"><em>ax</em></a> are applicable. If <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ax"><em>ax</em></a> are applicable. For example, a value of &quot;g,b&quot; (or &quot;b,g&quot; - order is not important) means that the 802.11g standard [<a href="#R.802.11g-2003">802.11g-2003</a>] is used with a backwards-compatible mode for 802.11b [<a href="#R.802.11b-1999">802.11b-1999</a>]. A value of &quot;g&quot; means that only the 802.11g standard is in use.</li>
+<span class="removed"> Each value indicates support for the indicated standard.</span> If <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand.2.4GHz"><em>2.4GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.b"><em>b</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.g"><em>g</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ax"><em>ax</em></a> are applicable. If <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> is set to <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand.5GHz"><em>5GHz</em></a>, only values <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.a"><em>a</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.n"><em>n</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ac"><em>ac</em></a>, <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingStandards.ax"><em>ax</em></a> are applicable. For example, a value of &quot;g,b&quot; (or &quot;b,g&quot; - order is not important) means that the 802.11g standard [<a href="#R.802.11g-2003">802.11g-2003</a>] is used with a backwards-compatible mode for 802.11b [<a href="#R.802.11b-1999">802.11b-1999</a>]. A value of &quot;g&quot; means that only the 802.11g standard is in use.</li>
 </ul>
 </td>
 <td>
@@ -5253,7 +5320,7 @@ This object is related to a Wi-Fi network that contains multiple Access Points (
 <p>W</p>
 </td>
 <td>
-<p>The current radio channel used by the connection.<span class="removed">}}</span><span class="inserted"> To request automatic channel selection, set <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> to <em>true</em>. Whenever <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> is <em>true</em>, the value of the <em>Channel</em> parameter MUST be the channel selected by the automatic channel selection procedure. For channels in &quot;wide mode&quot; (where a channel bandwidth strictly greater than 20 MHz is used), this parameter is used for Primary Channel only. The secondary or extension channel information is available through <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.ExtensionChannel"><em>ExtensionChannel</em></a>. Note: Valid <em>Channel</em> values depend on the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> value specified and the regulatory domain.</span></p>
+<p>The current radio channel used by the connection.<span class="inserted"> To request automatic channel selection, set <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> to <em>true</em>. Whenever <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>Device.WiFi.Radio.{i}.AutoChannelEnable</em></a> is <em>true</em>, the value of the <em>Channel</em> parameter MUST be the channel selected by the automatic channel selection procedure. For channels in &quot;wide mode&quot; (where a channel bandwidth strictly greater than 20 MHz is used), this parameter is used for Primary Channel only. The secondary or extension channel information is available through <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.ExtensionChannel"><em>ExtensionChannel</em></a>. Note: Valid <em>Channel</em> values depend on the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> value specified and the regulatory domain.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -5342,7 +5409,7 @@ For example, for 802.11b and North America, would be &quot;1-11&quot;.</p>
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of times a Blacklist steer was attempted for this Access Point.<span class="removed">}}</span><span class="inserted"> Blacklist steering is the process of forcing a connected STA to move to another Access Point by temporarily blocking its access to the current Access Point.</span></p>
+<p>[<a href="#T.StatsCounter64">StatsCounter64</a>] Number of times a Blacklist steer was attempted for this Access Point.<span class="inserted"> Blacklist steering is the process of forcing a connected STA to move to another Access Point by temporarily blocking its access to the current Access Point.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5393,7 +5460,12 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <p>R</p>
 </td>
 <td>
-<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example: * For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces. * For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface. * For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>). For example:</p>
+<ul>
+<li>For an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for all WAN interfaces and <em>false</em> for all LAN interfaces.</li>
+<li>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</li>
+<li>For an End Device, <em>Upstream</em> will be <em>true</em> for all interfaces. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it gives a wrong indication for multiple SSIDs. Use the <a href="#D.Device:2.Device.WiFi.SSID.Upstream"><em>SSID.{i}.Upstream</em></a> parameter instead.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
+</ul>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -5439,7 +5511,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <p>W</p>
 </td>
 <td>
-<p>The current radio channel used by the connection. To request automatic channel selection, set <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>AutoChannelEnable</em></a> to <em>true</em>. Whenever <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>AutoChannelEnable</em></a> is <em>true</em>, the value of the <em>Channel</em> parameter MUST be the channel selected by the automatic channel selection procedure. For channels in &quot;wide mode&quot; (802.11n where a 40MHz channel bandwidth is used), this parameter is used for Primary Channel only. The secondary or extension channel information is available through <a href="#D.Device:2.Device.WiFi.Radio.ExtensionChannel"><em>ExtensionChannel</em></a>. Note: Valid <em>Channel</em> values depend on the <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a><span class="inserted"> value specified</span> and <span class="inserted">the </span><a href="#D.Device:2.Device.WiFi.Radio.RegulatoryDomain"><em>RegulatoryDomain</em></a><span class="removed"> values specified.}}</span><span class="inserted">.</span></p>
+<p>The current radio channel used by the connection. To request automatic channel selection, set <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>AutoChannelEnable</em></a> to <em>true</em>. Whenever <a href="#D.Device:2.Device.WiFi.Radio.AutoChannelEnable"><em>AutoChannelEnable</em></a> is <em>true</em>, the value of the <em>Channel</em> parameter MUST be the channel selected by the automatic channel selection procedure. For channels in &quot;wide mode&quot; (802.11n where a 40MHz channel bandwidth is used), this parameter is used for Primary Channel only. The secondary or extension channel information is available through <a href="#D.Device:2.Device.WiFi.Radio.ExtensionChannel"><em>ExtensionChannel</em></a>. Note: Valid <em>Channel</em> values depend on the <a href="#D.Device:2.Device.WiFi.Radio.OperatingFrequencyBand"><em>OperatingFrequencyBand</em></a> <span class="inserted">value specified </span>and<span class="inserted"> the</span> <a href="#D.Device:2.Device.WiFi.Radio.RegulatoryDomain"><em>RegulatoryDomain</em></a><span class="removed"> values specified.</span><span class="inserted">.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5504,7 +5576,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <p>W</p>
 </td>
 <td>
-<p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 0 for the first 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment0"><em>CenterFrequencySegment0</em></a> instead.</span></p>
+<p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 0 for the first 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment0"><em>CenterFrequencySegment0</em></a> instead.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -5530,7 +5602,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <p>W</p>
 </td>
 <td>
-<p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 1 for the second 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment1"><em>CenterFrequencySegment1</em></a> instead.</span></p>
+<p>When operating in <a href="#D.Device:2.Device.WiFi.Radio.CurrentOperatingChannelBandwidth.8080MHz"><em>80+80MHz</em></a>, this parameter determines the Center Frequency Segment 1 for the second 80 MHz channel. See [<a href="#R.802.11-2016">Section 9.4.2.161/802.11-2016</a>] and Table 9-252.<span class="inserted"> This parameter is DEPRECATED in 2.14 due to a typo. Use <a href="#D.Device:2.Device.WiFi.Radio.CenterFrequencySegment1"><em>CenterFrequencySegment1</em></a> instead.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -5596,7 +5668,7 @@ Note: A dual-band single-radio device (e.g. an 802.11a/b/g radio) can be configu
 <p>W</p>
 </td>
 <td>
-<p>The Modulation Coding Scheme index (applicable to <span class="removed">802.11n</span><span class="inserted">802.11n, 802.11ac,</span> and <span class="removed">802.11ac</span><span class="inserted">802.11ax</span> specifications only). Values from 0 to 15 MUST be supported <span class="inserted">for </span>([<a href="#R.802.11n-2009">802.11n-2009</a>]). Values from 0 to 9 MUST be supported for [<a href="#R.802.11ac-2013">802.11ac-2013</a>]<span class="inserted">. Values from 0 to 11 MUST be supported for [<a href="#R.802.11ax">802.11ax</a>]</span>. A value of -1 indicates automatic selection of the MCS index.</p>
+<p>The Modulation Coding Scheme index (applicable to <span class="removed">802.11n</span><span class="inserted">802.11n, 802.11ac,</span> and <span class="removed">802.11ac</span><span class="inserted">802.11ax</span> specifications only). Values from 0 to 15 MUST be supported<span class="inserted"> for</span> ([<a href="#R.802.11n-2009">802.11n-2009</a>]). Values from 0 to 9 MUST be supported for [<a href="#R.802.11ac-2013">802.11ac-2013</a>]. <span class="inserted">Values from 0 to 11 MUST be supported for [<a href="#R.802.11ax">802.11ax</a>]. </span>A value of -1 indicates automatic selection of the MCS index.</p>
 </td>
 <td>
 <p>-</p>
@@ -6182,7 +6254,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <p>W</p>
 </td>
 <td>
-<p>The maximum number of retransmission for a packet. This corresponds to IEEE 802.11 parameter <em>dot11ShortRetryLimit</em>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it is really a <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> attribute. Use <a href="#D.Device:2.Device.WiFi.Radio.RetryLimit"><em>Radio.{i}.RetryLimit</em></a>.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>The maximum number of retransmission for a packet. This corresponds to IEEE 802.11 parameter <em>dot11ShortRetryLimit</em>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because it is really a <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio</em></a> attribute. Use <a href="#D.Device:2.Device.WiFi.Radio.RetryLimit"><em>Radio.{i}.RetryLimit</em></a>.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -6208,7 +6280,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <p>W</p>
 </td>
 <td>
-<p>The maximum number of devices that can simultaneously be connected to the access point. A value of 0 means that there is no specific limit. This parameter has been DEPRECATED in favor of <a href="#D.Device:2.Device.WiFi.AccessPoint.MaxAllowedAssociations"><em>MaxAllowedAssociations</em></a>.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>The maximum number of devices that can simultaneously be connected to the access point. A value of 0 means that there is no specific limit. This parameter has been DEPRECATED in favor of <a href="#D.Device:2.Device.WiFi.AccessPoint.MaxAllowedAssociations"><em>MaxAllowedAssociations</em></a>.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -6287,7 +6359,7 @@ Note: The <em>AccessPoint</em> table includes a unique key parameter that is a s
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Indicates which security modes this <a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> instance is capable of supporting.<span class="removed">}}</span><span class="inserted"> The <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal"><em>WPA3-Personal</em></a> value is the same as WPA3-SAE. The <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> value is the same as WPA2-PSK-WPA3-SAE.</span></p>
+<p>Comma-separated list of strings. Indicates which security modes this <a href="#D.Device:2.Device.WiFi.AccessPoint."><em>AccessPoint</em></a> instance is capable of supporting.<span class="inserted"> The <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal"><em>WPA3-Personal</em></a> value is the same as WPA3-SAE. The <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a> value is the same as WPA2-PSK-WPA3-SAE.</span></p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.None"><em>None</em></span></li>
@@ -6778,7 +6850,12 @@ Files received in the DownloadDiagnostics do not require file storage on the CPE
 <p>W</p>
 </td>
 <td>
-<p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to perform the download on. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL. * When using FTP transport, FTP binary transfer MUST be used. * When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used. * When using HTTP transport the HTTP Authentication MUST NOT be used. Note: For time based tests (<a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.TimeBasedTestDuration"><em>TimeBasedTestDuration</em></a> &gt; 0) the Controller MAY add a hint to duration of the test to the URL. See [<a href="#R.TR-143">Section 4.3/TR-143</a>] for more details.</p>
+<p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to perform the download on. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL.</p>
+<ul>
+<li>When using FTP transport, FTP binary transfer MUST be used.</li>
+<li>When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used.</li>
+<li>When using HTTP transport the HTTP Authentication MUST NOT be used. Note: For time based tests (<a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.TimeBasedTestDuration"><em>TimeBasedTestDuration</em></a> &gt; 0) the Controller MAY add a hint to duration of the test to the URL. See [<a href="#R.TR-143">Section 4.3/TR-143</a>] for more details.</li>
+</ul>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -6865,7 +6942,12 @@ Files sent by the UploadDiagnostics do not require file storage on the CPE devic
 <p>W</p>
 </td>
 <td>
-<p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to Upload to. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL. * When using FTP transport, FTP binary transfer MUST be used. * When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used. * When using HTTP transport the HTTP Authentication MUST NOT be used.</p>
+<p>The <span class="removed">URL, as defined in {{bibref|RFC3986}},</span><span class="inserted">[<a href="#T.URL">URL</a>]</span> for the CPE to Upload to. This parameter MUST be in the form of a valid HTTP [<a href="#R.RFC2616">RFC2616</a>] or FTP [<a href="#R.RFC959">RFC959</a>] URL.</p>
+<ul>
+<li>When using FTP transport, FTP binary transfer MUST be used.</li>
+<li>When using HTTP transport, persistent connections MUST be used and pipelining MUST NOT be used.</li>
+<li>When using HTTP transport the HTTP Authentication MUST NOT be used.</li>
+</ul>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8177,10 +8259,14 @@ See the MAP Theory of Operation [<a href="#R.TR-181i2">Appendix XV/TR-181i2</a>]
 <p>MAP domain settings [<a href="#R.RFC7597">RFC7597</a>] [<a href="#R.RFC7599">RFC7599</a>].  Each instance models a MAP domain.
 MAP supports two transport modes, both of which use NAPT44 (modified to use a restricted port range):</p>
 <ul>
-<li>MAP-E (<a href="#D.Device:2.Device.MAP.Domain.TransportMode"><em>TransportMode</em></a> = <a href="#D.Device:2.Device.MAP.Domain.TransportMode.Encapsulation"><em>Encapsulation</em></a>) uses an IPv4-in-IPv6 tunnel.</li>
-<li>MAP-T (<a href="#D.Device:2.Device.MAP.Domain.TransportMode"><em>TransportMode</em></a> = <a href="#D.Device:2.Device.MAP.Domain.TransportMode.Translation"><em>Translation</em></a>) uses stateless NAT64.
+<li>
+<p>MAP-E (<a href="#D.Device:2.Device.MAP.Domain.TransportMode"><em>TransportMode</em></a> = <a href="#D.Device:2.Device.MAP.Domain.TransportMode.Encapsulation"><em>Encapsulation</em></a>) uses an IPv4-in-IPv6 tunnel.</p>
+</li>
+<li>
+<p>MAP-T (<a href="#D.Device:2.Device.MAP.Domain.TransportMode"><em>TransportMode</em></a> = <a href="#D.Device:2.Device.MAP.Domain.TransportMode.Translation"><em>Translation</em></a>) uses stateless NAT64.
 Note: There is an n:1 relationship between a MAP domain and the associated <a href="#D.Device:2.Device.MAP.Domain.WANInterface"><em>WANInterface</em></a>, i.e. in theory multiple MAP domains can be associated with a single WAN IP interface (each domain would have its own <em>End-user IPv6 prefix</em> and <em>MAP IPv6 address</em>).
-Note: The <em>Domain</em> table includes unique key parameters that are strong references. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>Domain</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.MAP.Domain.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.MAP.Domain.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>Domain</em> row.</li>
+Note: The <em>Domain</em> table includes unique key parameters that are strong references. If a strongly referenced object is deleted, the CPE will set the referencing parameter to an empty string. However, doing so under these circumstances might cause the updated <em>Domain</em> row to then violate the table's unique key constraint; if this occurs, the CPE MUST set <a href="#D.Device:2.Device.MAP.Domain.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.MAP.Domain.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a> and disable the offending <em>Domain</em> row.</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MAP.Domain.Alias"><em>Alias</em></a>, or with the same values for both <a href="#D.Device:2.Device.MAP.Domain.WANInterface"><em>WANInterface</em></a> and <a href="#D.Device:2.Device.MAP.Domain.IPv6Prefix"><em>IPv6Prefix</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MAP.Domain.Alias"><em>Alias</em></a>, <a href="#D.Device:2.Device.MAP.Domain.WANInterface"><em>WANInterface</em></a> and <a href="#D.Device:2.Device.MAP.Domain.IPv6Prefix"><em>IPv6Prefix</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
@@ -8202,7 +8288,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p><em>Port-set ID</em> (PSID) offset in <em>bits</em>. The number of Port-sets is 2^<em>PSIDOffset</em>. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>offset</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8228,7 +8314,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>The length in <em>bits</em> of the <em>Port-set id</em> (PSID) configured in the <a href="#D.Device:2.Device.MAP.Domain.PSID"><em>PSID</em></a> parameter. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID-len</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8254,7 +8340,7 @@ Note: The <em>Domain</em> table includes unique key parameters that are strong r
 <p>W</p>
 </td>
 <td>
-<p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p><em>Port-set ID</em> (PSID) to use in preference to the value extracted from the <em>Embedded Address</em> (EA) bits. Only the high order <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> bits of the <em>PSID</em> value are used, so the parameter is ignored when <a href="#D.Device:2.Device.MAP.Domain.PSIDLength"><em>PSIDLength</em></a> is zero. Corresponds to the [<a href="#R.RFC7598">RFC7598</a>] <em>S46_PORTPARAMS</em> (Port Parameters) option's <em>PSID</em> field. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because details changed between drafting this data model and the RFC being published. This parameter has been moved to the proper location within the <a href="#D.Device:2.Device.MAP.Domain.Rule."><em>Rule.{i}.</em></a> object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8410,7 +8496,7 @@ a mechanism for a Controller to label this instance for future reference.</p>
 </li>
 <li>
 <p>If the value is not assigned by the Controller at creation time, the
-Agent MUST assign a value with an &quot;cpe-&quot; prefix. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because <a href="#D.Device:2.Device.Hosts.Host."><em>Host</em></a> is a transient object.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+Agent MUST assign a value with an &quot;cpe-&quot; prefix. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because <a href="#D.Device:2.Device.Hosts.Host."><em>Host</em></a> is a transient object.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 </li>
 </ul>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
@@ -8445,7 +8531,7 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix. This parameter <span 
 <li><span id="D.Device:2.Device.Hosts.Host.AddressSource.Static"><em>Static</em></span></li>
 <li><span id="D.Device:2.Device.Hosts.Host.AddressSource.AutoIP"><em>AutoIP</em></span></li>
 <li><span id="D.Device:2.Device.Hosts.Host.AddressSource.None"><em>None</em></span>
-This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because only <a href="#D.Device:2.Device.Hosts.Host.AddressSource.None"><em>None</em></a> and <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> made sense (the CPE doesn't know whether the address is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.Static"><em>Static</em></a> or <a href="#D.Device:2.Device.Hosts.Host.AddressSource.AutoIP"><em>AutoIP</em></a>). The <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> case is now handled via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
+This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because only <a href="#D.Device:2.Device.Hosts.Host.AddressSource.None"><em>None</em></a> and <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> made sense (the CPE doesn't know whether the address is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.Static"><em>Static</em></a> or <a href="#D.Device:2.Device.Hosts.Host.AddressSource.AutoIP"><em>AutoIP</em></a>). The <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a> case is now handled via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></li>
 </ul>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
@@ -8472,7 +8558,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <p>R</p>
 </td>
 <td>
-<p>DHCP lease time remaining in <em>seconds</em>. A value of -1 indicates an infinite lease. The value MUST be 0 (zero) if the <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is not <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because DHCP lease/lifetime information can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>DHCP lease time remaining in <em>seconds</em>. A value of -1 indicates an infinite lease. The value MUST be 0 (zero) if the <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is not <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because DHCP lease/lifetime information can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8518,7 +8604,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <p>R</p>
 </td>
 <td>
-<p>Vendor Class Identifier DHCP option (Option 60) of the host. This is a normal string, e.g. &quot;abc&quot; is represented as &quot;abc&quot; and not say &quot;616263&quot; hex. However, if the value includes non-printing characters then such characters have to be represented using XML escapes, e.g. #x0a for line-feed. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>Vendor Class Identifier DHCP option (Option 60) of the host. This is a normal string, e.g. &quot;abc&quot; is represented as &quot;abc&quot; and not say &quot;616263&quot; hex. However, if the value includes non-printing characters then such characters have to be represented using XML escapes, e.g. #x0a for line-feed. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -8544,7 +8630,7 @@ This parameter <span class="removed">is</span><span class="inserted">was</span> 
 <p>R</p>
 </td>
 <td>
-<p>A hexbinary string, Client Identifier DHCP option (Option 61) for the specific IP connection of the client. The option value is binary, so an exact match is REQUIRED. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="removed">}}</span><span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
+<p>A hexbinary string, Client Identifier DHCP option (Option 61) for the specific IP connection of the client. The option value is binary, so an exact match is REQUIRED. It MAY be defined when <a href="#D.Device:2.Device.Hosts.Host.AddressSource"><em>AddressSource</em></a> is <a href="#D.Device:2.Device.Hosts.Host.AddressSource.DHCP"><em>DHCP</em></a>. An empty string indicates this option is not used. Note: DHCPv4 Option values are limited to a length of 255, while DHCPv6 Option values can have a maximum length of 65535. This parameter <span class="removed">is</span><span class="inserted">was</span> DEPRECATED because host-supplied DHCP options can be accessed via the <a href="#D.Device:2.Device.Hosts.Host.DHCPClient"><em>DHCPClient</em></a> reference.<span class="inserted"> This parameter is OBSOLETED in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -9005,7 +9091,17 @@ If a <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule.StartTime"><em>Sta
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Client.Server.DNSServer"><em>DNSServer</em></a> address.   Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCP"><em>DHCP</em></span> (</li>
+</ul>
+<p>Replaced by <a href="#D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.13:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>, OBSOLETED)</p>
+<ul>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Client.Server.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -9097,7 +9193,17 @@ Note: Management of re-directing queries to the device embedded DNS server is no
 <td>
 <p>Method used to assign the <a href="#D.Device:2.Device.DNS.Relay.Forwarding.DNSServer"><em>DNSServer</em></a> address.   Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (Replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCP"><em>DHCP</em></span> (</li>
+</ul>
+<p>Replaced by <a href="#D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.13:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>, OBSOLETED)</p>
+<ul>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv4"><em>DHCPv4</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.DHCPv6"><em>DHCPv6</em></span></li>
 <li><span id="D.Device:2.Device.DNS.Relay.Forwarding.Type.RouterAdvertisement"><em>RouterAdvertisement</em></span></li>
@@ -9822,7 +9928,18 @@ See [<a href="#R.TR-181i2">Appendix VIII/TR-181i2</a>] for an example <a href="#
 <ul>
 <li><span id="D.Device:2.Device.Firewall.Config.High"><em>High</em></span> (The firewall implements the &quot;Traffic Denied Inbound&quot; and &quot;Minimally Permit Common Services Outbound&quot; components of the ICSA residential certification's Required Services Security Policy [<a href="#R.ICSA-Residential">ICSA-Residential</a>].  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
 <li><span id="D.Device:2.Device.Firewall.Config.Low"><em>Low</em></span> (All Outbound traffic and pinhole-defined Inbound traffic is allowed.  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are enabled)</li>
-<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled).  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled. This value is DEPRECATED because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>. ::::: diffs <strong>Changes since 2.13:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::, OBSOLETED)</li>
+<li><span id="D.Device:2.Device.Firewall.Config.Off"><em>Off</em></span> (</li>
+</ul>
+<p>All Inbound and Outbound traffic is allowed, and the CPE is only protected by NAT settings (if supported and enabled).  If DoS and vulnerability protections are implemented [<a href="#R.ICSA-Baseline">ICSA-Baseline</a>], these are disabled.
+This value is DEPRECATED because it is the same as setting <a href="#D.Device:2.Device.Firewall.Enable"><em>Enable</em></a> to <em>false</em>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.13:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>, OBSOLETED)</p>
+<ul>
 <li><span id="D.Device:2.Device.Firewall.Config.Advanced"><em>Advanced</em></span> (Advanced firewall configuration applies, as specified by <a href="#D.Device:2.Device.Firewall.AdvancedLevel"><em>AdvancedLevel</em></a>, OPTIONAL)
 Vendors can extend the enumerated values with vendor specific extensions, in which case the rules outlined in [<a href="#R.TR-106">Section 3.3/TR-106</a>] MUST be adhered to.</li>
 </ul>
@@ -9936,12 +10053,20 @@ Vendors can extend the enumerated values with vendor specific extensions, in whi
 <td>
 <p>This object defines the data model for the following Femtozone APIs.</p>
 <ul>
-<li>Femto Awareness</li>
-<li>SMS</li>
-<li>MMS</li>
-<li>Terminal Location
+<li>
+<p>Femto Awareness</p>
+</li>
+<li>
+<p>SMS</p>
+</li>
+<li>
+<p>MMS</p>
+</li>
+<li>
+<p>Terminal Location
 Femto Awareness, SMS, MMS, and Terminal Location APIs are defined in the Release 1 API Specifications of the Service SIG in the Femto Forum (non public document).
-[<a href="#R.TR-262">Appendix I/TR-262</a>] provides the &quot;Theory of Operation&quot; for the usage of this object.</li>
+[<a href="#R.TR-262">Appendix I/TR-262</a>] provides the &quot;Theory of Operation&quot; for the usage of this object.</p>
+</li>
 </ul>
 </td>
 <td>
@@ -10575,7 +10700,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>R</p>
 </td>
 <td>
-<p>The <em>XMPP</em> represents the XMPP capabilities of the device<span class="removed">{{templ|XMPP-REF-APP}}}}</span><span class="inserted">.</span></p>
+<p>The <em>XMPP</em> represents the XMPP capabilities of the device<span class="removed">{{templ|XMPP-REF-APP}}</span><span class="inserted">.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10616,7 +10741,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The maximum first reconnection wait interval, in <em>seconds</em><span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**XMPP-REF</span><span class="removed">}}</span><span class="inserted">.</span> The Device MUST use a random value between <em>0</em> and <em>ServerRetryInitialInterval</em> as the first reconnection wait interval. NOTE: If the value of the <a href="#D.Device:2.Device.XMPP.Connection.ServerConnectAttempts"><em>ServerConnectAttempts</em></a> parameter is 0, the value of this parameter is ignored.</p>
+<p>The maximum first reconnection wait interval, in <em>seconds</em><span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**XMPP-REF<span class="removed">}}</span>.</span> The Device MUST use a random value between <em>0</em> and <em>ServerRetryInitialInterval</em> as the first reconnection wait interval. NOTE: If the value of the <a href="#D.Device:2.Device.XMPP.Connection.ServerConnectAttempts"><em>ServerConnectAttempts</em></a> parameter is 0, the value of this parameter is ignored.</p>
 </td>
 <td>
 <p>60</p>
@@ -10636,7 +10761,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The reconnection interval multiplier<span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**XMPP-REF</span><span class="removed">}}</span><span class="inserted">.</span> This value is expressed in units of 0.001. Hence the values of the multiplier range between 1.000 and 65.535. For the <em>n</em>th reconnection wait interval, the Device MUST use a random value, in <em>seconds</em>, between <em>0</em> and <a href="#D.Device:2.Device.XMPP.Connection.ServerRetryInitialInterval"><em>ServerRetryInitialInterval</em></a> * (<em>ServerRetryIntervalMultiplier</em> / 1000) ** (<em>n</em> - <em>1</em>). NOTE: If the value of the <a href="#D.Device:2.Device.XMPP.Connection.ServerConnectAttempts"><em>ServerConnectAttempts</em></a> parameter is 0, the value of this parameter is ignored.</p>
+<p>The reconnection interval multiplier<span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**XMPP-REF<span class="removed">}}</span>.</span> This value is expressed in units of 0.001. Hence the values of the multiplier range between 1.000 and 65.535. For the <em>n</em>th reconnection wait interval, the Device MUST use a random value, in <em>seconds</em>, between <em>0</em> and <a href="#D.Device:2.Device.XMPP.Connection.ServerRetryInitialInterval"><em>ServerRetryInitialInterval</em></a> * (<em>ServerRetryIntervalMultiplier</em> / 1000) ** (<em>n</em> - <em>1</em>). NOTE: If the value of the <a href="#D.Device:2.Device.XMPP.Connection.ServerConnectAttempts"><em>ServerConnectAttempts</em></a> parameter is 0, the value of this parameter is ignored.</p>
 </td>
 <td>
 <p>2000</p>
@@ -10971,7 +11096,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The value of the MQTT clean session flag in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>] and [<a href="#R.MQTT31">Section 3.1.2.4/MQTT31</a>]). If this flag is set to <em>true</em> (default), the MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>.</p>
+<p>The value of the MQTT clean session flag in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>] and [<a href="#R.MQTT31">Section 3.1.2.4/MQTT31</a>]). If this flag is set to <em>true</em> (default), the MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> This parameter only applies if <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>.</p>
 </td>
 <td>
 <p>true</p>
@@ -10991,7 +11116,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The value of the MQTT Clean Start flag in the MQTT CONNECT packet (see [<a href="#R.MQTT50">Section 3.1.2.4/MQTT50</a>]. If this flag is set to <em>true</em> (default), the MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The value of the MQTT Clean Start flag in the MQTT CONNECT packet (see [<a href="#R.MQTT50">Section 3.1.2.4/MQTT50</a>]. If this flag is set to <em>true</em> (default), the MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>true</p>
@@ -11011,7 +11136,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables the will handling (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.5/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.5/MQTT50</a>]). If the connection gets enabled and this parameter is set to <em>true</em> and either the parameter <a href="#D.Device:2.Device.MQTT.Client.WillTopic"><em>WillTopic</em></a> or <a href="#D.Device:2.Device.MQTT.Client.WillValue"><em>WillValue</em></a> are an empty string, the CPE MUST set the <a href="#D.Device:2.Device.MQTT.Client.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.MQTT.Client.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span>.</p>
+<p>Enables or disables the will handling (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.5/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.5/MQTT50</a>]). If the connection gets enabled and this parameter is set to <em>true</em> and either the parameter <a href="#D.Device:2.Device.MQTT.Client.WillTopic"><em>WillTopic</em></a> or <a href="#D.Device:2.Device.MQTT.Client.WillValue"><em>WillValue</em></a> are an empty string, the CPE MUST set the <a href="#D.Device:2.Device.MQTT.Client.Status"><em>Status</em></a> to <a href="#D.Device:2.Device.MQTT.Client.Status.Error_Misconfigured"><em>Error_Misconfigured</em></a>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span>.</p>
 </td>
 <td>
 <p>-</p>
@@ -11031,7 +11156,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The MQTT QoS level assigned with the will message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.6/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.6/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}}}</span></p>
+<p>The MQTT QoS level assigned with the will message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.6/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.6/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11051,7 +11176,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Indicate to the MQTT broker to retain the Will over a Disconnect (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.7/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.7/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}}}</span></p>
+<p>Indicate to the MQTT broker to retain the Will over a Disconnect (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.7/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.7/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11071,7 +11196,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Keep Alive Time in <em>seconds</em> defines the maximum wait time after which a packet has to be sent to the MQTT broker (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.10/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.10/MQTT50</a>]). If no regular packet can be sent a MQTT PINGREQ packet is sent. A value of zero (0) means no keep alive packets are sent and the MQTT client is not disconnected by the server. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}}}</span></p>
+<p>Keep Alive Time in <em>seconds</em> defines the maximum wait time after which a packet has to be sent to the MQTT broker (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.10/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.10/MQTT50</a>]). If no regular packet can be sent a MQTT PINGREQ packet is sent. A value of zero (0) means no keep alive packets are sent and the MQTT client is not disconnected by the server. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>60</p>
@@ -11091,7 +11216,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Session expiry interval in <em>seconds</em> defines the wait time before a session expires after the connection has been closed by the MQTT client [<a href="#R.MQTT50">Section 3.1.2.11.2/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>Session expiry interval in <em>seconds</em> defines the wait time before a session expires after the connection has been closed by the MQTT client [<a href="#R.MQTT50">Section 3.1.2.11.2/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11111,7 +11236,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The MQTT client uses this value to limit the number of QoS 1 and QoS 2 publications that it is willing to process concurrently (see [<a href="#R.MQTT50">Section 3.1.2.11.3/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The MQTT client uses this value to limit the number of QoS 1 and QoS 2 publications that it is willing to process concurrently (see [<a href="#R.MQTT50">Section 3.1.2.11.3/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11131,7 +11256,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The maximum packet size in <em>byte</em> the MQTT client can and will accept from the MQTT broker. A value of 0 means no limit. If the value is set to another value, the MQTT client will inform the broker in the next CONNECT packet [<a href="#R.MQTT50">Section 3.1.2.11.4/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The maximum packet size in <em>byte</em> the MQTT client can and will accept from the MQTT broker. A value of 0 means no limit. If the value is set to another value, the MQTT client will inform the broker in the next CONNECT packet [<a href="#R.MQTT50">Section 3.1.2.11.4/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11151,7 +11276,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>This value indicates the highest value that the MQTT client will accept as a Topic Alias sent by the Server (see [<a href="#R.MQTT50">Section 3.1.2.11.5/MQTT50</a>]). The MQTT client uses this value to limit the number of Topic Aliases that it is willing to hold on this connection. A value of 0 indicates that Topic Alias is not supported. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>This value indicates the highest value that the MQTT client will accept as a Topic Alias sent by the Server (see [<a href="#R.MQTT50">Section 3.1.2.11.5/MQTT50</a>]). The MQTT client uses this value to limit the number of Topic Aliases that it is willing to hold on this connection. A value of 0 indicates that Topic Alias is not supported. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11171,7 +11296,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The MQTT client uses this value in a MQTT CONNECT packet to request the Server to return Response Information in the MQTT CONNACK (see [<a href="#R.MQTT50">Section 3.1.2.11.6/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The MQTT client uses this value in a MQTT CONNECT packet to request the Server to return Response Information in the MQTT CONNACK (see [<a href="#R.MQTT50">Section 3.1.2.11.6/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11191,7 +11316,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>This value indicates whether the Reason String or User Properties are sent in the case of failures.(see [<a href="#R.MQTT50">Section 3.1.2.11.7/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>This value indicates whether the Reason String or User Properties are sent in the case of failures.(see [<a href="#R.MQTT50">Section 3.1.2.11.7/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11211,7 +11336,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>This value defines the extended authentication method to be used (see [<a href="#R.MQTT50">Section 3.1.2.11.9/MQTT50</a>]). If the parameter is empty, no extended authentication is performed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>This value defines the extended authentication method to be used (see [<a href="#R.MQTT50">Section 3.1.2.11.9/MQTT50</a>]). If the parameter is empty, no extended authentication is performed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11231,7 +11356,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The MQTT client identifier used in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.1/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.1/MQTT50</a>]). If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this parameter MUST NOT be an empty string. If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>, an empty string is allowed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}}}</span></p>
+<p>The MQTT client identifier used in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.1/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.1/MQTT50</a>]). If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this parameter MUST NOT be an empty string. If <a href="#D.Device:2.Device.MQTT.Client.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>, an empty string is allowed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11251,7 +11376,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The delay in <em>seconds</em> after the session is disconnected, before sending the Will message [<a href="#R.MQTT50">Section 3.1.3.2.2/MQTT50</a>]). A value of 0 indicates that there is no delay. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The delay in <em>seconds</em> after the session is disconnected, before sending the Will message [<a href="#R.MQTT50">Section 3.1.3.2.2/MQTT50</a>]). A value of 0 indicates that there is no delay. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>5</p>
@@ -11271,7 +11396,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The lifetime in <em>seconds</em> of a Will Message (see [<a href="#R.MQTT50">Section 3.1.3.2.4/MQTT50</a>]). A value of 0 indicates that no message expiry interval value is specified for in the will message properties of a CONNECT packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The lifetime in <em>seconds</em> of a Will Message (see [<a href="#R.MQTT50">Section 3.1.3.2.4/MQTT50</a>]). A value of 0 indicates that no message expiry interval value is specified for in the will message properties of a CONNECT packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11291,7 +11416,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Describes the type of the <a href="#D.Device:2.Device.MQTT.Client.WillValue"><em>WillValue</em></a> [<a href="#R.MQTT50">Section 3.1.3.2.5/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>Describes the type of the <a href="#D.Device:2.Device.MQTT.Client.WillValue"><em>WillValue</em></a> [<a href="#R.MQTT50">Section 3.1.3.2.5/MQTT50</a>]). <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11311,7 +11436,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Topic Name for a will response message. The presence of a Response Topic identifies the Will Message as a Request [<a href="#R.MQTT50">Section 3.1.3.2.6/MQTT50</a>]). If the <em>WillResponseTopic</em> is an empty string the will response topic will not be sent in a MQTT CONNECT packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}</span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>Topic Name for a will response message. The presence of a Response Topic identifies the Will Message as a Request [<a href="#R.MQTT50">Section 3.1.3.2.6/MQTT50</a>]). If the <em>WillResponseTopic</em> is an empty string the will response topic will not be sent in a MQTT CONNECT packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span> <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11331,7 +11456,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The Topic sent in the Will Message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.3/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.3/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}}}</span></p>
+<p>The Topic sent in the Will Message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.3/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.3/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11351,7 +11476,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The value sent in the Will Message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.5/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.4/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange</span><span class="removed">}}}}</span></p>
+<p>The value sent in the Will Message (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.5/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.4/MQTT50</a>]). This parameter is only used if <a href="#D.Device:2.Device.MQTT.Client.WillEnable"><em>WillEnable</em></a> is set to <em>true</em>. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTWillChange<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11371,7 +11496,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The lifetime in <em>seconds</em> of a PUBLISH Message (see [<a href="#R.MQTT50">Section 3.3.2.3.3/MQTT50</a>]). A value of 0 indicates that no message expiry interval value is included in the PUBLISH packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY</span><span class="removed">}}}}</span></p>
+<p>The lifetime in <em>seconds</em> of a PUBLISH Message (see [<a href="#R.MQTT50">Section 3.3.2.3.3/MQTT50</a>]). A value of 0 indicates that no message expiry interval value is included in the PUBLISH packet. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTT50ONLY<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -11433,7 +11558,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The value of the MQTT clean session flag in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>] and [<a href="#R.MQTT31">Section 3.1.2.4/MQTT31</a>]) to establish a MQTT bridge connection. If this flag is set to <em>true</em> (default), the remote MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span> This parameter only applies if <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>.</p>
+<p>The value of the MQTT clean session flag in the MQTT CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>] and [<a href="#R.MQTT31">Section 3.1.2.4/MQTT31</a>]) to establish a MQTT bridge connection. If this flag is set to <em>true</em> (default), the remote MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span> This parameter only applies if <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>.</p>
 </td>
 <td>
 <p>true</p>
@@ -11453,7 +11578,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The value of the MQTT Clean Start flag in the MQTT CONNECT packet (see [<a href="#R.MQTT50">Section 3.1.2.4/MQTT50</a>] to establish a MQTT bridge connection. If this flag is set to <em>true</em> (default), the remote MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}</span>. This parameter only applies if <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>.</p>
+<p>The value of the MQTT Clean Start flag in the MQTT CONNECT packet (see [<a href="#R.MQTT50">Section 3.1.2.4/MQTT50</a>] to establish a MQTT bridge connection. If this flag is set to <em>true</em> (default), the remote MQTT broker will delete all subscription information after a Disconnect. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span>. This parameter only applies if <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>.</p>
 </td>
 <td>
 <p>true</p>
@@ -11473,7 +11598,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>Keep Alive Time in <em>seconds</em> defines the maximum wait time after which a packet has to be sent to the remote MQTT broker (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.10/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.10/MQTT50</a>]). If no regular packet can be sent a MQTT PINGREQ packet is sent. A value of zero (0) means no keep alive packets are sent and the bridge is not disconnected by the server. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}}}</span></p>
+<p>Keep Alive Time in <em>seconds</em> defines the maximum wait time after which a packet has to be sent to the remote MQTT broker (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.2.10/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.2.10/MQTT50</a>]). If no regular packet can be sent a MQTT PINGREQ packet is sent. A value of zero (0) means no keep alive packets are sent and the bridge is not disconnected by the server. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>60</p>
@@ -11493,7 +11618,7 @@ Each entry in this table represents a parameter (or set of parameters if a parti
 <p>W</p>
 </td>
 <td>
-<p>The MQTT client identifier used in the CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.1/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.1/MQTT50</a>]). If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this parameter MUST NOT be an empty string. If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>, an empty string is allowed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect</span><span class="removed">}}}}</span></p>
+<p>The MQTT client identifier used in the CONNECT packet (see [<a href="#R.MQTT31">Section 3.1/MQTT31</a>], [<a href="#R.MQTT31">Section 3.1.3.1/MQTT31</a>]) or [<a href="#R.MQTT50">Section 3.1.3.1/MQTT50</a>]). If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1"><em>3.1</em></a> or <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.3.1.1"><em>3.1.1</em></a>, this parameter MUST NOT be an empty string. If <a href="#D.Device:2.Device.MQTT.Broker.Bridge.ProtocolVersion"><em>ProtocolVersion</em></a> is set to <a href="#D.Device:2.Device.MQTT.Capabilities.ProtocolVersionsSupported.5.0"><em>5.0</em></a>, an empty string is allowed. <span class="removed">{{templ|</span><span class="inserted">**{{template: non-existent }}**MQTTReconnect<span class="removed">}}</span></span></p>
 </td>
 <td>
 <p>-</p>
@@ -13073,24 +13198,58 @@ See [<a href="#R.3GPP-TS.23.501">Clause 5.15.2.1/3GPP-TS.23.501</a>].</p>
 <p>This object describes the PDU QoS Rule table. The purpose of the QoS Rule table is to assign a QFI to mark traffic based on a set of classification rules. The rules are set by the netowrk operator and are specific for each PDU.
 For example:</p>
 <ul>
-<li>A QoS Rule with a default used for general traffic has the following parameters.</li>
-<li>QFI=1</li>
-<li>DQR=1 - Default rule</li>
-<li>Filter 1 for rule</li>
-<li>Direction=bidirectional</li>
-<li>Type=1 - Match all</li>
-<li>A QoS Rule matchihg a voice service.</li>
-<li>QFI=32</li>
-<li>DQR=0</li>
-<li>Filter 1 for rule</li>
-<li>Direction=bidirectional</li>
-<li>Type=33 - Destination IPv6 range</li>
-<li>Value=2001:8000/48 - Destination IPv6 range</li>
-<li>Filter 2 for rule</li>
-<li>Direction=bidirectional</li>
-<li>Type=16 - Destination IPv4 address with netmask</li>
-<li>Value=203.1.0.0 255.255.255.0 - Destination IPv4 address with netmask
-A full description can be found at [<a href="#R.3GPP-TS.24.501">Clause 9.11.4.13/3GPP-TS.24.501</a>] QoS Rules</li>
+<li>
+<p>A QoS Rule with a default used for general traffic has the following parameters.</p>
+</li>
+<li>
+<p>QFI=1</p>
+</li>
+<li>
+<p>DQR=1 - Default rule</p>
+</li>
+<li>
+<p>Filter 1 for rule</p>
+</li>
+<li>
+<p>Direction=bidirectional</p>
+</li>
+<li>
+<p>Type=1 - Match all</p>
+</li>
+<li>
+<p>A QoS Rule matchihg a voice service.</p>
+</li>
+<li>
+<p>QFI=32</p>
+</li>
+<li>
+<p>DQR=0</p>
+</li>
+<li>
+<p>Filter 1 for rule</p>
+</li>
+<li>
+<p>Direction=bidirectional</p>
+</li>
+<li>
+<p>Type=33 - Destination IPv6 range</p>
+</li>
+<li>
+<p>Value=2001:8000/48 - Destination IPv6 range</p>
+</li>
+<li>
+<p>Filter 2 for rule</p>
+</li>
+<li>
+<p>Direction=bidirectional</p>
+</li>
+<li>
+<p>Type=16 - Destination IPv4 address with netmask</p>
+</li>
+<li>
+<p>Value=203.1.0.0 255.255.255.0 - Destination IPv4 address with netmask
+A full description can be found at [<a href="#R.3GPP-TS.24.501">Clause 9.11.4.13/3GPP-TS.24.501</a>] QoS Rules</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PDU.Session.QoSRule.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.PDU.Session.QoSRule.Identifier"><em>Identifier</em></a>.</p>
 </td>
@@ -13393,12 +13552,24 @@ Agent MUST assign a value with an &quot;cpe-&quot; prefix.</p>
 <p>Table of all QoS Flow Indicators (QFI) and their properties supported by the access network for this particular PDU.
 For example:</p>
 <ul>
-<li>A QoS Flow with a QFI of 1 used for general traffic has the following parameters.</li>
-<li>FiveQI=8</li>
-<li>A QoS Flow with a QFI of 32 used for voice traffic with a guaranteed bitrate of 150k has the following parameters.</li>
-<li>FiveQI=1</li>
-<li>GFBRUplink=150</li>
-<li>GFBRDownlink=150</li>
+<li>
+<p>A QoS Flow with a QFI of 1 used for general traffic has the following parameters.</p>
+</li>
+<li>
+<p>FiveQI=8</p>
+</li>
+<li>
+<p>A QoS Flow with a QFI of 32 used for voice traffic with a guaranteed bitrate of 150k has the following parameters.</p>
+</li>
+<li>
+<p>FiveQI=1</p>
+</li>
+<li>
+<p>GFBRUplink=150</p>
+</li>
+<li>
+<p>GFBRDownlink=150</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PDU.Session.QoSFlow.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.PDU.Session.QoSFlow.QFI"><em>QFI</em></a>.</p>
 </td>
@@ -14251,7 +14422,7 @@ The file transfer can be requested via a USP operation or via some other mechani
 <p>R</p>
 </td>
 <td>
-<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP."><em>CoAP</em></a> object instance are encrypted.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections to this CoAP server instance are or are not encrypted.</span></p>
+<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP."><em>CoAP</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.MTP.CoAP.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections to this CoAP server instance are or are not encrypted.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -14456,7 +14627,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>W</p>
 </td>
 <td>
-<p>The <span class="removed">combination</span><span class="inserted">concatenation</span> of <em>ReferencePath</em> and <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> <span class="removed">create the reference</span><span class="inserted">refers</span> to the parameter being checked for the threshold test. <em>ReferencePath</em> can be either an Object <span class="inserted">Path, Object Instance Path, or and Object Instance </span>Path <span class="removed">or</span><span class="inserted">with</span> a Search <span class="removed">Path.}}</span><span class="inserted">Expression instead of an Instance Identifier, as defined in the introduction section of [<a href="#R.TR-369">TR-369</a>].</span></p>
+<p>The <span class="removed">combination</span><span class="inserted">concatenation</span> of <em>ReferencePath</em> and <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> <span class="removed">create the reference</span><span class="inserted">refers</span> to the parameter being checked for the threshold test. <em>ReferencePath</em> can be either an Object <span class="inserted">Path, Object Instance Path, or and Object Instance </span>Path <span class="removed">or</span><span class="inserted">with</span> a Search <span class="removed">Path.</span><span class="inserted">Expression instead of an Instance Identifier, as defined in the introduction section of [<a href="#R.TR-369">TR-369</a>].</span></p>
 </td>
 <td>
 <p>-</p>
@@ -14496,7 +14667,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>W</p>
 </td>
 <td>
-<p>Each instance of this table represents a USP Controller that has access to this USP Agent.<span class="removed">}}</span><span class="inserted"> On the deletion of an entry from this table, the Agent MUST send the ObjectDeletion notification to all subscribed recipients, even if the recipient is the deleted Controller itself. This notification is the last notification sent to this Controller.</span></p>
+<p>Each instance of this table represents a USP Controller that has access to this USP Agent.<span class="inserted"> On the deletion of an entry from this table, the Agent MUST send the ObjectDeletion notification to all subscribed recipients, even if the recipient is the deleted Controller itself. This notification is the last notification sent to this Controller.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.EndpointID"><em>EndpointID</em></a>, or with a given value for <a href="#D.Device:2.Device.LocalAgent.Controller.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.LocalAgent.Controller.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -14537,7 +14708,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>-</p>
 </td>
 <td>
-<p>Schedule a <em>Timer!</em> event on the associated <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Controller</em></a>.<span class="removed">}}</span><span class="inserted"> This command is DEPRECATED because it was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
+<p>Schedule a <em>Timer!</em> event on the associated <a href="#D.Device:2.Device.LocalAgent.Controller."><em>Controller</em></a>.<span class="inserted"> This command is DEPRECATED because it was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -14604,7 +14775,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>-</p>
 </td>
 <td>
-<p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message.<span class="removed">}}</span><span class="inserted"> This event is DEPRECATED because the associated <a href="#D.Device:2.Device.LocalAgent.Controller.ScheduleTimer"><em>ScheduleTimer()</em></a> was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
+<p>Timer event requested via a ScheduleTimer() command invoked on the same Controller instance via an Operate USP message.<span class="inserted"> This event is DEPRECATED because the associated <a href="#D.Device:2.Device.LocalAgent.Controller.ScheduleTimer"><em>ScheduleTimer()</em></a> was replaced by a more flexible asynchronous <a href="#D.Device:2.Device.ScheduleTimer"><em>Device.ScheduleTimer()</em></a> in 2.14.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -14738,7 +14909,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>R</p>
 </td>
 <td>
-<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> object instance are encrypted.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> is or is not encrypted.</span></p>
+<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether this <a href="#D.Device:2.Device.LocalAgent.Controller.MTP.WebSocket."><em>WebSocket</em></a> is or is not encrypted.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -14872,7 +15043,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>W</p>
 </td>
 <td>
-<p>Unique identifier of the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> itself, which is specific to the USP Controller that creates the instance of the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a>. This value is <span class="removed">also</span><span class="inserted">used</span> <span class="removed">populated in</span><span class="inserted">as</span> the <em>subscription_id</em> element of every Notification message <span class="removed">sent </span>from a USP Agent to a USP <span class="removed">Controller.}}</span><span class="inserted">Controller caused by this subscription entry.</span></p>
+<p>Unique identifier of the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> itself, which is specific to the USP Controller that creates the instance of the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a>. This value is <span class="removed">also</span><span class="inserted">used</span> <span class="removed">populated in</span><span class="inserted">as</span> the <em>subscription_id</em> element of every Notification message <span class="removed">sent </span>from a USP Agent to a USP <span class="removed">Controller.</span><span class="inserted">Controller caused by this subscription entry.</span></p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that (together with <a href="#D.Device:2.Device.LocalAgent.Subscription.Recipient"><em>Recipient</em></a>)  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been assigned by the Controller or set internally by the Agent.</p>
 <div class="diffs">
@@ -14988,7 +15159,7 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>R</p>
 </td>
 <td>
-<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> object instance are encrypted.<span class="removed">}}</span><span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.STOMP.Connection.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections for this STOMP instance are or are not encrypted.</span></p>
+<p>This parameter represents whether or not communications that utilize this <a href="#D.Device:2.Device.STOMP.Connection."><em>Connection</em></a> object instance are encrypted.<span class="inserted"> This parameter is DEPRECATED, because the <a href="#D.Device:2.Device.STOMP.Connection.EnableEncryption"><em>EnableEncryption</em></a> parameter will dictate whether all connections for this STOMP instance are or are not encrypted.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.13:</strong></p>
 <ul>
@@ -15142,7 +15313,15 @@ If the referenced MQTT Client uses MQTT 5.0 and the MQTT server only indicates s
 <p>-</p>
 </td>
 <td>
-<p>This command causes this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> to revert back to the state it was in when the device last issued a Boot event with a cause of a local or remote factory reset. The following requirements dictate what MUST happen for the reset to be complete: 1. All Deployment Units that were installed after the last Boot (with cause of a factory reset) event MUST be removed 1. All persistent storage, configuration files, and log files that were associated with the removed Deployment Units MUST be removed 1. Any Deployment Unit that is still installed against the Execution Environment MUST be restored to the version present when the last Boot (with cause of a factory reset) event <span class="removed">event </span>was issued 1. Any Deployment Unit that was present when the last Boot (with cause of a factory reset) <span class="removed">eventevent</span><span class="inserted">event</span> was issued, but was subsequently uninstalled and is now not present, MUST be installed with the version that was present when the last <span class="removed">&quot;0</span><span class="inserted">Boot</span> <span class="removed">BOOTSTRAP&quot;</span><span class="inserted">(with</span> <span class="removed">Inform</span><span class="inserted">cause of a factory reset)</span> event was issued 1. The Execution Environment MUST be restored to the version and configuration present when the last Boot (with cause of a factory reset) <span class="removed">eventevent</span><span class="inserted">event</span> was issued 1. The Execution Environment MUST be restarted after all other restoration requirements have been met</p>
+<p>This command causes this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> to revert back to the state it was in when the device last issued a Boot event with a cause of a local or remote factory reset. The following requirements dictate what MUST happen for the reset to be complete:</p>
+<ol>
+<li>All Deployment Units that were installed after the last Boot (with cause of a factory reset) event MUST be removed</li>
+<li>All persistent storage, configuration files, and log files that were associated with the removed Deployment Units MUST be removed</li>
+<li>Any Deployment Unit that is still installed against the Execution Environment MUST be restored to the version present when the last Boot (with cause of a factory reset) event <span class="removed">event </span>was issued</li>
+<li>Any Deployment Unit that was present when the last Boot (with cause of a factory reset) <span class="removed">eventevent</span><span class="inserted">event</span> was issued, but was subsequently uninstalled and is now not present, MUST be installed with the version that was present when the last <span class="removed">&quot;0</span><span class="inserted">Boot</span> <span class="removed">BOOTSTRAP&quot;</span><span class="inserted">(with</span> <span class="removed">Inform</span><span class="inserted">cause of a factory reset)</span> event was issued</li>
+<li>The Execution Environment MUST be restored to the version and configuration present when the last Boot (with cause of a factory reset) <span class="removed">eventevent</span><span class="inserted">event</span> was issued</li>
+<li>The Execution Environment MUST be restarted after all other restoration requirements have been met</li>
+</ol>
 </td>
 <td>
 <p>-</p>
@@ -15316,10 +15495,11 @@ Each <em>ExecutionUnit</em> MAY also contain a set of vendor specific parameters
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:53 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:02:57 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-14-1-usp-diffs.html --show --transform diff --format html tr-181-2-13-0-usp.xml tr-181-2-14-1-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -15734,5 +15914,5 @@ report.py --include ../../install/cwmp --output tr-181-2-14-1-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

@@ -4195,9 +4195,8 @@
 
       <parameter name="TunnelInstance" access="readWrite" dmr:version="2.0">
         <description>
-          This is the reference to the IPsec tunnel instance used by the UMTS
-          FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.
+          This is the reference to the IPsec tunnel instance used by the UMTS FAP.
+          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
           to an empty string.
@@ -10797,9 +10796,8 @@
 
       <parameter name="TunnelRef" access="readWrite" dmr:version="2.0">
         <description>
-          This is the reference to an IPsec tunnel instance used by the LTE
-          FAP. The {{param}} MUST point to an IPsec tunnel instance defined in
-          {{bibref|TR-181i2}}.
+          This is the reference to an IPsec tunnel instance used by the LTE FAP.
+          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
           to an empty string.
@@ -12835,10 +12833,9 @@
           {{list}} The value of "1" indicates the position of sub-frames that
           is allocated to MBSFN within the radio frame. First item defines the
           MBSFN allocation for sub-frame #1, second item for #2, third item for
-
           #3, fourth item for #6, fifth item for #7, sixth item for #8. If the
-           value of {{param|RadioFrameAllocationSize}} is 4, then this pattern
-           repeats in the sequence of the four radio frames.
+          value of {{param|RadioFrameAllocationSize}} is 4, then this pattern
+          repeats in the sequence of the four radio frames.
 
           The actual size of this parameter depends on the value of
           {{param|RadioFrameAllocationSize}} parameter. If the value of
@@ -17279,8 +17276,7 @@
           parameter allows this cell to be prohibited as a handover target,
           while still allowing this cell to be included in the BCCH SIB4 or 5.
 
-          {{deprecated|2.1.2|as it is being replaced with the
-          {{param|Blocklisted}} parameter}}
+          {{deprecated|2.1.2|as it is being replaced with the {{param|Blocklisted}} parameter}}
         </description>
         <syntax>
           <boolean/>
@@ -18038,8 +18034,7 @@
           parameter allows this cell to be prohibited as a handover target,
           while still allowing this cell to be included in the BCCH SIB4 or 5.
 
-          {{deprecated|2.1.2|as it is being replaced with the
-          {{param|Blocklisted}} parameter}}
+          {{deprecated|2.1.2|as it is being replaced with the {{param|Blocklisted}} parameter}}
         </description>
         <syntax>
           <boolean/>
@@ -19258,9 +19253,8 @@
 
       <parameter name="TunnelInstance" access="readWrite" dmr:version="2.0">
         <description>
-          This is the reference to the IPsec tunnel instance used by the
-          CDMA2000 FAP. The {{param}} MUST point to an IPsec tunnel instance
-          defined in {{bibref|TR-181i2}}.
+          This is the reference to the IPsec tunnel instance used by the CDMA2000 FAP.
+          The {{param}} MUST point to an IPsec tunnel instance defined in {{bibref|TR-181i2}}.
 
           If the referenced object is deleted, the parameter value MUST be set
           to an empty string.

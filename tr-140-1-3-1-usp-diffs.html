@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1229,14 +1267,54 @@ Note that when TR-140 was originally published there was a typo in this object n
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.FAT32"><em>FAT32</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.NTFS"><em>NTFS</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ReFs"><em>ReFs</em></span> (Resilient File System - Microsoft)</li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HFS"><em>HFS</em></span> (Mac OS Standard format ::::: diffs <strong>Changes since 1.2:</strong> * Added <em>Mac OS Standard format</em> description :::::)</li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HFS"><em>HFS+</em></span> (Mac OS Extended format ::::: diffs <strong>Changes since 1.2:</strong> * Added <em>Mac OS Extended format</em> description :::::)</li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HSFJ"><em>HSFJ</em></span> (Journaled Mac OS Extended format ::::: diffs <strong>Changes since 1.2:</strong> * Added <em>Journaled Mac OS Extended format</em> description :::::)</li>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HFS"><em>HFS</em></span> (</li>
+</ul>
+<p>Mac OS Standard format</p>
+<div class="diffs">
+<p><strong>Changes since 1.2:</strong></p>
+<ul>
+<li>Added <em>Mac OS Standard format</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HFS"><em>HFS+</em></span> (</li>
+</ul>
+<p>Mac OS Extended format</p>
+<div class="diffs">
+<p><strong>Changes since 1.2:</strong></p>
+<ul>
+<li>Added <em>Mac OS Extended format</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.HSFJ"><em>HSFJ</em></span> (</li>
+</ul>
+<p>Journaled Mac OS Extended format</p>
+<div class="diffs">
+<p><strong>Changes since 1.2:</strong></p>
+<ul>
+<li>Added <em>Journaled Mac OS Extended format</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ext2"><em>ext2</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ext3"><em>ext3</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ext4"><em>ext4</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.XFS"><em>XFS</em></span></li>
-<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.REISER"><em>REISER</em></span> (ReiserFS ::::: diffs <strong>Changes since 1.2:</strong> * Added <em>ReiserFS</em> description :::::)</li>
+<li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.REISER"><em>REISER</em></span> (</li>
+</ul>
+<p>ReiserFS</p>
+<div class="diffs">
+<p><strong>Changes since 1.2:</strong></p>
+<ul>
+<li>Added <em>ReiserFS</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.Reiser4"><em>Reiser4</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.btrfs"><em>btrfs</em></span></li>
 <li><span id="D.StorageService:1.StorageService.Capabilities.SupportedFileSystemTypes.ZFS"><em>ZFS</em></span> (Zetta File System)</li>
@@ -1318,7 +1396,17 @@ The list MAY include vendor-specific protocols, which MUST be in the format defi
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.ATA100"><em>ATA/100</em></span></li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.ATA133"><em>ATA/133</em></span></li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SATA150"><em>SATA/150</em></span></li>
-<li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SATA300"><em>SATA/300</em></span> (SATA 3.0 Gbit/s ::::: diffs <strong>Changes since 1.2:</strong> * Added <em>SATA 3.0 Gbit/s</em> description :::::)</li>
+<li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SATA300"><em>SATA/300</em></span> (</li>
+</ul>
+<p>SATA 3.0 Gbit/s</p>
+<div class="diffs">
+<p><strong>Changes since 1.2:</strong></p>
+<ul>
+<li>Added <em>SATA 3.0 Gbit/s</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SATA600"><em>SATA/600</em></span> (SATA 6.0 Gbit/s)</li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SATA1969"><em>SATA/1969</em></span> (SATA 16.0 Gbit/s)</li>
 <li><span id="D.StorageService:1.StorageService.PhysicalMedium.ConnectionType.SCSI-1"><em>SCSI-1</em></span></li>
@@ -1675,10 +1763,11 @@ A rise in the value of this attribute indicates defects of the disk surface and/
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:56 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:03:09 UTC.<br />
 report.py --include ../../install/cwmp --output tr-140-1-3-1-usp-diffs.html --show --transform diff --format html tr-140-1-2-0.xml tr-140-1-3-1-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -1699,5 +1788,5 @@ report.py --include ../../install/cwmp --output tr-140-1-3-1-usp-diffs.html --sh
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

@@ -42425,7 +42425,7 @@
 
     <object
         name="Device.WiFi.DataElements.Network.Device.{i}.Radio.{i}.BSS.{i}.MUConfig."
-        minEntries="1" maxEntries="1" version="2.17">
+        minEntries="1" maxEntries="1" version="2.17" access="readOnly">
       <description>
         This object provides Multiuser (MU)-specific BSS configuration.
       </description>
@@ -42470,7 +42470,7 @@
 
     <object
         name="Device.WiFi.DataElements.Network.Device.{i}.Radio.{i}.BSS.{i}.MUStats."
-        minEntries="1" maxEntries="1" version="2.17">
+        minEntries="1" maxEntries="1" version="2.17" access="readOnly">
       <description>
         This object provides packet statistics for a Multiuser (MU) BSS.
       </description>
@@ -77975,7 +77975,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="LastUpdate">
+      <parameter name="LastUpdate" access="readOnly">
         <description>
           The date and time in UTC when the entry was last changed.
         </description>
@@ -95160,7 +95160,7 @@
         </syntax>
       </parameter>
 
-      <parameter name="AvailableRoles" version="2.16">
+      <parameter name="AvailableRoles" version="2.16" access="readOnly">
         <description>
           The roles which are available to Deployment Units installed into this
           {{object}}. Only the listed roles may be assigned to any
@@ -95927,7 +95927,8 @@
       </parameter>
 
       <parameter name="InternalController"
-          dmr:previousParameter="ExecutionEnvRef" version="2.16">
+          dmr:previousParameter="ExecutionEnvRef" version="2.16"
+          access="readOnly">
         <description>
           The internal Controller which the application installed by this
           {{object}} uses to access the Data Model. Will be {{empty}} if the

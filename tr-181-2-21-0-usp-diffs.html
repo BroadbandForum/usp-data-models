@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1949,6 +1987,14 @@ subdivisions - Part 1: Country codes</em>, ISO, 2006.</p>
 </tr>
 <tr>
 <td>
+<p>[<span id="R.RFC3066"><a href="https://www.rfc-editor.org/rfc/rfc3066">RFC3066</a></span>]</p>
+</td>
+<td>
+<p>RFC 3066, <em>Tags for the Identification of Languages</em>, IETF.</p>
+</td>
+</tr>
+<tr>
+<td>
 <p>[<span id="R.RFC3931"><a href="https://www.rfc-editor.org/rfc/rfc3931">RFC3931</a></span>]</p>
 </td>
 <td>
@@ -2690,7 +2736,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Shutd
 <p>-</p>
 </td>
 <td>
-<p>Boot event indicating that the <a href="#D.Device:2.Device."><em>Device</em></a> <span class="removed">was</span><span class="inserted">has</span> <span class="removed">rebooted.}}</span><span class="inserted">booted up after recently being rebooted or shutdown.</span></p>
+<p>Boot event indicating that the <a href="#D.Device:2.Device."><em>Device</em></a> <span class="removed">was</span><span class="inserted">has</span> <span class="removed">rebooted.</span><span class="inserted">booted up after recently being rebooted or shutdown.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2747,7 +2793,7 @@ By default the Device SHOULD set this value to <a href="#D.Device:2.Device.Shutd
 <p>R</p>
 </td>
 <td>
-<p>The reason <span class="inserted">for the Boot! Event related to a reboot or shutdown </span>of the <span class="removed">boot</span><span class="inserted">device,</span> <span class="removed">(e.g.</span><span class="inserted">providing</span> <span class="removed">power</span><span class="inserted">details such as 'wake up from deep standby', 'power</span> on <span class="removed">reset,</span><span class="inserted">reset',</span> <span class="removed">watchdog,</span><span class="inserted">'watchdog',</span> <span class="removed">overheat,</span><span class="inserted">'overheat',</span> <span class="removed">FAN</span><span class="inserted">'FAN</span> <span class="removed">fault,</span><span class="inserted">fault',</span> <span class="removed">web</span><span class="inserted">'web</span> <span class="removed">userinterface,</span><span class="inserted">user</span> <span class="removed">...).}}</span><span class="inserted">interface', or 'user request'.</span></p>
+<p>The reason <span class="inserted">for the Boot! Event related to a reboot or shutdown </span>of the <span class="removed">boot</span><span class="inserted">device,</span> <span class="removed">(e.g.</span><span class="inserted">providing</span> <span class="removed">power</span><span class="inserted">details such as 'wake up from deep standby', 'power</span> on <span class="removed">reset,</span><span class="inserted">reset',</span> <span class="removed">watchdog,</span><span class="inserted">'watchdog',</span> <span class="removed">overheat,</span><span class="inserted">'overheat',</span> <span class="removed">FAN</span><span class="inserted">'FAN</span> <span class="removed">fault,</span><span class="inserted">fault',</span> <span class="removed">web</span><span class="inserted">'web</span> <span class="removed">userinterface,</span><span class="inserted">user</span> <span class="removed">...).</span><span class="inserted">interface', or 'user request'.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -2973,7 +3019,7 @@ to know exactly when the device is ready for specific operations.</p>
 <p>This parameter was DEPRECATED in 2.18 because the only contained parameter, <a href="#D.Device:2.Device.DeviceInfo.Processor.Architecture"><em>Processor.{i}.Architecture</em></a>, is no longer relevant for modern devices.</p>
 </div>
 <div class="hide">
-<p><span class="removed">{{obsoleted|2.20}}}}</span><span class="inserted">This parameter was DELETED in 2.21.<span class="click"></span></span></p>
+<p><span class="removed">{{obsoleted|2.20}}</span><span class="inserted">This parameter was DELETED in 2.21.<span class="click"></span></span></p>
 </div>
 <div class="hide">
 <div class="diffs">
@@ -3073,8 +3119,8 @@ without triggering out-of-memory conditions.</p>
 <p>R</p>
 </td>
 <td>
-<p>The free physical volatile RAM, in <em>KiB</em>, currently <span class="removed">available</span><span class="inserted">unallocated</span> <span class="removed">on</span><span class="inserted">and</span> <span class="removed">the</span><span class="inserted">unused.</span> <span class="removed">device.}}</span><span class="inserted">This excludes memory that can be reclaimed (e.g. caches, buffers).</span></p>
-<p>Note: This definition was changed in Device:2.21. Please refer to <a href="#D.Device:2.Device.DeviceInfo.MemoryStatus.Available"><em>Available</em></a> for a guaranteed indication of memory availability, rather than memory that is completely unused.</p>
+<p>The free physical volatile RAM, in <em>KiB</em>, currently <span class="removed">available</span><span class="inserted">unallocated</span> <span class="removed">on</span><span class="inserted">and</span> <span class="removed">the</span><span class="inserted">unused.</span> <span class="removed">device.</span><span class="inserted">This excludes memory that can be reclaimed (e.g. caches, buffers).</span></p>
+<p><span class="inserted">Note: This definition was changed in Device:2.21. Please refer to <a href="#D.Device:2.Device.DeviceInfo.MemoryStatus.Available"><em>Available</em></a> for a guaranteed indication of memory availability, rather than memory that is completely unused.</span></p>
 <p>Value Change Notification requests for this parameter MAY be denied.</p>
 </td>
 <td>
@@ -3250,7 +3296,7 @@ This file is related to <a href="#D.Device:2.Device.DeviceInfo.ProcessStatus.CPU
 <p>This object was DEPRECATED in 2.18 because the only contained parameter, <a href="#D.Device:2.Device.DeviceInfo.Processor.Architecture"><em>Architecture</em></a>, is no longer relevant for modern devices.</p>
 </div>
 <div class="hide">
-<p><span class="removed">{{obsoleted|2.20}}}}</span><span class="inserted">This object was DELETED in 2.21.<span class="click"></span></span></p>
+<p><span class="removed">{{obsoleted|2.20}}</span><span class="inserted">This object was DELETED in 2.21.<span class="click"></span></span></p>
 </div>
 <div class="hide">
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.Processor.Alias"><em>Alias</em></a>.</p>
@@ -3441,7 +3487,7 @@ Which MUST use the uri scheme file [<a href="#R.RFC8089">The file URI Scheme/RFC
 <td>
 <p>URL, MAC address, or other identifier that identifies an &quot;External&quot; source of this location.</p>
 <p>Meaningful only if <a href="#D.Device:2.Device.DeviceInfo.Location.Source"><em>Source</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.Source.External"><em>External</em></a>, otherwise it MUST be an empty string.</p>
-<p>If <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol"><em>ExternalProtocol</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.CWMP"><em>CWMP</em></a>, this is the URL or IP address of the Controller.<span class="removed">}}</span><span class="inserted"> If <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol"><em>ExternalProtocol</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.USP"><em>USP</em></a>, this is the USP Endpoint of the Controller.</span></p>
+<p>If <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol"><em>ExternalProtocol</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.CWMP"><em>CWMP</em></a>, this is the URL or IP address of the Controller.<span class="inserted"> If <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol"><em>ExternalProtocol</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.USP"><em>USP</em></a>, this is the USP Endpoint of the Controller.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 </td>
 <td>
@@ -3465,14 +3511,13 @@ Which MUST use the uri scheme file [<a href="#R.RFC8089">The file URI Scheme/RFC
 <p>The currently valid location information.</p>
 <p>Writable only when <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol"><em>ExternalProtocol</em></a> has a value of <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.CWMP"><em>CWMP</em></a> or <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.USP"><em>USP</em></a>.</p>
 <p>If obtained through the local GPS/AGPS then the location information is formatted according to [<a href="#R.RFC5491">RFC5491</a>].</p>
-<p><span class="inserted">If obtained through the local Barometer then the location information is formatted according to [<a href="#R.RFC8428">RFC8428</a>].</span></p>
+<p>If <span class="inserted">obtained through the local Barometer then the location information is formatted according to [<a href="#R.RFC8428">RFC8428</a>].</span></p>
 <p>If manually configured then location information will be XML-formatted according to [<a href="#R.RFC5491">RFC5491</a>] (geographical information) and [<a href="#R.RFC5139">RFC5139</a>] (civic addresses).</p>
-<p><span class="inserted">If manually configured then location information will be XML-formatted according to [<a href="#R.RFC8428">RFC8428</a>] (barometric data).</span></p>
+<p>If manually configured then location information will be XML-formatted according to [<a href="#R.RFC8428">RFC8428</a>] (barometric data).</p>
 <p>If obtained by an external source this is the location information as received.</p>
 <p>If it's an XML document (e.g. CWMP, OMA-DM, UPnP, HELD, MLP) the location information will be represented as-is, otherwise it will be converted to base64.</p>
 <p>CWMP or USP configured location information will be XML-formatted according to [<a href="#R.RFC5491">RFC5491</a>] (geographical information) and [<a href="#R.RFC5139">RFC5139</a>] (civic addresses).</p>
-<p><span class="inserted">CWMP or USP configured location information will be XML-formatted according to [<a href="#R.RFC8428">RFC8428</a>] (barometric information) for Barometer.</span></p>
-<p>Only zero or one Location object instance with value <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.CWMP"><em>CWMP</em></a><span class="removed"> or {{enum|USP|ExternalProtocol}}</span> MUST exist at any given time.</p>
+<p><span class="inserted">CWMP or USP configured location information will be XML-formatted according to [<a href="#R.RFC8428">RFC8428</a>] (barometric information) for Barometer.</span>Only zero or one Location object instance with value <a href="#D.Device:2.Device.DeviceInfo.Location.ExternalProtocol.CWMP"><em>CWMP</em></a> <span class="removed">or {{enum|USP|ExternalProtocol}} </span>MUST exist at any given time.</p>
 <div class="diffs">
 <p><strong>Changes since 2.20:</strong></p>
 <ul>
@@ -5289,8 +5334,10 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -5300,15 +5347,17 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -5569,8 +5618,10 @@ Line interface.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -5580,15 +5631,17 @@ Line interface.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -5800,8 +5853,10 @@ interfaces.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -5811,15 +5866,17 @@ interfaces.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -5908,8 +5965,10 @@ cellular modem with a single radio and can reference multiple <a href="#D.Device
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -5919,15 +5978,17 @@ cellular modem with a single radio and can reference multiple <a href="#D.Device
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -6135,8 +6196,10 @@ PHY DOCSIS Downstream interface.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -6146,15 +6209,17 @@ PHY DOCSIS Downstream interface.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -6223,8 +6288,10 @@ PHY DOCSIS Upstream interface.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -6234,15 +6301,17 @@ PHY DOCSIS Upstream interface.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -6497,8 +6566,10 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -6508,15 +6579,17 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -6922,8 +6995,10 @@ the USB Communication Device Class.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -6933,15 +7008,17 @@ the USB Communication Device Class.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -7034,8 +7111,10 @@ MAC levels of an HPNA interface [<a href="#R.G.9954">G.9954</a>].</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -7045,15 +7124,17 @@ MAC levels of an HPNA interface [<a href="#R.G.9954">G.9954</a>].</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -7143,8 +7224,10 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -7154,15 +7237,17 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -7246,11 +7331,65 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>If the value of this parameter is anything other than <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></a>, the values of the other output arguments for this operation are indeterminate.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.success"><em>success</em></span> (This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></a>. ::::: diffs <strong>Changes since 2.20:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></a>.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failBADCHANNEL"><em>failBADCHANNEL</em></span> (This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_BadChannel"><em>Error_BadChannel</em></a>. ::::: diffs <strong>Changes since 2.20:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_BadChannel"><em>Error_BadChannel</em></a>.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failNOEVMPROBE"><em>failNOEVMPROBE</em></span> (This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_NoEvmProbe"><em>Error_NoEvmProbe</em></a>. ::::: diffs <strong>Changes since 2.20:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_NoEvmProbe"><em>Error_NoEvmProbe</em></a>.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.fail"><em>fail</em></span> (This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error"><em>Error</em></a>. ::::: diffs <strong>Changes since 2.20:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error"><em>Error</em></a>.</em> description :::::)</li>
-<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.inPROGRESS"><em>inPROGRESS</em></span> (This enumeration was DEPRECATED in 2.21 in. favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.InProgress"><em>InProgress</em></a> :::::: diffs <strong>Changes since 2.20:</strong> * Added status = <em>deprecated</em> ::::::)</li>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.success"><em>success</em> [<code>0</code>]</span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></a>.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failBADCHANNEL"><em>failBADCHANNEL</em> [<code>1</code>]</span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_BadChannel"><em>Error_BadChannel</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_BadChannel"><em>Error_BadChannel</em></a>.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.failNOEVMPROBE"><em>failNOEVMPROBE</em> [<code>2</code>]</span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_NoEvmProbe"><em>Error_NoEvmProbe</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_NoEvmProbe"><em>Error_NoEvmProbe</em></a>.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.fail"><em>fail</em> [<code>3</code>]</span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error"><em>Error</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.21 in favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error"><em>Error</em></a>.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.inPROGRESS"><em>inPROGRESS</em> [<code>4</code>]</span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.21 in. favor of <a href="#D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.InProgress"><em>InProgress</em></a></p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Complete"><em>Complete</em></span> (The operation completed successfully. This corresponds to the previous 'success' value, added in 2.21)</li>
 <li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_BadChannel"><em>Error_BadChannel</em></span> (The operation failed due to a bad channel. This corresponds to the previous 'failBADCHANNEL' value, which is aligned with MoCA SNMP MIBs definitions, added in 2.21)</li>
 <li><span id="D.Device:2.Device.MoCA.Interface.Aca.Aca.Output.Status.Error_NoEvmProbe"><em>Error_NoEvmProbe</em></span> (The operation failed because there was no EVM probe. This corresponds to the previous 'failNOEVMPROBE' value, which is aligned with MoCA SNMP MIBs definitions, added in 2.21)</li>
@@ -7365,8 +7504,10 @@ media such as power line, phone line and coaxial cable.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -7376,15 +7517,17 @@ media such as power line, phone line and coaxial cable.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -7692,8 +7835,10 @@ MAC levels of a HomePlug interface [<a href="#R.HPAV1.1">HPAV1.1</a>].</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -7703,15 +7848,17 @@ MAC levels of a HomePlug interface [<a href="#R.HPAV1.1">HPAV1.1</a>].</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -7801,8 +7948,10 @@ MAC levels of a UPA interface [<a href="#R.UPA-PLC">UPA-PLC</a>].</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -7812,15 +7961,17 @@ MAC levels of a UPA interface [<a href="#R.UPA-PLC">UPA-PLC</a>].</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -9150,7 +9301,7 @@ different from the current operational configuration.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the HT capabilities of the radio as defined by the <span class="inserted">AP </span>HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>].<span class="removed">}}</span><span class="inserted"> Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the HT capabilities of the radio as defined by the <span class="inserted">AP </span>HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>].<span class="inserted"> Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9170,7 +9321,7 @@ different from the current operational configuration.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the VHT capabilities of the radio as defined by the <span class="inserted">AP </span>VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>].<span class="removed">}}</span><span class="inserted"> Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the VHT capabilities of the radio as defined by the <span class="inserted">AP </span>VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>].<span class="inserted"> Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9212,7 +9363,7 @@ different from the current operational configuration.</p>
 <p>R</p>
 </td>
 <td>
-<p>Object describing a single Associated Device (STA).<span class="removed">}}</span><span class="inserted"> The Backhaul STAs (bSTAs) with which other <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device."><em>Device.WiFi.DataElements.Network.Device.{i}.</em></a> connect to this BSS are included in this table. STA MLD and bSTA MLD are not included, and are instead part of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD."><em>Device.WiFi.DataElements.Network.Device.{i}.APMLD.{i}.STAMLD.{i}.</em></a>. AffiliatedSTAs and AffiliatedbSTAs are not included, and are instead part of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD.AffiliatedSTA."><em>Device.WiFi.DataElements.Network.Device.{i}.APMLD.{i}.STAMLD.{i}.AffiliatedSTA.{i}.</em></a>.</span></p>
+<p>Object describing a single Associated Device (STA).<span class="inserted"> The Backhaul STAs (bSTAs) with which other <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device."><em>Device.WiFi.DataElements.Network.Device.{i}.</em></a> connect to this BSS are included in this table. STA MLD and bSTA MLD are not included, and are instead part of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD."><em>Device.WiFi.DataElements.Network.Device.{i}.APMLD.{i}.STAMLD.{i}.</em></a>. AffiliatedSTAs and AffiliatedbSTAs are not included, and are instead part of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD.AffiliatedSTA."><em>Device.WiFi.DataElements.Network.Device.{i}.APMLD.{i}.STAMLD.{i}.AffiliatedSTA.{i}.</em></a>.</span></p>
 <p>This table MUST contain at least 1 entry.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA.MACAddress"><em>MACAddress</em></a>.</p>
 </td>
@@ -9234,7 +9385,7 @@ different from the current operational configuration.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the HT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the HT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -9254,7 +9405,7 @@ different from the current operational configuration.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the VHT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the VHT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10469,7 +10620,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>The Hostname for the <span class="removed">client</span><span class="inserted">STA</span> <span class="removed">MLD STA.}}</span><span class="inserted">MLD.</span></p>
+<p>The Hostname for the <span class="removed">client</span><span class="inserted">STA</span> <span class="removed">MLD STA.</span><span class="inserted">MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10749,7 +10900,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>Indicates if the Enhanced Multi-Link Multi-Radio (EMLMR) operation is supported by this <span class="removed">STAMLD.}}</span><span class="inserted">STA MLD.</span></p>
+<p>Indicates if the Enhanced Multi-Link Multi-Radio (EMLMR) operation is supported by this <span class="removed">STAMLD.</span><span class="inserted">STA MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10769,7 +10920,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>Indicates if Enhanced Multi-Link Single-Radio (EMLSR) operation is supported by this <span class="removed">STAMLD.}}</span><span class="inserted">STA MLD.</span></p>
+<p>Indicates if Enhanced Multi-Link Single-Radio (EMLSR) operation is supported by this <span class="removed">STAMLD.</span><span class="inserted">STA MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10789,7 +10940,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>Indicates if Simultaneous Transmit and Receive (STR) operation is supported by this <span class="removed">STAMLD.}}</span><span class="inserted">STA MLD.</span></p>
+<p>Indicates if Simultaneous Transmit and Receive (STR) operation is supported by this <span class="removed">STAMLD.</span><span class="inserted">STA MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10809,7 +10960,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>Indicates if Non-Simultaneous Transmit and Receive (NSTR) operation is supported by this <span class="removed">STAMLD.}}</span><span class="inserted">STA MLD.</span></p>
+<p>Indicates if Non-Simultaneous Transmit and Receive (NSTR) operation is supported by this <span class="removed">STAMLD.</span><span class="inserted">STA MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -10829,7 +10980,7 @@ this MLO capable Access Point.
 <p>R</p>
 </td>
 <td>
-<p>Indicates if Traffic Identifier (TID) to Link Mapping Negotiation is supported by this <span class="removed">STAMLD.}}</span><span class="inserted">STA MLD.</span></p>
+<p>Indicates if Traffic Identifier (TID) to Link Mapping Negotiation is supported by this <span class="removed">STAMLD.</span><span class="inserted">STA MLD.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11149,7 +11300,7 @@ a BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the HT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the HT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11169,7 +11320,7 @@ a BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the VHT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the VHT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11243,7 +11394,7 @@ BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the HT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the HT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP HTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.8/EasyMesh</a>]. Includes all fields in the AP HTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11263,7 +11414,7 @@ BSS.</p>
 <p>R</p>
 </td>
 <td>
-<p>Describes the VHT capabilities of the Associated Device (STA).<span class="removed">}}</span><span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
+<p>Describes the VHT capabilities of the Associated Device (STA).<span class="inserted"> Uses the format defined by the AP VHTCapabilities TLV [<a href="#R.EasyMesh">Section 17.2.9/EasyMesh</a>]. Includes all fields in the AP VHTCapabilities TLV except tlvType, tlvLength, tlvValue and RUID.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -12407,8 +12558,10 @@ radio.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -12418,7 +12571,7 @@ radio.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
 <p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
@@ -13401,8 +13554,10 @@ as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -13412,15 +13567,17 @@ as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -13544,12 +13701,20 @@ returns the set.</p>
 network, specific addresses are reserved for multicast use
 targeting different groups of devices, depending on the scope :</p>
 <ul>
-<li>FF02::1 : &quot;Link-Local All Nodes&quot; multicast address, all Full
-Thread Devices (FTD) and Minimal End Devices (MED);</li>
-<li>FF02::2 : &quot;All-Routers&quot; multicast address, all FTDs;</li>
-<li>FF03::1 : &quot;Realm-Local All-Nodes&quot; multicast address, all FTDs
-and MEDs;</li>
-<li>FF03::2 : &quot;Realm-Local All-Routers&quot; multicast address, all FTDs;</li>
+<li>
+<p>FF02::1 : &quot;Link-Local All Nodes&quot; multicast address, all Full
+Thread Devices (FTD) and Minimal End Devices (MED);</p>
+</li>
+<li>
+<p>FF02::2 : &quot;All-Routers&quot; multicast address, all FTDs;</p>
+</li>
+<li>
+<p>FF03::1 : &quot;Realm-Local All-Nodes&quot; multicast address, all FTDs
+and MEDs;</p>
+</li>
+<li>
+<p>FF03::2 : &quot;Realm-Local All-Routers&quot; multicast address, all FTDs;</p>
+</li>
 </ul>
 </td>
 <td>
@@ -13576,29 +13741,63 @@ Diagnostic TLVs/ThreadSpec</a>].</p>
 number of defined TLV IDs in the Thread specification can increase
 in future releases:</p>
 <ul>
-<li>0x00 ExtMacAddress (Extended MAC Address (EUI‑64) of the radio
-interface)</li>
-<li>0x01 Address16 (Node’s 16‑bit RLOC address)</li>
-<li>0x02 Mode (Device mode flags (RX‑on‑when‑idle, FTD/MTD,
-FullNetData…))</li>
-<li>0x03 Timeout (MLE timeout, notably for children)</li>
-<li>0x04 Connectivity (Connectivity indicators: parent priority,
-link qualities, cost to Leader…)</li>
-<li>0x05 Route64 (Routing information, router table, in Route64
-format)</li>
-<li>0x06 LeaderData (Partition/leader data (PartitionId, Weighting,
-DataVersion…))</li>
-<li>0x07 NetworkData (Full Network Data)</li>
-<li>0x08 IPv6AddressList (Node’s IPv6 address list)</li>
-<li>0x09 MacCounters (MAC counters (Tx/Rx, Retries, CCA failure,
-FCS error…))</li>
-<li>0x0E BatteryLevel (Battery level if exposed)</li>
-<li>0x0F SupplyVoltage (Supply voltage if exposed)</li>
-<li>0x10 ChildTable (Child table (if Node acts as parent/router))</li>
-<li>0x11 ChannelPages (Supported channel pages)</li>
-<li>0x12 TypeList (List of supported Network Diagnostics TLV types)</li>
-<li>0x13 MaxChildTimeout (Maximum child timeout (Thread 1.2+))</li>
-<li>0x18 Version (Node’s Thread version)</li>
+<li>
+<p>0x00 ExtMacAddress (Extended MAC Address (EUI‑64) of the radio
+interface)</p>
+</li>
+<li>
+<p>0x01 Address16 (Node’s 16‑bit RLOC address)</p>
+</li>
+<li>
+<p>0x02 Mode (Device mode flags (RX‑on‑when‑idle, FTD/MTD,
+FullNetData…))</p>
+</li>
+<li>
+<p>0x03 Timeout (MLE timeout, notably for children)</p>
+</li>
+<li>
+<p>0x04 Connectivity (Connectivity indicators: parent priority,
+link qualities, cost to Leader…)</p>
+</li>
+<li>
+<p>0x05 Route64 (Routing information, router table, in Route64
+format)</p>
+</li>
+<li>
+<p>0x06 LeaderData (Partition/leader data (PartitionId, Weighting,
+DataVersion…))</p>
+</li>
+<li>
+<p>0x07 NetworkData (Full Network Data)</p>
+</li>
+<li>
+<p>0x08 IPv6AddressList (Node’s IPv6 address list)</p>
+</li>
+<li>
+<p>0x09 MacCounters (MAC counters (Tx/Rx, Retries, CCA failure,
+FCS error…))</p>
+</li>
+<li>
+<p>0x0E BatteryLevel (Battery level if exposed)</p>
+</li>
+<li>
+<p>0x0F SupplyVoltage (Supply voltage if exposed)</p>
+</li>
+<li>
+<p>0x10 ChildTable (Child table (if Node acts as parent/router))</p>
+</li>
+<li>
+<p>0x11 ChannelPages (Supported channel pages)</p>
+</li>
+<li>
+<p>0x12 TypeList (List of supported Network Diagnostics TLV types)</p>
+</li>
+<li>
+<p>0x13 MaxChildTimeout (Maximum child timeout (Thread 1.2+))</p>
+</li>
+<li>
+<p>0x18 Version (Node’s Thread version)</p>
+</li>
 </ul>
 </td>
 <td>
@@ -13813,7 +14012,12 @@ Thread node.</p>
 <p>R</p>
 </td>
 <td>
-<p>The IPv6 address may <span class="removed">by</span><span class="inserted">be</span> of one the following types. Enumeration of: * LinkLocal (Address reachable by a single radio transmission with the prefixes fe80::/16). * MeshLocal (Address reachable within the same Thread network with the prefix defined by the Thread network). * Global (Address reachable from outside a Thread network with the prefix provided by the Border Router).</p>
+<p>The IPv6 address may <span class="removed">by</span><span class="inserted">be</span> of one the following types. Enumeration of:</p>
+<ul>
+<li>LinkLocal (Address reachable by a single radio transmission with the prefixes fe80::/16).</li>
+<li>MeshLocal (Address reachable within the same Thread network with the prefix defined by the Thread network).</li>
+<li>Global (Address reachable from outside a Thread network with the prefix provided by the Border Router).</li>
+</ul>
 </td>
 <td>
 <p>-</p>
@@ -13903,8 +14107,10 @@ interface of a ZigBee end device, ZigBee router or ZigBee coordinator.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -13914,15 +14120,17 @@ interface of a ZigBee end device, ZigBee router or ZigBee coordinator.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -14214,7 +14422,7 @@ provider bridges.</p>
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">Bridge</span><span class="inserted">The</span> <span class="removed">Port</span><span class="inserted">default</span> <span class="removed">Default</span><span class="inserted">user</span> <span class="removed">User</span><span class="inserted">priority</span> <span class="removed">Priority.}}</span><span class="inserted">for the bridge port.</span></p>
+<p><span class="removed">Bridge</span><span class="inserted">The</span> <span class="removed">Port</span><span class="inserted">default</span> <span class="removed">Default</span><span class="inserted">user</span> <span class="removed">User</span><span class="inserted">priority</span> <span class="removed">Priority.</span><span class="inserted">for the bridge port.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -14234,7 +14442,7 @@ provider bridges.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list (8 items) (length ) of unsigned integers (0 to 7). List items represent user priority regeneration values for each ingress user priority on this <span class="removed">Bridge</span><span class="inserted">bridge</span> <span class="removed">Port.}}</span><span class="inserted">port.</span></p>
+<p>Comma-separated list (8 items) (length ) of unsigned integers (0 to 7). List items represent user priority regeneration values for each ingress user priority on this <span class="removed">Bridge</span><span class="inserted">bridge</span> <span class="removed">Port.</span><span class="inserted">port.</span></p>
 </td>
 <td>
 <p>0,1,2,3,4,5,6,7</p>
@@ -14715,7 +14923,7 @@ above technology-specific Tunnel Interfaces, e.g. above
 <p>If <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationEnabled"><em>AuthenticationEnabled</em></a> is set to <em>true</em>, one of the following combinations of <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationCode"><em>AuthenticationCode</em></a>, <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyFileLocation"><em>AuthenticationKeyFileLocation</em></a> MUST be met. Otherwise, the client returns an error.</p>
 <p>If only <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationCode"><em>AuthenticationCode</em></a> is provided, the client uses the value directly as the key.</p>
 <p>If both <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationCode"><em>AuthenticationCode</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> are provided but <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyFileLocation"><em>AuthenticationKeyFileLocation</em></a> is not provided, the client uses the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationCode"><em>AuthenticationCode</em></a> as the key and the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> as key ID. The <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table is ignored.</p>
-<p>If only <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> is provided, <span class="inserted"><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> is used to select </span>the<span class="inserted"> instance to use from the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table. The</span> client uses <span class="removed">the</span><span class="inserted"><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode.AuthenticationKey"><em>IPLayerCapacityAuthCode.{i}.AuthenticationKey</em></a></span> <span class="removed">{{object|IPLayerCapacityAuthCode}} table to derive</span><span class="inserted">as</span> the <span class="inserted">key and </span><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> as key <span class="removed">ID,</span><span class="inserted">ID.</span> <span class="removed">and</span><span class="inserted">If the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table does not contain</span> the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> <span class="removed">as</span><span class="inserted">,</span> the <span class="removed">key.</span><span class="inserted">client returns an error.</span></p>
+<p>If only <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> is provided, <span class="inserted"><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> is used to select </span>the<span class="inserted"> instance to use from the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table. The</span> client uses<span class="inserted"> <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode.AuthenticationKey"><em>IPLayerCapacityAuthCode.{i}.AuthenticationKey</em></a> as the key and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> as key ID. If</span> the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table <span class="removed">to</span><span class="inserted">does</span> <span class="removed">derive</span><span class="inserted">not contain</span> the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> <span class="removed">to use as key ID, and</span><span class="inserted">,</span> the <span class="removed">{{param|IPLayerCapacityAuthCode.{i}.AuthenticationKey}}</span><span class="inserted">client</span> <span class="removed">as</span><span class="inserted">returns</span> <span class="removed">the</span><span class="inserted">an</span> <span class="removed">key.</span><span class="inserted">error.</span></p>
 <p>If both <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> and <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyFileLocation"><em>AuthenticationKeyFileLocation</em></a> are provided, but <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationCode"><em>AuthenticationCode</em></a> is not provided, the client uses the <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyID"><em>AuthenticationKeyID</em></a> as key ID along with <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyFileLocation"><em>AuthenticationKeyFileLocation</em></a> as file location. The <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityAuthCode."><em>IPLayerCapacityAuthCode</em></a> table is ignored.</p>
 <p>If only <a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.AuthenticationKeyFileLocation"><em>AuthenticationKeyFileLocation</em></a> is provided, <span class="removed">and</span><span class="inserted">if</span> the <span class="removed">{{object|IPLayerCapacityAuthCode}}</span><span class="inserted">file</span> <span class="removed">does</span><span class="inserted">specified</span> <span class="removed">not</span><span class="inserted">contains</span> <span class="removed">contain</span><span class="inserted">only a single entry, then it uses that as</span> the <span class="removed">{{param|AuthenticationAlias}},</span><span class="inserted">key. If the file contains multiple entries, then it uses the key from the entry with Key ID equal to 0. If no entry exists with Key ID equal to 0,</span> the client returns an error.<span class="removed">{{div|{{classes}}|If only {{param|AuthenticationKeyFileLocation}} is provided, the file specified MUST contain a single entry. Otherwise, the client returns an error.}}</span></p>
 <div class="diffs">
@@ -16038,7 +16246,7 @@ packets are received from and sent to.</p>
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">The</span><span class="inserted">This object describes a unified approach for Layer 3 to Layer 2 address resolution protocols, managing both the</span> Neighbor Discovery Protocol (NDP) <span class="removed">object</span><span class="inserted">for IPv6</span> [<a href="#R.RFC4861">RFC4861</a>]<span class="removed">.</span> <span class="removed">This</span><span class="inserted">and</span> <span class="removed">object</span><span class="inserted">the</span> <span class="removed">applies</span><span class="inserted">Address</span> <span class="removed">only</span><span class="inserted">Resolution</span> <span class="removed">to</span><span class="inserted">Protocol</span> <span class="removed">IPv6.</span><span class="inserted">(ARP) for IPv4.</span> It contains an <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting."><em>InterfaceSetting</em></a> table that defines the<span class="removed"> NDP</span> configuration for individual IP interfaces.</p>
+<p><span class="removed">The</span><span class="inserted">This object describes a unified approach for Layer 3 to Layer 2 address resolution protocols, managing both the</span> Neighbor Discovery Protocol (NDP) <span class="removed">object</span><span class="inserted">for IPv6</span> [<a href="#R.RFC4861">RFC4861</a>]<span class="removed">.</span> <span class="removed">This</span><span class="inserted">and</span> <span class="removed">object</span><span class="inserted">the</span> <span class="removed">applies</span><span class="inserted">Address</span> <span class="removed">only</span><span class="inserted">Resolution</span> <span class="removed">to</span><span class="inserted">Protocol</span> <span class="removed">IPv6.</span><span class="inserted">(ARP) for IPv4.</span> It contains an <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting."><em>InterfaceSetting</em></a> table that defines the <span class="removed">NDP </span>configuration for individual IP interfaces.</p>
 </td>
 <td>
 <p>-</p>
@@ -16087,7 +16295,7 @@ packets are received from and sent to.</p>
 <p>W</p>
 </td>
 <td>
-<p>Enables or disables this <span class="removed">{{object}}</span><span class="inserted">entire interface setting</span> entry.<span class="removed">}}</span><span class="inserted"> If <em>false</em>, both ARP and NDP are considered disabled for this interface through this object, regardless of their individual <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.ARP.Enable"><em>ARP.Enable</em></a> or <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.NDP.Enable"><em>NDP.Enable</em></a> settings.</span></p>
+<p>Enables or disables this <span class="removed">{{object}}</span><span class="inserted">entire interface setting</span> entry.<span class="inserted"> If <em>false</em>, both ARP and NDP are considered disabled for this interface through this object, regardless of their individual <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.ARP.Enable"><em>ARP.Enable</em></a> or <a href="#D.Device:2.Device.NeighborDiscovery.InterfaceSetting.NDP.Enable"><em>NDP.Enable</em></a> settings.</span></p>
 </td>
 <td>
 <p>false</p>
@@ -16908,8 +17116,8 @@ compaction.</p>
 <p>If no <em>Order</em> value is supplied on creation of a <a href="#D.Device:2.Device.QoS.Classification."><em>Classification</em></a> instance,
 it MUST be assigned a value that is one more than the largest current
 value (lowest precedence).</p>
-<p>For each packet, the <span class="removed">highest ordered entry that matches the </span>classification<span class="removed"> criteria is applied. All lower order</span> entries are <span class="removed">ignored.}}</span><span class="inserted">processed in descending order of this parameter (higher values mean higher precedence). The matching process can stop either on the first match or continue, as determined by the value of the <a href="#D.Device:2.Device.QoS.Classification.StopProcessing"><em>StopProcessing</em></a> parameter.</span></p>
-<p>Note: The requirement for highest-ordered entry precedence in packet classification is removed in Device:2.21.</p>
+<p>For each packet, the <span class="removed">highest ordered entry that matches the </span>classification<span class="removed"> criteria is applied. All lower order</span> entries are <span class="removed">ignored.</span><span class="inserted">processed in descending order of this parameter (higher values mean higher precedence). The matching process can stop either on the first match or continue, as determined by the value of the <a href="#D.Device:2.Device.QoS.Classification.StopProcessing"><em>StopProcessing</em></a> parameter.</span></p>
+<p><span class="inserted">Note: The requirement for highest-ordered entry precedence in packet classification is removed in Device:2.21.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -17047,13 +17255,8 @@ broadband network.</p>
 <div class="hide">
 <p>This parameter was OBSOLETED in 2.20.</p>
 </div>
-<div class="inserted">
-<div class="chevron">
-<p>This parameter was DELETED in 2.21.<span class="click"></span></p>
-</div>
-</div>
 <div class="hide">
-<p>The number of entries in the <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule."><em>Schedule</em></a> table.</p>
+<p><span class="inserted">This parameter was DELETED in 2.21.<span class="click"></span></span>The number of entries in the <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule."><em>Schedule</em></a> table.</p>
 </div>
 <div class="hide">
 <div class="diffs">
@@ -17089,8 +17292,6 @@ broadband network.</p>
 </div>
 <div class="hide">
 <p>This object was OBSOLETED in 2.20.</p>
-</div>
-<div class="inserted">
 <div class="chevron">
 <p>This object was DELETED in 2.21.<span class="click"></span></p>
 </div>
@@ -18079,7 +18280,7 @@ indicating the domain name does not exist.</p>
 </td>
 <td>
 <p>This object contains the DNS Service Discovery [<a href="#R.DNS-SD">DNS-SD</a>] object and parameters necessary to discover services and their associated devices.</p>
-<p>Upon reboot<span class="removed"> the</span> the contents of the service table are repopulated. When the DNS-SD service is disabled, the contents of the service table is implementation specific.</p>
+<p>Upon reboot the <span class="removed">the </span>contents of the service table are repopulated. When the DNS-SD service is disabled, the contents of the service table is implementation specific.</p>
 </td>
 <td>
 <p>-</p>
@@ -18121,7 +18322,7 @@ indicating the domain name does not exist.</p>
 </td>
 <td>
 <p>Properties for Network Address Translation (NAT).</p>
-<p><span class="removed">The</span><span class="inserted">This</span> <span class="removed">entire</span><span class="inserted">includes</span> <span class="removed">{{object}}</span><span class="inserted">settings</span> <span class="removed">object</span><span class="inserted">for</span> <span class="removed">only</span><span class="inserted">IPv4</span> <span class="removed">applies</span><span class="inserted">NAT</span> <span class="removed">to</span><span class="inserted">within</span> <span class="removed">IPv4.}}</span><span class="inserted">this object, and for IPv6-to-IPv6 Network Prefix Translation (NPTv6).</span></p>
+<p><span class="removed">The</span><span class="inserted">This</span> <span class="removed">entire</span><span class="inserted">includes</span> <span class="removed">{{object}}</span><span class="inserted">settings</span> <span class="removed">object</span><span class="inserted">for</span> <span class="removed">only</span><span class="inserted">IPv4</span> <span class="removed">applies</span><span class="inserted">NAT</span> <span class="removed">to</span><span class="inserted">within</span> <span class="removed">IPv4.</span><span class="inserted">this object, and for IPv6-to-IPv6 Network Prefix Translation (NPTv6).</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.20:</strong></p>
 <ul>
@@ -18592,7 +18793,7 @@ inoperable and the CPE MUST set <a href="#D.Device:2.Device.DHCPv4.Server.Pool.S
 <p>W</p>
 </td>
 <td>
-<p>This object specifies the DHCP options <span class="removed">that MUST,</span><span class="inserted">that,</span> if enabled,<span class="inserted"> can</span> be returned to clients whose DHCP requests are associated with this pool.<span class="removed">}}</span><span class="inserted"> The <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Force"><em>Force</em></a> parameter determines if the option is always sent or only when requested by the client.</span></p>
+<p>This object specifies the DHCP options <span class="removed">that MUST,</span><span class="inserted">that,</span> if enabled,<span class="inserted"> can</span> be returned to clients whose DHCP requests are associated with this pool.<span class="inserted"> The <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Force"><em>Force</em></a> parameter determines if the option is always sent or only when requested by the client.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Tag"><em>Tag</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.DHCPv4.Server.Pool.Option.Tag"><em>Tag</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
 <p><strong>Changes since 2.20:</strong></p>
@@ -18798,7 +18999,7 @@ stack) then the table entry is inoperable and the CPE MUST set
 <p>W</p>
 </td>
 <td>
-<p>This object specifies the DHCPv6 options <span class="removed">that MUST,</span><span class="inserted">that,</span> if enabled,<span class="inserted"> can</span> be offered to clients whose DHCPv6 requests are associated with this pool.<span class="removed"> </span><span class="inserted">If <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.PassthroughClient"><em>PassthroughClient</em></a> is specified, and the referenced client has a value for a given option then the <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.PassthroughClient"><em>PassthroughClient</em></a> option value will be sent instead of <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Value"><em>Value</em></a>. Otherwise, <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Value"><em>Value</em></a> will be sent.</span></p>
+<p>This object specifies the DHCPv6 options <span class="removed">that MUST,</span><span class="inserted">that,</span> if enabled,<span class="inserted"> can</span> be offered to clients whose DHCPv6 requests are associated with this pool.<span class="removed"> </span>If <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.PassthroughClient"><em>PassthroughClient</em></a> is specified, and the referenced client has a value for a given option then the <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.PassthroughClient"><em>PassthroughClient</em></a> option value will be sent instead of <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Value"><em>Value</em></a>. Otherwise, <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Value"><em>Value</em></a> will be sent.</p>
 <p><span class="inserted">If <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Force"><em>Force</em></a> is specified, it determines that the option is always sent or only when requested by the client.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Tag"><em>Tag</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.DHCPv6.Server.Pool.Option.Tag"><em>Tag</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
@@ -18883,6 +19084,139 @@ ensure that clients receive certain options, even if not explicitly requested.</
 </td>
 <td>
 <p>2.12</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Users.User.GroupParticipation">GroupParticipation</span></p>
+</td>
+<td>
+<p>string[](:1024)</p>
+</td>
+<td>
+<p>W</p>
+</td>
+<td>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.Group."><em>Group.</em></a> table. The Groups of which this User is a member.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added dmr_noVersionCheck = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p><em>&lt;Empty&gt;</em></p>
+</td>
+<td>
+<p>2.15</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Users.User.RoleParticipation">RoleParticipation</span></p>
+</td>
+<td>
+<p>string[](:1024)</p>
+</td>
+<td>
+<p>W</p>
+</td>
+<td>
+<p>Comma-separated list (maximum number of characters 1024) of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.Role."><em>Role.</em></a> table. The Roles which are assigned to this User.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added dmr_noVersionCheck = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p><em>&lt;Empty&gt;</em></p>
+</td>
+<td>
+<p>2.15</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Users.User.StaticUser">StaticUser</span></p>
+</td>
+<td>
+<p>boolean</p>
+</td>
+<td>
+<p>R</p>
+</td>
+<td>
+<p>A static user is a fixed user that is always available in the system.
+When set to <em>true</em>, the user cannot be removed.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added dmr_noVersionCheck = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p>false</p>
+</td>
+<td>
+<p>2.15</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Users.User.Language">Language</span></p>
+</td>
+<td>
+<p>string(:16)</p>
+</td>
+<td>
+<p>W</p>
+</td>
+<td>
+<p>String describing the default language for the local configuration
+interface, specified according to [<a href="#R.RFC3066">RFC3066</a>].</p>
+<p>If an empty string, <a href="#D.Device:2.Device.UserInterface.CurrentLanguage"><em>UserInterface.CurrentLanguage</em></a> is used.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added dmr_noVersionCheck = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p><em>&lt;Empty&gt;</em></p>
+</td>
+<td>
+<p>2.15</p>
+</td>
+</tr>
+<tr class="parameter">
+<td>
+<p><span id="D.Device:2.Device.Users.User.Shell">Shell</span></p>
+</td>
+<td>
+<p>string</p>
+</td>
+<td>
+<p>W</p>
+</td>
+<td>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.Users.SupportedShell."><em>SupportedShell.</em></a> table. An empty string means Shell access disabled.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Added dmr_noVersionCheck = <em>true</em></li>
+</ul>
+</div>
+</td>
+<td>
+<p><em>&lt;Empty&gt;</em></p>
+</td>
+<td>
+<p>2.15</p>
 </td>
 </tr>
 <tr class="parameter inserted">
@@ -19283,11 +19617,21 @@ connection details.</p>
 <p>The <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Status"><em>Status</em></a> parameter reflects the current state of the transfer process,
 which can transition through the following sequences:</p>
 <ul>
-<li>Idle → Uploading → Success → Idle</li>
-<li>Idle → Uploading → Error → Idle</li>
-<li>Idle → Creating → Error → Idle</li>
-<li>Idle → Creating → Uploading → Success → Idle</li>
-<li>Idle → Creating → Uploading → Error → Idle</li>
+<li>
+<p>Idle → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Uploading → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Error → Idle</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
@@ -20552,7 +20896,7 @@ object are not being updated and their values are not accurate.</p>
 <p>Several signature formats are in common use; the device may deduce the format used from the Content-Type of the retrieved object and/or by examining its content.</p>
 <p>The URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <p><span class="inserted">Only the transport protocols defined by <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are permitted. If the requested protocol is not in the specified list, the operation MUST fail, and a corresponding error MUST be reported.</span></p>
-<p>In the event that <a href="#D.Device:2.Device.SoftwareModules.Config.SupportedDUSignatureProtocols"><em>Config.SupportedDUSignatureProtocols</em></a> and <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are not supported, the HTTPS transport MUST be supported.<span class="removed"> Other optional transports MAY be supported.</span></p>
+<p>In the event that <a href="#D.Device:2.Device.SoftwareModules.Config.SupportedDUSignatureProtocols"><em>Config.SupportedDUSignatureProtocols</em></a> and <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are not supported, the HTTPS transport MUST<span class="removed"> be supported. Other optional transports MAY</span> be supported.</p>
 <p>The absence of this parameter indicates that the Deployment Unit is unsigned. If this is contrary to the security policy of the device then the command will be rejected.</p>
 </td>
 <td>
@@ -20709,8 +21053,8 @@ file server, if authentication is required.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list of strings (maximum number of characters per item 256). Each <span class="removed">entry</span><span class="inserted">item</span> in the list <span class="removed">is</span><span class="inserted">can be</span> an Object Path, Command Path, Event Path, or Parameter Path that determines the element(s) of the data model that the application installed by this command has permission to register.<span class="removed">{{div|{{classes}}|The information provided in this input arguement is placed in the {{object|##.USPServices.Trust}} table.}}</span></p>
-<p>If this argument is absent or <span class="removed">empty</span><span class="inserted">an empty string</span> then the application has no permission to register any data model paths.</p>
+<p>Comma-separated list of strings (maximum number of characters per item 256). Each <span class="removed">entry</span><span class="inserted">item</span> in the list <span class="removed">is</span><span class="inserted">can be</span> an Object Path, Command Path, Event Path, or Parameter Path that determines the element(s) of the data model that the application installed by this command has permission to register.</p>
+<p><span class="removed">The information provided in this input arguement is placed in the {{object|##.USPServices.Trust}} table.}}{{div|{{classes}}|</span>If this argument is absent or <span class="removed">empty</span><span class="inserted">an empty string</span> then the application has no permission to register any data model paths.</p>
 <p><span class="inserted">The information provided in this input argument is placed in the <a href="#D.Device:2.Device.USPServices.Trust."><em>USPServices.Trust</em></a> table and in the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.RegisterTrustPaths"><em>ExecutionUnit.{i}.RegisterTrustPaths</em></a> parameter.</span></p>
 </td>
 <td>
@@ -20819,7 +21163,7 @@ the Deployment Unit as ApplicationUUID.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The level of <span class="removed">persistency</span><span class="inserted">persistence</span> <span class="removed">of</span><span class="inserted">for</span> the <span class="removed">volume.}}</span><span class="inserted">application data volume and its content.</span></p>
+<p><strong>[MANDATORY]</strong> The level of <span class="removed">persistency</span><span class="inserted">persistence</span> <span class="removed">of</span><span class="inserted">for</span> the <span class="removed">volume.</span><span class="inserted">application data volume and its content.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.InstallDU.Input.ApplicationData.Retain.UntilStopped"><em>UntilStopped</em></span> (The application data volume and its content will be removed when all ExecutionUnits which were created by the Deployment Unit are stopped)</li>
@@ -20880,7 +21224,19 @@ interest of scalability.</p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Installed"><em>Installed</em></span> (The Deployment Unit is in an Installed state due to one of the following: successful Install, successful Update, failed Update, or failed Uninstall. In the case of a failed Update or failed Uninstall the Fault argument will contain an explanation of the failure)</li>
-<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (The Deployment Unit was successfully uninstalled from the device. This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization. This enumeration was OBSOLETED in 2.21. ::::: diffs <strong>Changes since 2.20:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (</li>
+</ul>
+<p>The Deployment Unit was successfully uninstalled from the device.</p>
+<p>This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization.</p>
+<p>This enumeration was OBSOLETED in 2.21.</p>
+<div class="diffs">
+<p><strong>Changes since 2.20:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Uninstalled"><em>Uninstalled</em></span> (The Deployment Unit was successfully uninstalled from the device, added in 2.19)</li>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Failed"><em>Failed</em></span> (The Deployment Unit could not be installed in which case a Deployment Unit instance MUST NOT be created in the Data Model)</li>
 </ul>
@@ -20950,23 +21306,123 @@ indicating the failure reason.</p>
 </td>
 <td>
 <p>The numerical fault code. Valid values are:</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the operation was successful, the fault code is 0.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device cannot complete the operation for some unknown reason, it SHOULD reject the operation with a 7002 (Request Denied) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device detects the presence of the &quot;userinfo&quot; component in the file source URL, it SHOULD reject the operation with a 7004 (Invalid Arguments) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device cannot find the Execution Environment specified in the Install or Update command, it SHOULD reject the operation with a 7223 (Unknown Execution Environment) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device determines that the Deployment Unit being installed does not match either the Execution Environment specified or any Execution Environment on the device, it SHOULD reject the operation with a 7225 (Deployment Unit to Execution Environment Mismatch) fault code</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device detects that the Deployment Unit being installed already has the same version as one already installed on the same Execution Environment, it SHOULD reject the operation with a 7226 (Duplicate Deployment Unit) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> the device detects that that there are no more system resources <span class="removed">(disk</span><span class="inserted">(storage</span> space, memory, etc.) to perform the Install or Update of a Deployment Unit, it SHOULD reject the operation with a 7227 (System Resources Exceeded) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to alter the State of a Deployment Unit in a manner that conflicts with the Deployment Unit State Machine Diagram [<a href="#R.TR-369">Appendix I &quot;Software Module Management&quot;/TR-369</a>], it SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Uninstall a Deployment Unit that caused an EE to come into existence, where that EE has at least 1 installed Deployment Unit or at least 1 child EE, then the device SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Uninstall a Deployment Unit that caused an ExecEnvClass to come into existence, where at least one EE exists which instantiates that ExecEnvClass, then the device SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and the server specified in the URL is not currently reachable or the request times out, then the device SHOULD reject the operation with a 7033 (Server Unreachable) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and the server specified in the URL fails security checks (e.g. by not presenting a valid certificate), then the device SHOULD reject the operation with a 7034 (Server Insecure) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and the file returned by the server appears to be corrupt, then the device SHOULD reject the operation with a 7035 (Corrupt Data) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and the file returned by the server does not match the signature provided, or a required signature is absent, then the device SHOULD reject the operation with a 7036 (Bad Signature) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and includes a RequestedRole argument which contains at least one Role which is not in the EE's AvailableRoles list, then the device SHOULD reject the operation with a 7032 (Unavailable Role) fault code.</p>
-<p><span class="removed">*If</span><span class="inserted">* If</span> a requested operation attempts to Install or Update a Deployment Unit and includes a RequestedUserRole argument which contains at least one User Role which is not in the EE's AvailableUserRoles list, then the device SHOULD reject the operation with a 7037 (Unavailable User Role) fault code.</p>
-<p><span class="inserted">* If a requested operation attempts to Install or Update a Deployment Unit, and the protocol used to fetch the signature is not in the list of supported protocols, the device SHOULD reject the operation with a 7038 (Bad Protocol) fault code.</span></p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the operation was successful, the fault code is 0.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device cannot complete the operation for some unknown reason, it SHOULD reject the operation with a 7002 (Request Denied) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device detects the presence of the &quot;userinfo&quot; component in the file source URL, it SHOULD reject the operation with a 7004 (Invalid Arguments) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device cannot find the Execution Environment specified in the Install or Update command, it SHOULD reject the operation with a 7223 (Unknown Execution Environment) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device determines that the Deployment Unit being installed does not match either the Execution Environment specified or any Execution Environment on the device, it SHOULD reject the operation with a 7225 (Deployment Unit to Execution Environment Mismatch) fault code</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device detects that the Deployment Unit being installed already has the same version as one already installed on the same Execution Environment, it SHOULD reject the operation with a 7226 (Duplicate Deployment Unit) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>the device detects that that there are no more system resources <span class="removed">(disk</span><span class="inserted">(storage</span> space, memory, etc.) to perform the Install or Update of a Deployment Unit, it SHOULD reject the operation with a 7227 (System Resources Exceeded) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to alter the State of a Deployment Unit in a manner that conflicts with the Deployment Unit State Machine Diagram [<a href="#R.TR-369">Appendix I &quot;Software Module Management&quot;/TR-369</a>], it SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Uninstall a Deployment Unit that caused an EE to come into existence, where that EE has at least 1 installed Deployment Unit or at least 1 child EE, then the device SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Uninstall a Deployment Unit that caused an ExecEnvClass to come into existence, where at least one EE exists which instantiates that ExecEnvClass, then the device SHOULD reject the operation with a 7229 (Invalid Deployment Unit State) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and the server specified in the URL is not currently reachable or the request times out, then the device SHOULD reject the operation with a 7033 (Server Unreachable) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and the server specified in the URL fails security checks (e.g. by not presenting a valid certificate), then the device SHOULD reject the operation with a 7034 (Server Insecure) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and the file returned by the server appears to be corrupt, then the device SHOULD reject the operation with a 7035 (Corrupt Data) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and the file returned by the server does not match the signature provided, or a required signature is absent, then the device SHOULD reject the operation with a 7036 (Bad Signature) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and includes a RequestedRole argument which contains at least one Role which is not in the EE's AvailableRoles list, then the device SHOULD reject the operation with a 7032 (Unavailable Role) fault code.</p>
+<p><span class="removed">*If</span></p>
+<div class="inserted">
+<ul>
+<li>If</li>
+</ul>
+</div>
+<p>a requested operation attempts to Install or Update a Deployment Unit and includes a RequestedUserRole argument which contains at least one User Role which is not in the EE's AvailableUserRoles list, then the device SHOULD reject the operation with a 7037 (Unavailable User Role) fault code.</p>
+<div class="inserted">
+<ul>
+<li>If a requested operation attempts to Install or Update a Deployment Unit, and the protocol used to fetch the signature is not in the list of supported protocols, the device SHOULD reject the operation with a 7038 (Bad Protocol) fault code.</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -21050,7 +21506,7 @@ updating, or removing a <a href="#D.Device:2.Device.SoftwareModules.DeploymentUn
 <p>W</p>
 </td>
 <td>
-<p>If this parameter is present and is <em>true</em>, the created ExecEnv will have its <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Enable"><em>ExecEnv.{i}.Enable</em></a> flag set <em>true</em> and it will immediately transition to Status <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Status.Up"><em>Up</em></a>. Otherwise the ExecEnv will initially be Disabled, allowing the Controller to set further parameters before enabling the <span class="removed">ExecEnv.}}</span><span class="inserted">Execution Environment.</span></p>
+<p>If this parameter is present and is <em>true</em>, the created ExecEnv will have its <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Enable"><em>ExecEnv.{i}.Enable</em></a> flag set <em>true</em> and it will immediately transition to Status <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.Status.Up"><em>Up</em></a>. Otherwise the ExecEnv will initially be Disabled, allowing the Controller to set further parameters before enabling the <span class="removed">ExecEnv.</span><span class="inserted">Execution Environment.</span></p>
 <p>The default value MUST be <em>true</em>.</p>
 </td>
 <td>
@@ -21073,7 +21529,7 @@ updating, or removing a <a href="#D.Device:2.Device.SoftwareModules.DeploymentUn
 <td>
 <p>The amount of <span class="removed">disk</span><span class="inserted">persistent</span> <span class="removed">space</span><span class="inserted">physical storage</span> measured in <em>KiB</em> allocated to this <span class="removed">ExecEnv.</span><span class="inserted">Execution</span> <span class="inserted">Environment.</span></p>
 <p>This constraint applies to persistent physical storage used by the Execution Environment and its child Deployment Units and Execution Units.</p>
-<p>The accounting of in-memory application data volumes is excluded.A value of -1 indicates that this parameter is not <span class="removed">applicable.}}</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecEnvClass."><em>ExecEnvClass</em></a>).</span></p>
+<p>The accounting of in-memory application data volumes is excluded.A value of -1 indicates that this parameter is not <span class="removed">applicable.</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecEnvClass."><em>ExecEnvClass</em></a>).</span></p>
 <p>The default value MUST be <em>-1</em>.</p>
 </td>
 <td>
@@ -21215,7 +21671,7 @@ their properties and configurable settings.</p>
 <p>This parameter was DEPRECATED in 2.18 because the referenced object,<a href="#D.Device:2.Device.DeviceInfo.Processor."><em>DeviceInfo.Processor.</em></a>, is deprecated.</p>
 </div>
 <div class="hide">
-<p><span class="removed">{{obsoleted|2.20}}}}</span><span class="inserted">This parameter was DELETED in 2.21.<span class="click"></span></span></p>
+<p><span class="removed">{{obsoleted|2.20}}</span><span class="inserted">This parameter was DELETED in 2.21.<span class="click"></span></span></p>
 </div>
 <div class="hide">
 <div class="diffs">
@@ -21293,7 +21749,7 @@ modified if the corresponding parameter is present in the call to
 <td>
 <p>The amount of <span class="removed">disk</span><span class="inserted">persistent</span> <span class="removed">space</span><span class="inserted">physical storage</span> measured in <em>KiB</em> allocated to this <span class="removed">ExecEnv.</span><span class="inserted">Execution</span> <span class="inserted">Environment.</span></p>
 <p>This constraint applies to persistent physical storage used by the Execution Environment and its child Deployment Units and Execution Units.</p>
-<p>The accounting of in-memory application data volumes is excluded.A value of -1 indicates that this parameter is not <span class="removed">applicable.}}</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>).</span></p>
+<p>The accounting of in-memory application data volumes is excluded.A value of -1 indicates that this parameter is not <span class="removed">applicable.</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a>).</span></p>
 <p>The default value MUST be <em>-1</em>.</p>
 </td>
 <td>
@@ -21621,7 +22077,7 @@ Software Module.</p>
 <p>Several signature formats are in common use; the device may deduce the format used from the Content-Type of the retrieved object and/or by examining its content.</p>
 <p>The URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
 <p><span class="inserted">Only the transport protocols defined by <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are permitted. If the requested protocol is not in the specified list, the operation MUST fail, and a corresponding error MUST be reported.</span></p>
-<p>In the event that <a href="#D.Device:2.Device.SoftwareModules.Config.SupportedDUSignatureProtocols"><em>Config.SupportedDUSignatureProtocols</em></a> and <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are not supported, the HTTPS transport MUST be supported.<span class="removed"> Other optional transports MAY be supported.</span></p>
+<p>In the event that <a href="#D.Device:2.Device.SoftwareModules.Config.SupportedDUSignatureProtocols"><em>Config.SupportedDUSignatureProtocols</em></a> and <a href="#D.Device:2.Device.SoftwareModules.Config.DUSignatureProtocols"><em>Config.DUSignatureProtocols</em></a> are not supported, the HTTPS transport MUST<span class="removed"> be supported. Other optional transports MAY</span> be supported.</p>
 <p>The absence of this parameter indicates that the Deployment Unit is unsigned. If this is contrary to the security policy of the device then the command will be rejected.</p>
 </td>
 <td>
@@ -21780,7 +22236,7 @@ file server, if authentication is required.</p>
 <p>W</p>
 </td>
 <td>
-<p>This argument only has an effect if the UUID of the DeploymentUnit matches the ApplicationUUID of one or more rows in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData."><em>Device.SoftwareModules.ExecEnv.{i}.ApplicationData</em></a> table which have the Retain parameter set to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData.Retain.Forever"><em>Forever</em></a>. If this is the case then the data held in these<span class="inserted"> application data</span> volumes will be preserved across the operation if and only if <em>RetainData</em> is set <em>true</em>.</p>
+<p>This argument only has an effect if the UUID of the DeploymentUnit matches the ApplicationUUID of one or more rows in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData."><em>Device.SoftwareModules.ExecEnv.{i}.ApplicationData</em></a> table which have the Retain parameter set to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData.Retain.Forever"><em>Forever</em></a>. If this is the case then the data held in these <span class="inserted">application data </span>volumes will be preserved across the operation if and only if <em>RetainData</em> is set <em>true</em>.</p>
 <p>The default value MUST be <em>false</em>.</p>
 </td>
 <td>
@@ -21940,7 +22396,7 @@ code.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The level of <span class="removed">persistency</span><span class="inserted">persistence</span> <span class="removed">of</span><span class="inserted">for</span> the <span class="removed">volume.}}</span><span class="inserted">application data volume and its content.</span></p>
+<p><strong>[MANDATORY]</strong> The level of <span class="removed">persistency</span><span class="inserted">persistence</span> <span class="removed">of</span><span class="inserted">for</span> the <span class="removed">volume.</span><span class="inserted">application data volume and its content.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.ApplicationData.Retain.UntilStopped"><em>UntilStopped</em></span> (The application data volume and its content will be removed when all ExecutionUnits which were created by the Deployment Unit are stopped)</li>
@@ -22005,7 +22461,7 @@ code.</p>
 <p>W</p>
 </td>
 <td>
-<p>This argument only has an effect if the UUID of the DeploymentUnit matches the ApplicationUUID of one or more rows in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData."><em>Device.SoftwareModules.ExecEnv.{i}.ApplicationData</em></a> table which have the Retain parameter set to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData.Retain.Forever"><em>Forever</em></a>. If this is the case then the data held in these<span class="inserted"> application data</span> volumes will be preserved across the operation if and only if <em>RetainData</em> is set <em>true</em>.</p>
+<p>This argument only has an effect if the UUID of the DeploymentUnit matches the ApplicationUUID of one or more rows in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData."><em>Device.SoftwareModules.ExecEnv.{i}.ApplicationData</em></a> table which have the Retain parameter set to <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.ApplicationData.Retain.Forever"><em>Forever</em></a>. If this is the case then the data held in these <span class="inserted">application data </span>volumes will be preserved across the operation if and only if <em>RetainData</em> is set <em>true</em>.</p>
 <p>The default value MUST be <em>false</em>.</p>
 </td>
 <td>
@@ -22073,7 +22529,7 @@ displaying status and maintaining configuration that reside under the
 <td>
 <p>The amount of <span class="removed">disk</span><span class="inserted">persistent</span> <span class="removed">space</span><span class="inserted">physical storage</span> measured in <em>KiB</em> allocated to this <span class="removed">{{object}}.</span><span class="inserted">Execution</span> <span class="inserted">Environment.</span></p>
 <p>This constraint applies to persistent physical storage used by the Execution Environment and its child Deployment Units and Execution Units.</p>
-<p>The accounting of in-memory application data volumes is excluded.A value of -1 <span class="removed">MUST</span><span class="inserted">indicates</span> <span class="removed">be used for {{object}} instances where</span><span class="inserted">that</span> this parameter is not <span class="removed">applicable.}}</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a>).</span></p>
+<p>The accounting of in-memory application data volumes is excluded.A value of -1 <span class="removed">MUST</span><span class="inserted">indicates</span> <span class="removed">be used for {{object}} instances where</span><span class="inserted">that</span> this parameter is not <span class="removed">applicable.</span><span class="inserted">applicable (i.e., no persistent physical storage constraint is enforced for this <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a>).</span></p>
 </td>
 <td>
 <p>-</p>
@@ -23173,7 +23629,7 @@ role in an AP-autoconfiguration response message as defined in
 <p>R</p>
 </td>
 <td>
-<p>[<a href="#T.IPAddress">IPAddress</a>] Either IPv4 address of DHCPv4 server or IPv6 address of DHCPv6 <span class="removed">server.}}</span><span class="inserted">server</span></p>
+<p>[<a href="#T.IPAddress">IPAddress</a>] Either IPv4 address of DHCPv4 server or IPv6 address of DHCPv6 <span class="removed">server.</span><span class="inserted">server</span></p>
 </td>
 <td>
 <p>-</p>
@@ -25464,9 +25920,15 @@ When an empty string the system defaults are used.</p>
 <td>
 <p>The QoS level to use for the message.</p>
 <ul>
-<li>0: At most once delivery (best effort).</li>
-<li>1: At least once delivery (guaranteed delivery, possible duplicates).</li>
-<li>2: Exactly once delivery (guaranteed delivery, no duplicates).</li>
+<li>
+<p>0: At most once delivery (best effort).</p>
+</li>
+<li>
+<p>1: At least once delivery (guaranteed delivery, possible duplicates).</p>
+</li>
+<li>
+<p>2: Exactly once delivery (guaranteed delivery, no duplicates).</p>
+</li>
 </ul>
 <p>The default value MUST be <em>0</em>.</p>
 </td>
@@ -26217,7 +26679,7 @@ authentication when <a href="#D.Device:2.Device.MQTT.Broker.AuthenticationMethod
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">MQTT</span><span class="inserted">Each</span> <span class="removed">broker</span><span class="inserted">entry</span> <span class="removed">table.</span><span class="inserted">in</span> <span class="removed">Contains</span><span class="inserted">this table configures</span> a <span class="removed">list</span><span class="inserted">single</span> <span class="removed">of</span><span class="inserted">listener</span> <span class="removed">configured</span><span class="inserted">for the local</span> MQTT <span class="removed">brokers.}}</span><span class="inserted">broker. This allows the device to accept incoming MQTT client connections on different ports or with different security protocols (e.g., separate listeners for encrypted (e.g., TLS) and unencrypted connections).</span></p>
+<p><span class="removed">MQTT</span><span class="inserted">Each</span> <span class="removed">broker</span><span class="inserted">entry</span> <span class="removed">table.</span><span class="inserted">in</span> <span class="removed">Contains</span><span class="inserted">this table configures</span> a <span class="removed">list</span><span class="inserted">single</span> <span class="removed">of</span><span class="inserted">listener</span> <span class="removed">configured</span><span class="inserted">for the local</span> MQTT <span class="removed">brokers.</span><span class="inserted">broker. This allows the device to accept incoming MQTT client connections on different ports or with different security protocols (e.g., separate listeners for encrypted (e.g., TLS) and unencrypted connections).</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.MQTT.Broker.Name"><em>Name</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.MQTT.Broker.Alias"><em>Alias</em></a> and <a href="#D.Device:2.Device.MQTT.Broker.Name"><em>Name</em></a> such that the new entry does not conflict with any existing entries.</p>
 <div class="diffs">
 <p><strong>Changes since 2.20:</strong></p>
@@ -26322,7 +26784,7 @@ credentials. These anonymous clients can still be subject to ACL rules.</p>
 <td>
 <p>User name used to authenticate the MQTT clients, which connect to the MQTT broker.</p>
 <p><span class="inserted">Note: </span>If this parameter is an empty string<span class="inserted">,</span> <span class="removed">no</span><span class="inserted">then</span> <span class="removed">authentication</span><span class="inserted"><a href="#D.Device:2.Device.MQTT.Broker.AllowAnonymous"><em>AllowAnonymous</em></a> MUST also be set to <em>true</em>, or the Client will not be authorized via this mechanism.</span></p>
-<p>Instead of using a single username and password across multiple devices, it is <span class="removed">used.}}</span><span class="inserted">RECOMMENDED to use the per-client identity and access control lists defined within the <a href="#D.Device:2.Device.MQTT.BrokerSecurity."><em>Device.MQTT.BrokerSecurity</em></a> object. Both mechanisms should not be used simultaneously.</span></p>
+<p>Instead of using a single username and password across multiple devices, it is <span class="removed">used.</span><span class="inserted">RECOMMENDED to use the per-client identity and access control lists defined within the <a href="#D.Device:2.Device.MQTT.BrokerSecurity."><em>Device.MQTT.BrokerSecurity</em></a> object. Both mechanisms should not be used simultaneously.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -30560,8 +31022,10 @@ EthernetUNI models a virtual UNI.</p>
 <p>R</p>
 </td>
 <td>
+<div class="inserted">
 <p>Indicates whether the interface points towards the Internet (<em>true</em>) or towards End Devices (<em>false</em>).</p>
-<p><span class="inserted">The upstream interface is the one that provides connectivity to the Internet or the next hop router.</span></p>
+<p>The upstream interface is the one that provides connectivity to the Internet or the next hop router.</p>
+</div>
 <p>For example:</p>
 <ul>
 <li>
@@ -30571,15 +31035,17 @@ EthernetUNI models a virtual UNI.</p>
 <p>For a standalone WiFi Access Point that is connected via Ethernet to an Internet Gateway Device, <em>Upstream</em> will be <em>true</em> for the Ethernet interface and <em>false</em> for the WiFi Radio interface.</p>
 </li>
 <li>
-<p><span class="inserted">For a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
+<p>For <span class="inserted">a WiFi repeater or mesh node, the interface that connects to the main router (the backhaul) is the upstream interface and <em>Upstream</em> will be <em>true</em>. The interface that serves local devices is a downstream interface and <em>Upstream</em> will be <em>false</em>.</span></p>
 </li>
 <li>
-<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.}}</span><span class="inserted">interfaces that connect to the network.</span></p>
-</li>
-<li>
-<p>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</p>
+<p>For an End Device, <em>Upstream</em> will be <em>true</em> for all <span class="removed">interfaces.</span><span class="inserted">interfaces that connect to the network.</span></p>
 </li>
 </ul>
+<div class="inserted">
+<ul>
+<li>For a hybrid device like a Set-Top Box (STB) that could also act as a repeater, the interface connecting to the gateway is the upstream interface (<em>Upstream</em> will be <em>true</em>), while the interface providing the repeated signal is a downstream interface (<em>Upstream</em> will be <em>false</em>).</li>
+</ul>
+</div>
 </td>
 <td>
 <p>-</p>
@@ -30648,11 +31114,8 @@ parameter.</p>
 </ul>
 <p>When <a href="#D.Device:2.Device.XPON.ONU.ANI.Enable"><em>Enable</em></a> is <em>false</em> then <em>Status</em> SHOULD normally be <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Down"><em>Down</em></a> (or <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotPresent"><em>NotPresent</em></a> or <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Error"><em>Error</em></a> if there is a fault condition on the interface).</p>
 <p>When <a href="#D.Device:2.Device.XPON.ONU.ANI.Enable"><em>Enable</em></a> becomes <em>true</em> then <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Up"><em>Up</em></a> if and only if the interface is able to transmit and receive network traffic; more specifically, <em>Status</em> should change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Up"><em>Up</em></a> if <a href="#D.Device:2.Device.XPON.ONU.ANI.TC.ONUActivation.ONUState"><em>TC.ONUActivation.ONUState</em></a> becomes O5; it SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Dormant"><em>Dormant</em></a> if and only if the interface is operable but is waiting for external actions before it can transmit and receive network traffic (and subsequently change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Up"><em>Up</em></a> if still operable when the expected actions have completed); it SHOULD remain in the <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Error"><em>Error</em></a> state if there is an error or other fault condition detected on the interface; it SHOULD remain in the <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotPresent"><em>NotPresent</em></a> state if the interface has missing (typically hardware) components; it SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.Unknown"><em>Unknown</em></a> if the state of the interface can not be determined for some reason.</p>
-<div class="inserted">
-<p>Independent from the value of <a href="#D.Device:2.Device.XPON.ONU.ANI.Enable"><em>Enable</em></a>, <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a> if the interface is not allowed to transmit network traffic, e.g. because of a certain policy. If <em>Status</em> is <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a>, the CPE should force the ONU state to O1 (Initial state).</p>
-<p>An example use case for <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a> is the following: if <a href="#D.Device:2.Device.XPON.ONU.ANI.SFPReferenceList"><em>SFPReferenceList</em></a> has one item referring to an <a href="#D.Device:2.Device.SFPs.SFPCage."><em>SFPs.SFPCage</em></a> instance whose <a href="#D.Device:2.Device.SFPs.SFPCage.SFPPresent"><em>SFPs.SFPCage.{i}.SFPPresent</em></a> is <em>true</em>, whose <a href="#D.Device:2.Device.SFPs.SFPCage.SFPType"><em>SFPs.SFPCage.{i}.SFPType</em></a> does not warrant <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotPresent"><em>NotPresent</em></a> as value for <em>Status</em>, but whose <a href="#D.Device:2.Device.SFPs.SFPCage.IsAllowed"><em>SFPs.SFPCage.{i}.IsAllowed</em></a> is <em>false</em>, then <em>Status</em> should change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a>.</p>
-</div>
-<p>This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
+<p><span class="inserted">Independent from the value of <a href="#D.Device:2.Device.XPON.ONU.ANI.Enable"><em>Enable</em></a>, <em>Status</em> SHOULD change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a> if the interface is not allowed to transmit network traffic, e.g. because of a certain policy. If <em>Status</em> is <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a>, the CPE should force the ONU state to O1 (Initial state).</span></p>
+<p>An example use case for <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a> is the following: if <a href="#D.Device:2.Device.XPON.ONU.ANI.SFPReferenceList"><em>SFPReferenceList</em></a> has one item referring to an <a href="#D.Device:2.Device.SFPs.SFPCage."><em>SFPs.SFPCage</em></a> instance whose <a href="#D.Device:2.Device.SFPs.SFPCage.SFPPresent"><em>SFPs.SFPCage.{i}.SFPPresent</em></a> is <em>true</em>, whose <a href="#D.Device:2.Device.SFPs.SFPCage.SFPType"><em>SFPs.SFPCage.{i}.SFPType</em></a> does not warrant <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotPresent"><em>NotPresent</em></a> as value for <em>Status</em>, but whose <a href="#D.Device:2.Device.SFPs.SFPCage.IsAllowed"><em>SFPs.SFPCage.{i}.IsAllowed</em></a> is <em>false</em>, then <em>Status</em> should change to <a href="#D.Device:2.Device.XPON.ONU.ANI.Status.NotAllowed"><em>NotAllowed</em></a>.This parameter is based on <em>ifOperStatus</em> from [<a href="#R.RFC2863">RFC2863</a>].</p>
 <div class="diffs">
 <p><strong>Changes since 2.20:</strong></p>
 <ul>
@@ -32066,9 +32529,9 @@ establishing a trust relationship with a Controller.</p>
 <p>W</p>
 </td>
 <td>
-<p>Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Role."><em>Role.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Comma-separated list of strings, each entry is a Role that is associated with Controllers to indicate their access to <span class="inserted">the content of </span>secured parameters (e.g. <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.WEPKey"><em>WiFi.AccessPoint.{i}.Security.WEPKey</em></a>). The value of the <em>SecuredRoles</em> parameter is appended to the <a href="#D.Device:2.Device.LocalAgent.Controller.AssignedRole"><em>Controller.{i}.AssignedRole</em></a> parameter<span class="inserted"> of the Controller instance that requires access to the content of secured parameters.</span>.</p>
+<p>Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.LocalAgent.ControllerTrust.Role."><em>Role.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Comma-separated list of strings, each entry is a Role that is associated with Controllers to indicate their access to<span class="inserted"> the content of</span> secured parameters (e.g. <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.WEPKey"><em>WiFi.AccessPoint.{i}.Security.WEPKey</em></a>). The value of the <em>SecuredRoles</em> parameter is appended to the <a href="#D.Device:2.Device.LocalAgent.Controller.AssignedRole"><em>Controller.{i}.AssignedRole</em></a> parameter<span class="inserted"> of the Controller instance that requires access to the content of secured parameters.</span>.</p>
 <p><span class="removed">Only</span><span class="inserted">A</span> <span class="removed">Controllers</span><span class="inserted">Controller</span> <span class="removed">with</span><span class="inserted">that requires access to the content of secured parameters must possess at least one Role from this list via <a href="#D.Device:2.Device.LocalAgent.Controller.AssignedRole"><em>Controller.{i}.AssignedRole</em></a> or <a href="#D.Device:2.Device.LocalAgent.Controller.InheritedRole"><em>Controller.{i}.InheritedRole</em></a>. The secured role on a Controller only affects the visibility of the parameter content; that is, if a Controller attempts to access</span> a secured <span class="removed">role</span><span class="inserted">parameter</span> <span class="removed">assigned</span><span class="inserted">for</span> <span class="removed">(and</span><span class="inserted">which it has</span> the appropriate <span class="removed">permissions</span><span class="inserted">access</span> <span class="removed">set)</span><span class="inserted">rights, the content will only be visible if the Controller also possesses one of the Roles from the value of this parameter.</span></p>
-<p>If a Controller attempts to read a secured parameter without being assigned a Role from the value of this parameter, the Agent MUST <span class="removed">be</span><span class="inserted">return</span> <span class="removed">able</span><span class="inserted">an</span> <span class="removed">to</span><span class="inserted">empty</span> <span class="removed">have access to secured parameters content.}}</span><span class="inserted">string.</span></p>
+<p>If a Controller attempts to read a secured parameter without being assigned a Role from the value of this parameter, the Agent MUST <span class="removed">be</span><span class="inserted">return</span> <span class="removed">able</span><span class="inserted">an</span> <span class="removed">to</span><span class="inserted">empty</span> <span class="removed">have access to secured parameters content.</span><span class="inserted">string.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -32266,7 +32729,7 @@ reports a <a href="#D.Device:2.Device.IoTCapability.LevelSensor.Value"><em>Value
 <p>R</p>
 </td>
 <td>
-<p>MultiLevelSensor is used to reflect the functionality of a sensor that reports multiple <span class="removed">{{param|Values}}</span><span class="inserted">sensor</span> <span class="removed">with</span><span class="inserted">values. Each sensor value can have</span> the same <span class="removed">{{param|Unit}}.}}</span><span class="inserted">or different sensor units.</span></p>
+<p>MultiLevelSensor is used to reflect the functionality of a sensor that reports multiple <span class="removed">{{param|Values}}</span><span class="inserted">sensor</span> <span class="removed">with</span><span class="inserted">values. Each sensor value can have</span> the same <span class="removed">{{param|Unit}}.</span><span class="inserted">or different sensor units.</span></p>
 <p>This object MUST be present if, and only if, <a href="#D.Device:2.Device.IoTCapability.Class"><em>Class</em></a> is <a href="#D.Device:2.Device.IoTCapability.Class.MultiLevelSensor"><em>MultiLevelSensor</em></a>.</p>
 <p>This object is a member of a union, i.e., it is a member of a group of objects of which only one can exist at a given time.</p>
 <div class="diffs">
@@ -32471,7 +32934,7 @@ reports a <a href="#D.Device:2.Device.IoTCapability.LevelSensor.Value"><em>Value
 <p>R</p>
 </td>
 <td>
-<p>The date and time when <span class="inserted">one of the </span><a href="#D.Device:2.Device.IoTCapability.MultiLevelSensor.Sensor.Value"><em>Sensor.{i}.Value</em></a> has been <span class="removed">changed to the current values.}}</span><span class="inserted">changed.</span></p>
+<p>The date and time when <span class="inserted">one of the </span><a href="#D.Device:2.Device.IoTCapability.MultiLevelSensor.Sensor.Value"><em>Sensor.{i}.Value</em></a> has been <span class="removed">changed to the current values.</span><span class="inserted">changed.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -33268,10 +33731,11 @@ Some <em>PulseSensor</em> instances have the possibility to provide a pulse dura
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:15 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 12:59:07 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-21-0-usp-diffs.html --show --transform diff --format html tr-181-2-20-1-usp.xml tr-181-2-21-0-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -34205,5 +34669,5 @@ report.py --include ../../install/cwmp --output tr-181-2-21-0-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

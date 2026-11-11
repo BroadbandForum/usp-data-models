@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -2061,8 +2099,15 @@ model, this is the standard Broadband Forum model on which the
 vendor-defined model is based.</p>
 <p>Possible patterns:</p>
 <ul>
-<li><span id="D.Device:2.Device.RootDataModelVersion.2.d.d"><code>2\.\d+(\.\d+)?</code></span> (:::: diffs <strong>Changes since 2.19:</strong> * Changed value = <em>2.\d+</em> ⇒ <em>2.\d+(.\d+)?</em> ::::)</li>
+<li><span id="D.Device:2.Device.RootDataModelVersion.2.d.d"><code>2\.\d+(\.\d+)?</code></span> (</li>
 </ul>
+<div class="diffs">
+<p><strong>Changes since 2.19:</strong></p>
+<ul>
+<li>Changed value = <em>2.\d+</em> ⇒ <em>2.\d+(.\d+)?</em></li>
+</ul>
+</div>
+<p>)</p>
 </td>
 <td>
 <p>-</p>
@@ -2674,7 +2719,7 @@ This parameter is applicable only when a TLS session is being used.</p>
 <p>R</p>
 </td>
 <td>
-<p><span class="removed">Each</span><span class="inserted">This</span> <span class="removed">instance</span><span class="inserted">object</span> <span class="removed">in</span><span class="inserted">describes</span> the <span class="removed">table</span><span class="inserted">utilization</span> <span class="removed">represents</span><span class="inserted">metrics</span> <span class="removed">a</span><span class="inserted">for each</span> CPU on <span class="removed">this</span><span class="inserted">the</span> device. <span class="removed">Here</span><span class="inserted">It</span> <span class="removed">CPU</span><span class="inserted">also</span> <span class="removed">can</span><span class="inserted">defines</span> <span class="removed">imply</span><span class="inserted">the</span> <span class="removed">main</span><span class="inserted">monitoring</span> <span class="removed">CPU</span><span class="inserted">actions</span> <span class="removed">(where</span><span class="inserted">that</span> <span class="removed">system</span><span class="inserted">are</span> <span class="removed">software</span><span class="inserted">automatically</span> <span class="removed">is</span><span class="inserted">triggered</span> <span class="removed">executed)</span><span class="inserted">when</span> <span class="removed">or</span><span class="inserted">specific</span> <span class="removed">hardware/network</span><span class="inserted">utilization</span> <span class="removed">acceleration</span><span class="inserted">thresholds</span> <span class="removed">CPU</span><span class="inserted">are</span> <span class="removed">(responsible for data plane traffic).}}</span><span class="inserted">crossed.</span></p>
+<p><span class="removed">Each</span><span class="inserted">This</span> <span class="removed">instance</span><span class="inserted">object</span> <span class="removed">in</span><span class="inserted">describes</span> the <span class="removed">table</span><span class="inserted">utilization</span> <span class="removed">represents</span><span class="inserted">metrics</span> <span class="removed">a</span><span class="inserted">for each</span> CPU on <span class="removed">this</span><span class="inserted">the</span> device. <span class="removed">Here</span><span class="inserted">It</span> <span class="removed">CPU</span><span class="inserted">also</span> <span class="removed">can</span><span class="inserted">defines</span> <span class="removed">imply</span><span class="inserted">the</span> <span class="removed">main</span><span class="inserted">monitoring</span> <span class="removed">CPU</span><span class="inserted">actions</span> <span class="removed">(where</span><span class="inserted">that</span> <span class="removed">system</span><span class="inserted">are</span> <span class="removed">software</span><span class="inserted">automatically</span> <span class="removed">is</span><span class="inserted">triggered</span> <span class="removed">executed)</span><span class="inserted">when</span> <span class="removed">or</span><span class="inserted">specific</span> <span class="removed">hardware/network</span><span class="inserted">utilization</span> <span class="removed">acceleration</span><span class="inserted">thresholds</span> <span class="removed">CPU</span><span class="inserted">are</span> <span class="removed">(responsible for data plane traffic).</span><span class="inserted">crossed.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DeviceInfo.ProcessStatus.CPU.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.DeviceInfo.ProcessStatus.CPU.Alias"><em>Alias</em></a>.</p>
 </td>
 <td>
@@ -3866,7 +3911,7 @@ The Transceiver object is agnostic of the underlying protocol used in the transm
 <p>R</p>
 </td>
 <td>
-<p>This value specifies link length that is supported by the transceiver while operating in compliance with applicable standards using 50 micron multimode OM3 [2000 MHz*km] fiber. The value is in units of <em>10 meters</em>. A value of 255 means that the transceiver supports a link length greater than 2.54 km. A value of zero means that the transceiver does not support 50 micron multimode <span class="inserted">OM3 </span>fiber or that the length information must be determined from the transceiver <span class="removed">Technology.}}</span><span class="inserted">technology.</span></p>
+<p>This value specifies link length that is supported by the transceiver while operating in compliance with applicable standards using 50 micron multimode OM3 [2000 MHz*km] fiber. The value is in units of <em>10 meters</em>. A value of 255 means that the transceiver supports a link length greater than 2.54 km. A value of zero means that the transceiver does not support 50 micron multimode <span class="inserted">OM3 </span>fiber or that the length information must be determined from the transceiver <span class="removed">Technology.</span><span class="inserted">technology.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -4085,8 +4130,8 @@ mobile network and another computer network.</p>
 <p>W</p>
 </td>
 <td>
-<p>Access Point Name.<span class="removed">}}</span><span class="inserted"> In 5G, this is conceptually equivalent to the Data Network Name (DNN) [<a href="#R.3GPP-TS.23.003">Clause 9A/3GPP-TS.23.003</a>].</span></p>
-<p>Note: The description and maximum string length requirements were updated in Device:2.20.1 to be compliant with DNN.</p>
+<p>Access Point Name.<span class="inserted"> In 5G, this is conceptually equivalent to the Data Network Name (DNN) [<a href="#R.3GPP-TS.23.003">Clause 9A/3GPP-TS.23.003</a>].</span></p>
+<p><span class="inserted">Note: The description and maximum string length requirements were updated in Device:2.20.1 to be compliant with DNN.</span></p>
 <p>If the value isn't assigned by the Controller on creation, the Agent MUST choose an initial value that (together with <a href="#D.Device:2.Device.Cellular.AccessPoint.Interface"><em>Interface</em></a>)  doesn't conflict with any existing entries.</p>
 <div class="diffs">
 <p><strong>Changes since 2.19:</strong></p>
@@ -4197,8 +4242,8 @@ functionality.</p>
 <p>W</p>
 </td>
 <td>
-<p>Allows the Controller to change the USIM PIN used for SIM card activation.<span class="removed">}}</span><span class="inserted"> The PIN is used for user verification and to control access to the USIM. For more information, see [<a href="#R.3GPP-TS.31.101">Chapter 9.6/3GPP-TS.31.101</a>].</span></p>
-<p>Note: The PIN length was updated in Device:2.20.1.</p>
+<p>Allows the Controller to change the USIM PIN used for SIM card activation.<span class="inserted"> The PIN is used for user verification and to control access to the USIM. For more information, see [<a href="#R.3GPP-TS.31.101">Chapter 9.6/3GPP-TS.31.101</a>].</span></p>
+<p><span class="inserted">Note: The PIN length was updated in Device:2.20.1.</span></p>
 <p>Possible patterns:</p>
 <ul>
 <li><span id="D.Device:2.Device.TrustedElements.SIM.PIN.0-948"><code>[0-9]{4,8}</code></span></li>
@@ -5018,15 +5063,25 @@ device is not classified by Vendor ID.</p>
 (e.g., <code>F*</code>).</p>
 <p>A connected device is allowed only if all of its interfaces match entries in this list.</p>
 <ul>
-<li>InterfaceClass: USB Class Code (<code>00</code> = per-interface class, <code>FF</code> =
-vendor-specific)</li>
-<li>InterfaceSubClass: USB Subclass Code</li>
-<li>InterfaceProtocol: USB Protocol Code</li>
+<li>
+<p>InterfaceClass: USB Class Code (<code>00</code> = per-interface class, <code>FF</code> =
+vendor-specific)</p>
+</li>
+<li>
+<p>InterfaceSubClass: USB Subclass Code</p>
+</li>
+<li>
+<p>InterfaceProtocol: USB Protocol Code</p>
+</li>
 </ul>
 <p>Example: An USB Device might expose two interfaces:</p>
 <ul>
-<li><code>0xFF:0x02:0x01</code> for diagnostics</li>
-<li><code>0xFF:0x02:0x02</code> for data</li>
+<li>
+<p><code>0xFF:0x02:0x01</code> for diagnostics</p>
+</li>
+<li>
+<p><code>0xFF:0x02:0x02</code> for data</p>
+</li>
 </ul>
 <p>These can be allowed by listing both explicitly, or using patterns like
 <code>FF:02:*</code> or <code>F*:0*:0*</code>.</p>
@@ -5694,7 +5749,7 @@ device is able to receive.</p>
 </td>
 <td>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
-<p>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a></span>, or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
+<p>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, or <span class="inserted"><a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></span></li>
@@ -5807,7 +5862,7 @@ or single-AP device in the Wi-Fi network.</p>
 </td>
 <td>
 <p>This object contains a table of Wi-Fi 6 [<a href="#R.802.11ax">802.11ax</a>] operating classes, and channels within those operating classes, which have anticipated channel preference.</p>
-<p>Operating Class contains an enumerated value from [<a href="#R.802.11ax">Table E-4/802.11ax</a>]<span class="removed">}.}}</span><span class="inserted">.</span></p>
+<p>Operating Class contains an enumerated value from [<a href="#R.802.11ax">Table E-4/802.11ax</a>]<span class="removed">}.</span><span class="inserted">.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.AnticipatedChannels.OpClass"><em>OpClass</em></a>.</p>
 </td>
 <td>
@@ -6784,7 +6839,7 @@ NeighborBSS.{i}. is an affilated AP, other affiliated APs in this
 </td>
 <td>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
-<p>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a></span>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
+<p>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, or <span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span></li>
@@ -7015,7 +7070,7 @@ NeighborBSS.{i}. is an affilated AP, other affiliated APs in this
 </td>
 <td>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
-<p>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a></span>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
+<p>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, or <span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span></li>
@@ -9981,7 +10036,7 @@ administrative state.</p>
 </td>
 <td>
 <p>The 802.11d Regulatory Domain. First two octets are [<a href="#R.ISO3166-1">ISO3166-1</a>] two-character country code. The third octet is either &quot; &quot; (all environments), &quot;O&quot; (outside) or &quot;I&quot; (inside).</p>
-<p>If the instance of this <a href="#D.Device:2.Device."><em>Device</em></a> is the same as <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device."><em>Device.WiFi.DataElements.Network.Device.{i}.</em></a>, then<span class="inserted"> the first two octets of</span> this parameter <span class="removed">is</span><span class="inserted">are</span> the same as <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CountryCode"><em>Device.WiFi.DataElements.Network.Device.{i}.CountryCode</em></a>.</p>
+<p>If the instance of this <a href="#D.Device:2.Device."><em>Device</em></a> is the same as <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device."><em>Device.WiFi.DataElements.Network.Device.{i}.</em></a>, then <span class="inserted">the first two octets of </span>this parameter <span class="removed">is</span><span class="inserted">are</span> the same as <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.CountryCode"><em>Device.WiFi.DataElements.Network.Device.{i}.CountryCode</em></a>.</p>
 <p>Possible patterns:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.RegulatoryDomain.A-ZA-ZOI"><code>[A-Z][A-Z][ OI]</code></span></li>
@@ -10012,20 +10067,40 @@ corresponding antenna is activated for reception. If a bit is set to '0', the an
 deactivated.</p>
 <p>How the Bitmap Works:</p>
 <ul>
-<li>Bit 0 (LSB): Corresponds to Antenna 0. If the value is odd (e.g., 1, 3, 5...),
-Antenna 0 is enabled.</li>
-<li>Bit 1: Corresponds to Antenna 1.</li>
-<li>Bit 2: Corresponds to Antenna 2.</li>
-<li>And so on...</li>
-<li>Bit N: Corresponds to Antenna N.</li>
+<li>
+<p>Bit 0 (LSB): Corresponds to Antenna 0. If the value is odd (e.g., 1, 3, 5...),
+Antenna 0 is enabled.</p>
+</li>
+<li>
+<p>Bit 1: Corresponds to Antenna 1.</p>
+</li>
+<li>
+<p>Bit 2: Corresponds to Antenna 2.</p>
+</li>
+<li>
+<p>And so on...</p>
+</li>
+<li>
+<p>Bit N: Corresponds to Antenna N.</p>
+</li>
 </ul>
 <p>Examples:</p>
 <ul>
-<li><code>0</code>: No receive antennas are activated.</li>
-<li><code>1</code>: Only Antenna 0 is activated for reception.</li>
-<li><code>2</code>: Only Antenna 1 is activated for reception.</li>
-<li><code>3</code>: Antenna 0 and Antenna 1 are activated for reception.</li>
-<li><code>255</code>: All 8 possible receive antennas (Antenna 0 through Antenna 7) are activated.</li>
+<li>
+<p><code>0</code>: No receive antennas are activated.</p>
+</li>
+<li>
+<p><code>1</code>: Only Antenna 0 is activated for reception.</p>
+</li>
+<li>
+<p><code>2</code>: Only Antenna 1 is activated for reception.</p>
+</li>
+<li>
+<p><code>3</code>: Antenna 0 and Antenna 1 are activated for reception.</p>
+</li>
+<li>
+<p><code>255</code>: All 8 possible receive antennas (Antenna 0 through Antenna 7) are activated.</p>
+</li>
 </ul>
 <p>The value MUST be within the range of <a href="#D.Device:2.Device.WiFi.Radio.SupportedReceiveAntennas"><em>SupportedReceiveAntennas</em></a>, meaning you
 cannot attempt to activate an antenna that is not physically supported by the device.</p>
@@ -10056,20 +10131,40 @@ corresponding antenna is activated for reception. If a bit is set to '0', the an
 deactivated.</p>
 <p>How the Bitmap Works:</p>
 <ul>
-<li>Bit 0 (LSB): Corresponds to Antenna 0. If the value is odd (e.g., 1, 3, 5...),
-Antenna 0 is enabled.</li>
-<li>Bit 1: Corresponds to Antenna 1.</li>
-<li>Bit 2: Corresponds to Antenna 2.</li>
-<li>And so on...</li>
-<li>Bit N: Corresponds to Antenna N.</li>
+<li>
+<p>Bit 0 (LSB): Corresponds to Antenna 0. If the value is odd (e.g., 1, 3, 5...),
+Antenna 0 is enabled.</p>
+</li>
+<li>
+<p>Bit 1: Corresponds to Antenna 1.</p>
+</li>
+<li>
+<p>Bit 2: Corresponds to Antenna 2.</p>
+</li>
+<li>
+<p>And so on...</p>
+</li>
+<li>
+<p>Bit N: Corresponds to Antenna N.</p>
+</li>
 </ul>
 <p>Examples:</p>
 <ul>
-<li><code>0</code>: No receive antennas are activated.</li>
-<li><code>1</code>: Only Antenna 0 is activated for reception.</li>
-<li><code>2</code>: Only Antenna 1 is activated for reception.</li>
-<li><code>3</code>: Antenna 0 and Antenna 1 are activated for reception.</li>
-<li><code>255</code>: All 8 possible receive antennas (Antenna 0 through Antenna 7) are activated.</li>
+<li>
+<p><code>0</code>: No receive antennas are activated.</p>
+</li>
+<li>
+<p><code>1</code>: Only Antenna 0 is activated for reception.</p>
+</li>
+<li>
+<p><code>2</code>: Only Antenna 1 is activated for reception.</p>
+</li>
+<li>
+<p><code>3</code>: Antenna 0 and Antenna 1 are activated for reception.</p>
+</li>
+<li>
+<p><code>255</code>: All 8 possible receive antennas (Antenna 0 through Antenna 7) are activated.</p>
+</li>
 </ul>
 <p>The value MUST be within the range of <a href="#D.Device:2.Device.WiFi.Radio.SupportedReceiveAntennas"><em>SupportedReceiveAntennas</em></a>, meaning you
 cannot attempt to activate an antenna that is not physically supported by the device.</p>
@@ -10378,7 +10473,7 @@ NeighborBSS.{i}. is an affilated AP, other affiliated APs in this
 </td>
 <td>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
-<p>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a></span>, or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
+<p>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, or <span class="inserted"><a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span></li>
@@ -10593,7 +10688,7 @@ NeighborBSS.{i}. is an affilated AP, other affiliated APs in this
 </td>
 <td>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
-<p>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a></span>, or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
+<p>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, or <span class="inserted"><a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not valid, and should not be in the list.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span></li>
@@ -13037,8 +13132,34 @@ description of the working of this IPsec data model.</p>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.AES-192-GMAC"><em>AES-192-GMAC</em></span></li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.AES-256-GMAC"><em>AES-256-GMAC</em></span></li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-128"><em>HMAC-SHA2-256-128</em></span></li>
-<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-192"><em>HMAC-SHA2-256-192</em></span> (This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a>. :::: diffs <strong>Changes since 2.19:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a></em> description. ::::)</li>
-<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-256"><em>HMAC-SHA2-256-256</em></span> (This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a>. :::: diffs <strong>Changes since 2.19:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a></em> description. ::::)</li>
+<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-192"><em>HMAC-SHA2-256-192</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.20 because the correct value is
+<a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.19:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.20 because the correct value is
+<a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a></em> description.</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-256"><em>HMAC-SHA2-256-256</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.20 because the correct value is
+<a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a>.</p>
+<div class="diffs">
+<p><strong>Changes since 2.19:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.20 because the correct value is
+<a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a></em> description.</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></span> (Added in 2.20)</li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></span> (Added in 2.20)</li>
 </ul>
@@ -14250,7 +14371,7 @@ timestamp.</p>
 <td>
 <p>Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE.</p>
 <p>The ability to list inactive hosts is OPTIONAL. If the CPE includes inactive hosts in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive host. The length of time an inactive host remains listed in this table is a local matter to the CPE.</p>
-<p>Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven <span class="removed">days.}}</span><span class="inserted">days, unless requested by a Controller or if the <a href="#D.Device:2.Device.Hosts.CleanupHostsThreshold"><em>CleanupHostsThreshold</em></a> parameter value is reached.</span></p>
+<p>Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven <span class="removed">days.</span><span class="inserted">days, unless requested by a Controller or if the <a href="#D.Device:2.Device.Hosts.CleanupHostsThreshold"><em>CleanupHostsThreshold</em></a> parameter value is reached.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -14272,7 +14393,7 @@ timestamp.</p>
 <td>
 <p>The datetime when <a href="#D.Device:2.Device.Hosts.Host.Active"><em>Active</em></a> last changed from <em>true</em> to <em>false</em> or from <em>false</em> to <em>true</em>. The initial detection of a host SHOULD be treated as a transition from <em>false</em> to <em>true</em>, showing the datetime when the host was first detected.</p>
 <p>The ability to list inactive hosts is OPTIONAL. The length of time an inactive host remains listed in this table is a local matter to the CPE.</p>
-<p>Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven <span class="removed">days.}}</span><span class="inserted">days, unless requested by a Controller or if the <a href="#D.Device:2.Device.Hosts.CleanupHostsThreshold"><em>CleanupHostsThreshold</em></a> parameter value is reached.</span></p>
+<p>Entries in Device.Hosts.Host SHOULD NOT be removed when they become inactive if there are <a href="#D.Device:2.Device.Hosts.Host.WANStats."><em>WANStats</em></a> statistics collected for the entry in the past seven <span class="removed">days.</span><span class="inserted">days, unless requested by a Controller or if the <a href="#D.Device:2.Device.Hosts.CleanupHostsThreshold"><em>CleanupHostsThreshold</em></a> parameter value is reached.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -14341,13 +14462,8 @@ broadband network.</p>
 <div class="hide">
 <p>This parameter was DEPRECATED in 2.18 in favor of <a href="#D.Device:2.Device.Schedules."><em>Schedules.</em></a>.</p>
 </div>
-<div class="inserted">
-<div class="chevron">
-<p>This parameter was OBSOLETED in 2.20.<span class="click"></span></p>
-</div>
-</div>
 <div class="hide">
-<p>The number of entries in the <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule."><em>Schedule</em></a> table.</p>
+<p><span class="inserted">This parameter was OBSOLETED in 2.20.<span class="click"></span></span>The number of entries in the <a href="#D.Device:2.Device.Hosts.AccessControl.Schedule."><em>Schedule</em></a> table.</p>
 </div>
 <div class="hide">
 <div class="diffs">
@@ -14380,8 +14496,6 @@ broadband network.</p>
 <td>
 <div class="hide">
 <p>This object was DEPRECATED in 2.18 in favor of <a href="#D.Device:2.Device.Schedules."><em>Schedules.</em></a>.</p>
-</div>
-<div class="inserted">
 <div class="chevron">
 <p>This object was OBSOLETED in 2.20.<span class="click"></span></p>
 </div>
@@ -16131,11 +16245,21 @@ connection details.</p>
 <p>The <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Status"><em>Status</em></a> parameter reflects the current state of the transfer process,
 which can transition through the following sequences:</p>
 <ul>
-<li>Idle → Uploading → Success → Idle</li>
-<li>Idle → Uploading → Error → Idle</li>
-<li>Idle → Creating → Error → Idle</li>
-<li>Idle → Creating → Uploading → Success → Idle</li>
-<li>Idle → Creating → Uploading → Error → Idle</li>
+<li>
+<p>Idle → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Uploading → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Error → Idle</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
@@ -17064,8 +17188,7 @@ services.</p>
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). The User Roles which the application installed by this command will need to be assigned in order to be able to function at all. If any of these User Roles are not present in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableUserRoles"><em>ExecEnv.{i}.AvailableUserRoles</em></a> of the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> into which the <span class="removed">DU</span><span class="inserted">Deployment Unit</span> is to be installed then the command will fail. Some Agents may apply further filtering for User Roles which are considered security- or privacy-sensitive.</p>
 <p>Each entry in the list is the Name of a row in <a href="#D.Device:2.Device.Users.Role."><em>Users.Role</em></a>. If there is no such row then the command will fail, as installation requires a User Role which is not available on the Device.</p>
-<p><span class="inserted">The resulting capabilities list of the required User Roles is listed in <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AvailableUserRoleCapabilities"><em>ExecutionUnit.{i}.AvailableUserRoleCapabilities</em></a>.</span></p>
-<p>If this argument is absent or empty then no User Roles are required in order for the application to function.</p>
+<p><span class="inserted">The resulting capabilities list of the required User Roles is listed in <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AvailableUserRoleCapabilities"><em>ExecutionUnit.{i}.AvailableUserRoleCapabilities</em></a>.</span>If this argument is absent or empty then no User Roles are required in order for the application to function.</p>
 </td>
 <td>
 <p>-</p>
@@ -17085,7 +17208,7 @@ services.</p>
 <p>W</p>
 </td>
 <td>
-<p>Comma-separated list of strings (maximum number of characters per item 256). Each entry in the list is an Object Path, Command Path, Event Path, or Parameter Path that determines the element(s) of the data model that the <span class="removed">the </span>application installed by this command has permission to register.</p>
+<p>Comma-separated list of strings (maximum number of characters per item 256). Each entry in the list is an Object Path, Command Path, Event Path, or Parameter Path that determines the element(s) of the data model that<span class="removed"> the</span> the application installed by this command has permission to register.</p>
 <p>The information provided in this input arguement is placed in the <a href="#D.Device:2.Device.USPServices.Trust."><em>USPServices.Trust</em></a> table.</p>
 <p>If this argument is absent or empty then the application has no permission to register any data model paths.</p>
 </td>
@@ -17110,7 +17233,7 @@ services.</p>
 <p>Defines the parameters of the auto-restart algorithm for any <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> which is created as a result of this command.</p>
 <p>An auto-restart may be triggered if the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally. An exponential backoff algorithm is applied (increasing each time the delay before the <span class="removed">EU</span><span class="inserted">Execution Unit</span> is re-launched) in order to prevent continual re-starting of the <span class="removed">EU.</span><span class="inserted">Execution Unit.</span></p>
 <p>The retry interval range is controlled by two Parameters, <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a> and <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>.</p>
-<p>Let <em>m</em> be the value of <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a>, <em>k</em> the value of <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>, and <em>n</em> the current value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryCount"><em>ExecutionUnit.{i}.AutoRestart.RetryCount</em></a>. Then on the next occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally, the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <em>m * (k/1000)^n^</em> and <em>m * (k/1000)^(n+1)^</em> seconds, so long as <em>m * (k/1000)^n^</em> evaluates to a value less than <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>. Once this point has been reached, on all subsequent occasions that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>* * (1000/k)* and <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a> seconds.</p>
+<p>Let <em>m</em> be the value of <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a>, <em>k</em> the value of <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>, and <em>n</em> the current value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryCount"><em>ExecutionUnit.{i}.AutoRestart.RetryCount</em></a>. Then on the next occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally, the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <em>m * (k/1000)<sup>n</sup></em> and <em>m * (k/1000)<sup>(n+1)</sup></em> seconds, so long as <em>m * (k/1000)<sup>n</sup></em> evaluates to a value less than <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>. Once this point has been reached, on all subsequent occasions that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>* * (1000/k)* and <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a> seconds.</p>
 </td>
 <td>
 <p>-</p>
@@ -17257,7 +17380,7 @@ services.</p>
 <p>W</p>
 </td>
 <td>
-<p>This parameter describes the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.HostObject."><em>ExecutionUnit.{i}.HostObject</em></a> instances which should be added to any <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> created by installation of the <span class="removed">DeploymentUnit.}}</span><span class="inserted">Deployment Unit.</span></p>
+<p>This parameter describes the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.HostObject."><em>ExecutionUnit.{i}.HostObject</em></a> instances which should be added to any <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> created by installation of the <span class="removed">DeploymentUnit.</span><span class="inserted">Deployment Unit.</span></p>
 <p>This table's Instance Numbers MUST be 1, 2, 3... (assigned sequentially without gaps).</p>
 </td>
 <td>
@@ -17298,7 +17421,7 @@ services.</p>
 <p>W</p>
 </td>
 <td>
-<p>This parameter describes the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EnvVariable."><em>ExecutionUnit.{i}.EnvVariable</em></a> instances which should be added to any <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> created by installation of the <span class="removed">DeploymentUnit.}}</span><span class="inserted">Deployment Unit.</span></p>
+<p>This parameter describes the <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EnvVariable."><em>ExecutionUnit.{i}.EnvVariable</em></a> instances which should be added to any <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit."><em>ExecutionUnit</em></a> created by installation of the <span class="removed">DeploymentUnit.</span><span class="inserted">Deployment Unit.</span></p>
 <p>This table's Instance Numbers MUST be 1, 2, 3... (assigned sequentially without gaps).</p>
 </td>
 <td>
@@ -17538,7 +17661,7 @@ both <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.NetworkConfig.A
 <p>R</p>
 </td>
 <td>
-<p>The current state of the created <span class="removed">DU.}}</span><span class="inserted">Deployment Unit.</span></p>
+<p>The current state of the created <span class="removed">DU.</span><span class="inserted">Deployment Unit.</span></p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Installed"><em>Installed</em></span> (The Deployment Unit is in an Installed state due to one of the following: successful Install, successful Update, failed Update, or failed Uninstall. In the case of a failed Update or failed Uninstall the Fault argument will contain an explanation of the failure)</li>
@@ -18266,8 +18389,7 @@ Software Module.</p>
 <p>Comma-separated list of strings (maximum number of characters per item 256). If this argument is present, it lists the User Roles which the application will need to be assigned in order to be able to function at all after this update. If it is absent then the required User Roles are unchanged from the previous version.</p>
 <p>If any of these User Roles are not present in the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv.AvailableUserRoles"><em>ExecEnv.{i}.AvailableUserRoles</em></a> of the <a href="#D.Device:2.Device.SoftwareModules.ExecEnv."><em>ExecEnv</em></a> in which the <span class="removed">DU</span><span class="inserted">Deployment Unit</span> is installed then the command will fail. Some Agents may apply further filtering for User Roles which are considered security- or privacy-sensitive.</p>
 <p>Each entry in the list is the Name of a row in <a href="#D.Device:2.Device.Users.Role."><em>Users.Role</em></a>. If there is no such row then the command will fail, as installation requires a User Role which is not available on the Device.</p>
-<p><span class="inserted">The resulting capabilities list of the required User Roles is listed in <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AvailableUserRoleCapabilities"><em>ExecutionUnit.{i}.AvailableUserRoleCapabilities</em></a>.</span></p>
-<p>If this argument is an empty string then no User Roles are required in order for the application to function.</p>
+<p><span class="inserted">The resulting capabilities list of the required User Roles is listed in <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AvailableUserRoleCapabilities"><em>ExecutionUnit.{i}.AvailableUserRoleCapabilities</em></a>.</span>If this argument is an empty string then no User Roles are required in order for the application to function.</p>
 </td>
 <td>
 <p>-</p>
@@ -18741,7 +18863,7 @@ configuration of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Requi
 <p>Configures the parameters of the auto-restart algorithm for this <span class="removed">EU.</span><span class="inserted">Execution Unit.</span></p>
 <p>An auto-restart may be triggered if the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally. An exponential backoff algorithm is applied (increasing each time the delay before the <span class="removed">EU</span><span class="inserted">Execution Unit</span> is re-launched) in order to prevent continual re-starting of the <span class="removed">EU.</span><span class="inserted">Execution Unit.</span></p>
 <p>The retry interval range is controlled by two Parameters, <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a> and <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>.</p>
-<p>Let <em>m</em> be the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a>, <em>k</em> the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>, and <em>n</em> the current value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryCount"><em>RetryCount</em></a>. Then on the next occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally, the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <em>m * (k/1000)^n^</em> and <em>m * (k/1000)^(n+1)^</em> seconds, so long as <em>m * (k/1000)^n^</em> evaluates to a value less than <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>. Once this point has been reached, on all subsequent occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>* * (1000/k)* and <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a> seconds.</p>
+<p>Let <em>m</em> be the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMinimumWaitInterval"><em>RetryMinimumWaitInterval</em></a>, <em>k</em> the value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryIntervalMultiplier"><em>RetryIntervalMultiplier</em></a>, and <em>n</em> the current value of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryCount"><em>RetryCount</em></a>. Then on the next occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally, the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <em>m * (k/1000)<sup>n</sup></em> and <em>m * (k/1000)<sup>(n+1)</sup></em> seconds, so long as <em>m * (k/1000)<sup>n</sup></em> evaluates to a value less than <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>. Once this point has been reached, on all subsequent occasion that the Agent determines that the <span class="removed">EU</span><span class="inserted">Execution Unit</span> has terminated abnormally the delay before re-starting the <span class="removed">EU</span><span class="inserted">Execution Unit</span> must lie between <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a>* * (1000/k)* and <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.AutoRestart.RetryMaximumWaitInterval"><em>RetryMaximumWaitInterval</em></a> seconds.</p>
 </td>
 <td>
 <p>-</p>
@@ -18761,7 +18883,7 @@ configuration of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Requi
 <p>W</p>
 </td>
 <td>
-<p>Enable the auto-restart feature for this <span class="removed">EU.}}</span><span class="inserted">Execution Unit.</span></p>
+<p>Enable the auto-restart feature for this <span class="removed">EU.</span><span class="inserted">Execution Unit.</span></p>
 <p>The default value SHOULD be <em>false</em>.</p>
 </td>
 <td>
@@ -18904,7 +19026,7 @@ configuration of <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Requi
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.NAT.PortMapping."><em>NAT.PortMapping.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Represents the list of Port mappings associated with this <span class="removed">EU.}}</span><span class="inserted">Execution Unit.</span></p>
+<p>Comma-separated list of strings. Each list item MUST be the Path Name of a row in the <a href="#D.Device:2.Device.NAT.PortMapping."><em>NAT.PortMapping.</em></a> table. If the referenced object is deleted, the corresponding item MUST be removed from the list. Represents the list of Port mappings associated with this <span class="removed">EU.</span><span class="inserted">Execution Unit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19176,7 +19298,7 @@ connection.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface.</em></a> table, or the Path Name of an interface layered above such a row, e.g., a row in the <a href="#D.Device:2.Device.Logical.Interface."><em>Logical.Interface.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. If an empty string is specified, the CPE MUST bind the MQTT broker to all available <span class="removed">interfaces.}}</span><span class="inserted">interfaces, which depends on the value of the <a href="#D.Device:2.Device.MQTT.Broker.IPVersion"><em>IPVersion</em></a> parameter. Meaning that the broker will bind to an IPv4 address, an IPv6 address, or both.</span></p>
+<p>The value MUST be the Path Name of a row in the <a href="#D.Device:2.Device.IP.Interface."><em>IP.Interface.</em></a> table, or the Path Name of an interface layered above such a row, e.g., a row in the <a href="#D.Device:2.Device.Logical.Interface."><em>Logical.Interface.</em></a> table. If the referenced object is deleted, the parameter value MUST be set to an empty string. If an empty string is specified, the CPE MUST bind the MQTT broker to all available <span class="removed">interfaces.</span><span class="inserted">interfaces, which depends on the value of the <a href="#D.Device:2.Device.MQTT.Broker.IPVersion"><em>IPVersion</em></a> parameter. Meaning that the broker will bind to an IPv4 address, an IPv6 address, or both.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19579,7 +19701,7 @@ tasks and reporting functions defined in [<a href="#R.RFC7594">RFC7594</a>].</p>
 <p>W</p>
 </td>
 <td>
-<p>Identifier of the measurement point indicating where the measurement agent is located on a path as defined in [<span class="removed">bibref\|RFC7398}}</span><span class="inserted">[<a href="#R.RFC7398">RFC7398</a>]</span>.<span class="removed">}}</span></p>
+<p>Identifier of the measurement point indicating where the measurement agent is located on a path as defined in [<span class="removed">bibref\|RFC7398</span><span class="inserted">[<a href="#R.RFC7398">RFC7398</a>].</span><span class="removed">.}}</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19675,7 +19797,7 @@ capabilities.</p>
 </td>
 <td>
 <p>This object describes the URSP Route Selection Descriptor table which provides a table of data networks and network slices used in PDU establishment. Table entries are used in precedence order until a successful PDU session is established.</p>
-<p>See <span class="removed">((bibref\|3GPP-TS.23.503\|Annex</span><span class="inserted">[<a href="#R.3GPP-TS.23.503">Annex/3GPP-TS.23.503</a>] A</span><span class="removed">}}</span> for an example URSP rule traversal.<span class="removed">}}</span></p>
+<p>See <span class="removed">((bibref\|3GPP-TS.23.503\|Annex</span><span class="inserted">[<a href="#R.3GPP-TS.23.503">Annex/3GPP-TS.23.503</a>] A<span class="removed">}}</span></span> for an example URSP rule traversal.<span class="removed">}}</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.WWC.URSP.TrafficDescriptor.RouteSelectionDescriptor.Alias"><em>Alias</em></a>, or with a given value for <a href="#D.Device:2.Device.WWC.URSP.TrafficDescriptor.RouteSelectionDescriptor.Precedence"><em>Precedence</em></a>.</p>
 </td>
 <td>
@@ -20507,7 +20629,7 @@ When <em>false</em>, USP Agents connecting to this Unix Domain Socket may regist
 <p>W</p>
 </td>
 <td>
-<p><span class="removed">Each instance of this object provides</span><span class="inserted">Represents</span> a schedule <span class="removed">where</span><span class="inserted">that</span> <span class="removed">access</span><span class="inserted">can</span> <span class="removed">is</span><span class="inserted">be</span> <span class="removed">enabled.}}</span><span class="inserted">applied to a feature or resource.</span></p>
+<p><span class="removed">Each instance of this object provides</span><span class="inserted">Represents</span> a schedule <span class="removed">where</span><span class="inserted">that</span> <span class="removed">access</span><span class="inserted">can</span> <span class="removed">is</span><span class="inserted">be</span> <span class="removed">enabled.</span><span class="inserted">applied to a feature or resource.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Schedules.Schedule.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Schedules.Schedule.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -20558,7 +20680,7 @@ When <em>false</em>, USP Agents connecting to this Unix Domain Socket may regist
 </td>
 <td>
 <p>The duration, in <em>seconds</em>, <span class="inserted">for </span>which the <span class="removed">access</span><span class="inserted">associated schedule</span> is <span class="removed">enabled.</span><span class="inserted">active.</span></p>
-<p>If <span class="removed">the </span><a href="#D.Device:2.Device.Schedules.Schedule.StartTime"><em>StartTime</em></a> is not defined, <span class="inserted">this </span>duration <span class="removed">is</span><span class="inserted">represents</span> the total time <span class="removed">access</span><span class="inserted">the schedule</span> is <span class="removed">allowed</span><span class="inserted">active</span> during a calendar day.</p>
+<p>If<span class="removed"> the</span> <a href="#D.Device:2.Device.Schedules.Schedule.StartTime"><em>StartTime</em></a> is not defined, <span class="inserted">this </span>duration <span class="removed">is</span><span class="inserted">represents</span> the total time <span class="removed">access</span><span class="inserted">the schedule</span> is <span class="removed">allowed</span><span class="inserted">active</span> during a calendar day.</p>
 <p>If <span class="removed">a </span><a href="#D.Device:2.Device.Schedules.Schedule.StartTime"><em>StartTime</em></a> is defined, <span class="removed">access</span><span class="inserted">the schedule</span> is <span class="removed">allowed</span><span class="inserted">active</span> for the <span class="removed">{{param}}</span><span class="inserted">specified</span> <span class="removed">period</span><span class="inserted">duration</span> starting from <a href="#D.Device:2.Device.Schedules.Schedule.StartTime"><em>StartTime</em></a>.</p>
 </td>
 <td>
@@ -20580,7 +20702,16 @@ When <em>false</em>, USP Agents connecting to this Unix Domain Socket may regist
 </td>
 <td>
 <p>When enabled, <span class="removed">the</span><span class="inserted">this</span> <span class="removed">Inverse</span><span class="inserted">parameter</span> <span class="removed">Mode reverses</span><span class="inserted">inverts</span> the<span class="removed"> default</span> behavior of the <span class="removed">schedule,</span><span class="inserted">associated</span> <span class="removed">creating</span><span class="inserted">schedule.</span> <span class="removed">a</span><span class="inserted">Actions</span> <span class="removed">dynamic</span><span class="inserted">that</span> <span class="removed">where</span><span class="inserted">would normally be active during the defined schedule are instead inactive, and</span> actions that <span class="removed">are</span><span class="inserted">would</span> <span class="removed">typically</span><span class="inserted">normally</span> <span class="removed">activated</span><span class="inserted">be inactive</span> are <span class="removed">now</span><span class="inserted">instead</span> <span class="removed">deactivated,</span><span class="inserted">active.</span></p>
-<p>For example: If a schedule defines Internet access on Monday from 16:00 to 17:00: * With <em>InverseMode</em> = <em>false</em>, Internet access is permitted only between 16:00 and <span class="removed">vice</span><span class="inserted">17:00</span> <span class="removed">versa.}}</span><span class="inserted">on Monday. * With <em>InverseMode</em> = <em>true</em>, Internet access is permitted at all times except between 16:00 and 17:00 on Monday.</span></p>
+<p>For example: If a schedule defines Internet access on Monday from 16:00 to 17:00:</p>
+<ul>
+<li>With <em>InverseMode</em> = <em>false</em>, Internet access is permitted only between 16:00 and <span class="removed">vice</span><span class="inserted">17:00</span> <span class="removed">versa.</span></li>
+</ul>
+<div class="inserted">
+<p>on Monday.</p>
+<ul>
+<li>With <em>InverseMode</em> = <em>true</em>, Internet access is permitted at all times except between 16:00 and 17:00 on Monday.</li>
+</ul>
+</div>
 </td>
 <td>
 <p>false</p>
@@ -23766,7 +23897,31 @@ details are located on the <a href="#D.Device:2.Device.DeviceInfo."><em>DeviceIn
 <td>
 <p>Each <em>Threshold</em> instance of this table represents a Threshold Event.</p>
 <p><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> is monitored to determine if it has met the <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdOperator"><em>ThresholdOperator</em></a> condition against <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdValue"><em>ThresholdValue</em></a>, when it meets the condition a <a href="#D.Device:2.Device.LocalAgent.Threshold.Triggered"><em>Triggered!</em></a> Event is sent. <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> may only reference integer parameters and <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdValue"><em>ThresholdValue</em></a> only uses integer values. For example:</p>
-<p><span class="removed"> </span><span class="inserted">* </span><a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a>: Device.Ethernet.Interface.[Enable==&quot;1&quot;].Stats.<span class="removed">}}{{div|{{classes}}|</span> <span class="inserted">* </span><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a>: BytesSent<span class="removed">}}{{div|{{classes}}|</span> <span class="inserted">* </span><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdOperator"><em>ThresholdOperator</em></a>: Rise<span class="removed">}}{{div|{{classes}}|</span> <span class="inserted">* </span><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdValue"><em>ThresholdValue</em></a>: 100000</p>
+<p><span class="removed"> </span></p>
+<div class="inserted">
+<ul>
+<li></li>
+</ul>
+</div>
+<p><a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a>: Device.Ethernet.Interface.[Enable==&quot;1&quot;].Stats.<span class="removed">}}{{div|{{classes}}|</span></p>
+<div class="inserted">
+<ul>
+<li></li>
+</ul>
+</div>
+<p><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a>: BytesSent<span class="removed">}}{{div|{{classes}}|</span></p>
+<div class="inserted">
+<ul>
+<li></li>
+</ul>
+</div>
+<p><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdOperator"><em>ThresholdOperator</em></a>: Rise<span class="removed">}}{{div|{{classes}}|</span></p>
+<div class="inserted">
+<ul>
+<li></li>
+</ul>
+</div>
+<p><a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdValue"><em>ThresholdValue</em></a>: 100000</p>
 <p>This would trigger a <a href="#D.Device:2.Device.LocalAgent.Threshold.Triggered"><em>Triggered!</em></a> Event whenever a value of a parameter matching Device.Ethernet.Interface.[Enable==1].Stats.BytesSent rises from below to above 100000.</p>
 <p>When creating a <em>Threshold</em>, if the <a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a>, <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> or <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdValue"><em>ThresholdValue</em></a> are invalid (not in the supported Data Model), the object will not be created.</p>
 <p>If the concatenation of <a href="#D.Device:2.Device.LocalAgent.Threshold.ReferencePath"><em>ReferencePath</em></a> and <a href="#D.Device:2.Device.LocalAgent.Threshold.ThresholdParam"><em>ThresholdParam</em></a> reference a parameter that isn't in the instantiated data model, then there will be no <a href="#D.Device:2.Device.LocalAgent.Threshold.Triggered"><em>Triggered!</em></a> Event.</p>
@@ -23959,7 +24114,7 @@ value takes priority over all others.</p>
 <p>The following describes the meaning of the permissions for Object type of Targets:</p>
 <ol>
 <li>
-<p>Read:<span class="inserted"> Grants the capability for Get to resolve Object paths.</span> Grants the capability to read the meta-information of the Object via GetSupportedDM.</p>
+<p>Read: Grants the capability <span class="inserted">for Get to resolve Object paths. Grants the capability </span>to read the meta-information of the Object via GetSupportedDM.</p>
 </li>
 <li>
 <p>Write: Grants no capabilities for Static Objects. Grants the capability to create a new instance of a Multi-Instanced Object via Add (e.g. Device.LocalAgent.Controller.).</p>
@@ -24618,9 +24773,15 @@ Setting <em>ControlIoTCapability</em> to a Sensor IoTCapability MUST fail.
 It references the Control IoTCapability to use as the binding destination on which the Agent updates the Value parameter.
 As a mountable object <a href="#D.Device:2.Device.IoTCapability."><em>IoTCapability</em></a> may also be mounted on one of the following mountpoints:</p>
 <ul>
-<li><a href="#D.Device:2.Device.Node."><em>Node.{i}.</em></a>,</li>
-<li><a href="#D.Device:2.Device.ProxiedDevice."><em>ProxiedDevice.{i}.</em></a>,</li>
-<li><a href="#D.Device:2.Device.ProxiedDevice.Node."><em>ProxiedDevice.{i}.Node.{i}.</em></a></li>
+<li>
+<p><a href="#D.Device:2.Device.Node."><em>Node.{i}.</em></a>,</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.ProxiedDevice."><em>ProxiedDevice.{i}.</em></a>,</p>
+</li>
+<li>
+<p><a href="#D.Device:2.Device.ProxiedDevice.Node."><em>ProxiedDevice.{i}.Node.{i}.</em></a></p>
+</li>
 </ul>
 </td>
 <td>
@@ -24815,10 +24976,11 @@ The original state can be a low state or high state.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:14 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 12:59:09 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-20-1-usp-diffs.html --show --transform diff --format html tr-181-2-19-1-usp.xml tr-181-2-20-1-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -25447,5 +25609,5 @@ report.py --include ../../install/cwmp --output tr-181-2-20-1-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

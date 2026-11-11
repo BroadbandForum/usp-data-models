@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -810,7 +846,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -3008,7 +3046,7 @@ restore this configuration file.</p>
 <p>R</p>
 </td>
 <td>
-<p>Date and time when the content of the current version of this vendor configuration file was first applied by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>Date and time when the content of the current version of this vendor configuration file was first applied by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -3071,8 +3109,11 @@ this <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile."><em>VendorConfigF
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
-<p><span class="inserted">The PUT request method MUST be used to transfer the file.</span></p>
+<p><strong>[MANDATORY]</strong></p>
+<div class="inserted">
+<p>The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
+<p>The PUT request method MUST be used to transfer the file.</p>
+</div>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -3182,7 +3223,7 @@ this <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile."><em>VendorConfigF
 <p>W</p>
 </td>
 <td>
-<p>Username to be used by the Agent to authenticate with the file server. If <em>Username</em> is not provided or is set to an empty string, <span class="inserted">either </span>an alternative form of authentication (e.g., certificate-based authentication) is <span class="inserted">required or no authentication is </span>required.</p>
+<p>Username to be used by the Agent to authenticate with the file server. If <em>Username</em> is not provided or is set to an empty string, <span class="inserted">either </span>an alternative form of authentication (e.g., certificate-based authentication)<span class="inserted"> is required or no authentication</span> is required.</p>
 <p>Note: The mandatory requirement for this parameter was removed in Device:2.20.</p>
 </td>
 <td>
@@ -3203,7 +3244,7 @@ this <a href="#D.Device:2.Device.DeviceInfo.VendorConfigFile."><em>VendorConfigF
 <p>W</p>
 </td>
 <td>
-<p>Password to be used by the Agent to authenticate with the file server. If <em>Password</em> is not provided or is set to an empty string, <span class="inserted">either </span>an alternative form of authentication (e.g., certificate-based authentication) is <span class="inserted">required or no authentication is </span>required.</p>
+<p>Password to be used by the Agent to authenticate with the file server. If <em>Password</em> is not provided or is set to an empty string, <span class="inserted">either </span>an alternative form of authentication (e.g., certificate-based authentication)<span class="inserted"> is required or no authentication</span> is required.</p>
 <p>Note: The mandatory requirement for this parameter was removed in Device:2.20.</p>
 </td>
 <td>
@@ -3484,8 +3525,11 @@ Controller to operate on these files in any way.</p>
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
-<p><span class="inserted">The PUT request method MUST be used to transfer the file.</span></p>
+<p><strong>[MANDATORY]</strong></p>
+<div class="inserted">
+<p>The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
+<p>The PUT request method MUST be used to transfer the file.</p>
+</div>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -3819,8 +3863,11 @@ the state of the system at the time of the error, and a stack trace of function 
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
-<p><span class="inserted">The PUT request method MUST be used to transfer the file.</span></p>
+<p><strong>[MANDATORY]</strong></p>
+<div class="inserted">
+<p>The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
+<p>The PUT request method MUST be used to transfer the file.</p>
+</div>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -3972,8 +4019,11 @@ is essential for diagnosing and troubleshooting issues with applications and pro
 <p>W</p>
 </td>
 <td>
-<p><strong>[MANDATORY]</strong> The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
-<p><span class="inserted">The PUT request method MUST be used to transfer the file.</span></p>
+<p><strong>[MANDATORY]</strong></p>
+<div class="inserted">
+<p>The [<a href="#T.URL">URL</a>] specifying the destination file location. The HTTPS transport MUST be supported, and the HTTP transport MAY be supported.</p>
+<p>The PUT request method MUST be used to transfer the file.</p>
+</div>
 <p>This argument specifies only the destination file location, and does not indicate in any way the name or location of the local file to be uploaded.</p>
 <p>If the Agent receives multiple upload requests with the same URL, the Agent MUST perform each upload as requested, and MUST NOT assume that the content of the file to be uploaded is the same each time.</p>
 <p>This URL MUST NOT include the &quot;userinfo&quot; component, as defined in [<a href="#R.RFC3986">RFC3986</a>].</p>
@@ -4210,7 +4260,7 @@ with only one server at a time, unlike most NTP clients.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object contains parameters relating to the user interface of the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This object contains parameters relating to the user interface of the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -5021,7 +5071,7 @@ is extensible to support new SFP management protocol standards in the future.</p
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of strings. Indicates the SFP types supported by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>Comma-separated list of strings. Indicates the SFP types supported by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>Each list item is an enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SFPs.SupportedSFPTypes.G-PON"><em>G-PON</em></span></li>
@@ -5413,7 +5463,7 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -5693,7 +5743,7 @@ above the <a href="#D.Device:2.Device.DSL.Channel."><em>Channel</em></a> instanc
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -5858,7 +5908,7 @@ Corresponds to [<a href="#R.TR-159">TR-159</a>] <em>oBondingGroup</em>.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -5902,10 +5952,28 @@ Corresponds to [<a href="#R.TR-159">TR-159</a>] <em>oBondingGroup</em>.</p>
 <td>
 <p>Comma-separated list of strings. Supported DSL bonding schemes.  Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.ATM"><em>ATM</em></span> ([<a href="#R.G.998.1">G.998.1</a>] ATM-based bonding ::::: diffs <strong>Changes since 2.21:</strong> * Removed dmr_noUnionObject = <em>true</em> :::::)</li>
-<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.Ethernet"><em>Ethernet</em></span> ([<a href="#R.G.998.2">G.998.2</a>] Ethernet-based bonding)</li>
-<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.TDIM"><em>TDIM</em></span> ([<a href="#R.G.998.3">G.998.3</a>] TDIM-based bonding ::::: diffs <strong>Changes since 2.21:</strong> * Removed dmr_noUnionObject = <em>true</em> :::::)</li>
+<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.ATM"><em>ATM</em></span> (</li>
 </ul>
+<p>[<a href="#R.G.998.1">G.998.1</a>] ATM-based bonding</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Removed dmr_noUnionObject = <em>true</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.Ethernet"><em>Ethernet</em></span> ([<a href="#R.G.998.2">G.998.2</a>] Ethernet-based bonding)</li>
+<li><span id="D.Device:2.Device.DSL.BondingGroup.BondSchemesSupported.TDIM"><em>TDIM</em></span> (</li>
+</ul>
+<p>[<a href="#R.G.998.3">G.998.3</a>] TDIM-based bonding</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Removed dmr_noUnionObject = <em>true</em></li>
+</ul>
+</div>
+<p>)</p>
 <p>Corresponds to [<a href="#R.TR-159">TR-159</a>]
 <em>oBondingGroup.aGroupBondSchemesSupported</em>.</p>
 </td>
@@ -6399,7 +6467,7 @@ Line interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -6735,7 +6803,7 @@ interfaces.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -6826,7 +6894,7 @@ cellular modem with a single radio and can reference multiple <a href="#D.Device
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -10621,7 +10689,7 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -10728,7 +10796,7 @@ PHY DOCSIS Downstream interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -10793,7 +10861,7 @@ PHY DOCSIS Upstream interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -10858,7 +10926,7 @@ MAC level DOCSIS interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -10969,7 +11037,7 @@ encapsulation (see <a href="#D.Device:2.Device.DSL.Channel.LinkEncapsulationUsed
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -11102,7 +11170,7 @@ stack it only models the PHY and Connection Access Method of the Ethernet interf
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -11169,7 +11237,7 @@ carrying Ethernet frames.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -11236,7 +11304,7 @@ with the configured <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANID"
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -11300,7 +11368,7 @@ with the configured <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANID"
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -11429,7 +11497,7 @@ with the configured <a href="#D.Device:2.Device.Ethernet.VLANTermination.VLANID"
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the <a href="#D.Device:2.Device.Ethernet.RMONStats."><em>RMONStats</em></a> entry as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the <a href="#D.Device:2.Device.Ethernet.RMONStats."><em>RMONStats</em></a> entry as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11535,7 +11603,7 @@ the USB Communication Device Class.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -11666,7 +11734,7 @@ MAC levels of an HPNA interface [<a href="#R.G.9954">G.9954</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -11802,7 +11870,7 @@ directly accessible via this HPNA interface.</p>
 </td>
 <td>
 <p>Whether or not this node is currently present in the HPNA network.</p>
-<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -11952,7 +12020,7 @@ MAC levels of a MoCA interface [<a href="#R.MoCAv1.0">MoCAv1.0</a>] [<a href="#R
 <p>R</p>
 </td>
 <td>
-<p><span class="mark"><strong>[mocaIfName/1.3.6.1.4.1.31621.1.2.1.7.1.8]</strong></span> The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p><span class="mark"><strong>[mocaIfName/1.3.6.1.4.1.31621.1.2.1.7.1.8]</strong></span> The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -12039,7 +12107,7 @@ associated with this MoCA interface.</p>
 </td>
 <td>
 <p>Whether or not this remote device is currently present in the MoCA network.</p>
-<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -12102,7 +12170,7 @@ associated with this MoCA interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -12233,7 +12301,7 @@ MAC levels of a HomePlug interface [<a href="#R.HPAV1.1">HPAV1.1</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -12298,7 +12366,7 @@ to this HomePlug interface.</p>
 </td>
 <td>
 <p>Whether or not this device is currently present in the HomePlug network.</p>
-<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -12362,7 +12430,7 @@ MAC levels of a UPA interface [<a href="#R.UPA-PLC">UPA-PLC</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -12427,7 +12495,7 @@ this UPA interface and other UPA devices.</p>
 </td>
 <td>
 <p>Whether or not this node is currently present in the UPA network.</p>
-<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -12654,12 +12722,40 @@ device is able to receive.</p>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
 <p><span class="inserted">The reported values depend on <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list. * When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list. * When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument SecurityModeEnabled after: WPA2}}</strong>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-SAE}}</strong>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is not<span class="removed"> valid, and should not be</span> in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2"><em>WPA2</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, <span class="removed">or</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>,</span> <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be </span>in the list.</li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.NeighboringWiFiDiagnostic.Output.Result.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -14290,24 +14386,48 @@ this MLO capable Access Point.
 <td>
 <p>A bit map indicating each Wi-Fi generation supported by this <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD."><em>STAMLD</em></a></p>
 <ul>
-<li>Bit 0: Wi-Fi HaLow (802.11ah)</li>
-<li>Bit 1: Wi-Fi 1 (802.11b)</li>
-<li>Bit 2: Wi-Fi 2 (802.11a)</li>
-<li>Bit 3: Wi-Fi 3 (802.11g)</li>
-<li>Bit 4: Wi-Fi 4 (802.11n)</li>
-<li>Bit 5: Wi-Fi 5 (802.11ac)</li>
-<li>Bit 6: Wi-Fi 6 (802.11ax)</li>
-<li>Bit 7: Wi-Fi 7 (802.11be)</li>
-<li>Bit 8: Wi-Fi 8 (802.11bn)</li>
+<li>
+<p>Bit 0: Wi-Fi HaLow (802.11ah)</p>
+</li>
+<li>
+<p>Bit 1: Wi-Fi 1 (802.11b)</p>
+</li>
+<li>
+<p>Bit 2: Wi-Fi 2 (802.11a)</p>
+</li>
+<li>
+<p>Bit 3: Wi-Fi 3 (802.11g)</p>
+</li>
+<li>
+<p>Bit 4: Wi-Fi 4 (802.11n)</p>
+</li>
+<li>
+<p>Bit 5: Wi-Fi 5 (802.11ac)</p>
+</li>
+<li>
+<p>Bit 6: Wi-Fi 6 (802.11ax)</p>
+</li>
+<li>
+<p>Bit 7: Wi-Fi 7 (802.11be)</p>
+</li>
+<li>
+<p>Bit 8: Wi-Fi 8 (802.11bn)</p>
+</li>
 </ul>
 <p>Notes:</p>
 <ul>
-<li>This list will be expanded in the future as new Wi-Fi generation
-appears.</li>
-<li>Indications are for the device, not the 802.11 STA per se. For
+<li>
+<p>This list will be expanded in the future as new Wi-Fi generation
+appears.</p>
+</li>
+<li>
+<p>Indications are for the device, not the 802.11 STA per se. For
 example, an 802.11ac device sets the Wi-Fi 5 Supported bit even
-if it's currently connected on the 2.4GHz band.</li>
-<li>Bits are counted from the LSB (bit 0) to the MSB.</li>
+if it's currently connected on the 2.4GHz band.</p>
+</li>
+<li>
+<p>Bits are counted from the LSB (bit 0) to the MSB.</p>
+</li>
 </ul>
 <p>If the STA includes a Generational Capabilities Indication
 attribute, as defined in [<a href="#R.WFACapabilities">Table 6/WFA Capabilities</a>] in
@@ -14320,49 +14440,71 @@ Generational Capabilities Indication attribute in its
 frames, the DataElements Agent may use the following guidance to
 infer STA support of a Wi-Fi generation:</p>
 <ul>
-<li>If a STA includes a S1G Capabilities IE in its (Re)Association
+<li>
+<p>If a STA includes a S1G Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi HaLow for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+Wi-Fi HaLow for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 1, 2, 5.5 or 11 Mbps rate is
 indicated in this IE, the DataElements Agent indicates support
-for Wi-Fi 1 (802.11b) for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+for Wi-Fi 1 (802.11b) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 6, 12 or 24 Mbps rate is indicated
 in this IE when sent on the 5GHz band, the DataElements Agent
-indicates support for Wi-Fi 2 (802.11a) for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+indicates support for Wi-Fi 2 (802.11a) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 6, 12 or 24 Mbps rate is indicated
 in this IE when sent on the 2.4GHz band, the DataElements Agent
-indicates support for Wi-Fi 3 (802.11g) for this STA.</li>
-<li>If a STA includes a HT Capabilities IE in its (Re)Association
+indicates support for Wi-Fi 3 (802.11g) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a HT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 4 for this STA.</li>
-<li>If a STA includes a VHT Capabilities IE in its (Re)Association
+Wi-Fi 4 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a VHT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 5 for this STA.</li>
-<li>If a STA includes a HE Capabilities IE in its (Re)Association
+Wi-Fi 5 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a HE Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 6 for this STA.</li>
-<li>If a STA includes a EHT Capabilities IE in its (Re)Association
+Wi-Fi 6 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a EHT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 7 for this STA.</li>
-<li>If a STA includes a UHR Capabilities IE in its (Re)Association
+Wi-Fi 7 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a UHR Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 8 for this STA.</li>
+Wi-Fi 8 for this STA.</p>
+</li>
 </ul>
 <p>Notes:</p>
 <ul>
-<li>In case of a Multi-AP deployment, the DataElements Agent /
+<li>
+<p>In case of a Multi-AP deployment, the DataElements Agent /
 Multi-AP Controller obtains the body of the (Re)Association
 Request frames sent by the STA by using either the Tunneled
 Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>]
 or the Client Capability procedure defined in
-[<a href="#R.EasyMesh">Section 9.2/EasyMesh</a>].</li>
-<li>In case of a Multi-AP deployment, the DataElements Agent /
+[<a href="#R.EasyMesh">Section 9.2/EasyMesh</a>].</p>
+</li>
+<li>
+<p>In case of a Multi-AP deployment, the DataElements Agent /
 Multi-AP Controller obtains the body of the Wi-Fi Alliance
 Capabilities frames sent by the STA by using the Tunneled
-Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>].</li>
+Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>].</p>
+</li>
 </ul>
 </td>
 <td>
@@ -14386,25 +14528,45 @@ Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>].<
 <p>A bit map indicating each WFA Capability supported by this
 <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.APMLD.STAMLD."><em>STAMLD</em></a>, as defined in [<a href="#R.WFACapabilities">Table 3/WFA Capabilities</a>]</p>
 <ul>
-<li>Bit 0: QoS Management DSCP Policy</li>
-<li>Bit 1: QoS Management Unsolicited DSCP Policy At Association</li>
-<li>Bit 2: QoS Management SCS Traffic Description</li>
-<li>Bit 3: 5G QoS to Wi-Fi QoS Mapping</li>
-<li>Bit 4: DAR Latency Statistics Reporting Support</li>
-<li>Bit 5: DAR Radio Counters Statistics Reporting Support</li>
-<li>Bit 6: DAR Control Plane Events Reporting Support</li>
-<li>Bit 7: DAR Unsolicited Report Reception Support</li>
+<li>
+<p>Bit 0: QoS Management DSCP Policy</p>
+</li>
+<li>
+<p>Bit 1: QoS Management Unsolicited DSCP Policy At Association</p>
+</li>
+<li>
+<p>Bit 2: QoS Management SCS Traffic Description</p>
+</li>
+<li>
+<p>Bit 3: 5G QoS to Wi-Fi QoS Mapping</p>
+</li>
+<li>
+<p>Bit 4: DAR Latency Statistics Reporting Support</p>
+</li>
+<li>
+<p>Bit 5: DAR Radio Counters Statistics Reporting Support</p>
+</li>
+<li>
+<p>Bit 6: DAR Control Plane Events Reporting Support</p>
+</li>
+<li>
+<p>Bit 7: DAR Unsolicited Report Reception Support</p>
+</li>
 </ul>
 <p>A value of 0 indicates that either the information has not been
 provided by the STA or that the STA doesn't support any of the
 capabilities listed in [<a href="#R.WFACapabilities">Table 3/WFA Capabilities</a>].</p>
 <p>Notes:</p>
 <ul>
-<li>This information is copied from the Capabilities field included
+<li>
+<p>This information is copied from the Capabilities field included
 in the Wi-Fi Alliance Capabilities Element or Wi-Fi Alliance
 Capabilities frame, as defined in
-[<a href="#R.WFACapabilities">Table 3/WFA Capabilities</a>].</li>
-<li>Bits are counted from the LSB (bit 0) to the MSB.</li>
+[<a href="#R.WFACapabilities">Table 3/WFA Capabilities</a>].</p>
+</li>
+<li>
+<p>Bits are counted from the LSB (bit 0) to the MSB.</p>
+</li>
 </ul>
 </td>
 <td>
@@ -16670,24 +16832,48 @@ AffiliatedSTAs and AffiliatedbSTAs are not included, and are instead part of
 <td>
 <p>A bit map indicating each Wi-Fi generation supported by this <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.BSS.STA."><em>STA</em></a></p>
 <ul>
-<li>Bit 0: Wi-Fi HaLow (802.11ah)</li>
-<li>Bit 1: Wi-Fi 1 (802.11b)</li>
-<li>Bit 2: Wi-Fi 2 (802.11a)</li>
-<li>Bit 3: Wi-Fi 3 (802.11g)</li>
-<li>Bit 4: Wi-Fi 4 (802.11n)</li>
-<li>Bit 5: Wi-Fi 5 (802.11ac)</li>
-<li>Bit 6: Wi-Fi 6 (802.11ax)</li>
-<li>Bit 7: Wi-Fi 7 (802.11be)</li>
-<li>Bit 8: Wi-Fi 8 (802.11bn)</li>
+<li>
+<p>Bit 0: Wi-Fi HaLow (802.11ah)</p>
+</li>
+<li>
+<p>Bit 1: Wi-Fi 1 (802.11b)</p>
+</li>
+<li>
+<p>Bit 2: Wi-Fi 2 (802.11a)</p>
+</li>
+<li>
+<p>Bit 3: Wi-Fi 3 (802.11g)</p>
+</li>
+<li>
+<p>Bit 4: Wi-Fi 4 (802.11n)</p>
+</li>
+<li>
+<p>Bit 5: Wi-Fi 5 (802.11ac)</p>
+</li>
+<li>
+<p>Bit 6: Wi-Fi 6 (802.11ax)</p>
+</li>
+<li>
+<p>Bit 7: Wi-Fi 7 (802.11be)</p>
+</li>
+<li>
+<p>Bit 8: Wi-Fi 8 (802.11bn)</p>
+</li>
 </ul>
 <p>Notes:</p>
 <ul>
-<li>This list will be expanded in the future as new Wi-Fi generation
-appears.</li>
-<li>Indications are for the device, not the 802.11 STA per se. For
+<li>
+<p>This list will be expanded in the future as new Wi-Fi generation
+appears.</p>
+</li>
+<li>
+<p>Indications are for the device, not the 802.11 STA per se. For
 example, an 802.11ac device sets the Wi-Fi 5 Supported bit even
-if it's currently connected on the 2.4GHz band.</li>
-<li>Bits are counted from the LSB (bit 0) to the MSB.</li>
+if it's currently connected on the 2.4GHz band.</p>
+</li>
+<li>
+<p>Bits are counted from the LSB (bit 0) to the MSB.</p>
+</li>
 </ul>
 <p>If the STA includes a Generational Capabilities Indication
 attribute, as defined in [<a href="#R.WFACapabilities">Table 6/WFA Capabilities</a>] in
@@ -16700,49 +16886,71 @@ Generational Capabilities Indication attribute in its
 frames, the DataElements Agent may use the following guidance to
 infer STA support of a Wi-Fi generation:</p>
 <ul>
-<li>If a STA includes a S1G Capabilities IE in its (Re)Association
+<li>
+<p>If a STA includes a S1G Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi HaLow for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+Wi-Fi HaLow for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 1, 2, 5.5 or 11 Mbps rate is
 indicated in this IE, the DataElements Agent indicates support
-for Wi-Fi 1 (802.11b) for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+for Wi-Fi 1 (802.11b) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 6, 12 or 24 Mbps rate is indicated
 in this IE when sent on the 5GHz band, the DataElements Agent
-indicates support for Wi-Fi 2 (802.11a) for this STA.</li>
-<li>If a STA includes a Supported Rates IE in its (Re)Association
+indicates support for Wi-Fi 2 (802.11a) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a Supported Rates IE in its (Re)Association
 Request frames and if either 6, 12 or 24 Mbps rate is indicated
 in this IE when sent on the 2.4GHz band, the DataElements Agent
-indicates support for Wi-Fi 3 (802.11g) for this STA.</li>
-<li>If a STA includes a HT Capabilities IE in its (Re)Association
+indicates support for Wi-Fi 3 (802.11g) for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a HT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 4 for this STA.</li>
-<li>If a STA includes a VHT Capabilities IE in its (Re)Association
+Wi-Fi 4 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a VHT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 5 for this STA.</li>
-<li>If a STA includes a HE Capabilities IE in its (Re)Association
+Wi-Fi 5 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a HE Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 6 for this STA.</li>
-<li>If a STA includes a EHT Capabilities IE in its (Re)Association
+Wi-Fi 6 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a EHT Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 7 for this STA.</li>
-<li>If a STA includes a UHR Capabilities IE in its (Re)Association
+Wi-Fi 7 for this STA.</p>
+</li>
+<li>
+<p>If a STA includes a UHR Capabilities IE in its (Re)Association
 Request frames, the DataElements Agent indicates support for
-Wi-Fi 8 for this STA.</li>
+Wi-Fi 8 for this STA.</p>
+</li>
 </ul>
 <p>Notes:</p>
 <ul>
-<li>In case of a Multi-AP deployment, the DataElements Agent /
+<li>
+<p>In case of a Multi-AP deployment, the DataElements Agent /
 Multi-AP Controller obtains the body of the (Re)Association
 Request frames sent by the STA by using either the Tunneled
 Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>]
 or the Client Capability procedure defined in
-[<a href="#R.EasyMesh">Section 9.2/EasyMesh</a>].</li>
-<li>In case of a Multi-AP deployment, the DataElements Agent /
+[<a href="#R.EasyMesh">Section 9.2/EasyMesh</a>].</p>
+</li>
+<li>
+<p>In case of a Multi-AP deployment, the DataElements Agent /
 Multi-AP Controller obtains the body of the Wi-Fi Alliance
 Capabilities frames sent by the STA by using the Tunneled
-Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>].</li>
+Message mechanism defined in [<a href="#R.EasyMesh">Section 11.7/EasyMesh</a>].</p>
+</li>
 </ul>
 </td>
 <td>
@@ -17294,12 +17502,40 @@ Points discovered by a Radio during a channel scan.</p>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
 <p><span class="inserted">The reported values depend on <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument SecurityModeEnabled after: WPA2}}</strong>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-SAE}}</strong>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not<span class="removed"> valid, and should not be</span> in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2"><em>WPA2</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, <span class="removed">or</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>,</span> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be </span>in the list.</li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -17511,12 +17747,40 @@ Points discovered by a Radio during a channel scan.</p>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
 <p><span class="inserted">The reported values depend on <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list. * When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument SecurityModeEnabled after: WPA2}}</strong>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-SAE}}</strong>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not<span class="removed"> valid, and should not be</span> in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2"><em>WPA2</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, <span class="removed">or</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>,</span> <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be </span>in the list.</li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.DataElements.Network.Device.Radio.MultiAPRadio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -19098,7 +19362,7 @@ radio.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -19141,7 +19405,7 @@ radio.</p>
 </td>
 <td>
 <p>Comma-separated list (maximum number of characters 64) of integers (-1 to 100). List items represent supported transmit power levels as <em>percentage</em> of full power. For example, &quot;0,25,50,75,100&quot;.</p>
-<p>A -1 item indicates auto mode (automatic decision by <span class="removed">CPE).</span><span class="inserted">device).</span> Auto mode allows the <em>Radio</em> to adjust transmit power accordingly. For example, this can be useful for power-save modes such as EU-CoC, where the <em>Radio</em> can adjust power according to activity in the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>A -1 item indicates auto mode (automatic decision by <span class="removed">CPE).</span><span class="inserted">device).</span> Auto mode allows the <em>Radio</em> to adjust transmit power accordingly. For example, this can be useful for power-save modes such as EU-CoC, where the <em>Radio</em> can adjust power according to activity in the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19339,7 +19603,7 @@ using a specific <a href="#D.Device:2.Device.WiFi.Radio.InitiateCCAMeasurement.I
 </td>
 <td>
 <p>The clear channel assessment (CCA) report in the format specified in [<a href="#R.802.11-2020">Section 9.4.2.21.3/802.11-2020</a>].</p>
-<p>When read, the value of this parameter MUST correspond to <a href="#D.Device:2.Device.WiFi.Radio.InitiateCCAMeasurement.Input.Channel"><em>Channel</em></a>. How this is achieved is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>When read, the value of this parameter MUST correspond to <a href="#D.Device:2.Device.WiFi.Radio.InitiateCCAMeasurement.Input.Channel"><em>Channel</em></a>. How this is achieved is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -19501,12 +19765,40 @@ Points discovered by a Radio during a channel scan.</p>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
 <p><span class="inserted">The reported values depend on <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list. * When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list. * When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument SecurityModeEnabled after: WPA2}}</strong>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-SAE}}</strong>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not<span class="removed"> valid, and should not be</span> in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2"><em>WPA2</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, <span class="removed">or</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>,</span> <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be </span>in the list.</li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.FullScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -19701,12 +19993,40 @@ Points discovered by a Radio during a channel scan.</p>
 <p>Comma-separated list of strings. The type of encryption the neighboring WiFi SSID advertises.</p>
 <p><span class="inserted">The reported values depend on <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list. * When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list. * When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument SecurityModeEnabled after: WPA2}}</strong>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-SAE}}</strong>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not<span class="removed"> valid, and should not be</span> in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.None"><em>None</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WEP"><em>WEP</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA"><em>WPA</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2"><em>WPA-WPA2</em></a> or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values may be in the list.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled"><em>SecurityModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2"><em>WPA2</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-SAE"><em>WPA3-SAE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE"><em>WPA2-PSK-WPA3-SAE</em></a>, <span class="removed">or</span><span class="inserted"><a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA2-PSK-WPA3-SAE-RSNO"><em>WPA2-PSK-WPA3-SAE-RSNO</em></a>,</span> <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, or <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.SecurityModeEnabled.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be </span>in the list.</li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.Radio.ChannelScan.Output.ScanResult.OpClassScan.ChannelScan.NeighborBSS.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -19918,7 +20238,7 @@ can be stacked above a single <a href="#D.Device:2.Device.WiFi.Radio."><em>Radio
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -21747,12 +22067,40 @@ must have provisioned and matching profiles in order to connect.</p>
 <p>Comma-separated list of strings. The type of encryption in use.</p>
 <p><span class="inserted">The valid values depend on <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a>:</span></p>
 <ul>
-<li>When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a><span class="inserted"> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.None"><em>None</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a>, or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>, <em>EncryptionMode</em> is not applicable. * When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-Personal"><em>WPA-Personal</em></a> or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></a> is valid. * When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Personal"><em>WPA-WPA2-Personal</em></a> or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values are valid. * When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a></span> is one of **{{enum: non-existent <strong>{{inserted: unexpected argument ModesSupported after: WPA2-Personal}}</strong>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>, **{{enum: only valid as  argument}}<strong>WPA3-Personal}}</strong>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a><span class="inserted">, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Compatibility"><em>WPA3-Personal-Compatibility</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Enterprise"><em>WPA3-Enterprise</em></a></span>, or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be in the list.}}</span><span class="inserted">valid.</span></li>
+<li>When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.None"><em>None</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-64"><em>WEP-64</em></a>, or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WEP-128"><em>WEP-128</em></a>, <em>EncryptionMode</em> is not applicable.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-Personal"><em>WPA-Personal</em></a> or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-Enterprise"><em>WPA-Enterprise</em></a>, only <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></a> is valid.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Personal"><em>WPA-WPA2-Personal</em></a> or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA-WPA2-Enterprise"><em>WPA-WPA2-Enterprise</em></a>, all values are valid.</li>
+<li>When <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModeEnabled"><em>ModeEnabled</em></a> is one of<span class="inserted"> <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA2-Personal"><em>WPA2-Personal</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA2-Enterprise"><em>WPA2-Enterprise</em></a>,</span> <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal"><em>WPA3-Personal</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Transition"><em>WPA3-Personal-Transition</em></a>, <span class="inserted"><a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Personal-Compatibility"><em>WPA3-Personal-Compatibility</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.WPA3-Enterprise"><em>WPA3-Enterprise</em></a>, </span>or <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.ModesSupported.OWE"><em>OWE</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></a> is not <span class="removed">valid, and should not be in the list.</span><span class="inserted">valid.</span></li>
 </ul>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></span> ([<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>] ::::: diffs <strong>Changes since 2.21:</strong> * Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description :::::)</li>
-<li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.AES"><em>AES</em></span> (This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values. ::::: diffs <strong>Changes since 2.21:</strong> * Added status = <em>deprecated</em> * Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more specific <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>, and <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description :::::)</li>
+<li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.TKIP"><em>TKIP</em></span> (</li>
+</ul>
+<p>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added <em>[<a href="#R.802.11-2024">Section 12.3.4/802.11-2024</a>]</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.AES"><em>AES</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Added status = <em>deprecated</em></li>
+<li>Added <em>This enumeration was DEPRECATED in 2.22 because it has been replaced by the more
+specific <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-128"><em>CCMP-128</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-256"><em>CCMP-256</em></a>, <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-128"><em>GCMP-128</em></a>,
+and <a href="#D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-256"><em>GCMP-256</em></a> values.</em> description</li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-128"><em>CCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.CCMP-256"><em>CCMP-256</em></span> ([<a href="#R.802.11-2024">Section 12.5.2/802.11-2024</a>], added in 2.22)</li>
 <li><span id="D.Device:2.Device.WiFi.AccessPoint.Security.EncryptionMode.GCMP-128"><em>GCMP-128</em></span> ([<a href="#R.802.11-2024">Section 12.5.4/802.11-2024</a>], added in 2.22)</li>
@@ -21838,7 +22186,7 @@ start the measurement exchange.</li>
 <p>Specifies the Comeback After Exponent as specified in [<a href="#R.802.11bf">802.11bf</a>].
 <em>UnassociatedSTAComebackAfterExponent</em> is the exponent n (0 to 7) used to calculate the minimum
 Unassociated STA Comeback After interval. The interval is measured
-in milliseconds and computed as 2^n+4^.</p>
+in milliseconds and computed as 2<sup>n+4</sup>.</p>
 </td>
 <td>
 <p>6</p>
@@ -21861,7 +22209,7 @@ in milliseconds and computed as 2^n+4^.</p>
 <p>Specifies the Comeback Before Exponent as specified in [<a href="#R.802.11bf">802.11bf</a>].
 <em>UnassociatedSTAComebackBeforeExponent</em> is the exponent n (0 to 3) used to calculate the maximum
 Unassociated STA Comeback Before interval. The interval is measured
-in milliseconds and computed as 2^n+12^.</p>
+in milliseconds and computed as 2<sup>n+12</sup>.</p>
 </td>
 <td>
 <p>0</p>
@@ -21965,7 +22313,7 @@ in milliseconds and computed as 2^n+12^.</p>
 </td>
 <td>
 <p>Whether or not this node is currently present in the WiFi AccessPoint network.</p>
-<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive nodes is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive nodes in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive node. The length of time an inactive node remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -25080,9 +25428,15 @@ check digit is added as the last digit.</p>
 <td>
 <p>Stops the TAS/ePSKc window:</p>
 <ul>
-<li>disconnects any session using it;</li>
-<li>clears <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.PasscodeURI"><em>PasscodeURI</em></a>;</li>
-<li>sets <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State"><em>State</em></a> to <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State.Stopped"><em>Stopped</em></a>.</li>
+<li>
+<p>disconnects any session using it;</p>
+</li>
+<li>
+<p>clears <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.PasscodeURI"><em>PasscodeURI</em></a>;</p>
+</li>
+<li>
+<p>sets <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State"><em>State</em></a> to <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State.Stopped"><em>Stopped</em></a>.</p>
+</li>
 </ul>
 <p>Idempotent if already <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State.Stopped"><em>Stopped</em></a> or
 <a href="#D.Device:2.Device.Thread.BorderAgent.TAS.State.Disabled"><em>Disabled</em></a>.</p>
@@ -25134,7 +25488,7 @@ as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -25155,7 +25509,7 @@ as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>]).</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list of integers (-1 to 100). List items represent supported transmit power levels as <em>percentage</em> of full power. For example, &quot;0,25,50,75,100&quot;. A -1 item indicates auto mode (automatic decision by <span class="removed">CPE).</span><span class="inserted">device).</span> Auto mode allows the <a href="#D.Device:2.Device.Thread.Radio."><em>Radio</em></a> to adjust transmit power accordingly. For example, this can be useful for power-save modes such as EU-CoC, where the <a href="#D.Device:2.Device.Thread.Radio."><em>Radio</em></a> can adjust power according to activity in the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>Comma-separated list of integers (-1 to 100). List items represent supported transmit power levels as <em>percentage</em> of full power. For example, &quot;0,25,50,75,100&quot;. A -1 item indicates auto mode (automatic decision by <span class="removed">CPE).</span><span class="inserted">device).</span> Auto mode allows the <a href="#D.Device:2.Device.Thread.Radio."><em>Radio</em></a> to adjust transmit power accordingly. For example, this can be useful for power-save modes such as EU-CoC, where the <a href="#D.Device:2.Device.Thread.Radio."><em>Radio</em></a> can adjust power according to activity in the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <div class="diffs">
 <p><strong>Changes since 2.21:</strong></p>
 <ul>
@@ -25277,7 +25631,7 @@ to establish and configure secure radio link of Thread network.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -25599,16 +25953,36 @@ Thread specification, see [<a href="#R.ThreadSpec">ThreadSpec</a>]) that are cur
 use across an entire Thread network. The active Operational Dataset
 contains:</p>
 <ul>
-<li>Timestamp</li>
-<li>Channel</li>
-<li>Channel Mask</li>
-<li>Extended PAN ID</li>
-<li>Mesh-Local Prefix</li>
-<li>Network Name</li>
-<li>PAN ID</li>
-<li>PSKc</li>
-<li>Network key</li>
-<li>Security Policy</li>
+<li>
+<p>Timestamp</p>
+</li>
+<li>
+<p>Channel</p>
+</li>
+<li>
+<p>Channel Mask</p>
+</li>
+<li>
+<p>Extended PAN ID</p>
+</li>
+<li>
+<p>Mesh-Local Prefix</p>
+</li>
+<li>
+<p>Network Name</p>
+</li>
+<li>
+<p>PAN ID</p>
+</li>
+<li>
+<p>PSKc</p>
+</li>
+<li>
+<p>Network key</p>
+</li>
+<li>
+<p>Security Policy</p>
+</li>
 </ul>
 <p>The pending Operational Dataset is used to communicate changes to the
 active Operational Dataset before they take effect. The pending
@@ -25675,8 +26049,12 @@ Operational Dataset, with the addition of: Delay Timer.</p>
 <td>
 <p><em>TimeStamp</em> of the dataset, depending status, it represent :</p>
 <ul>
-<li>Active Timestamp (timestamp of the current dataset)</li>
-<li>Pending Timestamp</li>
+<li>
+<p>Active Timestamp (timestamp of the current dataset)</p>
+</li>
+<li>
+<p>Pending Timestamp</p>
+</li>
 </ul>
 <div class="diffs">
 <p><strong>Changes since 2.21:</strong></p>
@@ -26180,9 +26558,9 @@ has received data from remote node.</p>
 <p>Thread Device mode value.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.rx-on-when-idle"><em>rx-on-when-idle</em></span></li>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullThreadDevice"><em>Full Thread Device</em></span></li>
-<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullNetworkData"><em>Full Network Data</em></span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.rx-on-when-idle"><em>rx-on-when-idle</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullThreadDevice"><em>Full Thread Device</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.Thread.MLE.AssociatedNode.Mode.FullNetworkData"><em>Full Network Data</em> [<code>3</code>]</span></li>
 </ul>
 <div class="diffs">
 <p><strong>Changes since 2.21:</strong></p>
@@ -26381,12 +26759,20 @@ to the Thread Specification (i.e. a child node has an empty <em>Route</em>
 table). It maintains information for each link to Router neighbor as
 follows:</p>
 <ul>
-<li>the Router ID assigned to that neighbor.</li>
-<li>the routing cost.</li>
-<li>the incoming link quality metric calculated from the measured link
-margin for messages received from the neighbor.</li>
-<li>the incoming link quality metric reported by the neighbor for
-messages arriving from this Router.</li>
+<li>
+<p>the Router ID assigned to that neighbor.</p>
+</li>
+<li>
+<p>the routing cost.</p>
+</li>
+<li>
+<p>the incoming link quality metric calculated from the measured link
+margin for messages received from the neighbor.</p>
+</li>
+<li>
+<p>the incoming link quality metric reported by the neighbor for
+messages arriving from this Router.</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Thread.MLE.AssociatedNode.Route.ID"><em>ID</em></a>.</p>
 <div class="diffs">
@@ -26552,12 +26938,18 @@ Thread node.</p>
 <td>
 <p>The IPv6 address may be of one the following types. Enumeration of:</p>
 <ul>
-<li>LinkLocal (Address reachable by a single radio transmission with
-the prefixes fe80::/16).</li>
-<li>MeshLocal (Address reachable within the same Thread network with
-the prefix defined by the Thread network).</li>
-<li>Global (Address reachable from outside a Thread network with the
-prefix provided by the Border Router).</li>
+<li>
+<p>LinkLocal (Address reachable by a single radio transmission with
+the prefixes fe80::/16).</p>
+</li>
+<li>
+<p>MeshLocal (Address reachable within the same Thread network with
+the prefix defined by the Thread network).</p>
+</li>
+<li>
+<p>Global (Address reachable from outside a Thread network with the
+prefix provided by the Border Router).</p>
+</li>
 </ul>
 <div class="diffs">
 <p><strong>Changes since 2.21:</strong></p>
@@ -26736,7 +27128,7 @@ interface of a ZigBee end device, ZigBee router or ZigBee coordinator.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -26858,7 +27250,7 @@ undefined.</p>
 </td>
 <td>
 <p>Whether or not this device is currently present in the ZigBee network as defined in [<a href="#R.ZigBee2007">Section 2.4.4.1/ZigBee2007</a>].</p>
-<p>The ability to list inactive devices is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive devices in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive device. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive devices is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive devices in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive device. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -26976,8 +27368,8 @@ provider bridges.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.Bridge."><em>Bridge</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.Bridge."><em>Bridge</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -27039,8 +27431,8 @@ provider bridges.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.ProviderBridge."><em>ProviderBridge</em></a> table. A non-zero value for this parameter implies support for 802.1Q Provider Bridges.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.ProviderBridge."><em>ProviderBridge</em></a> table. A non-zero value for this parameter implies support for 802.1Q Provider Bridges.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -27060,8 +27452,8 @@ provider bridges.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.Filter."><em>Filter</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.Bridging.Filter."><em>Filter</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -27150,7 +27542,7 @@ provider bridges.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -27697,7 +28089,7 @@ only VLAN tags from the S-VLAN component are utilized.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -27960,7 +28352,7 @@ termination interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -29455,8 +29847,30 @@ description of the working of this IPsec data model.</p>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.AES-192-GMAC"><em>AES-192-GMAC</em></span></li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.AES-256-GMAC"><em>AES-256-GMAC</em></span></li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-128"><em>HMAC-SHA2-256-128</em></span></li>
-<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-192"><em>HMAC-SHA2-256-192</em></span> (This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a>. This enumeration was OBSOLETED in 2.22. :::::: diffs <strong>Changes since 2.21:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> ::::::)</li>
-<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-256"><em>HMAC-SHA2-256-256</em></span> (This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a>. This enumeration was OBSOLETED in 2.22. :::::: diffs <strong>Changes since 2.21:</strong> * Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em> ::::::)</li>
+<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-192"><em>HMAC-SHA2-256-192</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></a>.</p>
+<p>This enumeration was OBSOLETED in 2.22.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
+<li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-256-256"><em>HMAC-SHA2-256-256</em></span> (</li>
+</ul>
+<p>This enumeration was DEPRECATED in 2.20 because the correct value is <a href="#D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></a>.</p>
+<p>This enumeration was OBSOLETED in 2.22.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Changed status = <em>deprecated</em> ⇒ <em>obsoleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-384-192"><em>HMAC-SHA2-384-192</em></span> (Added in 2.20)</li>
 <li><span id="D.Device:2.Device.IPsec.SupportedIntegrityAlgorithms.HMAC-SHA2-512-256"><em>HMAC-SHA2-512-256</em></span> (Added in 2.20)</li>
 </ul>
@@ -29608,7 +30022,7 @@ model will be extended according to the above conventions.</p>
 </td>
 <td>
 <p>SPD selection criterion. The value MUST be the Path Name of a table row.</p>
-<p>This specifies the ingress interface associated with the entry. It MAY be a layer 1, 2 or 3 interface. However, the types of interfaces for which filters can be instantiated is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This specifies the ingress interface associated with the entry. It MAY be a layer 1, 2 or 3 interface. However, the types of interfaces for which filters can be instantiated is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -29961,7 +30375,7 @@ only one instance of this <em>Interface</em> object per tunnel.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -30194,7 +30608,7 @@ point of the tunnel in relation to the LAN interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -30400,7 +30814,7 @@ point of the tunnel in relation to the LAN interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -30630,7 +31044,7 @@ interface.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31616,8 +32030,8 @@ minor nomenclature changes.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the Classification table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the Classification table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31678,8 +32092,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.App."><em>App</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.App."><em>App</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31699,8 +32113,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Flow."><em>Flow</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Flow."><em>Flow</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31720,8 +32134,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Policer."><em>Policer</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Policer."><em>Policer</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31741,8 +32155,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Queue."><em>Queue</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Queue."><em>Queue</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31762,8 +32176,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Shaper."><em>Shaper</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Shaper."><em>Shaper</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -31783,8 +32197,8 @@ A value of 0 means no limit.</p>
 <p>R</p>
 </td>
 <td>
-<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Scheduler."><em>Scheduler</em></a> table.<span class="removed">}}</span><span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
-<p>A value of 0 means no limit.</p>
+<p>The maximum number of entries available in the <a href="#D.Device:2.Device.QoS.Scheduler."><em>Scheduler</em></a> table.<span class="inserted"> When this limit is reached, creating a new entry fails.</span></p>
+<p><span class="inserted">A value of 0 means no limit.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -32720,7 +33134,7 @@ parameter.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. Specifies the egress interface for which the specified queue MUST exist.</p>
-<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Queues</em> can be instantiated is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Queues</em> can be instantiated is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -32808,7 +33222,7 @@ parameter.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. Specifies the egress interface for which this object contains statistics.</p>
-<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>QueueStats</em> can be instantiated is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>QueueStats</em> can be instantiated is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -32879,7 +33293,7 @@ parameter.</p>
 <p>W</p>
 </td>
 <td>
-<p>The value MUST be the Path Name of a table row.The interface object associated with this <em>Shaper</em> entry. It MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Shapers</em> can be instantiated is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The value MUST be the Path Name of a table row.The interface object associated with this <em>Shaper</em> entry. It MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Shapers</em> can be instantiated is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -32949,7 +33363,7 @@ parameter.</p>
 </td>
 <td>
 <p>The value MUST be the Path Name of a table row. Specifies the egress interface for which the specified queue MUST exist.</p>
-<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Queues</em> can be instantiated is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This MAY be a layer 1, 2 or 3 interface, however, the types of interfaces for which <em>Queues</em> can be instantiated is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p><em>&lt;Empty&gt;</em></p>
@@ -34508,8 +34922,12 @@ support the ability to have more than one protocol mapping with the same
 the following precedence order applies (with
 the highest precedence listed first):</p>
 <ol>
-<li>Explicit <em>RemoteHost</em></li>
-<li>Empty <em>RemoteHost</em></li>
+<li>
+<p>Explicit <em>RemoteHost</em></p>
+</li>
+<li>
+<p>Empty <em>RemoteHost</em></p>
+</li>
 </ol>
 <p>If an incoming packet matches the criteria associated with more than
 one entry in this table, the device MUST apply the protocol mapping
@@ -35688,7 +36106,7 @@ criteria of this <a href="#D.Device:2.Device.DHCPv4.Server.Pool."><em>Pool</em><
 </td>
 <td>
 <p>Whether or not the DHCPv4 client is currently present on the LAN. The method of presence detection is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
-<p>The ability to list inactive DHCPv4 clients is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive DHCPv4 clients in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive DHCPv4 client. The length of time an inactive DHCPv4 client remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive DHCPv4 clients is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive DHCPv4 clients in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive DHCPv4 client. The length of time an inactive DHCPv4 client remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -36029,7 +36447,7 @@ operating in stateless mode, <em>StatelessStatus</em> remains <a href="#D.Device
 <p>R</p>
 </td>
 <td>
-<p>The client's DHCP Unique Identifier (DUID) [<a href="#R.RFC9915">Section 11/RFC9915</a>]. <em>DUID</em> is set by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The client's DHCP Unique Identifier (DUID) [<a href="#R.RFC9915">Section 11/RFC9915</a>]. <em>DUID</em> is set by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -36989,7 +37407,7 @@ criteria of this <a href="#D.Device:2.Device.DHCPv6.Server.Pool."><em>Pool</em><
 </td>
 <td>
 <p>Whether or not the DHCPv6 client is currently present on the LAN. The method of presence detection is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
-<p>The ability to list inactive DHCPv6 clients is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive DHCPv6 clients in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive DHCPv6 client. The length of time an inactive DHCPv6 client remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive DHCPv6 clients is OPTIONAL. If the <span class="removed">CPE</span><span class="inserted">device</span> includes inactive DHCPv6 clients in this table, <em>Active</em> MUST be set to <em>false</em> for each inactive DHCPv6 client. The length of time an inactive DHCPv6 client remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37473,7 +37891,7 @@ Device and Discovery related objects and parameters.</p>
 <p>R</p>
 </td>
 <td>
-<p>This object defines the UPnP devices and UPnP services that are implemented by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This object defines the UPnP devices and UPnP services that are implemented by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37542,7 +37960,7 @@ device that has been discovered via SSDP.</p>
 <li><span id="D.Device:2.Device.UPnP.Discovery.RootDevice.Status.LeaseExpired"><em>LeaseExpired</em></span> (Device is inactive because UPnP lease has expired)</li>
 <li><span id="D.Device:2.Device.UPnP.Discovery.RootDevice.Status.ByebyeReceived"><em>ByebyeReceived</em></span> (Device is inactive because byebye message was received)</li>
 </ul>
-<p>The ability to list inactive UPnP root devices is OPTIONAL. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive UPnP root devices is OPTIONAL. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37590,7 +38008,7 @@ embedded device that has been discovered via SSDP.</p>
 <li><span id="D.Device:2.Device.UPnP.Discovery.Device.Status.LeaseExpired"><em>LeaseExpired</em></span> (Device is inactive because UPnP lease has expired)</li>
 <li><span id="D.Device:2.Device.UPnP.Discovery.Device.Status.ByebyeReceived"><em>ByebyeReceived</em></span> (Device is inactive because byebye message was received)</li>
 </ul>
-<p>The ability to list inactive UPnP embedded devices is OPTIONAL. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive UPnP embedded devices is OPTIONAL. The length of time an inactive device remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -37638,7 +38056,7 @@ embedded service that has been discovered via SSDP.</p>
 <li><span id="D.Device:2.Device.UPnP.Discovery.Service.Status.LeaseExpired"><em>LeaseExpired</em></span> (Service is inactive because UPnP lease has expired)</li>
 <li><span id="D.Device:2.Device.UPnP.Discovery.Service.Status.ByebyeReceived"><em>ByebyeReceived</em></span> (Service is inactive because byebye message was received)</li>
 </ul>
-<p>The ability to list inactive UPnP embedded services is OPTIONAL. The length of time an inactive service remains listed in this table is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The ability to list inactive UPnP embedded services is OPTIONAL. The length of time an inactive service remains listed in this table is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -38158,7 +38576,7 @@ indicated by the <a href="#D.Device:2.Device.Firewall.Chain.Creator"><em>Creator
 </td>
 <td>
 <p>Enable or disable logging, in a <a href="#D.Device:2.Device.DeviceInfo.VendorLogFile."><em>DeviceInfo.VendorLogFile</em></a>, of packets matching this <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Rule</em></a>.</p>
-<p>If the <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Rule</em></a> is not <em>Static</em> (as explained in the object description), whether changes to this parameter persist across re-boot is a local matter to the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>If the <a href="#D.Device:2.Device.Firewall.Chain.Rule."><em>Rule</em></a> is not <em>Static</em> (as explained in the object description), whether changes to this parameter persist across re-boot is a local matter to the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>false</p>
@@ -39552,11 +39970,21 @@ connection details.</p>
 <p>The <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Status"><em>Status</em></a> parameter reflects the current state of the transfer process,
 which can transition through the following sequences:</p>
 <ul>
-<li>Idle → Uploading → Success → Idle</li>
-<li>Idle → Uploading → Error → Idle</li>
-<li>Idle → Creating → Error → Idle</li>
-<li>Idle → Creating → Uploading → Success → Idle</li>
-<li>Idle → Creating → Uploading → Error → Idle</li>
+<li>
+<p>Idle → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Uploading → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Error → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Success → Idle</p>
+</li>
+<li>
+<p>Idle → Creating → Uploading → Error → Idle</p>
+</li>
 </ul>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.PeriodicFileTransfer.Transfer.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
@@ -40468,9 +40896,15 @@ is deleted.</p>
 <p>If a certificate with the same <a href="#D.Device:2.Device.Security.AddCertificate.Input.Name"><em>Name</em></a> already exists, the existing certificate
 entry is replaced with the new certificate. This replacement involves:</p>
 <ul>
-<li>The old certificate and its associated private key are securely deleted</li>
-<li>The new certificate is added with the new private key (from the matching CSR)</li>
-<li>The <a href="#D.Device:2.Device.Security.AddCertificate.Input.Name"><em>Name</em></a> is assigned to the new certificate entry</li>
+<li>
+<p>The old certificate and its associated private key are securely deleted</p>
+</li>
+<li>
+<p>The new certificate is added with the new private key (from the matching CSR)</p>
+</li>
+<li>
+<p>The <a href="#D.Device:2.Device.Security.AddCertificate.Input.Name"><em>Name</em></a> is assigned to the new certificate entry</p>
+</li>
 </ul>
 <p>The device SHOULD reject the operation with the following
 fault codes for specific error conditions:</p>
@@ -42131,7 +42565,7 @@ is <a href="#D.Device:2.Device.BulkData.EncodingTypes.JSON"><em>JSON</em></a>.</
 <p>W</p>
 </td>
 <td>
-<p>The [<a href="#T.URL">URL</a>] for the collection server to receive the Bulk Data transmitted by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The [<a href="#T.URL">URL</a>] for the collection server to receive the Bulk Data transmitted by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -42417,8 +42851,12 @@ additional capabilities that apply to the host namespaces.</p>
 <p>This parameter is only applicable when <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.Privileged"><em>Privileged</em></a> is <em>false</em>.
 When <a href="#D.Device:2.Device.SoftwareModules.InstallDU.Input.Privileged"><em>Privileged</em></a> is <em>true</em>, this parameter is ignored.</p>
 <ul>
-<li><em>false</em> - Standard unprivileged container with no host namespace capabilities.</li>
-<li><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</li>
+<li>
+<p><em>false</em> - Standard unprivileged container with no host namespace capabilities.</p>
+</li>
+<li>
+<p><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</p>
+</li>
 </ul>
 <p>The information provided in this input argument is placed in the
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EnableHostNSCapabilities"><em>ExecutionUnit.{i}.EnableHostNSCapabilities</em></a> parameter.</p>
@@ -42590,7 +43028,20 @@ interest of scalability.</p>
 <p>Enumeration of:</p>
 <ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Installed"><em>Installed</em></span> (The Deployment Unit is in an Installed state due to one of the following: successful Install, successful Update, failed Update, or failed Uninstall. In the case of a failed Update or failed Uninstall the Fault argument will contain an explanation of the failure)</li>
-<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (The Deployment Unit was successfully uninstalled from the device. This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization. This enumeration was OBSOLETED in 2.21. This enumeration was DELETED in 2.22. ::::: diffs <strong>Changes since 2.21:</strong> * Changed status = <em>obsoleted</em> ⇒ <em>deleted</em> :::::)</li>
+<li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.UnInstalled"><em>UnInstalled</em></span> (</li>
+</ul>
+<p>The Deployment Unit was successfully uninstalled from the device.</p>
+<p>This enumeration was DEPRECATED in 2.19 due to a typographical error in capitalization.</p>
+<p>This enumeration was OBSOLETED in 2.21.</p>
+<p>This enumeration was DELETED in 2.22.</p>
+<div class="diffs">
+<p><strong>Changes since 2.21:</strong></p>
+<ul>
+<li>Changed status = <em>obsoleted</em> ⇒ <em>deleted</em></li>
+</ul>
+</div>
+<p>)</p>
+<ul>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Uninstalled"><em>Uninstalled</em></span> (The Deployment Unit was successfully uninstalled from the device, added in 2.19)</li>
 <li><span id="D.Device:2.Device.SoftwareModules.DUStateChange.CurrentState.Failed"><em>Failed</em></span> (The Deployment Unit could not be installed in which case a Deployment Unit instance MUST NOT be created in the Data Model)</li>
 </ul>
@@ -42690,8 +43141,12 @@ additional capabilities that apply to the host namespaces.</p>
 <p>This parameter is only applicable when <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.Privileged"><em>Privileged</em></a> is <em>false</em>.
 When <a href="#D.Device:2.Device.SoftwareModules.DeploymentUnit.Update.Input.Privileged"><em>Privileged</em></a> is <em>true</em>, this parameter is ignored.</p>
 <ul>
-<li><em>false</em> - Standard unprivileged container with no host namespace capabilities.</li>
-<li><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</li>
+<li>
+<p><em>false</em> - Standard unprivileged container with no host namespace capabilities.</p>
+</li>
+<li>
+<p><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</p>
+</li>
 </ul>
 <p>The information provided in this input argument is placed in the
 <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.EnableHostNSCapabilities"><em>ExecutionUnit.{i}.EnableHostNSCapabilities</em></a> parameter.</p>
@@ -42903,8 +43358,12 @@ displaying status and maintaining configuration that reside under the
 capabilities that apply to the host namespaces.</p>
 <p>This parameter is only applicable when <a href="#D.Device:2.Device.SoftwareModules.ExecutionUnit.Privileged"><em>Privileged</em></a> is <em>false</em>.</p>
 <ul>
-<li><em>false</em> - Standard unprivileged container with no host namespace capabilities.</li>
-<li><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</li>
+<li>
+<p><em>false</em> - Standard unprivileged container with no host namespace capabilities.</p>
+</li>
+<li>
+<p><em>true</em>  - Unprivileged container with extra capabilities applying to host namespaces.</p>
+</li>
 </ul>
 </td>
 <td>
@@ -43340,7 +43799,7 @@ Abstraction Layer/IEEE1905.1a</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Indicates the maximum number of subscriptions per MQTT client, which can be stored in the <a href="#D.Device:2.Device.MQTT.Client.Subscription."><em>Client.{i}.Subscription</em></a> table.<span class="inserted"> When this limit is reached, creating a new subscription fails.</span> A value of 0 means no limit.</p>
+<p>Indicates the maximum number of subscriptions per MQTT client, which can be stored in the <a href="#D.Device:2.Device.MQTT.Client.Subscription."><em>Client.{i}.Subscription</em></a> table. <span class="inserted">When this limit is reached, creating a new subscription fails. </span>A value of 0 means no limit.</p>
 </td>
 <td>
 <p>-</p>
@@ -43360,7 +43819,7 @@ Abstraction Layer/IEEE1905.1a</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Indicates the maximum number of bridges, which can be configured in the <a href="#D.Device:2.Device.MQTT.Broker.Bridge."><em>Broker.{i}.Bridge</em></a> table.<span class="inserted"> When this limit is reached, creating a new bridge fails.</span> A value of 0 means no limit.</p>
+<p>Indicates the maximum number of bridges, which can be configured in the <a href="#D.Device:2.Device.MQTT.Broker.Bridge."><em>Broker.{i}.Bridge</em></a> table. <span class="inserted">When this limit is reached, creating a new bridge fails. </span>A value of 0 means no limit.</p>
 </td>
 <td>
 <p>-</p>
@@ -43380,7 +43839,7 @@ Abstraction Layer/IEEE1905.1a</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>Indicates the maximum number of subscriptions, which can be stored per bridge instance in the <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription."><em>Broker.{i}.Bridge.{i}.Subscription</em></a> table.<span class="inserted"> When this limit is reached, creating a new subscription fails.</span> A value of 0 means no limit.</p>
+<p>Indicates the maximum number of subscriptions, which can be stored per bridge instance in the <a href="#D.Device:2.Device.MQTT.Broker.Bridge.Subscription."><em>Broker.{i}.Bridge.{i}.Subscription</em></a> table. <span class="inserted">When this limit is reached, creating a new subscription fails. </span>A value of 0 means no limit.</p>
 </td>
 <td>
 <p>-</p>
@@ -43647,7 +44106,7 @@ for encrypted (e.g., TLS) and unencrypted connections).</p>
 <p>R</p>
 </td>
 <td>
-<p>Comma-separated list (maximum number of characters 1024) of strings. List of Dynamic DNS service names that are supported by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>Comma-separated list (maximum number of characters 1024) of strings. List of Dynamic DNS service names that are supported by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -43690,7 +44149,7 @@ for encrypted (e.g., TLS) and unencrypted connections).</p>
 <p>W</p>
 </td>
 <td>
-<p>Table of Dynamic DNS servers available for this <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>Table of Dynamic DNS servers available for this <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.DynamicDNS.Server.Name"><em>Name</em></a>, or with a given value for <a href="#D.Device:2.Device.DynamicDNS.Server.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose initial values for <a href="#D.Device:2.Device.DynamicDNS.Server.Name"><em>Name</em></a> and <a href="#D.Device:2.Device.DynamicDNS.Server.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -43949,7 +44408,7 @@ parameters for all of the entries in this table.</p>
 </td>
 <td>
 <p>The desired brightness level for this element of the cycle period, expressed as a <em>percentage</em>, relative to the maximum allowed brightness value specified in <a href="#D.Device:2.Device.LEDs.LED.MaxBrightness"><em>MaxBrightness</em></a>.</p>
-<p>The value should <span class="removed">not exceed</span><span class="inserted">respect</span> the <span class="removed">maximum </span>brightness <span class="removed">level</span><span class="inserted">limits that are</span> specified in <strong>{{param: non-existent .LEDs.BrightnessLimiter and <a href="#D.Device:2.Device.LEDs.LED.BrightnessLimiter"><em>LEDs.LED.{i}.BrightnessLimiter</em></a>}}</strong>.</p>
+<p>The value should <span class="removed">not exceed</span><span class="inserted">respect</span> the <span class="removed">maximum </span>brightness <span class="removed">level</span><span class="inserted">limits that are</span> specified in <span class="removed">{{param|##.BrightnessLimiter}}</span><span class="inserted"><a href="#D.Device:2.Device.LEDs.BrightnessLimiter"><em>LEDs.BrightnessLimiter</em></a> and <a href="#D.Device:2.Device.LEDs.LED.BrightnessLimiter"><em>LEDs.LED.{i}.BrightnessLimiter</em></a></span>.</p>
 </td>
 <td>
 <p>-</p>
@@ -44140,7 +44599,7 @@ defined at a time.</p>
 <p>W</p>
 </td>
 <td>
-<p>The <em>Instruction</em> object defines the instruction to the measurement agent by the measurement controller. At most one <em>Instruction</em> object for the <a href="#D.Device:2.Device.LMAP.MeasurementAgent."><em>MeasurementAgent</em></a> instance is enabled at a time.<span class="removed"> .}}</span></p>
+<p>The <em>Instruction</em> object defines the instruction to the measurement agent by the measurement controller. At most one <em>Instruction</em> object for the <a href="#D.Device:2.Device.LMAP.MeasurementAgent."><em>MeasurementAgent</em></a> instance is enabled at a time.<span class="removed"> .</span></p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.LMAP.MeasurementAgent.Instruction.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.LMAP.MeasurementAgent.Instruction.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -44437,7 +44896,7 @@ support N1 messaging.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the Access Network entry as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the Access Network entry as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -46652,7 +47111,7 @@ interface object as described in [<a href="#R.TR-181i2">Section 4.2/TR-181i2</a>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -46823,7 +47282,7 @@ packets.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -46917,7 +47376,7 @@ Ethernet frames.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -47005,7 +47464,7 @@ based PON standards.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the ONU as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the ONU as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -47060,7 +47519,7 @@ EthernetUNI models a virtual UNI.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -47250,7 +47709,7 @@ parameter.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the ANI entry as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the ANI entry as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
 <td>
@@ -47516,7 +47975,7 @@ history data/G.988</a>].</p>
 <p>R</p>
 </td>
 <td>
-<p>This object contains global parameters relating to the Secure Shell clients and or servers implementations that are active in the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>This object contains global parameters relating to the Secure Shell clients and or servers implementations that are active in the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -47598,7 +48057,7 @@ history data/G.988</a>].</p>
 </td>
 <td>
 <p>This table defines the processing used to select log messages by comparing syslog message with the provided rules.</p>
-<p>A rule can consist <span class="removed">either</span><span class="inserted">of any combination</span> of <a href="#D.Device:2.Device.Syslog.Filter.FacilityLevel"><em>FacilityLevel</em></a><span class="removed"> -</span><span class="inserted">,</span> <a href="#D.Device:2.Device.Syslog.Filter.Severity"><em>Severity</em></a><span class="inserted">,</span> and <span class="removed">or </span><a href="#D.Device:2.Device.Syslog.Filter.PatternMatch"><em>PatternMatch</em></a>.</p>
+<p>A rule can consist <span class="removed">either</span><span class="inserted">of any combination</span> of <a href="#D.Device:2.Device.Syslog.Filter.FacilityLevel"><em>FacilityLevel</em></a><span class="removed"> -</span><span class="inserted">,</span> <a href="#D.Device:2.Device.Syslog.Filter.Severity"><em>Severity</em></a><span class="inserted">,</span> and<span class="removed"> or</span> <a href="#D.Device:2.Device.Syslog.Filter.PatternMatch"><em>PatternMatch</em></a>.</p>
 <p>At most one entry in this table can exist with a given value for <a href="#D.Device:2.Device.Syslog.Filter.Alias"><em>Alias</em></a>. On creation of a new table entry, the Agent MUST (if not supplied by the Controller on creation) choose an initial value for <a href="#D.Device:2.Device.Syslog.Filter.Alias"><em>Alias</em></a> such that the new entry does not conflict with any existing entries.</p>
 </td>
 <td>
@@ -48022,7 +48481,7 @@ This object contains the <em>Session</em> table.</p>
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 </td>
 <td>
 <p>-</p>
@@ -49037,7 +49496,7 @@ interfaces within a tunnel. Therefore, a WireGuard Tunnel will only have one
 <p>R</p>
 </td>
 <td>
-<p>The textual name of the interface as assigned by the <span class="removed">CPE.}}</span><span class="inserted">device.</span></p>
+<p>The textual name of the interface as assigned by the <span class="removed">CPE.</span><span class="inserted">device.</span></p>
 <p>The Agent MUST choose an initial value that  doesn't conflict with any existing entries.</p>
 <p>This is a non-functional key and its value MUST NOT change once it's been set internally by the Agent.</p>
 </td>
@@ -49247,8 +49706,10 @@ action, or both, as controlled by <a href="#D.Device:2.Device.LocalAgent.Subscri
 <td>
 <p>Comma-separated list of strings (maximum number of characters per item 256). Each entry in the list is a Path Name, Search Path, Command reference, or Event reference that determines the element(s) of the data model that the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> is applicable to.</p>
 <p>Different values of the <a href="#D.Device:2.Device.LocalAgent.Subscription.NotifType"><em>NotifType</em></a> parameter will cause the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> to interact with <em>ReferenceList</em> differently. For example, an instance of <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> with <a href="#D.Device:2.Device.LocalAgent.Subscription.NotifType.ValueChange"><em>ValueChange</em></a> will utilize the value of this parameter differently than an instance with <a href="#D.Device:2.Device.LocalAgent.Subscription.NotifType.Event"><em>Event</em></a>.</p>
+<div class="inserted">
 <p>Once the value of the <em>ReferenceList</em> is written, the value cannot be changed as the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> instance is considered to be immutable. If the value of a non-empty <em>ReferenceList</em> parameter needs to change, the <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> instance MUST be deleted and a new <a href="#D.Device:2.Device.LocalAgent.Subscription."><em>Subscription</em></a> instance created.</p>
-<p><span class="inserted">Note: This parameter was changed to writeOnceReadOnly in the Device:2.22 version to align with existing functionality defined within the description.</span></p>
+<p>Note: This parameter was changed to writeOnceReadOnly in the Device:2.22 version to align with existing functionality defined within the description.</p>
+</div>
 <p>The following bullet points describe what is allowed as a value of <em>ReferenceList</em> based on the different values of the <a href="#D.Device:2.Device.LocalAgent.Subscription.NotifType"><em>NotifType</em></a> parameter:</p>
 <ul>
 <li>
@@ -49653,10 +50114,11 @@ The current value reading of this <a href="#D.Device:2.Device.IoTCapability.Blob
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:09:18 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 12:59:22 UTC.<br />
 report.py --include ../../install/cwmp --output tr-181-2-22-0-usp-diffs.html --show --transform diff --format html tr-181-2-21-0-usp.xml tr-181-2-22-0-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -50934,5 +51396,5 @@ report.py --include ../../install/cwmp --output tr-181-2-22-0-usp-diffs.html --s
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>

@@ -30,25 +30,23 @@
             display: flex;
             align-items: stretch;
             margin: 0px;
-            /* XXX this is experimental; may need to insert zero-width spaces */
-            overflow-wrap: break-word;
+            overflow: hidden;
+            height: 100vh;
         }
 
         #main {
-            flex: 4 2 auto;
+            flex: 1;
             overflow: auto;
             order: 2;
             padding: 5px;
+            position: relative;
         }
 
         #TOC {
             position: sticky;
             order: 1;
-            flex: 1 0 auto;
-            margin: 0 0;
             top: 0px;
             left: 0px;
-            height: 100vh;
             line-height: 1.4;
             resize: horizontal;
             font-size: larger;
@@ -74,6 +72,44 @@
 
         #TOC {
             z-index: 1;
+        }
+
+        /* hide TOC when checkbox checked */
+        #toc-toggle:checked ~ #TOC {
+            width: 0;
+            min-width: 0;
+            padding: 0;
+            border-right: 0;
+        }
+
+        /* toggle button */
+        .toc-toggle {
+            display: block;
+            padding: .5rem;
+            text-align: center;
+        }
+
+        .show-toc {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: .4rem .8rem;
+        }
+
+        /* show the button only when the TOC is collapsed */
+        #toc-toggle:checked ~ #main .show-toc {
+            display: inline-block;
+        }
+
+        /* hide divider when TOC collapsed */
+        #toc-toggle: checked ~ #TOC + #main {
+            grid-column:1 / span 2;   /* content now occupies both columns */
+        }
+
+        #toc-toggle:checked ~ #TOC {
+            /* collapse the first column */
+            grid-column: 1 / span 0;
         }
     }
     </style>
@@ -802,7 +838,9 @@
 </head>
 
 <body>
-<div id="main">
+<input type="checkbox" id="toc-toggle" hidden/>
+<main id="main">
+<label for="toc-toggle" class="show-toc">☰ Show ToC</label>
 <table class="full-width">
 <colgroup>
 <col style="width: 3%;">
@@ -1171,29 +1209,29 @@ value for the bin measurement.</p>
 <p>This data type defines the CM connectivity state as reported by the CM.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..Other"><em>Other</em></span> (indicates any state not described below)</li>
-<li><span id="D..NotReady"><em>NotReady</em></span> (indicates that the CM has not started the registration process yet)</li>
-<li><span id="D..NotSynchronized"><em>NotSynchronized</em></span> (indicates that the CM has not initiated or completed the synchronization of the downstream physical layer)</li>
-<li><span id="D..PhySynchronized"><em>PhySynchronized</em></span> (indicates that the CM has completed the synchronization of the downstream physical layer)</li>
-<li><span id="D..UsParametersAcquired"><em>UsParametersAcquired</em></span> (indicates that the CM has completed the upstream parameters acquisition or have completed the downstream and upstream service groups resolution, whether the CM is registering in a pre-3.0 or a 3.0 CMTS)</li>
-<li><span id="D..RangingComplete"><em>RangingComplete</em></span> (indicates that the CM has completed initial ranging and received a Ranging Status of success from the CMTS in the RNG-RSP message)</li>
-<li><span id="D..DHCPv4Complete"><em>DHCPv4Complete</em></span> (indicates that the CM has received a DHCPv4 ACK message from the CMTS)</li>
-<li><span id="D..ToDEstablished"><em>ToDEstablished</em></span> (indicates that the CM has successfully acquired time of day. If the ToD is acquired after the CM is operational, this value should not be reported)</li>
-<li><span id="D..SecurityEstablished"><em>SecurityEstablished</em></span> (indicates that the CM has successfully completed the BPI initialization process)</li>
-<li><span id="D..ConfigFileDownloadComplete"><em>ConfigFileDownloadComplete</em></span> (indicates that the CM has completed the config file download process)</li>
-<li><span id="D..RegistrationComplete"><em>RegistrationComplete</em></span> (indicates that the CM has successfully completed the Registration process with the CMTS)</li>
-<li><span id="D..Operational"><em>Operational</em></span> (indicates that the CM has completed all necessary initialization steps and is operational)</li>
-<li><span id="D..AccessDenied"><em>AccessDenied</em></span> (indicates that the CM has received a registration aborted notification from the CMTS)</li>
-<li><span id="D..EAEInProgress"><em>EAEInProgress</em></span> (indicates that the CM has sent an Auth Info message for EAE)</li>
-<li><span id="D..DHCPv4InProgress"><em>DHCPv4InProgress</em></span> (indicates that the CM has sent a DHCPv4 DISCOVER to gain IP connectivity)</li>
-<li><span id="D..DHCPv6InProgress"><em>DHCPv6InProgress</em></span> (indicates that the CM has sent an DHCPv6 Solicit message)</li>
-<li><span id="D..DHCPv6Complete"><em>DHCPv6Complete</em></span> (indicates that the CM has received a DHCPv6 Reply message from the CMTS)</li>
-<li><span id="D..RegistrationInProgress"><em>RegistrationInProgress</em></span> (indicates that the CM has sent a Registration Request (REG-REQ or REG-REQ-MP))</li>
-<li><span id="D..BPIInit"><em>BPIInit</em></span> (indicates that the CM has started the BPI initialization process as indicated in the CM config file. If the CM already performed EAE, this state is skipped by the CM)</li>
-<li><span id="D..ForwardingDisabled"><em>ForwardingDisabled</em></span> (indicates that the registration process was completed, but the network access option in the received configuration file prohibits forwarding)</li>
-<li><span id="D..DsTopologyResolutionInProgress"><em>DsTopologyResolutionInProgress</em></span> (indicates that the CM is attempting to determine its MD-DS-SG)</li>
-<li><span id="D..RangingInProgress"><em>RangingInProgress</em></span> (indicates that the CM has initiated the ranging process)</li>
-<li><span id="D..RFMuteAll"><em>RFMuteAll</em></span> (indicates that the CM is instructed to mute all channels in the CM-CTRL-REQ message from CMTS)</li>
+<li><span id="D..Other"><em>Other</em> [<code>1</code>]</span> (indicates any state not described below)</li>
+<li><span id="D..NotReady"><em>NotReady</em> [<code>2</code>]</span> (indicates that the CM has not started the registration process yet)</li>
+<li><span id="D..NotSynchronized"><em>NotSynchronized</em> [<code>3</code>]</span> (indicates that the CM has not initiated or completed the synchronization of the downstream physical layer)</li>
+<li><span id="D..PhySynchronized"><em>PhySynchronized</em> [<code>4</code>]</span> (indicates that the CM has completed the synchronization of the downstream physical layer)</li>
+<li><span id="D..UsParametersAcquired"><em>UsParametersAcquired</em> [<code>5</code>]</span> (indicates that the CM has completed the upstream parameters acquisition or have completed the downstream and upstream service groups resolution, whether the CM is registering in a pre-3.0 or a 3.0 CMTS)</li>
+<li><span id="D..RangingComplete"><em>RangingComplete</em> [<code>6</code>]</span> (indicates that the CM has completed initial ranging and received a Ranging Status of success from the CMTS in the RNG-RSP message)</li>
+<li><span id="D..DHCPv4Complete"><em>DHCPv4Complete</em> [<code>7</code>]</span> (indicates that the CM has received a DHCPv4 ACK message from the CMTS)</li>
+<li><span id="D..ToDEstablished"><em>ToDEstablished</em> [<code>8</code>]</span> (indicates that the CM has successfully acquired time of day. If the ToD is acquired after the CM is operational, this value should not be reported)</li>
+<li><span id="D..SecurityEstablished"><em>SecurityEstablished</em> [<code>9</code>]</span> (indicates that the CM has successfully completed the BPI initialization process)</li>
+<li><span id="D..ConfigFileDownloadComplete"><em>ConfigFileDownloadComplete</em> [<code>10</code>]</span> (indicates that the CM has completed the config file download process)</li>
+<li><span id="D..RegistrationComplete"><em>RegistrationComplete</em> [<code>11</code>]</span> (indicates that the CM has successfully completed the Registration process with the CMTS)</li>
+<li><span id="D..Operational"><em>Operational</em> [<code>12</code>]</span> (indicates that the CM has completed all necessary initialization steps and is operational)</li>
+<li><span id="D..AccessDenied"><em>AccessDenied</em> [<code>13</code>]</span> (indicates that the CM has received a registration aborted notification from the CMTS)</li>
+<li><span id="D..EAEInProgress"><em>EAEInProgress</em> [<code>14</code>]</span> (indicates that the CM has sent an Auth Info message for EAE)</li>
+<li><span id="D..DHCPv4InProgress"><em>DHCPv4InProgress</em> [<code>15</code>]</span> (indicates that the CM has sent a DHCPv4 DISCOVER to gain IP connectivity)</li>
+<li><span id="D..DHCPv6InProgress"><em>DHCPv6InProgress</em> [<code>16</code>]</span> (indicates that the CM has sent an DHCPv6 Solicit message)</li>
+<li><span id="D..DHCPv6Complete"><em>DHCPv6Complete</em> [<code>17</code>]</span> (indicates that the CM has received a DHCPv6 Reply message from the CMTS)</li>
+<li><span id="D..RegistrationInProgress"><em>RegistrationInProgress</em> [<code>18</code>]</span> (indicates that the CM has sent a Registration Request (REG-REQ or REG-REQ-MP))</li>
+<li><span id="D..BPIInit"><em>BPIInit</em> [<code>19</code>]</span> (indicates that the CM has started the BPI initialization process as indicated in the CM config file. If the CM already performed EAE, this state is skipped by the CM)</li>
+<li><span id="D..ForwardingDisabled"><em>ForwardingDisabled</em> [<code>20</code>]</span> (indicates that the registration process was completed, but the network access option in the received configuration file prohibits forwarding)</li>
+<li><span id="D..DsTopologyResolutionInProgress"><em>DsTopologyResolutionInProgress</em> [<code>21</code>]</span> (indicates that the CM is attempting to determine its MD-DS-SG)</li>
+<li><span id="D..RangingInProgress"><em>RangingInProgress</em> [<code>22</code>]</span> (indicates that the CM has initiated the ranging process)</li>
+<li><span id="D..RFMuteAll"><em>RFMuteAll</em> [<code>23</code>]</span> (indicates that the CM is instructed to mute all channels in the CM-CTRL-REQ message from CMTS)</li>
 </ul>
 <p>See [<a href="#R.CM-SP-MULPIv3.0">CM-SP-MULPIv3.0</a>], Cable Modem - CMTS Interaction.</p>
 </td>
@@ -1242,11 +1280,11 @@ of 8 symbols will be 36 (4 + 4x8).</p>
 <p>Indicates the DOCSIS Upstream Channel Type.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..Unknown"><em>Unknown</em></span> (Information not available)</li>
-<li><span id="D..TDMA"><em>TDMA</em></span> (Time Division Multiple Access)</li>
-<li><span id="D..ATDMA"><em>ATDMA</em></span> (Advanced Time Division Multiple Access)</li>
-<li><span id="D..SCDMA"><em>SCDMA</em></span> (Synchronous Code Division Multiple Access)</li>
-<li><span id="D..TDMAAndATDMA"><em>TDMAAndATDMA</em></span> (Simultaneous support of TDMA and A-TDMA modes)</li>
+<li><span id="D..Unknown"><em>Unknown</em> [<code>0</code>]</span> (Information not available)</li>
+<li><span id="D..TDMA"><em>TDMA</em> [<code>1</code>]</span> (Time Division Multiple Access)</li>
+<li><span id="D..ATDMA"><em>ATDMA</em> [<code>2</code>]</span> (Advanced Time Division Multiple Access)</li>
+<li><span id="D..SCDMA"><em>SCDMA</em> [<code>3</code>]</span> (Synchronous Code Division Multiple Access)</li>
+<li><span id="D..TDMAAndATDMA"><em>TDMAAndATDMA</em> [<code>4</code>]</span> (Simultaneous support of TDMA and A-TDMA modes)</li>
 </ul>
 </td>
 </tr>
@@ -1676,12 +1714,12 @@ for PSD is -30 to -200 dBm/Hz.</p>
 enumerated values associated with the RangingState are:</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..Other"><em>Other</em></span> (indicates any state not described below)</li>
-<li><span id="D..Aborted"><em>Aborted</em></span> (indicates that the CMTS has sent a ranging abort)</li>
-<li><span id="D..RetriesExceeded"><em>RetriesExceeded</em></span> (indicates that the CM ranging retry limit has exceeded)</li>
-<li><span id="D..Success"><em>Success</em></span> (indicates that the CMTS has sent a ranging success in the ranging response)</li>
-<li><span id="D..Continue"><em>Continue</em></span> (indicates that the CMTS has sent a ranging continue in the ranging response)</li>
-<li><span id="D..TimeoutT4"><em>TimeoutT4</em></span> (indicates that the T4 timer expired on the CM)</li>
+<li><span id="D..Other"><em>Other</em> [<code>1</code>]</span> (indicates any state not described below)</li>
+<li><span id="D..Aborted"><em>Aborted</em> [<code>2</code>]</span> (indicates that the CMTS has sent a ranging abort)</li>
+<li><span id="D..RetriesExceeded"><em>RetriesExceeded</em> [<code>3</code>]</span> (indicates that the CM ranging retry limit has exceeded)</li>
+<li><span id="D..Success"><em>Success</em> [<code>4</code>]</span> (indicates that the CMTS has sent a ranging success in the ranging response)</li>
+<li><span id="D..Continue"><em>Continue</em> [<code>5</code>]</span> (indicates that the CMTS has sent a ranging continue in the ranging response)</li>
+<li><span id="D..TimeoutT4"><em>TimeoutT4</em> [<code>6</code>]</span> (indicates that the T4 timer expired on the CM)</li>
 </ul>
 <p>See [<a href="#R.CM-SP-MULPIv3.0">CM-SP-MULPIv3.0</a>], Cable Modem - CMTS Interaction.</p>
 </td>
@@ -1742,14 +1780,14 @@ made to set the object to an unsupported window function, an error of
 inconsistentValue will be returned.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..Other"><em>Other</em></span></li>
-<li><span id="D..Hann"><em>Hann</em></span></li>
-<li><span id="D..BlackmanHarris"><em>BlackmanHarris</em></span></li>
-<li><span id="D..Rectangular"><em>Rectangular</em></span></li>
-<li><span id="D..Hamming"><em>Hamming</em></span></li>
-<li><span id="D..FlatTop"><em>FlatTop</em></span></li>
-<li><span id="D..Gaussian"><em>Gaussian</em></span></li>
-<li><span id="D..Chebyshev"><em>Chebyshev</em></span></li>
+<li><span id="D..Other"><em>Other</em> [<code>0</code>]</span></li>
+<li><span id="D..Hann"><em>Hann</em> [<code>1</code>]</span></li>
+<li><span id="D..BlackmanHarris"><em>BlackmanHarris</em> [<code>2</code>]</span></li>
+<li><span id="D..Rectangular"><em>Rectangular</em> [<code>3</code>]</span></li>
+<li><span id="D..Hamming"><em>Hamming</em> [<code>4</code>]</span></li>
+<li><span id="D..FlatTop"><em>FlatTop</em> [<code>5</code>]</span></li>
+<li><span id="D..Gaussian"><em>Gaussian</em> [<code>6</code>]</span></li>
+<li><span id="D..Chebyshev"><em>Chebyshev</em> [<code>7</code>]</span></li>
 </ul>
 </td>
 </tr>
@@ -18239,8 +18277,8 @@ complex component of the uncalibrated echo response (UER);</p>
 integers.</p>
 <p>The interpretation of the UER value is as defined in
 [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</p>
-<p>The value of UER at frequency i*<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERGroupSize"><em>UERGroupSize</em></a><em>Df =
-(<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERScaleFactor"><em>UERScaleFactor</em></a>/(2^31))</em>(a(i)+j*b(i))/(2^31) where Df =
+<p>The value of UER at frequency i*<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERGroupSize"><em>UERGroupSize</em></a>*Df =
+(<a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERScaleFactor"><em>UERScaleFactor</em></a>/(2<sup>31))*(a(i)+j*b(i))/(2</sup>31) where Df =
 4.3125 kHz.</p>
 <p>This parameter is defined as CPE SELT uncalibrated echo response
 (SELT-UER-R) in ITU-T Recommendation [<a href="#R.G.996.2">Clause A.2.2.1/G.996.2</a>].</p>
@@ -27205,10 +27243,10 @@ of <a href="#D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.Unknown"><em>
 modulation profiles implied by <a href="#D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM64"><em>QAM64</em></a> and <a href="#D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM256"><em>QAM256</em></a>.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.Unknown"><em>Unknown</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.Other"><em>Other</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM64"><em>QAM64</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM256"><em>QAM256</em></span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.Unknown"><em>Unknown</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.Other"><em>Other</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM64"><em>QAM64</em> [<code>3</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Modulation.QAM256"><em>QAM256</em> [<code>4</code>]</span></li>
 </ul>
 <p>See [<a href="#R.CM-SP-RFIv2.0">Table 6-17./CM-SP-RFIv2.0</a>]</p>
 </td>
@@ -27242,14 +27280,14 @@ reference for the FEC configuration described by the setting of this
 object.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Unknown"><em>Unknown</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Other"><em>Other</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps8Increment16"><em>Taps8Increment16</em></span> (Protection 5.9/4.1 usec, latency .22/.15 msec)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps16Increment8"><em>Taps16Increment8</em></span> (Protection 12/8.2 usec, latency .48/.33 msec)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps32Increment4"><em>Taps32Increment4</em></span> (Protection 24/16 usec, latency .98/.68 msec)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps64Increment2"><em>Taps64Increment2</em></span> (Protection 47/33 usec, latency 2/1.4 msec)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps128Increment1"><em>Taps128Increment1</em></span> (Protection 95/66 usec, latency 4/2.8 msec)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps12increment17"><em>Taps12increment17</em></span> (Protection 18/14 usec, latency 0.43/0.32 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Unknown"><em>Unknown</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Other"><em>Other</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps8Increment16"><em>Taps8Increment16</em> [<code>3</code>]</span> (Protection 5.9/4.1 usec, latency .22/.15 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps16Increment8"><em>Taps16Increment8</em> [<code>4</code>]</span> (Protection 12/8.2 usec, latency .48/.33 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps32Increment4"><em>Taps32Increment4</em> [<code>5</code>]</span> (Protection 24/16 usec, latency .98/.68 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps64Increment2"><em>Taps64Increment2</em> [<code>6</code>]</span> (Protection 47/33 usec, latency 2/1.4 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps128Increment1"><em>Taps128Increment1</em> [<code>7</code>]</span> (Protection 95/66 usec, latency 4/2.8 msec)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Interleave.Taps12increment17"><em>Taps12increment17</em> [<code>8</code>]</span> (Protection 18/14 usec, latency 0.43/0.32 msec)</li>
 </ul>
 <p>See [<a href="#R.CM-SP-RFIv2.0">Table 6-15/CM-SP-RFIv2.0</a>].</p>
 </td>
@@ -27299,11 +27337,11 @@ recommended and required power levels.</p>
 implementation to important regional cable standards.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.Unknown"><em>Unknown</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.Other"><em>Other</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexA"><em>AnnexA</em></span> (Annex A from ITU-T J.83 is used (equivalent to EN 300 429))</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexB"><em>AnnexB</em></span> (Annex B from ITU-T J.83 is used)</li>
-<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexC"><em>AnnexC</em></span> (Annex C from ITU-T J.83 is used)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.Unknown"><em>Unknown</em> [<code>1</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.Other"><em>Other</em> [<code>2</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexA"><em>AnnexA</em> [<code>3</code>]</span> (Annex A from ITU-T J.83 is used (equivalent to EN 300 429))</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexB"><em>AnnexB</em> [<code>4</code>]</span> (Annex B from ITU-T J.83 is used)</li>
+<li><span id="D.Device:2.Device.DOCSIS.DownstreamChannel.Annex.AnnexC"><em>AnnexC</em> [<code>5</code>]</span> (Annex C from ITU-T J.83 is used)</li>
 </ul>
 <p>See [<a href="#R.CM-SP-RFIv2.0">Sections 6.3.1, and H.3.1/CM-SP-RFIv2.0</a>].</p>
 </td>
@@ -28332,8 +28370,8 @@ Therefore, there is no specific bit required to explicitly indicate
 this capability.</p>
 <p>Each list item is an enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DOCSIS.Interface.Capabilities.ATMCells"><em>ATMCells</em></span></li>
-<li><span id="D.Device:2.Device.DOCSIS.Interface.Capabilities.Concatenation"><em>Concatenation</em></span></li>
+<li><span id="D.Device:2.Device.DOCSIS.Interface.Capabilities.ATMCells"><em>ATMCells</em> [<code>0</code>]</span></li>
+<li><span id="D.Device:2.Device.DOCSIS.Interface.Capabilities.Concatenation"><em>Concatenation</em> [<code>1</code>]</span></li>
 </ul>
 </td>
 <td>
@@ -28410,9 +28448,9 @@ CM relies upon the CMTS to facilitate the successful IP address
 acquisition independently of the MDD.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.IPv4Only"><em>IPv4Only</em></span> (The Cable Modem will initiate the acquisition of a single IPv4 address for the Cable Modem management stack)</li>
-<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.IPv6Only"><em>IPv6Only</em></span> (The Cable Modem will initiate the acquisition of a single IPv6 address for the Cable Modem management stack)</li>
-<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.HonorMDD"><em>HonorMDD</em></span> (The Cable Modem will initiate the acquisition of an IPv6 or IPv4 address as directed by the MDD message for provisioning and operation)</li>
+<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.IPv4Only"><em>IPv4Only</em> [<code>0</code>]</span> (The Cable Modem will initiate the acquisition of a single IPv4 address for the Cable Modem management stack)</li>
+<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.IPv6Only"><em>IPv6Only</em> [<code>1</code>]</span> (The Cable Modem will initiate the acquisition of a single IPv6 address for the Cable Modem management stack)</li>
+<li><span id="D.Device:2.Device.DOCSIS.Interface.MdCfgIpProvMode.HonorMDD"><em>HonorMDD</em> [<code>4</code>]</span> (The Cable Modem will initiate the acquisition of an IPv6 or IPv4 address as directed by the MDD message for provisioning and operation)</li>
 </ul>
 <p>See [<a href="#R.CM-SP-MULPIv3.0">CM-SP-MULPIv3.0</a>], IP Initialization Parameters TLV
 Section.</p>
@@ -29343,14 +29381,14 @@ reported. Use of &quot;modern&quot; windowing functions not yet defined will
 likely be reported as <a href="#D..Other"><em>Other</em></a>.</p>
 <p>Enumeration of:</p>
 <ul>
-<li><span id="D..Other"><em>Other</em></span></li>
-<li><span id="D..Hann"><em>Hann</em></span></li>
-<li><span id="D..BlackmanHarris"><em>BlackmanHarris</em></span></li>
-<li><span id="D..Rectangular"><em>Rectangular</em></span></li>
-<li><span id="D..Hamming"><em>Hamming</em></span></li>
-<li><span id="D..FlatTop"><em>FlatTop</em></span></li>
-<li><span id="D..Gaussian"><em>Gaussian</em></span></li>
-<li><span id="D..Chebyshev"><em>Chebyshev</em></span></li>
+<li><span id="D..Other"><em>Other</em> [<code>0</code>]</span></li>
+<li><span id="D..Hann"><em>Hann</em> [<code>1</code>]</span></li>
+<li><span id="D..BlackmanHarris"><em>BlackmanHarris</em> [<code>2</code>]</span></li>
+<li><span id="D..Rectangular"><em>Rectangular</em> [<code>3</code>]</span></li>
+<li><span id="D..Hamming"><em>Hamming</em> [<code>4</code>]</span></li>
+<li><span id="D..FlatTop"><em>FlatTop</em> [<code>5</code>]</span></li>
+<li><span id="D..Gaussian"><em>Gaussian</em> [<code>6</code>]</span></li>
+<li><span id="D..Chebyshev"><em>Chebyshev</em> [<code>7</code>]</span></li>
 </ul>
 <p>Note that all window functions may not be supported by all devices.
 If an attempt is made to set the object to an unsupported window
@@ -47656,7 +47694,7 @@ network.</p>
 <p>The number of entries in the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice."><em>APDevice</em></a> table.</p>
 </div>
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the **{{object: non-existent #.APDevice.{i}</span>**}}.<span class="click"></span> is being
+<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the <strong>{{object: non-existent #.APDevice.{i}}}</strong></span>.<span class="click"></span> is being
 deprecated.</p>
 </div>
 </td>
@@ -48334,7 +48372,7 @@ Elements R2</span>.<span class="click"></span></p>
 <p>The number of entries in the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio."><em>Radio</em></a> table.</p>
 </div>
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the **{{object: non-existent #.Radio.{i}</span>**}}.<span class="click"></span> is being
+<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the <strong>{{object: non-existent #.Radio.{i}}}</strong></span>.<span class="click"></span> is being
 deprecated</p>
 </div>
 </td>
@@ -48741,7 +48779,7 @@ mW. [<a href="#R.EasyMesh">Clause 17.2.15/EasyMesh</a>]</p>
 <p>The number of entries in the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP."><em>AP</em></a> table.</p>
 </div>
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the **{{object: non-existent #.AP.{i}.</span>**}}.<span class="click"></span> is being
+<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the <strong>{{object: non-existent #.AP.{i}.}}</strong></span>.<span class="click"></span> is being
 deprecated.</p>
 </div>
 </td>
@@ -48906,7 +48944,7 @@ Queries for which a BTM Request was issued by this Access Point.</p>
 <p>The number of entries in the <a href="#D.Device:2.Device.WiFi.MultiAP.APDevice.Radio.AP.AssociatedDevice."><em>AssociatedDevice</em></a> table.</p>
 </div>
 <div class="chevron">
-<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the **{{object: non-existent #.AssociatedDevice.{i}.</span>**}}.<span class="click"></span>
+<p>This parameter was DEPRECATED in 2.15<span class="hide">  because the <strong>{{object: non-existent #.AssociatedDevice.{i}.}}</strong></span>.<span class="click"></span>
 is being deprecated.</p>
 </div>
 </td>
@@ -56601,7 +56639,7 @@ HECapabilities TLV [<a href="#R.EasyMesh">Section 17.2.10/EasyMesh</a>].</p>
 </div>
 <div class="chevron">
 <p>This parameter was DEPRECATED in 2.15<span class="hide"> because it is superseded by
-**{{object: non-existent #.WiFi6APRole</span>** and <strong>{{object: non-existent #.WiFi6bSTARole}}</strong>}}.<span class="click"></span></p>
+<strong>{{object: non-existent #.WiFi6APRole}}</strong> and <strong>{{object: non-existent #.WiFi6bSTARole}}</strong></span>.<span class="click"></span></p>
 </div>
 </td>
 <td>
@@ -59546,7 +59584,7 @@ string format as defined in [<a href="#R.RFC3339">Section 3/RFC3339</a>].</p>
 </div>
 <div class="chevron">
 <p>This parameter was DEPRECATED in 2.15<span class="hide"> because it is superseded by
-**{{object: non-existent #.WiFi6Capabilities</span>**}}.<span class="click"></span></p>
+<strong>{{object: non-existent #.WiFi6Capabilities}}</strong></span>.<span class="click"></span></p>
 </div>
 </td>
 <td>
@@ -167848,6 +167886,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.ADSL:1">ADSL:1 Profile</h3>
 <p>This table defines the <em>ADSL:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.992.1 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -168410,6 +168449,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.ADSL2:1">ADSL2:1 Profile [DELETED]</h3>
 <p>This table defines the <em>ADSL2:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.992.3 and G.992.5 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -168942,6 +168982,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.ADSL2:3">ADSL2:3 Profile</h3>
 <p>This table defines the <em>ADSL2:3</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.15.</p>
+<p>Note: This profile is valid for G.992.3 and G.992.5 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -171586,6 +171627,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.FAST:1">FAST:1 Profile</h3>
 <p>This table defines the <em>FAST:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.9701 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -191718,6 +191760,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTClientCon:1">MQTTClientCon:1 Profile</h3>
 <p>This table defines the <em>MQTTClientCon:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.13.</p>
+<p>Provides MQTT client control</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -191920,6 +191963,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTClientBase:1">MQTTClientBase:1 Profile</h3>
 <p>This table defines the <em>MQTTClientBase:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Provides basic MQTT client control and statistics</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -192074,6 +192118,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTClientSubscribe:1">MQTTClientSubscribe:1 Profile</h3>
 <p>The <em>MQTTClientSubscribe:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.MQTTClientBase:1">MQTTClientBase:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Adds client subscription control and access to received topics</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -192140,6 +192185,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTBrokerBase:1">MQTTBrokerBase:1 Profile</h3>
 <p>This table defines the <em>MQTTBrokerBase:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Provides basic MQTT broker control and statistics</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -192270,6 +192316,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTBrokerBridgeBase:1">MQTTBrokerBridgeBase:1 Profile</h3>
 <p>The <em>MQTTBrokerBridgeBase:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.MQTTBrokerBase:1">MQTTBrokerBase:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Adds parameters for MQTT network interconnection with Bridges</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -192440,6 +192487,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTBrokerExtended:1">MQTTBrokerExtended:1 Profile</h3>
 <p>The <em>MQTTBrokerExtended:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.MQTTBrokerBase:1">MQTTBrokerBase:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Adds client authentication and extends statistics</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -195353,7 +195401,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195361,7 +195409,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsInput.DownloadURL">DownloadURL</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.DownloadURL">DownloadURL</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195369,7 +195417,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195377,7 +195425,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsInput.EthernetPriority">EthernetPriority</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Input.EthernetPriority">EthernetPriority</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195393,7 +195441,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195401,7 +195449,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.ROMTime">ROMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.ROMTime">ROMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195409,7 +195457,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.BOMTime">BOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.BOMTime">BOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195417,7 +195465,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.EOMTime">EOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.EOMTime">EOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195425,7 +195473,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.TestBytesReceived">TestBytesReceived</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.TestBytesReceived">TestBytesReceived</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195433,7 +195481,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.TotalBytesReceived">TotalBytesReceived</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.TotalBytesReceived">TotalBytesReceived</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195515,7 +195563,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195523,7 +195571,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Role">Role</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Role">Role</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195531,7 +195579,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195539,7 +195587,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Port">Port</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Port">Port</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195547,7 +195595,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.JumboFramesPermitted">JumboFramesPermitted</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.JumboFramesPermitted">JumboFramesPermitted</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195555,7 +195603,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.NumberOfConnections">NumberOfConnections</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.NumberOfConnections">NumberOfConnections</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195563,7 +195611,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.EthernetPriority">EthernetPriority</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.EthernetPriority">EthernetPriority</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195571,7 +195619,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195579,7 +195627,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.ProtocolVersion">ProtocolVersion</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.ProtocolVersion">ProtocolVersion</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195587,7 +195635,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.UDPPayloadMin">UDPPayloadMin</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UDPPayloadMin">UDPPayloadMin</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195595,7 +195643,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.UDPPayloadMax">UDPPayloadMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UDPPayloadMax">UDPPayloadMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195603,7 +195651,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.PortMin">PortMin</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMin">PortMin</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195611,7 +195659,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.PortMax">PortMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PortMax">PortMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195619,7 +195667,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TestType">TestType</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType">TestType</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195627,7 +195675,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.PreambleDuration">PreambleDuration</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.PreambleDuration">PreambleDuration</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195635,7 +195683,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.StartSendingRate">StartSendingRate</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.StartSendingRate">StartSendingRate</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195643,7 +195691,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.NumberTestSubIntervals">NumberTestSubIntervals</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.NumberTestSubIntervals">NumberTestSubIntervals</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195651,7 +195699,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TestSubInterval">TestSubInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestSubInterval">TestSubInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195659,7 +195707,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.StatusFeedbackInterval">StatusFeedbackInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.StatusFeedbackInterval">StatusFeedbackInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195667,7 +195715,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TimeoutNoTraffic">TimeoutNoTraffic</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TimeoutNoTraffic">TimeoutNoTraffic</a></p>
 </td>
 <td>
 <p>-<sup>1</sup></p>
@@ -195675,7 +195723,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Tmax">Tmax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Tmax">Tmax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195683,7 +195731,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TmaxRTT">TmaxRTT</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TmaxRTT">TmaxRTT</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195691,7 +195739,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TimestampResolution">TimestampResolution</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TimestampResolution">TimestampResolution</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195699,7 +195747,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.LowerThresh">LowerThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.LowerThresh">LowerThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195707,7 +195755,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.UpperThresh">UpperThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UpperThresh">UpperThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195715,7 +195763,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.HighSpeedDelta">HighSpeedDelta</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.HighSpeedDelta">HighSpeedDelta</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195723,7 +195771,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.SlowAdjThresh">SlowAdjThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.SlowAdjThresh">SlowAdjThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195731,7 +195779,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.HSpeedThresh">HSpeedThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.HSpeedThresh">HSpeedThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195747,7 +195795,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.BOMTime">BOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.BOMTime">BOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195755,7 +195803,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.EOMTime">EOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.EOMTime">EOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195763,7 +195811,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.Tmax">Tmax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.Tmax">Tmax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195771,7 +195819,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.TestInterval">TestInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.TestInterval">TestInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195779,7 +195827,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MaxIPLayerCapacity">MaxIPLayerCapacity</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MaxIPLayerCapacity">MaxIPLayerCapacity</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195787,7 +195835,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.TimeOfMax">TimeOfMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.TimeOfMax">TimeOfMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195795,7 +195843,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.LossRatioAtMax">LossRatioAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.LossRatioAtMax">LossRatioAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195803,7 +195851,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.RTTRangeAtMax">RTTRangeAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.RTTRangeAtMax">RTTRangeAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195811,7 +195859,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.PDVRangeAtMax">PDVRangeAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.PDVRangeAtMax">PDVRangeAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195819,7 +195867,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MinOnewayDelayAtMax">MinOnewayDelayAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MinOnewayDelayAtMax">MinOnewayDelayAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195827,7 +195875,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.ReorderedRatioAtMax">ReorderedRatioAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.ReorderedRatioAtMax">ReorderedRatioAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195835,7 +195883,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-object">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.">IncrementalResult.{i}.</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.">IncrementalResult.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195843,7 +195891,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.IPLayerCapacity">IPLayerCapacity</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.IPLayerCapacity">IPLayerCapacity</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195851,7 +195899,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.TimeOfSubInterval">TimeOfSubInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.TimeOfSubInterval">TimeOfSubInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195859,7 +195907,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.LossRatio">LossRatio</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.LossRatio">LossRatio</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195867,7 +195915,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.RTTRange">RTTRange</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.RTTRange">RTTRange</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195875,7 +195923,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.PDVRange">PDVRange</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.PDVRange">PDVRange</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195883,7 +195931,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.MinOnewayDelay">MinOnewayDelay</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.MinOnewayDelay">MinOnewayDelay</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195891,7 +195939,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="deprecated-argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IncrementalResult.ReorderedRatio">ReorderedRatio</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IncrementalResult.ReorderedRatio">ReorderedRatio</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195974,7 +196022,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Role">Role</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Role">Role</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195982,7 +196030,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195990,7 +196038,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.JumboFramesPermitted">JumboFramesPermitted</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.JumboFramesPermitted">JumboFramesPermitted</a></p>
 </td>
 <td>
 <p>-</p>
@@ -195998,7 +196046,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196006,7 +196054,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TestType">TestType</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestType">TestType</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196014,7 +196062,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.IPDVEnable">IPDVEnable</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.IPDVEnable">IPDVEnable</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196022,7 +196070,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.TestSubInterval">TestSubInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.TestSubInterval">TestSubInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196030,7 +196078,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.StatusFeedbackInterval">StatusFeedbackInterval</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.StatusFeedbackInterval">StatusFeedbackInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196038,7 +196086,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.SeqErrThresh">SeqErrThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.SeqErrThresh">SeqErrThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196046,7 +196094,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.ReordDupIgnoreEnable">ReordDupIgnoreEnable</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.ReordDupIgnoreEnable">ReordDupIgnoreEnable</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196054,7 +196102,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.LowerThresh">LowerThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.LowerThresh">LowerThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196062,7 +196110,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.UpperThresh">UpperThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.UpperThresh">UpperThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196070,7 +196118,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.HighSpeedDelta">HighSpeedDelta</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.HighSpeedDelta">HighSpeedDelta</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196078,7 +196126,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityInput.SlowAdjThresh">SlowAdjThresh</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Input.SlowAdjThresh">SlowAdjThresh</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196094,7 +196142,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.BOMTime">BOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.BOMTime">BOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196102,7 +196150,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MaxIPLayerCapacity">MaxIPLayerCapacity</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MaxIPLayerCapacity">MaxIPLayerCapacity</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196110,7 +196158,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.TimeOfMax">TimeOfMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.TimeOfMax">TimeOfMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196118,7 +196166,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.LossRatioAtMax">LossRatioAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.LossRatioAtMax">LossRatioAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196126,7 +196174,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.RTTRangeAtMax">RTTRangeAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.RTTRangeAtMax">RTTRangeAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196134,7 +196182,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.PDVRangeAtMax">PDVRangeAtMax</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.PDVRangeAtMax">PDVRangeAtMax</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196142,7 +196190,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MaxETHCapacityNoFCS">MaxETHCapacityNoFCS</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MaxETHCapacityNoFCS">MaxETHCapacityNoFCS</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196150,7 +196198,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MaxETHCapacityWithFCS">MaxETHCapacityWithFCS</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MaxETHCapacityWithFCS">MaxETHCapacityWithFCS</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196158,7 +196206,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MaxETHCapacityWithFCSVLAN">MaxETHCapacityWithFCSVLAN</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MaxETHCapacityWithFCSVLAN">MaxETHCapacityWithFCSVLAN</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196166,7 +196214,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.IPLayerCapacitySummary">IPLayerCapacitySummary</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.IPLayerCapacitySummary">IPLayerCapacitySummary</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196174,7 +196222,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.LossRatioSummary">LossRatioSummary</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.LossRatioSummary">LossRatioSummary</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196182,7 +196230,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacityOutput.MinRTTSummary">MinRTTSummary</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPLayerCapacity.Output.MinRTTSummary">MinRTTSummary</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196232,7 +196280,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196240,7 +196288,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.TCPOpenRequestTime">TCPOpenRequestTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.TCPOpenRequestTime">TCPOpenRequestTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196248,7 +196296,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnosticsOutput.TCPOpenResponseTime">TCPOpenResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.DownloadDiagnostics.Output.TCPOpenResponseTime">TCPOpenResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196322,7 +196370,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196330,7 +196378,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsInput.UploadURL">UploadURL</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.UploadURL">UploadURL</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196338,7 +196386,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196346,7 +196394,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsInput.EthernetPriority">EthernetPriority</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Input.EthernetPriority">EthernetPriority</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196362,7 +196410,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196370,7 +196418,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.ROMTime">ROMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.ROMTime">ROMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196378,7 +196426,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.BOMTime">BOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.BOMTime">BOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196386,7 +196434,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.EOMTime">EOMTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.EOMTime">EOMTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196394,7 +196442,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.TestFileLength">TestFileLength</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.TestFileLength">TestFileLength</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196402,7 +196450,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.TotalBytesSent">TotalBytesSent</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.TotalBytesSent">TotalBytesSent</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196452,7 +196500,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196460,7 +196508,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.TCPOpenRequestTime">TCPOpenRequestTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.TCPOpenRequestTime">TCPOpenRequestTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196468,7 +196516,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnosticsOutput.TCPOpenResponseTime">TCPOpenResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UploadDiagnostics.Output.TCPOpenResponseTime">TCPOpenResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196518,7 +196566,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.SelfTestDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.SelfTestDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196526,7 +196574,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.SelfTestDiagnosticsOutput.Results">Results</a></p>
+<p><a href="#D.Device:2.Device.SelfTestDiagnostics.Output.Results">Results</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196576,7 +196624,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196584,7 +196632,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsInput.HostName">HostName</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.HostName">HostName</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196592,7 +196640,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsInput.DNSServer">DNSServer</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.DNSServer">DNSServer</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196600,7 +196648,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196608,7 +196656,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196624,7 +196672,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196632,7 +196680,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.SuccessCount">SuccessCount</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.SuccessCount">SuccessCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196640,7 +196688,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-object">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.">Result.{i}.</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.">Result.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196648,7 +196696,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196656,7 +196704,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.AnswerType">AnswerType</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.AnswerType">AnswerType</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196664,7 +196712,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.HostNameReturned">HostNameReturned</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.HostNameReturned">HostNameReturned</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196672,7 +196720,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.IPAddresses">IPAddresses</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.IPAddresses">IPAddresses</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196680,7 +196728,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.DNSServerIP">DNSServerIP</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.DNSServerIP">DNSServerIP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -196688,7 +196736,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnosticsOutput.Result.ResponseTime">ResponseTime</a></p>
+<p><a href="#D.Device:2.Device.DNS.Diagnostics.NSLookupDiagnostics.Output.Result.ResponseTime">ResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197658,7 +197706,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197666,7 +197714,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197674,7 +197722,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197682,7 +197730,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197690,7 +197738,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.DataBlockSize">DataBlockSize</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.DataBlockSize">DataBlockSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197698,7 +197746,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197714,7 +197762,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197722,7 +197770,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.SuccessCount">SuccessCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.SuccessCount">SuccessCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197730,7 +197778,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.FailureCount">FailureCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.FailureCount">FailureCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197738,7 +197786,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.AverageResponseTimeDetailed">AverageResponseTimeDetailed</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.AverageResponseTimeDetailed">AverageResponseTimeDetailed</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197746,7 +197794,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.MinimumResponseTimeDetailed">MinimumResponseTimeDetailed</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.MinimumResponseTimeDetailed">MinimumResponseTimeDetailed</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197754,7 +197802,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.MaximumResponseTimeDetailed">MaximumResponseTimeDetailed</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.MaximumResponseTimeDetailed">MaximumResponseTimeDetailed</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197804,7 +197852,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197812,7 +197860,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197820,7 +197868,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197828,7 +197876,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197836,7 +197884,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.DataBlockSize">DataBlockSize</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.DataBlockSize">DataBlockSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197844,7 +197892,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197860,7 +197908,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197868,7 +197916,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.SuccessCount">SuccessCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.SuccessCount">SuccessCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197876,7 +197924,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.FailureCount">FailureCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.FailureCount">FailureCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197884,7 +197932,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.AverageResponseTime">AverageResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.AverageResponseTime">AverageResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197892,7 +197940,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.MinimumResponseTime">MinimumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.MinimumResponseTime">MinimumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197900,7 +197948,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPingOutput.MaximumResponseTime">MaximumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.IPPing.Output.MaximumResponseTime">MaximumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197950,7 +197998,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197958,7 +198006,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197966,7 +198014,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.NumberOfTries">NumberOfTries</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.NumberOfTries">NumberOfTries</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197974,7 +198022,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197982,7 +198030,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.DataBlockSize">DataBlockSize</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.DataBlockSize">DataBlockSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197990,7 +198038,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -197998,7 +198046,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteInput.MaxHopCount">MaxHopCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Input.MaxHopCount">MaxHopCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198014,7 +198062,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198022,7 +198070,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.ResponseTime">ResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.ResponseTime">ResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198030,7 +198078,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-object">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.RouteHops.">RouteHops.{i}.</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.RouteHops.">RouteHops.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198038,7 +198086,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.RouteHops.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.RouteHops.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198046,7 +198094,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.RouteHops.HostAddress">HostAddress</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.RouteHops.HostAddress">HostAddress</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198054,7 +198102,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.RouteHops.ErrorCode">ErrorCode</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.RouteHops.ErrorCode">ErrorCode</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198062,7 +198110,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRouteOutput.RouteHops.RTTimes">RTTimes</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.TraceRoute.Output.RouteHops.RTTimes">RTTimes</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198112,7 +198160,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198120,7 +198168,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198128,7 +198176,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198144,7 +198192,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198152,7 +198200,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.SuccessCount">SuccessCount</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.SuccessCount">SuccessCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198160,7 +198208,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.FailureCount">FailureCount</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.FailureCount">FailureCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198168,7 +198216,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.AverageResponseTime">AverageResponseTime</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.AverageResponseTime">AverageResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198176,7 +198224,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.MinimumResponseTime">MinimumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.MinimumResponseTime">MinimumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198184,7 +198232,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5LoopbackOutput.MaximumResponseTime">MaximumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.ATM.Diagnostics.F5Loopback.Output.MaximumResponseTime">MaximumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198195,6 +198243,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.DSLDiagnostics:1">DSLDiagnostics:1 Profile</h3>
 <p>This table defines the <em>DSLDiagnostics:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.992.1 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -198234,7 +198283,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198250,7 +198299,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198258,7 +198307,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDds">ACTPSDds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDds">ACTPSDds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198266,7 +198315,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDus">ACTPSDus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDus">ACTPSDus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198274,7 +198323,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPds">ACTATPds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPds">ACTATPds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198282,7 +198331,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPus">ACTATPus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPus">ACTATPus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198290,7 +198339,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINSCds">HLINSCds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINSCds">HLINSCds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198298,7 +198347,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINpsds">HLINpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINpsds">HLINpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198306,7 +198355,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNpsds">QLNpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNpsds">QLNpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198314,7 +198363,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRpsds">SNRpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRpsds">SNRpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198322,7 +198371,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.BITSpsds">BITSpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.BITSpsds">BITSpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198333,6 +198382,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.ADSL2Diagnostics:1">ADSL2Diagnostics:1 Profile</h3>
 <p>This table defines the <em>ADSL2Diagnostics:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.992.3 and G.992.5 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -198372,7 +198422,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198388,7 +198438,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198396,7 +198446,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDds">ACTPSDds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDds">ACTPSDds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198404,7 +198454,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDus">ACTPSDus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDus">ACTPSDus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198412,7 +198462,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPds">ACTATPds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPds">ACTATPds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198420,7 +198470,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPus">ACTATPus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPus">ACTATPus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198428,7 +198478,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINSCds">HLINSCds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINSCds">HLINSCds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198436,7 +198486,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINSCus">HLINSCus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINSCus">HLINSCus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198444,7 +198494,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINpsds">HLINpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINpsds">HLINpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198452,7 +198502,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINpsus">HLINpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINpsus">HLINpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198460,7 +198510,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGpsds">HLOGpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGpsds">HLOGpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198468,7 +198518,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGpsus">HLOGpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGpsus">HLOGpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198476,7 +198526,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGMTds">HLOGMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGMTds">HLOGMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198484,7 +198534,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGMTus">HLOGMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGMTus">HLOGMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198492,7 +198542,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNpsds">QLNpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNpsds">QLNpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198500,7 +198550,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNpsus">QLNpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNpsus">QLNpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198508,7 +198558,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNMTds">QLNMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNMTds">QLNMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198516,7 +198566,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNMTus">QLNMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNMTus">QLNMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198524,7 +198574,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRpsds">SNRpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRpsds">SNRpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198532,7 +198582,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRpsus">SNRpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRpsus">SNRpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198540,7 +198590,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRMTds">SNRMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRMTds">SNRMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198548,7 +198598,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRMTus">SNRMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRMTus">SNRMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198556,7 +198606,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.LATNpbds">LATNpbds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.LATNpbds">LATNpbds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198564,7 +198614,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.LATNpbus">LATNpbus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.LATNpbus">LATNpbus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198572,7 +198622,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SATNds">SATNds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SATNds">SATNds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198580,7 +198630,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SATNus">SATNus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SATNus">SATNus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198591,6 +198641,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.VDSL2Diagnostics:1">VDSL2Diagnostics:1 Profile</h3>
 <p>This table defines the <em>VDSL2Diagnostics:1</em> profile for the <em>Device:2</em> data model.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.12.</p>
+<p>Note: This profile is valid for G.993.2 modems.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -198630,7 +198681,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198646,7 +198697,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198654,7 +198705,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDds">ACTPSDds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDds">ACTPSDds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198662,7 +198713,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTPSDus">ACTPSDus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTPSDus">ACTPSDus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198670,7 +198721,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPds">ACTATPds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPds">ACTATPds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198678,7 +198729,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.ACTATPus">ACTATPus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.ACTATPus">ACTATPus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198686,7 +198737,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINSCds">HLINSCds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINSCds">HLINSCds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198694,7 +198745,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINSCus">HLINSCus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINSCus">HLINSCus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198702,7 +198753,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINGds">HLINGds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINGds">HLINGds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198710,7 +198761,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINGus">HLINGus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINGus">HLINGus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198718,7 +198769,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINpsds">HLINpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINpsds">HLINpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198726,7 +198777,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLINpsus">HLINpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLINpsus">HLINpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198734,7 +198785,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGGds">HLOGGds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGGds">HLOGGds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198742,7 +198793,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGGus">HLOGGus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGGus">HLOGGus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198750,7 +198801,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGpsds">HLOGpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGpsds">HLOGpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198758,7 +198809,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGpsus">HLOGpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGpsus">HLOGpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198766,7 +198817,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGMTds">HLOGMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGMTds">HLOGMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198774,7 +198825,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.HLOGMTus">HLOGMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.HLOGMTus">HLOGMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198782,7 +198833,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNGds">QLNGds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNGds">QLNGds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198790,7 +198841,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNGus">QLNGus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNGus">QLNGus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198798,7 +198849,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNpsds">QLNpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNpsds">QLNpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198806,7 +198857,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNpsus">QLNpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNpsus">QLNpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198814,7 +198865,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNMTds">QLNMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNMTds">QLNMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198822,7 +198873,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.QLNMTus">QLNMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.QLNMTus">QLNMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198830,7 +198881,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRGds">SNRGds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRGds">SNRGds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198838,7 +198889,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRGus">SNRGus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRGus">SNRGus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198846,7 +198897,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRpsds">SNRpsds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRpsds">SNRpsds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198854,7 +198905,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRpsus">SNRpsus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRpsus">SNRpsus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198862,7 +198913,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRMTds">SNRMTds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRMTds">SNRMTds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198870,7 +198921,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SNRMTus">SNRMTus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SNRMTus">SNRMTus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198878,7 +198929,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.LATNpbds">LATNpbds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.LATNpbds">LATNpbds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198886,7 +198937,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.LATNpbus">LATNpbus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.LATNpbus">LATNpbus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198894,7 +198945,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SATNds">SATNds</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SATNds">SATNds</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198902,7 +198953,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTestOutput.SATNus">SATNus</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.ADSLLineTest.Output.SATNus">SATNus</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198952,7 +199003,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUERInput.UERMaxMeasurementDuration">UERMaxMeasurementDuration</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Input.UERMaxMeasurementDuration">UERMaxMeasurementDuration</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198968,7 +199019,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUEROutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198976,7 +199027,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUEROutput.UER">UER</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UER">UER</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198984,7 +199035,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUEROutput.UERScaleFactor">UERScaleFactor</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERScaleFactor">UERScaleFactor</a></p>
 </td>
 <td>
 <p>-</p>
@@ -198992,7 +199043,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUEROutput.UERGroupSize">UERGroupSize</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERGroupSize">UERGroupSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199000,7 +199051,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUEROutput.UERVar">UERVar</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTUER.Output.UERVar">UERVar</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199024,7 +199075,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLNInput.QLNMaxMeasurementDuration">QLNMaxMeasurementDuration</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLN.Input.QLNMaxMeasurementDuration">QLNMaxMeasurementDuration</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199040,7 +199091,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLNOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLN.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199048,7 +199099,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLNOutput.QLN">QLN</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLN.Output.QLN">QLN</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199056,7 +199107,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLNOutput.QLNGroupSize">QLNGroupSize</a></p>
+<p><a href="#D.Device:2.Device.DSL.Diagnostics.SELTQLN.Output.QLNGroupSize">QLNGroupSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199106,7 +199157,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199114,7 +199165,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.NumPacketsInBurst">NumPacketsInBurst</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.NumPacketsInBurst">NumPacketsInBurst</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199122,7 +199173,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.BurstInterval">BurstInterval</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.BurstInterval">BurstInterval</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199130,7 +199181,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.TestPacketPayloadLength">TestPacketPayloadLength</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.TestPacketPayloadLength">TestPacketPayloadLength</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199138,7 +199189,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.PayloadEncoding">PayloadEncoding</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.PayloadEncoding">PayloadEncoding</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199146,7 +199197,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.PayloadDataGen">PayloadDataGen</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.PayloadDataGen">PayloadDataGen</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199154,7 +199205,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.PayloadType">PayloadType</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.PayloadType">PayloadType</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199162,7 +199213,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputInput.PriorityLevel">PriorityLevel</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Input.PriorityLevel">PriorityLevel</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199178,7 +199229,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199186,7 +199237,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-object">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.">Result.{i}.</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.">Result.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199194,7 +199245,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.SrcMACAddress">SrcMACAddress</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.SrcMACAddress">SrcMACAddress</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199202,7 +199253,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.DestMACAddress">DestMACAddress</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.DestMACAddress">DestMACAddress</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199210,7 +199261,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.PHYRate">PHYRate</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.PHYRate">PHYRate</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199218,7 +199269,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.BaudRate">BaudRate</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.BaudRate">BaudRate</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199226,7 +199277,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.SNR">SNR</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.SNR">SNR</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199234,7 +199285,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughputOutput.Result.PacketsReceived">PacketsReceived</a></p>
+<p><a href="#D.Device:2.Device.HPNA.Diagnostics.PHYThroughput.Output.Result.PacketsReceived">PacketsReceived</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199284,7 +199335,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementInput.Type">Type</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Input.Type">Type</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199292,7 +199343,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199300,7 +199351,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementInput.Port">Port</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Input.Port">Port</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199316,7 +199367,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199324,7 +199375,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementOutput.Measurements">Measurements</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Output.Measurements">Measurements</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199332,7 +199383,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurementOutput.RxGain">RxGain</a></p>
+<p><a href="#D.Device:2.Device.UPA.Diagnostics.InterfaceMeasurement.Output.RxGain">RxGain</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199382,7 +199433,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199390,7 +199441,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.Host">Host</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.Host">Host</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199398,7 +199449,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199406,7 +199457,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.EnableIndividualPacketResults">EnableIndividualPacketResults</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.EnableIndividualPacketResults">EnableIndividualPacketResults</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199414,7 +199465,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199422,7 +199473,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.DataBlockSize">DataBlockSize</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.DataBlockSize">DataBlockSize</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199430,7 +199481,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.DSCP">DSCP</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.DSCP">DSCP</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199438,7 +199489,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsInput.InterTransmissionTime">InterTransmissionTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Input.InterTransmissionTime">InterTransmissionTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199454,7 +199505,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199462,7 +199513,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.SuccessCount">SuccessCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.SuccessCount">SuccessCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199470,7 +199521,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.FailureCount">FailureCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.FailureCount">FailureCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199478,7 +199529,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.AverageResponseTime">AverageResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.AverageResponseTime">AverageResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199486,7 +199537,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.MinimumResponseTime">MinimumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.MinimumResponseTime">MinimumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199494,7 +199545,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.MaximumResponseTime">MaximumResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.MaximumResponseTime">MaximumResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199502,7 +199553,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-object">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.">IndividualPacketResult.{i}.</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.">IndividualPacketResult.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199510,7 +199561,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.PacketSuccess">PacketSuccess</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.PacketSuccess">PacketSuccess</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199518,7 +199569,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.PacketSendTime">PacketSendTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.PacketSendTime">PacketSendTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199526,7 +199577,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.PacketReceiveTime">PacketReceiveTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.PacketReceiveTime">PacketReceiveTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199534,7 +199585,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.TestGenSN">TestGenSN</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.TestGenSN">TestGenSN</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199542,7 +199593,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.TestRespSN">TestRespSN</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.TestRespSN">TestRespSN</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199550,7 +199601,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.TestRespRcvTimeStamp">TestRespRcvTimeStamp</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.TestRespRcvTimeStamp">TestRespRcvTimeStamp</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199558,7 +199609,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.TestRespReplyTimeStamp">TestRespReplyTimeStamp</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.TestRespReplyTimeStamp">TestRespReplyTimeStamp</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199566,7 +199617,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnosticsOutput.IndividualPacketResult.TestRespReplyFailureCount">TestRespReplyFailureCount</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.UDPEchoDiagnostics.Output.IndividualPacketResult.TestRespReplyFailureCount">TestRespReplyFailureCount</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199616,7 +199667,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199624,7 +199675,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsInput.HostList">HostList</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Input.HostList">HostList</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199632,7 +199683,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsInput.NumberOfRepetitions">NumberOfRepetitions</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Input.NumberOfRepetitions">NumberOfRepetitions</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199640,7 +199691,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsInput.Timeout">Timeout</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Input.Timeout">Timeout</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199656,7 +199707,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsOutput.Status">Status</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Output.Status">Status</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199664,7 +199715,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsOutput.FastestHost">FastestHost</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Output.FastestHost">FastestHost</a></p>
 </td>
 <td>
 <p>-</p>
@@ -199672,7 +199723,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnosticsOutput.AverageResponseTime">AverageResponseTime</a></p>
+<p><a href="#D.Device:2.Device.IP.Diagnostics.ServerSelectionDiagnostics.Output.AverageResponseTime">AverageResponseTime</a></p>
 </td>
 <td>
 <p>-</p>
@@ -200489,6 +200540,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.IPInterface:2">IPInterface:2 Profile</h3>
 <p>The <em>IPInterface:2</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.IPInterface:1">IPInterface:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.2.</p>
+<p>This profile is IPv4 specific.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -201559,6 +201611,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTClientExtended:1">MQTTClientExtended:1 Profile</h3>
 <p>The <em>MQTTClientExtended:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.MQTTClientBase:1">MQTTClientBase:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.10.</p>
+<p>Adds client authentication, will handling and extends statistics</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -201996,7 +202049,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.PacketCaptureDiagnosticsInput.Interface">Interface</a></p>
+<p><a href="#D.Device:2.Device.PacketCaptureDiagnostics.Input.Interface">Interface</a></p>
 </td>
 <td>
 <p>-</p>
@@ -202004,7 +202057,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.PacketCaptureDiagnosticsInput.Duration">Duration</a></p>
+<p><a href="#D.Device:2.Device.PacketCaptureDiagnostics.Input.Duration">Duration</a></p>
 </td>
 <td>
 <p>-</p>
@@ -202012,7 +202065,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.PacketCaptureDiagnosticsInput.FileTarget">FileTarget</a></p>
+<p><a href="#D.Device:2.Device.PacketCaptureDiagnostics.Input.FileTarget">FileTarget</a></p>
 </td>
 <td>
 <p>-</p>
@@ -202028,7 +202081,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-object">
 <td>
-<p><a href="#D.Device:2.Device.PacketCaptureDiagnosticsOutput.PacketCaptureResult.">PacketCaptureResult.{i}.</a></p>
+<p><a href="#D.Device:2.Device.PacketCaptureDiagnostics.Output.PacketCaptureResult.">PacketCaptureResult.{i}.</a></p>
 </td>
 <td>
 <p>-</p>
@@ -202036,7 +202089,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tr>
 <tr class="argument-parameter">
 <td>
-<p><a href="#D.Device:2.Device.PacketCaptureDiagnosticsOutput.PacketCaptureResult.FileLocation">FileLocation</a></p>
+<p><a href="#D.Device:2.Device.PacketCaptureDiagnostics.Output.PacketCaptureResult.FileLocation">FileLocation</a></p>
 </td>
 <td>
 <p>-</p>
@@ -202460,6 +202513,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTAgent:1">MQTTAgent:1 Profile</h3>
 <p>The <em>MQTTAgent:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.LocalAgent:1">LocalAgent:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.13.</p>
+<p>This profile adds USP agent extensions for MQTT transport.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -202775,6 +202829,7 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 <h3 id="P.Device:2.MQTTController:1">MQTTController:1 Profile</h3>
 <p>The <em>MQTTController:1</em> profile for the <em>Device:2</em> data model is defined as the union of the <em><a href="#P.Device:2.Controllers:1">Controllers:1</a></em> profile and the additional requirements defined in this table.</p>
 <p>The minimum REQUIRED version for this profile is Device:2.13.</p>
+<p>This profile adds USP controller extensions for MQTT transport.</p>
 
 <table class="middle-width partial-border profile-requirements-table">
 <colgroup>
@@ -203191,10 +203246,11 @@ description of <a href="#D.Device:2.Device.Node.Type"><em>Type</em></a>.</p>
 </tbody>
 </table>
 <hr />
-<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.4.0 (2025-11-11 version) on 2026-11-10 at 11:11:40 UTC.<br />
+<p>Generated by <a href="https://www.broadband-forum.org">Broadband Forum</a> <a href="https://pypi.org/project/bbfreport">bbfreport</a> v2.6.1 (2026-11-11 version) on 2026-11-11 at 13:14:04 UTC.<br />
 report.py --output tr-181-2-15-0-usp.html --format html tr-181-2-15-0-usp.xml</p>
-</div>
-<div id="TOC">
+</main>
+<nav id="TOC">
+<label for="toc-toggle" class="toc-toggle">☰ Hide ToC</label>
 <h1>Table of Contents</h1>
 <ul class="collapsed expanded">
   <li><a href="#data-types">Data Types</a></li>
@@ -204959,5 +205015,5 @@ report.py --output tr-181-2-15-0-usp.html --format html tr-181-2-15-0-usp.xml</p
     </ul>
   </li>
 </ul>
-</div>
+</nav>
 </body>
